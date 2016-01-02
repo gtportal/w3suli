@@ -1,0 +1,71 @@
+/* Általános beállítások*/
+a {text-decoration:none;}
+.Error {border: 1px solid #d00; }
+.AktLink {font-weight:bold;}
+/* Fő szerkezet nagy felbontásnál*/
+	  
+
+	  
+* { box-sizing: border-box;}		 
+body, html {margin:0; padding:0; height:100%;}		 
+#Keret {background-color:#000; width:100%; min-height:100%;}
+       
+#FoHeder {background-color:#888; width:100%; line-height:100px;}
+#FoNav {background-color:#ff0; width:100%; line-height:30px;}
+       
+
+#BelsoKeret {background-color:#f0f; width:100%; padding:0 300px;}       
+#Tartalom {background-color:#0f0; width:100%; min-height:90%; float:left; margin-right:-100%;}
+#HelyiNav {background-color:#f00; width:300px; float:left; margin: 0 0 0 -300px;}
+ #KiegeszitoInfo {background-color:#08f; width:300px; margin-right:-300px; float:right;}       
+       
+footer {background-color:#333; width:100%;clear:left; position: fixed;  bottom: 0;}
+       
+/* Menüsor*/
+#FoNav #MenuIkon1 {display: none;}
+#FoNav #MenuIkon2 {display: block;}       
+#chmenu:checked ~ #FoNav #MenuIkon1 {display: block;}
+#chmenu:checked ~ #FoNav #MenuIkon2 {display: none;}
+       
+#FoNavBal {float:left; width:100px;}
+#FoNavJobb {width:100%;margin:0 100px; text-align:center;}
+       
+/* Helyi menü*/
+.Ul1 {list-style-type:disc;}
+.Ul2 {list-style-type:circle;}
+.Ul3 {list-style-type:square;}
+.AktLink {font-weight:bold;}
+       
+/* Menü ki-be*/
+#chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
+#chmenu:checked ~ #BelsoKeret {padding-left:0;}
+       
+#Tartalom section img {margin:10px;}
+#Tartalom article  {margin:6px;}
+       
+/* Responsive átalakítás 1200px a        */       
+@media only screen and (min-width : 1300px)  {  
+    #Tartalom section {
+	-webkit-column-count: 2; /* Chrome, Safari, Opera */
+        -moz-column-count: 2; /* Firefox */
+        column-count: 2;
+        -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+        -moz-column-gap: 40px; /* Firefox */
+        column-gap: 40px;
+    }
+} 
+        
+        
+@media only screen and (max-width : 1200px)  {  
+    #BelsoKeret {padding-right:0;}
+    #KiegeszitoInfo {margin-right:0px; width:100%; clear:left;} 
+}
+
+@media only screen and (max-width : 710px)  {  
+    #FoHeder, #FoNavJobb {display: none;}
+    #FoNavBal {height:40px; width:100%; display:block;} 
+    #FoNav {display:block; position:fixed; left:0px; top:0px;}
+    #Tartalom, #HelyiNav {margin: 40px 0 0 0; padding: 0; clear:left; }
+    #BelsoKeret {padding: 0;}
+}       
+       

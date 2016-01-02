@@ -1,0 +1,12 @@
+
+/* Oldalak  szerkesztése*/
+
+#divUjOldalForm, #divOldalForm, #divOldalTorolForm {display: none; border: 1px solid #000;}
+
+#chUjOldalForm:checked ~ #labelUjOldalForm {font-weight:bold;}
+#chOldalForm:checked   ~ #labelOldalForm   {font-weight:bold;}
+#chOldalTorol:checked  ~ #labelOldalTorol  {font-weight:bold;}
+
+#chUjOldalForm:checked ~ #divUjOldalForm    {display: block;}
+#chOldalForm:checked   ~ #divOldalForm      {display: block;}
+#chOldalTorol:checked  ~ #divOldalTorolForm {display: block;}
