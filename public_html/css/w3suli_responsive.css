@@ -1,0 +1,27 @@
+
+
+/* Responsive átalakítás 1200px a        */       
+@media only screen and (min-width : 1300px)  {  
+    #Tartalom section {
+	-webkit-column-count: 2; /* Chrome, Safari, Opera */
+        -moz-column-count: 2; /* Firefox */
+        column-count: 2;
+        -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+        -moz-column-gap: 40px; /* Firefox */
+        column-gap: 40px;
+    }
+} 
+        
+        
+@media only screen and (max-width : 1200px)  {  
+    #BelsoKeret {padding-right:0;}
+    #KiegeszitoInfo {margin-right:0px; width:100%; clear:left;} 
+}
+
+@media only screen and (max-width : 710px)  {  
+    #FoHeder, #FoNavJobb {display: none;}
+    #FoNavBal {height:40px; width:100%; display:block;} 
+    #FoNav {display:block; position:fixed; left:0px; top:0px;}
+    #Tartalom, #HelyiNav {margin: 40px 0 0 0; padding: 0; clear:left; }
+    #BelsoKeret {padding: 0;}
+}     
