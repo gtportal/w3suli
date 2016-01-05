@@ -62,7 +62,7 @@
         $tiszta_OURL = $OUrl;
         if ($tiszta_OURL=='') {$tiszta_OURL = 'kezdolap';}
         //Az aktuális oldal adatainak betöltése
-        $SelectStr   = "SELECT * FROM Oladalak WHERE OUrl='$tiszta_OURL' LIMIT 1"; 
+        $SelectStr   = "SELECT * FROM Oldalak WHERE OUrl='$tiszta_OURL' LIMIT 1"; 
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 01 ");
         $rowDB       = mysqli_num_rows($result); 
         if ($rowDB > 0) {
@@ -83,7 +83,7 @@
         //A szülőoldal adatainak betöltése
         if ($Aktoldal['OSzuloId']>0) {
           $Oid = $Aktoldal['OSzuloId'];  
-          $SelectStr   = "SELECT * FROM Oladalak WHERE id=$Oid LIMIT 1"; 
+          $SelectStr   = "SELECT * FROM Oldalak WHERE id=$Oid LIMIT 1"; 
           $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 02 "); 
           $rowDB       = mysqli_num_rows($result); 
           if ($rowDB > 0) {
@@ -104,7 +104,7 @@
         //A nagyszülőoldal adatainak betöltése
         if ($SzuloOldal['OSzuloId']>0) {
           $Oid = $SzuloOldal['OSzuloId'];  
-          $SelectStr   = "SELECT * FROM Oladalak WHERE id=$Oid LIMIT 1";        
+          $SelectStr   = "SELECT * FROM Oldalak WHERE id=$Oid LIMIT 1";        
           $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 03 ");
           $rowDB       = mysqli_num_rows($result); 
           if ($rowDB > 0) {
@@ -124,7 +124,7 @@
         
         // Extra 4. szint kezelése
         if ($NagyszuloOldal['id']>1) {            
-            $SelectStr   = "SELECT OSzuloId FROM Oladalak WHERE id=".$NagyszuloOldal['id']." LIMIT 1"; 
+            $SelectStr   = "SELECT OSzuloId FROM Oldalak WHERE id=".$NagyszuloOldal['id']." LIMIT 1"; 
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 01 ");
             $rowDB       = mysqli_num_rows($result); 
             if ($rowDB > 0) {
@@ -238,7 +238,7 @@
           if (isset($_POST['UjONev'])) {
               $UjONev  = $_POST['UjONev'];
               $UjOUrl    = getTXTtoURL($UjONev);
-              $SelectStr   = "SELECT id FROM Oladalak WHERE OUrl='$UjOUrl' LIMIT 1"; // echo "<h1>$SelectStr</h1>";
+              $SelectStr   = "SELECT id FROM Oldalak WHERE OUrl='$UjOUrl' LIMIT 1"; // echo "<h1>$SelectStr</h1>";
               $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUO 01 ");
               $rowDB       = mysqli_num_rows($result); mysqli_free_result($result);
               if ($rowDB > 0) { $ErrorStr .= ' Err002,';}
@@ -261,7 +261,7 @@
           if ($ErrorStr=='') {
            //Az oldal mentése
            $AktOid = $Aktoldal['id'];  
-           $InsertIntoStr = "INSERT INTO Oladalak VALUES ('', '$UjONev','$UjOUrl',1,1,'Az oldal leírása',
+           $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', '$UjONev','$UjOUrl',1,1,'Az oldal leírása',
                                                           'Az oldal kulcsszavai',$AktOid,$UjOTipKod,'Az oldal tartalma','','')";
            if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba UO 01 ");}               
           }            
@@ -429,7 +429,7 @@
           $OImgUj = setKepFeltolt($OImgDir,$Aktoldal['OUrl']); 
           if (strpos($OImgUj,'Err0')===false) {
              $AktOid = $Aktoldal['id'];
-             $UpdateStr = "UPDATE Oladalak SET 
+             $UpdateStr = "UPDATE Oldalak SET 
                            OImg='$OImgUj'
                            WHERE id=$AktOid LIMIT 1"; 
              if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setOK 01 ";}    
@@ -445,7 +445,7 @@
           if (isset($_POST['ONev'])) {
               $ONev      = $_POST['ONev'];
               $OUrl      = getTXTtoURL($ONev);
-              $SelectStr   = "SELECT id FROM Oladalak WHERE OUrl='$OUrl' LIMIT 1"; 
+              $SelectStr   = "SELECT id FROM Oldalak WHERE OUrl='$OUrl' LIMIT 1"; 
               $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUF 01 ");
               $rowDB       = mysqli_num_rows($result); 
               if ($rowDB > 0) { 
@@ -472,7 +472,7 @@
             if (isset($_POST['OTartalom'])) {$OTartalom=$_POST['OTartalom'];}  
            //Az oldal mentése
            $AktOid = $Aktoldal['id'];
-           $UpdateStr = "UPDATE Oladalak SET 
+           $UpdateStr = "UPDATE Oldalak SET 
                          OTipus=$OTipKod,
                          ONev='$ONev',
                          OUrl='$OUrl',
@@ -499,7 +499,7 @@
             $ONev   = $Aktoldal['ONev'];
             $SzOUrl = $SzuloOldal['OUrl'];
             //Ellenőrizük, hogy van-e gyermekoldala
-            $SelectStr   = "SELECT * FROM Oladalak WHERE OSzuloId=$Oid LIMIT 1";        
+            $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$Oid LIMIT 1";        
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOT 01 ");
             $rowDB       = mysqli_num_rows($result); 
             if ($rowDB > 0) { $ErrorStr = 'Err001'; }   
@@ -511,7 +511,7 @@
             $ONev   = $Aktoldal['ONev'];
             $SzOUrl = $SzuloOldal['OUrl'];
             //Ellenőrizük, hogy van-e gyermekoldala
-            $SelectStr   = "SELECT * FROM Oladalak WHERE OSzuloId=$Oid LIMIT 1";        
+            $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$Oid LIMIT 1";        
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOT 01 ");
             $rowDB       = mysqli_num_rows($result); 
             if ($rowDB > 0) { $ErrorStr = 'Err001'; } 
@@ -519,7 +519,7 @@
             if ($ErrorStr == '') {
               // ============== ADATKEZELÉS - TÖRLÉS =====================  
               //Ha gyermektelen, akkor tölőljük  
-              $DeletetStr = "Delete FROM Oladalak  WHERE id=$Oid"; 
+              $DeletetStr = "Delete FROM Oldalak  WHERE id=$Oid"; 
               if (!mysqli_query($MySqliLink,$DeletetStr)) {die("Hiba sOT 02");} 
               //Üzenet a törlésről
               $ErrorStr = "A $ONev oldalt törőltük!";
