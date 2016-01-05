@@ -168,8 +168,8 @@ CREATE TABLE IF NOT EXISTS `KiegTartalom` (
 -- Tábla szerkezet ehhez a táblához `Oladalak`
 --
 
-DROP TABLE IF EXISTS `Oladalak`;
-CREATE TABLE IF NOT EXISTS `Oladalak` (
+DROP TABLE IF EXISTS `Oldalak`;
+CREATE TABLE IF NOT EXISTS `Oldalak` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `ONev` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   `OUrl` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `Oladalak` (
 -- A tábla adatainak kiíratása `Oladalak`
 --
 
-INSERT INTO `Oladalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeiras`, `OKulcsszavak`, `OSzuloId`, `OTipus`, `OTartalom`, `OImgDir`, `OImg`) VALUES
+INSERT INTO `Oldalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeiras`, `OKulcsszavak`, `OSzuloId`, `OTipus`, `OTartalom`, `OImgDir`, `OImg`) VALUES
 (1, 'KezdÅ‘lap', 'kezdolap', 1, 1, 'KezdÅ‘lap leÃ­rÃ¡sa', 'KezdÅ‘lap kulcsszavai', 0, 0, 'KezdÅ‘lap tartalma', '', ''),
 (12, 'BejelentkezÃ©s', 'bejelentkezes', 1, 1, 'BejelentkezÃ©s leÃ­rÃ¡sa', 'BejelentkezÃ©s kulcsszavai', 1, 10, 'KezdÅ‘lap tartalma', '', ''),
 (13, 'KijelentkezÃ©s', 'kijelentkezes', 1, 1, 'KijelentkezÃ©s leÃ­rÃ¡sa', 'KijelentkezÃ©s kulcsszavai', 1, 11, 'KijelentkezÃ©s tartalma', '', ''),
