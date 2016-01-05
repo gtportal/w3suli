@@ -7,7 +7,7 @@
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
         $HTMLkod      = '';
         //Elso szint >> Szülő a keszdőlap
-        $SelectStr   = "SELECT * FROM Oladalak WHERE OSzuloId=1 AND OTipus<10 order by ONev "; 
+        $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=1 AND OTipus<10 order by ONev "; 
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 41 ");
         while($row   = mysqli_fetch_array($result)) {
             $ONev = $row['ONev']; $OURL = $row['OUrl']; $OID  = $row['id']; $OSzulo = $row['OSzuloId']; 
@@ -31,7 +31,7 @@
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
         $HTMLkod      = '';
         //Második szint 
-        $SelectStr   = "SELECT * FROM Oladalak WHERE OSzuloId=$OID order by ONev "; 
+        $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$OID order by ONev "; 
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 41 ");
         while($row   = mysqli_fetch_array($result)) {
             $ONev = $row['ONev']; $OURL = $row['OUrl']; $OID  = $row['id']; $OSzulo = $row['OSzuloId']; 
@@ -55,7 +55,7 @@
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
         $HTMLkod      = '';
         //Harmadik szint
-        $SelectStr   = "SELECT * FROM Oladalak WHERE OSzuloId=$OID order by ONev "; 
+        $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$OID order by ONev "; 
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 41 ");
         while($row   = mysqli_fetch_array($result)) {
             $ONev = $row['ONev']; $OURL = $row['OUrl']; $OID  = $row['id']; $OSzulo = $row['OSzuloId']; 
@@ -79,7 +79,7 @@
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
         $HTMLkod      = '';
         //Negyedik szint 
-        $SelectStr   = "SELECT * FROM Oladalak WHERE OSzuloId=$OID order by ONev "; 
+        $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$OID order by ONev "; 
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 41 ");
         while($row   = mysqli_fetch_array($result)) {
             $ONev = $row['ONev']; $OURL = $row['OUrl']; $OID  = $row['id']; $OSzulo = $row['OSzuloId']; 
