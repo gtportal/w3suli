@@ -19,8 +19,7 @@
       global $MySqliLink;
       //Kezdőlap létrehozása
       $InsertIntoStr = "INSERT INTO Oldalak VALUES (1, 'Kezdőlap','kezdolap',1,1,'Kezdőlap leírása',
-                        'Kezdőlap kulcsszavai',
-                        0,0,'Kezdőlap tartalma','','')";
+                        'Kezdőlap kulcsszavai',0,0,'Kezdőlap tartalma','','')";
       echo "<h1>$InsertIntoStr </h1>";
       if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba IO 01 ");} 
       //Bejelentkező oldal
