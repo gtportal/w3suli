@@ -8,7 +8,7 @@
  
 
 
-    function getCikkekHTML($Oid) {
+    function getCikkekHTML() {
         trigger_error('Not Implemented!', E_USER_WARNING);
     }
 
@@ -18,7 +18,7 @@
     }
 
 
-    function setCikkekLista() {
+    function setCikkekLista($Oid) {
         trigger_error('Not Implemented!', E_USER_WARNING);
     }
 
