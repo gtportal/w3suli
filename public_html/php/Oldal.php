@@ -588,25 +588,80 @@
 
 
     function getOldalHTML() {
-      global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $MySqliLink;  
-      if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!
-        $HTMLkod   = ''; //style='display:none;
+      global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $AlapAdatok, $MySqliLink;  
+      $HTMLkod   = ''; //style='display:none;
+      $HTMLFormkod   = '';
+      if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+        $HTMLFormkod   = "<div id='divFormkod'>\n";      
         // ================ A FORMOK MEGJELENÍTÉSÉT SZABÁLYZÓ INPUT ELEMEK =============================        
         if ($DedSzuloId['id']==0) { //5. szintű oldal már nem hozható létre
-          $HTMLkod  .= "<input name='chOldalForm'   id='chUjOldalForm' value='chUjOldalForm' type='radio'>";
-          $HTMLkod  .= "<label for='chUjOldalForm'  class='chLabel'    id='labelUjOldalForm'>Új oldal</label>";
+          $HTMLFormkod  .= "  <input name='chOldalForm'   id='chUjOldalForm' value='chUjOldalForm' type='radio'>\n";
+          $HTMLFormkod  .= "  <label for='chUjOldalForm'  class='chLabel'    id='labelUjOldalForm'>Új oldal</label>\n";
         }
-        $HTMLkod  .= "<input name='chOldalForm'   id='chOldalForm'   value='chOldalForm'   type='radio'>";
-        $HTMLkod  .= "<label for='chOldalForm'    class='chLabel'    id='labelOldalForm'>Oldal módosítása</label>";
-        $HTMLkod  .= "<input name='chOldalForm'   id='chOldalTorol'  value='chOldalTorol'  type='radio'>";
-        $HTMLkod  .= "<label for='chOldalTorol'   class='chLabel'    id='labelOldalTorol'>Oldal törlése</label>";
-        // ================ AZ OLDAL MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================
-        if ($DedSzuloId['id']==0) {$HTMLkod  .= getUjOldalForm();} //5. szintű oldal már nem hozható létre
-        $HTMLkod  .= getOldalForm();
-        $HTMLkod  .= getOldalTorolForm();       
-      }    
+        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalForm'   value='chOldalForm'   type='radio'>\n";
+        $HTMLFormkod  .= "  <label for='chOldalForm'    class='chLabel'    id='labelOldalForm'>Oldal módosítása</label>\n";
+        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalTorolForm'  value='chOldalTorolForm'  type='radio'>\n";
+        $HTMLFormkod  .= "  <label for='chOldalTorolForm'   class='chLabel'    id='labelOldalTorolForm'>Oldal törlése</label>\n \n";
         
-        return $HTMLkod;
+        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalKepForm' value='chOldalKepForm'  type='radio'>\n";
+        $HTMLFormkod  .= "  <label for='chOldalKepForm' class='chLabel'     id='labelOldalKepForm'>Oldal képeinek módosítása</label>\n \n";
+        // ================ AZ OLDAL MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================
+        if ($DedSzuloId['id']==0) {$HTMLFormkod  .= getUjOldalForm();} //5. szintű oldal már nem hozható létre
+        $HTMLFormkod  .= getOldalForm();
+        $HTMLFormkod  .= getOldalTorolForm();
+        $HTMLFormkod  .= getOldalKepForm();
+        $HTMLFormkod  .= "</div>\n\n";
+      }    
+      if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!
+        // ================ AZ OLDALTARTALMÁNAK MEGJELENÍTÉSE =============================     
+        
+        // ----------  Speciális tartalom kiíratása  ----------------------------
+        $HTMLkod  .= "<div id='divOTartalom'>\n";  
+        $HTMLkod  .= "<h1>".$Aktoldal['OTipus']."</h1>\n";
+        switch ($Aktoldal['OTipus']) {
+          case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap
+                    $HTMLkod  .= $HTMLFormkod;
+                    $HTMLkod  .= getCikkekHTML();
+                    $HTMLkod  .= $Aktoldal['OTartalom'];
+                   break;
+          case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
+                    $HTMLkod  .= $HTMLFormkod;
+                    $HTMLkod  .= getCikkekHTML();
+                    $HTMLkod  .= $Aktoldal['OTartalom'];
+                   break;     
+          case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
+                    $HTMLkod  .= $HTMLFormkod; 
+                    $HTMLkod  .= getCikkekHTML();
+                    $HTMLkod  .= $Aktoldal['OTartalom'];
+                   break; 
+          case 10:  $HTMLkod  .= "<h1>Bejelentkezés</h1> \n"; 
+                    $HTMLkod  .= getBelepesForm();               
+                   break; 
+          case 11:  $HTMLkod  .= "<h1>Kijelentkezés</h1> \n"; 
+                    $HTMLkod  .= getKilepesForm();              
+                   break;
+          case 12:  $HTMLkod  .= "<h1>Regisztráció</h1> \n"; 
+                    $HTMLkod  .= getBelepesForm();              
+                   break;
+          case 13:  $HTMLkod  .= "<h1>Felhasználó törlése</h1> \n"; 
+                    $HTMLkod  .= getFelhasznaloTorol();              
+                   break;
+          case 14:  $HTMLkod  .= "<h1>Felhasználó lista</h1> \n"; 
+                    $HTMLkod  .= getFelhasznaloLista();              
+                   break;               
+          case 15:  $HTMLkod  .= "<h1>Adatmódosítás</h1> \n"; 
+                    $HTMLkod  .= getFelhasznaloForm();
+                   break;                
+          case 16:  $HTMLkod  .= "<h1>Jelszómodosítás</h1> \n"; 
+                    $HTMLkod  .= getUjJelszoForm();              
+                   break;           
+          case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n"; 
+                    $HTMLkod  .= getAlapbeallitasForm();              
+                   break;                
+        }
+        $HTMLkod  .= "</div>\n"; 
+      }  
+      return $HTMLkod;
     }
 
     function getHead() {
