@@ -194,11 +194,11 @@ $OldalKepek['KSorszam']   = 0;
         $HTMLkod .= "<div id='divOldalKepForm' >\n";
         $HTMLkod .= $_SESSION['ErrorStr'];
         $HTMLkod .= $HTMLkod0;
-        $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalKepForm'>\n";
+        $HTMLkod .= "<div><form action='?f0=$OUrl' method='post' id='formOldalKepForm'>\n";
         $HTMLkod .= $HTMLkod1;
         
-        $HTMLkod .=  "<br><input type='submit' name='submitOldalKepForm' value='Elküld'><br>\n";        
-        $HTMLkod .= "</form>\n";
+        $HTMLkod .=  "<br><br><br><br><br><br><input type='submit' name='submitOldalKepForm' value='Elküld'><br><br>\n";        
+        $HTMLkod .= "</form></div>\n";
         $HTMLkod .= "</div>\n";
         return $HTMLkod;
     }
