@@ -54,7 +54,7 @@
       
       //Alapbeállítások oldal
       $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', 'Alapbeállítások','alapbeallitasok',1,1,'Alapbeállítások leírása','Alapbeállítások kulcsszavai',
-                       1,16,'Alapbeállítások tartalma','','')";
+                       1,51,'Alapbeállítások tartalma','','')";
       if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba IO 02 ");}       
       
     }
