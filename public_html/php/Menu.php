@@ -5,6 +5,30 @@
 
     function getMenuHTML() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
+        // ================ FELHASZNÁLÓKEZELÉSHEZ TARTOZÓ OLDALAK ============================= 
+        $HTMLkod1      = "<ul class='Ul1'>\n";
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  { 
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=kijelentkezes'>Kijelentkezés</a></li>\n"; 
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=adatmodositas'>Adatmódosítás</a></li>\n";
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";            
+        } else {
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=bejelentkezes'>Bejelentkezés</a></li>\n";  
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=regisztracio'>Regisztráció</a></li>\n"; 
+        }
+        $HTMLkod1     .= "</ul>\n";
+        
+        // ================ RENDSZERGAZDÁK OLDALAI ============================= 
+        $HTMLkod2      = '';
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { 
+            $HTMLkod2 .= "<ul class='Ul1'>\n";
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=alapbeallitasok'>Alapbeállítások</a></li>\n"; 
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>Felhasználó lista</a></li>\n";
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";  
+            $HTMLkod2 .= "</ul>\n";
+        }
+        if ($HTMLkod2 != '') {$HTMLkod1 .= $HTMLkod2;}
+        
+        // ================ KATEGÓRIÁK ÉS HÍROLDALAK TÖBBSZINTŰ LISTÁJA ============================= 
         $HTMLkod      = '';
         //Elso szint >> Szülő a keszdőlap
         $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=1 AND OTipus<10 order by ONev "; 
@@ -24,7 +48,7 @@
         } 
         if ($HTMLkod > '') {$HTMLkod = "<ul class='Ul1'>\n $HTMLkod  </ul>\n";}
         mysqli_free_result($result);  
-        return $HTMLkod;
+        return $HTMLkod1.$HTMLkod;
     }
 
     function Menu_Szint2($OID) {
