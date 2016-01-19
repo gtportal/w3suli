@@ -72,7 +72,7 @@
   $_SESSION['ErrorStr']   .= setOldalKepek();
   $_SESSION['ErrorStr']   .= setOldalKepFeltolt();
   $_SESSION['ErrorStr']   .= setOldalKepTorol();
-  
+ 
 ?>
 
 
