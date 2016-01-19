@@ -69,6 +69,8 @@ $AktFelhasznalo['FKep']    = '';
         trigger_error('Not Implemented!', E_USER_WARNING);
     }
 
-
+    function getFelhasznaloLista() {
+        trigger_error('Not Implemented!', E_USER_WARNING);
+    }
 
 ?>
