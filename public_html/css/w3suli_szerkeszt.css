@@ -1,12 +1,25 @@
 
 /* Oldalak  szerkesztése*/
 
-#divUjOldalForm, #divOldalForm, #divOldalTorolForm {display: none; border: 1px solid #000;}
+#divUjOldalForm, #divOldalForm, #divOldalTorolForm, #divOldalKepForm {display: none; border: 1px solid #000;}
 
-#chUjOldalForm:checked ~ #labelUjOldalForm {font-weight:bold;}
-#chOldalForm:checked   ~ #labelOldalForm   {font-weight:bold;}
-#chOldalTorol:checked  ~ #labelOldalTorol  {font-weight:bold;}
+#chUjOldalForm:checked    ~ #labelUjOldalForm     {font-weight:bold;}
+#chOldalForm:checked      ~ #labelOldalForm       {font-weight:bold;}
+#chOldalTorolForm:checked ~ #labelOldalTorolForm  {font-weight:bold;}
+#chOldalKepForm:checked   ~ #labelOldalKepForm    {font-weight:bold;}
 
-#chUjOldalForm:checked ~ #divUjOldalForm    {display: block;}
-#chOldalForm:checked   ~ #divOldalForm      {display: block;}
-#chOldalTorol:checked  ~ #divOldalTorolForm {display: block;}
+#chUjOldalForm:checked    ~ #divUjOldalForm    {display: block;}
+#chOldalForm:checked      ~ #divOldalForm      {display: block;}
+#chOldalTorolForm:checked ~ #divOldalTorolForm {display: block;}
+#chOldalKepForm:checked   ~ #divOldalKepForm   {display: block;}
+
+
+#divOldalKepForm .Kepszerk img {display:block; float:left; height:100px; margin:5px;}
+#divOldalKepForm .Kepszerk     {display:block; clear:left;  margin:5px;}
+#divOldalKepForm .Kepszerk  p  {display:block; float:left; margin:5px;}
+#divOldalKepForm .Kepszerk  p.pKSzelesseg  {clear:left;}
+
+
+#divOldalKepForm .Kepszerk input[type="number"] {width:45px;}
+
+.pKTorol {color:#f00;}
