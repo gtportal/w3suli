@@ -88,15 +88,16 @@ $OldalKepek['KSorszam']   = 0;
 
     function getOldalKepForm() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
-        $Oid         = $Aktoldal['id'];
+        $Oid          = $Aktoldal['id'];
         if ($Aktoldal['OImgDir']!='') {
           $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";            
         } else {
           $KepUtvonal = "img/";    
         }
-        $KepCT       = 0;
-        $HTMLkod     = '';
-        $OldalKepek  = array();
+        $KepCT        = 0;
+        $OUrl         = $Aktoldal['OUrl'];
+        $HTMLkod      = '';
+        $OldalKepek   = array();
         $OldalKepInit = array();
         $OldalKepInit['Oid']        = $Oid;
         $OldalKepInit['KFile']      = '';
