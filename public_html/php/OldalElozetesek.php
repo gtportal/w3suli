@@ -1,7 +1,7 @@
 <?php
 
 /**
- * XXX detailed description test
+ * XXX detailed description test módosítva
  *
  * @author    XXX
  * @version   XXX
