@@ -1,5 +1,7 @@
 
 /* Oldalak  szerkesztése*/
+#divFormkod {display: none;}
+#chFormkod:checked    ~ #divFormkod    {display: block;}
 
 #divUjOldalForm, #divOldalForm, #divOldalTorolForm, #divOldalKepForm {display: none; border: 1px solid #000;}
 
