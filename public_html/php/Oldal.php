@@ -626,7 +626,9 @@
       $HTMLkod   = ''; //style='display:none;
       $HTMLFormkod   = '';
       if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!  
-        $HTMLFormkod   = "<div id='divFormkod'>\n";      
+        $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox'>\n";
+        $HTMLFormkod  .= "  <label for='chFormkod'    class='chLabel'    id='labelchFormkod'>Oldal szerkesztése</label>\n";  
+        $HTMLFormkod  .= "<div id='divFormkod'>\n";      
         // ================ A FORMOK MEGJELENÍTÉSÉT SZABÁLYZÓ INPUT ELEMEK =============================        
         if ($DedSzuloId['id']==0) { //5. szintű oldal már nem hozható létre
           $HTMLFormkod  .= "  <input name='chOldalForm'   id='chUjOldalForm' value='chUjOldalForm' type='radio'>\n";
