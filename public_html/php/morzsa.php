@@ -47,7 +47,7 @@ function getMorzsaHTML() {
               ) {$Aktiv = true;} else {$Aktiv = false;}           
            //Ha az adott oldal vagy annak egy leszármazottja aktív, akkor leszármazottjait is megjelenítjük
            if ($Aktiv) {                
-                $HTMLkod .= "<a href='?f0=$OURL' >$ONev</a>";
+                $HTMLkod .= "<a href='?f0=$OURL' >$ONev</a> | ";
                 $HTMLkod .= Morzsa_Szint3($OID);
            }
            $HTMLkod .= "\n";           
@@ -57,4 +57,10 @@ function getMorzsaHTML() {
     }
     
     
+    // NÉLKÜLE A HÍVÁSAKOR KIFEKSZIK A php
+    function Morzsa_Szint3($OID) {
+        global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
+        
+        
+    }    
 ?>
