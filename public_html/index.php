@@ -50,6 +50,7 @@
   require_once 'php/OldalCikkei.php';
   require_once 'php/AlapFgvek.php';
   require_once 'php/OldalKeptar.php';
+  require_once 'php/morzsa.php';
   
   //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA  
   if (isset($_GET['f0'])) { $oURL = $_GET['f0'];} else { $oURL = '';}  
@@ -136,6 +137,7 @@
             </ul>		  
 		  </nav>		   
 		  <div id='Tartalom'>
+                        <?php echo getMorzsaHTML(); ?>
                         <?php echo getOldalHTML(); ?>
 			<section>  		
 			 <article>   
