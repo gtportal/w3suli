@@ -31,7 +31,8 @@
   require_once("php/Init.php");  
   //Alapadatok lekérdezése
   require_once("php/Alapbeallitasok.php");
-  $_SESSION['AlapAdatok'] = getAlapbeallitasok();
+  $_SESSION['ErrorStr']   .= setAlapbeallitasok();  
+  $AlapAdatok = getAlapbeallitasok();
   
   //BE- vagy KIJELENTKEZÉS; FELHASZNÁLÓI ADATOK MÓDOSÍTÁSA
   require_once("php/Felhasznalo.php");
@@ -51,6 +52,7 @@
   require_once 'php/AlapFgvek.php';
   require_once 'php/OldalKeptar.php';
   require_once 'php/morzsa.php';
+  require_once 'php/Lablec.php';
   
   //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA  
   if (isset($_GET['f0'])) { $oURL = $_GET['f0'];} else { $oURL = '';}  
@@ -58,6 +60,8 @@
   
   //A MODERÁTOR STÁTUSZ ELLENŐRZÉSE
   if (getOModeratorTeszt($Aktoldal['id']) > 0) {$_SESSION['AktFelhasznalo'.'FSzint'] =  3;}
+  
+  
   
   //FELHASZNÁLÓI CSOPORTADATOK MÓDOSÍTÁSA
   $_SESSION['ErrorStr']   .= setUjFCsoport();  
@@ -162,7 +166,7 @@
 		  </div> 		     
 		  <aside id='KiegeszitoInfo'>Kiegészítő tartalmak</aside>       
        </div>     
-       <footer id='FoFooter'>6</footer>
+       <footer id='FoFooter'><?php echo getLablecHTML(); ?></footer>
      
      </div>
   </body>
