@@ -60,6 +60,8 @@
     function getOldalData($OUrl) {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $MySqliLink;
         // ============== ADATKEZELÉS - ADATOK BETOLVASÁSA =====================
+        
+        
         $tiszta_OURL = $OUrl;
         if ($tiszta_OURL=='') {$tiszta_OURL = 'kezdolap';}
         //Az aktuális oldal adatainak betöltése
@@ -99,6 +101,7 @@
             $SzuloOldal['OTipus']       = $row['OTipus']; 
             $SzuloOldal['OImgDir']      = $row['OImgDir']; 
             $SzuloOldal['OImg']         = $row['OImg']; 
+            
           }  
         }
         
@@ -137,6 +140,7 @@
         //Ha nem szerkesztő oldal, akkor eltároljuk ez lesz az ElozoOldalId
         //Egy szerkesztés, be- vagy kijelentkezés után ide térünk vissza
         if ($Aktoldal['OTipus']<10) {$_SESSION['ElozoOldalId']   = $Aktoldal['id']; }
+        
     }
 
 
