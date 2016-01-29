@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Hoszt: localhost
--- Létrehozás ideje: 2016. Jan 21. 17:07
--- Szerver verzió: 5.5.46-0ubuntu0.14.04.2
+-- Létrehozás ideje: 2016. Jan 29. 13:03
+-- Szerver verzió: 5.5.47-0ubuntu0.14.04.1
 -- PHP verzió: 5.5.9-1ubuntu4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `AlapAdatok` (
 --
 
 INSERT INTO `AlapAdatok` (`id`, `WebhelyNev`, `Iskola`, `Cim`, `Telefon`, `Stilus`) VALUES
-(3, 'WebhelyNev', 'Iskola', 'Cim', 'Telefon', 0);
+(3, 'WebhelyNev012', 'Iskola123', 'Cim234', 'Telefon345', 1);
 
 -- --------------------------------------------------------
 
@@ -155,56 +155,6 @@ CREATE TABLE IF NOT EXISTS `KiegTartalom` (
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `Oladalak`
---
-
-DROP TABLE IF EXISTS `Oladalak`;
-CREATE TABLE IF NOT EXISTS `Oladalak` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `ONev` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
-  `OUrl` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
-  `OLathatosag` tinyint(4) NOT NULL DEFAULT '0',
-  `OPrioritas` smallint(6) NOT NULL DEFAULT '0',
-  `OLeiras` varchar(255) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
-  `OKulcsszavak` varchar(255) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
-  `OSzuloId` int(10) NOT NULL DEFAULT '0',
-  `OTipus` tinyint(4) NOT NULL DEFAULT '1',
-  `OTartalom` text COLLATE utf8_hungarian_ci NOT NULL,
-  `OImgDir` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
-  `OImg` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=35 ;
-
---
--- A tábla adatainak kiíratása `Oladalak`
---
-
-INSERT INTO `Oladalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeiras`, `OKulcsszavak`, `OSzuloId`, `OTipus`, `OTartalom`, `OImgDir`, `OImg`) VALUES
-(1, 'KezdÅ‘lap', 'kezdolap', 1, 1, 'KezdÅ‘lap leÃ­rÃ¡sa', 'KezdÅ‘lap kulcsszavai', 0, 0, 'KezdÅ‘lap tartalma', '', ''),
-(12, 'BejelentkezÃ©s', 'bejelentkezes', 1, 1, 'BejelentkezÃ©s leÃ­rÃ¡sa', 'BejelentkezÃ©s kulcsszavai', 1, 10, 'KezdÅ‘lap tartalma', '', ''),
-(13, 'KijelentkezÃ©s', 'kijelentkezes', 1, 1, 'KijelentkezÃ©s leÃ­rÃ¡sa', 'KijelentkezÃ©s kulcsszavai', 1, 11, 'KijelentkezÃ©s tartalma', '', ''),
-(14, 'RegisztrÃ¡ciÃ³', 'regisztracio', 1, 1, 'RegisztrÃ¡ciÃ³ leÃ­rÃ¡sa', 'RegisztrÃ¡ciÃ³ kulcsszavai', 1, 12, 'RegisztrÃ¡ciÃ³ tartalma', '', ''),
-(15, 'FelhasznÃ¡lÃ³ tÃ¶rlÃ©se', 'felhasznalo_torlese', 1, 1, 'FelhasznÃ¡lÃ³ tÃ¶rlÃ©se leÃ­rÃ¡sa', 'FelhasznÃ¡lÃ³ tÃ¶rlÃ©se kulcsszavai', 1, 13, 'FelhasznÃ¡lÃ³ tÃ¶rlÃ©se tartalma', '', ''),
-(16, 'FelhasznÃ¡lÃ³ lista', 'felhasznalo_lista', 1, 1, 'FelhasznÃ¡lÃ³ lista leÃ­rÃ¡sa', 'FelhasznÃ¡lÃ³ lista kulcsszavai', 1, 14, 'FelhasznÃ¡lÃ³ lista tartalma', '', ''),
-(17, 'AdatmÃ³dosÃ­tÃ¡s', 'adatmodositas', 1, 1, 'AdatmÃ³dosÃ­tÃ¡s leÃ­rÃ¡sa', 'AdatmÃ³dosÃ­tÃ¡s kulcsszavai', 1, 15, 'AdatmÃ³dosÃ­tÃ¡s tartalma', '', ''),
-(18, 'JelszÃ³modosÃ­tÃ¡s', 'jelszomodositas', 1, 1, 'JelszÃ³modosÃ­tÃ¡s leÃ­rÃ¡sa', 'JelszÃ³modosÃ­tÃ¡s kulcsszavai', 1, 16, 'JelszÃ³modosÃ­tÃ¡s tartalma', '', ''),
-(19, 'AlapbeÃ¡llÃ­tÃ¡sok', 'alapbeallitasok', 1, 1, 'AlapbeÃ¡llÃ­tÃ¡sok leÃ­rÃ¡sa', 'AlapbeÃ¡llÃ­tÃ¡sok kulcsszavai', -1, 16, 'AlapbeÃ¡llÃ­tÃ¡sok tartalma', '', ''),
-(20, 'ttt', 'ttt', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', -1, 1, 'Az oldal tartalma', '', ''),
-(21, 'tre', 'tre', 1, 1, 'rrrrrrrrrrrrr', 'Az oldal kulcsszavai', 1, 1, 'zzzzzttttttttt', '', 'tre.jpg'),
-(22, 'tree12345', 'tree12345', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 2, 'Az oldal tartalma', '', ''),
-(23, 'wert', 'wert', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 22, 1, 'Az oldal tartalma', '', ''),
-(24, 'zzzzzzzzz3a1', 'zzzzzzzzz3a1', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 23, 2, 'Az oldal tartalma', '', ''),
-(25, 'q123', 'q123', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 24, 2, 'Az oldal tartalma', '', ''),
-(27, 'rtz1', 'rtz1', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 22, 2, 'Az oldal tartalma', '', ''),
-(28, 'w3333', 'w3333', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 22, 1, 'Az oldal tartalma', '', 'w3333.jpg'),
-(31, 'zzzz321a', 'zzzz321a', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 2, 'Az oldal tartalma', '', ''),
-(32, 'rt123', 'rt123', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 31, 2, 'Az oldal tartalma', '', ''),
-(33, 'LLLLLLLLLLLLL', 'LLLLLLLLLLLLL', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 31, 2, 'Az oldal tartalma', '', ''),
-(34, 'TR10101', 'TR10101', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 31, 2, 'Az oldal tartalma', '', '');
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `Oldalak`
 --
 
@@ -240,7 +190,7 @@ INSERT INTO `Oldalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeir
 (18, 'JelszÃ³modosÃ­tÃ¡s', 'jelszomodositas', 1, 1, 'JelszÃ³modosÃ­tÃ¡s leÃ­rÃ¡sa', 'JelszÃ³modosÃ­tÃ¡s kulcsszavai', 1, 16, 'JelszÃ³modosÃ­tÃ¡s tartalma', '', ''),
 (19, 'AlapbeÃ¡llÃ­tÃ¡sok', 'alapbeallitasok', 1, 1, 'AlapbeÃ¡llÃ­tÃ¡sok leÃ­rÃ¡sa', 'AlapbeÃ¡llÃ­tÃ¡sok kulcsszavai', -1, 51, 'AlapbeÃ¡llÃ­tÃ¡sok tartalma', '', ''),
 (20, 'ttt', 'ttt', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', -1, 1, 'Az oldal tartalma', '', ''),
-(21, 'tre123a', 'tre123a', 5, 4, 'rrrrrrrrrrrrr', 'Az oldal kulcsszavai e1', 1, 1, 'zzzzzttttttttt', '', 'tre.jpg'),
+(21, 'tre', 'tre', 1, 1, 'rrrrrrrrrrrrr', 'Az oldal kulcsszavai', 1, 1, 'zzzzzttttttttt', '', 'tre.jpg'),
 (22, 'tree12345', 'tree12345', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 2, 'Az oldal tartalma ijuohu itzfutfrutrd', '', ''),
 (23, 'wert', 'wert', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 22, 1, 'Az oldal tartalma', '', ''),
 (24, 'zzzzzzzzz3a1', 'zzzzzzzzz3a1', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 23, 2, 'Az oldal tartalma', '', ''),
@@ -250,7 +200,8 @@ INSERT INTO `Oldalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeir
 (31, 'zzzz321a', 'zzzz321a', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 2, 'Az oldal tartalma', '', ''),
 (32, 'rt123', 'rt123', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 31, 2, 'Az oldal tartalma', '', ''),
 (33, 'LLLLLLLLLLLLL', 'LLLLLLLLLLLLL', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 31, 2, 'Az oldal tartalma', '', ''),
-(34, 'TR10101', 'TR10101', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 31, 2, 'Az oldal tartalma', '', '');
+(34, 'TR10101', 'TR10101', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 31, 2, 'Az oldal tartalma', '', ''),
+(35, 'Kieg. tartalom', 'kiegeszito_tartalom', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 52, 'Az oldal tartalma', '', '');
 
 -- --------------------------------------------------------
 
@@ -285,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `OldalKepek` (
   `KStilus` smallint(6) NOT NULL DEFAULT '0',
   `KSorszam` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=30 ;
 
 --
 -- A tábla adatainak kiíratása `OldalKepek`
@@ -301,8 +252,7 @@ INSERT INTO `OldalKepek` (`id`, `Oid`, `KFile`, `KNev`, `KLeiras`, `KSzelesseg`,
 (26, 1, 'kezdolap_1.png', '', '', 0, 0, 0, 0),
 (27, 1, 'kezdolap_7.png', '', '', 0, 0, 0, 0),
 (28, 1, 'kezdolap_8.jpg', '', '', 0, 0, 0, 0),
-(29, 1, 'kezdolap_9.jpg', '', '', 0, 0, 0, 0),
-(30, 21, 'tre123a_0.jpeg', '', '', 0, 0, 0, 0);
+(29, 1, 'kezdolap_9.jpg', '', '', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
