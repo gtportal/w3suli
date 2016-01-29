@@ -23,7 +23,8 @@
             $HTMLkod2 .= "<ul class='Ul1'>\n";
             $HTMLkod2 .= "<li class='M1'><a href='?f0=alapbeallitasok'>Alapbeállítások</a></li>\n"; 
             $HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>Felhasználó lista</a></li>\n";
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";  
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=kiegeszito_tartalom'>Kiegészítő tartalom</a></li>\n";            
             $HTMLkod2 .= "</ul>\n";
         }
         if ($HTMLkod2 != '') {$HTMLkod1 .= $HTMLkod2;}
