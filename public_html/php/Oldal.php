@@ -16,7 +16,8 @@
  * 16 = Jelszómodosítás 
  * 
  * 51 = Alapbeállítások
- * 52 = 
+ * 52 = Kiegészítő tartalom
+ * 53 =
  *
  */
 
@@ -666,33 +667,36 @@
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
-                    $HTMLkod  .= $HTMLFormkod; 
+                    $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                    break; 
-          case 10:  $HTMLkod  .= "<h1>Bejelentkezés</h1> \n"; 
-                    $HTMLkod  .= getBelepesForm();               
+          case 10:  $HTMLkod  .= "<h1>Bejelentkezés</h1> \n";
+                    $HTMLkod  .= getBelepesForm();
                    break; 
-          case 11:  $HTMLkod  .= "<h1>Kijelentkezés</h1> \n"; 
-                    $HTMLkod  .= getKilepesForm();              
+          case 11:  $HTMLkod  .= "<h1>Kijelentkezés</h1> \n";
+                    $HTMLkod  .= getKilepesForm();
                    break;
-          case 12:  $HTMLkod  .= "<h1>Regisztráció</h1> \n"; 
-                    $HTMLkod  .= getBelepesForm();              
+          case 12:  $HTMLkod  .= "<h1>Regisztráció</h1> \n";
+                    $HTMLkod  .= getUjFelhasznaloForm();
                    break;
-          case 13:  $HTMLkod  .= "<h1>Felhasználó törlése</h1> \n"; 
-                    $HTMLkod  .= getFelhasznaloTorol();              
+          case 13:  $HTMLkod  .= "<h1>Felhasználó törlése</h1> \n";
+                    $HTMLkod  .= getFelhasznaloTorol();
                    break;
-          case 14:  $HTMLkod  .= "<h1>Felhasználó lista</h1> \n"; 
-                    $HTMLkod  .= getFelhasznaloLista();              
+          case 14:  $HTMLkod  .= "<h1>Felhasználó lista</h1> \n";
+                    $HTMLkod  .= getFelhasznaloLista();
                    break;               
           case 15:  $HTMLkod  .= "<h1>Adatmódosítás</h1> \n"; 
                     $HTMLkod  .= getFelhasznaloForm();
                    break;                
-          case 16:  $HTMLkod  .= "<h1>Jelszómodosítás</h1> \n"; 
-                    $HTMLkod  .= getUjJelszoForm();              
+          case 16:  $HTMLkod  .= "<h1>Jelszómodosítás</h1> \n";
+                    $HTMLkod  .= getUjJelszoForm();
                    break;           
-          case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n"; 
-                    $HTMLkod  .= getAlapbeallitasForm();              
+          case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
+                    $HTMLkod  .= getAlapbeallitasForm();
+                   break;    
+          case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
+                    $HTMLkod  .= getKiegTForm();
                    break;                
         }
         $HTMLkod  .= "</div>\n"; 
