@@ -77,7 +77,12 @@
   $_SESSION['ErrorStr']   .= setOldalKepek();
   $_SESSION['ErrorStr']   .= setOldalKepFeltolt();
   $_SESSION['ErrorStr']   .= setOldalKepTorol();
- 
+  
+  
+  //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
+ $_SESSION['ErrorStr']   .= setUjKiegT();
+ $_SESSION['ErrorStr']   .= setKiegT();
+ $_SESSION['ErrorStr']   .= setTorolKiegT();
 ?>
 
 
