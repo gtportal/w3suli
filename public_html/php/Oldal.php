@@ -697,6 +697,8 @@
                    break;    
           case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
                     $HTMLkod  .= getKiegTForm();
+                    $HTMLkod  .= getUjKiegTForm();
+                    $HTMLkod  .= getTorolKiegTform();
                    break;                
         }
         $HTMLkod  .= "</div>\n"; 
