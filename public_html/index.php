@@ -5,6 +5,7 @@
     $NagyszuloOldal = array();
     $DedSzuloId = 0;
 
+    require_once 'php/AlapFgvek.php';
   //MUNKAMENET INDÍTÁSA
   session_start();
   $mm_azon   = session_id(); 
@@ -49,7 +50,7 @@
   require_once 'php/OldalModerator.php';
   require_once 'php/Menu.php';
   require_once 'php/OldalCikkei.php';
-  require_once 'php/AlapFgvek.php';
+  
   require_once 'php/OldalKeptar.php';
   require_once 'php/morzsa.php';
   require_once 'php/Lablec.php';
