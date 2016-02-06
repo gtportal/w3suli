@@ -31,7 +31,7 @@ function getMorzsaHTML() {
                     
                      </div>\n";}
         mysqli_free_result($result);  
-        return $HTMLkod1.$HTMLkod;
+        return $HTMLkod;
     }
     
     
