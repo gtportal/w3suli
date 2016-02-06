@@ -1,120 +1,121 @@
 <?php
+global $KiegTartalom;
 
 $KiegTartalom = array();
-        
-$KiegTartalom['id'] = 0;
-$KiegTartalom['KiegTNev'] = "";
-$KiegTartalom['KiegTTartalom'] = "";
+$KiegTartalom['id']          = 0;
+$KiegTartalom['KiegTNev']      = '';
+$KiegTartalom['KiegTTartalom'] = '';
 $KiegTartalom['KiegTPrioritas'] = 0;
 
-  
-function setKiegT($KTid) {
+function setKiegT() {
+    global $MySqliLink;
+    $ErrorStr       = "";  
+    $KiegTNev       = "";
+    $KiegTTartalom  = "";
+    $KiegTPrioritas = 0;
+    
+    
+    if (isset($_POST['submitKiegTartalom'])) {
+        for ($i = 0; $i < 10; $i++){
+            $id = $_POST["ModKTid_$i"];
+            if (!$_POST["TorolKiegT_$i"]){
+                if (isset($_POST["ModKTNev_$i"])) {
+                    $KiegTNev = $_POST["ModKTNev_$i"];
+                }
+                if (isset($_POST["ModKTTartalom_$i"]))  {
+                    $KiegTTartalom  = $_POST["ModKTTartalom_$i"];
+                }
+                if (isset($_POST["ModKTPrioritas_$i"])) {
+                    $KiegTPrioritas = $_POST["ModKTPrioritas_$i"];
+                }
+
+                $UpdateStr = "UPDATE KiegTartalom SET
+                                KiegTNev       = '$KiegTNev',
+                                KiegTTartalom  = '$KiegTTartalom',
+                                KiegTPrioritas =  '$KiegTPrioritas'
+                                WHERE id = '$id'";
+                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+            } else {
+                $UpdateStr = "UPDATE KiegTartalom SET
+                                KiegTNev       = '',
+                                KiegTTartalom  = '',
+                                KiegTPrioritas =  0
+                                WHERE id = '$id'";
+                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+            }
+        }
+    }
+    return $ErrorStr;
 }
 
-
-
-
-
-function setTorolKiegT() {
-    trigger_error('Not Implemented!', E_USER_WARNING);
-}
 
 
 function getKiegTForm() {
-    
-}
-
-function setUjKiegT() {
-    global $MySqliLink;
-    if (isset($_POST['submitUjKiegTartalom'])) {
-        $ErrorStr       = "";  
-        $KiegTNev       = "";
-        $KiegTTartalom  = "";
-        $KiegTPrioritas = 0;
-
-        if (isset($_POST['UjKiegTNev']) && strlen($_POST['UjKiegTNev']))  {
-            $KiegTNev = $_POST['UjKiegTNev'];
-            
-            $SelectStr   = "SELECT * FROM KiegTartalom WHERE KiegTNev ='$KiegTNev'";
-            $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUKT 1 ");
-            $rowDB       = mysqli_num_rows($result);
-              if ($rowDB > 0) { $ErrorStr .= ' Err002,';}  //KiegTNev már létezik
-              if (strlen($KiegTNev)>40) { $ErrorStr .= ' Err003,';}  //KiegTNev túl hosszú
-              if (strlen($KiegTNev)<3) { $ErrorStr .= ' Err004,';}  //KiegTNev túl rövid
-        } else {$ErrorStr .= ' Err001,';} //Nincs név
-        
-        if (isset($_POST['UjTartalom']) && strlen($_POST['UjTartalom']))  {
-            $KiegTTartalom  = test_post($_POST['UjTartalom']);
-        } else {$ErrorStr .= ' Err005,';} //Nincs tartalom
-        
-        if (isset($_POST['UjPrioritas'])) {$KiegTPrioritas = $_POST['UjPrioritas'];}
-        
-        if($ErrorStr == ""){
-            $InsertStr = "INSERT INTO KiegTartalom VALUES ('', '$KiegTNev', '$KiegTTartalom', '$KiegTPrioritas')";
-            mysqli_query($MySqliLink,$InsertStr) OR die("Hiba iUKT 2");
-        }
-
-        return $ErrorStr;
-    }
-}
-
-
-function getUjKiegTForm() {
     if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
-        $HTMLkod        = '';
-        $ErrorStr       = '';  
-        $KiegTNev       = "";
-        $KiegTTartalom  = "";
-        $KiegTPrioritas = 0;  
+        
+       global $MySqliLink, $KiegTartalom;
+       $HTMLkod        = '';
+       //$ErrorStr       = '';
+        
+      
+        $SelectStr = "SELECT * FROM KiegTartalom";
+        $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
 
-        if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
-            $ErrorStr .= "Hiányzik a kiegészítő tartalom neve!\n";
+        for ($i = 0; $i < 10; $i++){
+            $row = mysqli_fetch_array($result);
+            $KiegTartalom['id']            = $row['id'];
+            $KiegTartalom['KiegTNev']      = $row['KiegTNev'];
+            $KiegTartalom['KiegTTartalom'] = $row['KiegTTartalom'];
+            $KiegTartalom['KiegTPrioritas']= $row['KiegTPrioritas'];
+            $KiegTTomb[]   = $KiegTartalom;
         }
-        if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
-            $ErrorStr .= "Ilyen nevű kiegészítő tartalom már létezik!\n";
+        
+        $HTMLkod .= "<div id='divModKiegTForm' >\n";
+	$HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formModKiegTForm'>\n";
+        
+        for ($i = 0; $i < 10; $i++){
+            $id = $KiegTTomb[$i]['id'];
+            $KiegTNev = $KiegTTomb[$i]['KiegTNev'];
+            $KiegTTartalom = $KiegTTomb[$i]['KiegTTartalom'];
+            $KiegTPrioritas = $KiegTTomb[$i]['KiegTPrioritas'];
+            //Kiegészítő tartalom neve
+            $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
+            $HTMLkod .= "<input type='text' name='ModKTNev_$i' id='ModKTNev_$i' placeholder='$KiegTNev' value='$KiegTNev' size='40'></p>\n"; 
+
+            //Kiegészítő tartalom tartalma
+            $HTMLkod .= "<p class='pModKTTartalom'><label for='ModKTTartalom_$i' class='label_1'>Módosított kiegészítő tartalom tartalma:</label><br>\n ";
+            $HTMLkod .= "<input type='text' name='ModKTTartalom_$i' id='ModKTTartalom_$i' placeholder='$KiegTTartalom' value='$KiegTTartalom' size='40'></p>\n"; 
+
+            //Kiegészítő tartalom prioritása
+            $HTMLkod .= "<p class='pModKTPrioritas'><label for='ModKTPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
+            $HTMLkod .= "<input type='number' name='ModKTPrioritas_$i' id='ModKTPrioritas_$i' min='0' max='9' step='1' value='$KiegTPrioritas'></p>\n";  
+            
+            //Törlésre jelölés
+            $HTMLkod .= "<p class='pTorolKiegT'><label for='pTorolKiegT_$i' class='label_1'>TÖRLÉS:</label>\n ";
+            $HTMLkod .= "<input type='checkbox' name='TorolKiegT_$i' id='TorolKiegT_$i'></p><br>\n";
+            
+            //id
+            $HTMLkod .= "<input type='hidden' name='ModKTid_$i' id='ModKTid_$i' value='$id'>\n";
         }
-        if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
-            $ErrorStr .= "A kiegészítő tartalom neve túl hosszú!\n";
-        }
-        if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
-            $ErrorStr .= "A kiegészítő tartalom neve túl rövid! \n";
-        }
-        if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
-            $ErrorStr .= "Hiányzik a tartalom! \n";
-        }
-
-        $HTMLkod .= "<div id='divUjKiegTForm' >\n";
-        if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
-
-        $HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formUjKiegTForm'>\n";
-
-        //Új kiegészítő tartalom neve
-
-        $HTMLkod .= "<p class='pUjKiegTNev'><label for='UjKiegTNev' class='label_1'>Új kiegészítő tartalom neve:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='UjKiegTNev' id='UjKiegTNev' placeholder='Új kiegészítő tartalom név' value='$KiegTNev' size='40'></p>\n"; 
-
-        //Új kiegészítő tartalom tartalma
-
-        $HTMLkod .= "<p class='pUjTartalom'><label for='UjTartalom' class='label_1'>Új kiegészítő tartalom tartalma:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='UjTartalom' id='UjTartalom' placeholder='Új kiegészítő tartalom' value='$KiegTTartalom' size='40'></p>\n"; 
-
-        //Új kiegészítő tartalom prioritása
-
-        $HTMLkod .= "<p class='pUjPrioritas'><label for='UjPrioritas' class='label_1'>Prioritás:</label>\n ";
-        $HTMLkod .= "<input type='number' name='UjPrioritas' id='UjPrioritas' min='0' max='20' step='1' value='$KiegTPrioritas'></p>\n";  
-
+        
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitUjKiegTartalom' value='Létrehozás'><br>\n";        
-        $HTMLkod .= "</form>\n";            
-        $HTMLkod .= "</div>\n";   
-
+        $HTMLkod .= "<input type='submit' name='submitKiegTartalom' value='Módosítás'><br>\n";
+        $HTMLkod .= "</form>\n";
+        $HTMLkod .= "</div>\n";
         return $HTMLkod;
     }
 }
 
-function getTorolKiegTform($KTid) {
-    trigger_error('Not Implemented!', E_USER_WARNING);
+
+
+function setUjKiegT() {
 }
+
+
+
+function getUjKiegTForm() {
+}
+
 
 
 function getKiegTHTML() {
