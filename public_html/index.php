@@ -84,7 +84,6 @@
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
  $_SESSION['ErrorStr']   .= setUjKiegT();
  $_SESSION['ErrorStr']   .= setKiegT();
- $_SESSION['ErrorStr']   .= setTorolKiegT();
 ?>
 
 
