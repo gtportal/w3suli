@@ -693,7 +693,7 @@
           case 15:  $HTMLkod  .= "<h1>Adatmódosítás</h1> \n"; 
                     $HTMLkod  .= getFelhasznaloForm();
                    break;                
-          case 16:  $HTMLkod  .= "<h1>Jelszómodosítás</h1> \n";
+          case 16:  $HTMLkod  .= "<h1>Jelszómódosítás</h1> \n";
                     $HTMLkod  .= getUjJelszoForm();
                    break;           
           case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
