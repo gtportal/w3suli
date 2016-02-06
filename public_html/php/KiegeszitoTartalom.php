@@ -109,11 +109,13 @@ function getKiegTForm() {
 
 
 function setUjKiegT() {
+    trigger_error('Not Implemented!', E_USER_WARNING);
 }
 
 
 
 function getUjKiegTForm() {
+    trigger_error('Not Implemented!', E_USER_WARNING);
 }
 
 
