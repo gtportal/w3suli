@@ -149,7 +149,7 @@
         $HTMLkod  = '';
 
         //Csak rendszergazdáknak és moderátoroknak!
-        if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
           $UjONev   = '';
           $UjOTipS  = '';            
           $Oid      = $Aktoldal['id'];    
@@ -233,10 +233,10 @@
     
     
     function setUjOldal() {
-        global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
+        global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $oURL;
         //Csak rendszergazdáknak és moderátoroknak!
         $ErrorStr = '';
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>0) && (isset($_POST['submitUjOldalForm'])))   { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (isset($_POST['submitUjOldalForm'])))   { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
           // ============== HIBAKEZELÉS =====================
           //A beérkező adatok ellenőrzése  
           //Az oldalnév ellenőrzése  
@@ -260,15 +260,28 @@
               default: $ErrorStr .= ' Err004,';
             }             
           } else {$ErrorStr .= ' Err004,';} 
-          echo "<h1>UjOTipS: $UjOTipS</h1>";
-          echo "<h1>UjOTipKod: $UjOTipKod</h1>";
           // ============== ADATKEZELÉS - ÚJ REKORD LÉTREHOZÁSA   =====================
           if ($ErrorStr=='') {
            //Az oldal mentése
            $AktOid = $Aktoldal['id'];  
            $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', '$UjONev','$UjOUrl',1,1,'Az oldal leírása',
                                                           'Az oldal kulcsszavai',$AktOid,$UjOTipKod,'Az oldal tartalma','','')";
-           if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba UO 01 ");}               
+           if (!mysqli_query($MySqliLink,$InsertIntoStr)) {
+               die("Hiba UO 01 ");               
+           } else {
+               $UjID= mysqli_insert_id($MySqliLink);  
+               // =================== VÁLTÁS AZ ÚJ OLDALRA =========================
+               // Megj. Az előző ID alapján lekérjük a hozzátartozó $oURL-t, amely alapján az aktuális olda adatainak kezelése folyik 
+                $SelectStr   = "SELECT OUrl FROM Oldalak WHERE id=$UjID ";  //echo "<h1>$SelectStr</h1>";
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba VÁLTÁSI H 01aa ");
+                $rowDB       = mysqli_num_rows($result); 
+                if ($rowDB > 0) {
+                    $row  = mysqli_fetch_array($result);
+                    mysqli_free_result($result);
+                    $oURL = $row['OUrl'];
+                    getOldalData($oURL);       // Most már ez lesz az aktuális oldal
+                }               
+           }               
           }            
         }
         return $ErrorStr;
@@ -279,7 +292,7 @@
         $HTMLkod  = '';
 
         //Csak rendszergazdáknak és moderátoroknak!
-        if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
       
           $Oid          = $Aktoldal['id'];  
           $ONev         = $Aktoldal['ONev'];
@@ -439,7 +452,7 @@
       //Csak rendszergazdáknak és moderátoroknak!
       $ErrorStr = '';        
         
-      if ($_SESSION['AktFelhasznalo'.'FSzint']>0) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+      if ($_SESSION['AktFelhasznalo'.'FSzint']>3) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
           
         $Oid          = $Aktoldal['id'];  
         $ONev         = $Aktoldal['ONev'];
@@ -532,7 +545,7 @@
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
         //Csak rendszergazdáknak és moderátoroknak!
         $ErrorStr = '';
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>0) && (isset($_POST['submitOldalTorolForm'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (isset($_POST['submitOldalTorolForm'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
             // ============== HIBAKEZELÉS =====================
             $Oid    = $Aktoldal['id'];
             $ONev   = $Aktoldal['ONev'];
@@ -573,7 +586,7 @@
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
         $HTMLkod  = '';
         //Csak rendszergazdáknak és moderátoroknak!
-        if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
           $OUrl       = $Aktoldal['OUrl'];
           $Oid        = $Aktoldal['id'];  
           $ONev       = $Aktoldal['ONev'];
@@ -630,7 +643,7 @@
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $AlapAdatok, $MySqliLink;  
       $HTMLkod   = ''; //style='display:none;
       $HTMLFormkod   = '';
-      if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+      if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox'>\n";
         $HTMLFormkod  .= "  <label for='chFormkod'    class='chLabel'    id='labelchFormkod'>Oldal szerkesztése</label>\n";  
         $HTMLFormkod  .= "<div id='divFormkod'>\n";      
