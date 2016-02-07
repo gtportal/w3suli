@@ -1,5 +1,7 @@
 <?php
-  $oURL=''; $MySqliLink='';
+  global $oURL;
+  $oURL=''; 
+  $MySqliLink='';
     $Aktoldal       = array();
     $SzuloOldal     = array();
     $NagyszuloOldal = array();
@@ -27,6 +29,9 @@
   }  
   
   $_SESSION['ErrorStr']   = '';
+  
+  if (isset($_GET['f0'])) { $oURL = $_GET['f0'];} else { $oURL = '';}  
+  
   //ADATBÁZIS MEGNYITÁSA
   require_once("php/DB/Adatbazis.php");
   require_once("php/Init.php");  
@@ -37,8 +42,8 @@
   
   //BE- vagy KIJELENTKEZÉS; FELHASZNÁLÓI ADATOK MÓDOSÍTÁSA
   require_once("php/Felhasznalo.php");
-  $_SESSION['ErrorStr']   .= setBelepes();
-  $_SESSION['ErrorStr']   .= setKilepes();
+  $_SESSION['ErrorStr']   .= setBelepes(); 
+  $_SESSION['ErrorStr']   .= setKilepes(); 
   $_SESSION['ErrorStr']   .= setFelhasznalo();
   $_SESSION['ErrorStr']   .= setUjFelhasznalo();
   $_SESSION['ErrorStr']   .= setUjJelszo();
@@ -56,8 +61,7 @@
   require_once 'php/morzsa.php';
   require_once 'php/Lablec.php';
   
-  //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA  
-  if (isset($_GET['f0'])) { $oURL = $_GET['f0'];} else { $oURL = '';}  
+  //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA
   getOldalData($oURL);  
   
   //A MODERÁTOR STÁTUSZ ELLENŐRZÉSE
@@ -121,30 +125,7 @@
        </nav>
        <div id='BelsoKeret'>
 		  <nav id='HelyiNav'>
-                     <?php echo getMenuHTML(); ?>
-	        Helyi menü
-            <ul class='Ul1'>
-              <li><a href='./' class='AktLink'>Első szint</a> 
-                <ul class='Ul2'>
-                  <li><a href='./'>Második szint</a></li>
-                  <li><a href='./' class='AktLink'>Második szint</a> 
-                    <ul class='Ul3'>
-                      <li><a href='./'>Harmadik szint</a></li>
-                      <li><a href='./' class='AktLink'>Harmadik szint</a></li>                       
-                    </ul>               
-                  </li>
-                  <li><a href='./'>Második szint</a></li>
-                </ul>
-              </li> 
-              <li><a href='./'>Első szint</a>
-                <ul class='Ul2'>
-                  <li><a href='./'>Második szint</a></li>
-                  <li><a href='./'>Második szint</a></li>
-                  <li><a href='./'>Második szint</a></li> 
-                </ul>   
-              </li>  
-              <li><a href='./'>Első szint</a></li>           
-            </ul>		  
+                     <?php echo getMenuHTML(); ?>		  
 		  </nav>		   
 		  <div id='Tartalom'>
                         <?php echo getMorzsaHTML(); ?>
