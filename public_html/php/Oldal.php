@@ -17,7 +17,7 @@
  * 
  * 51 = Alapbeállítások
  * 52 = Kiegészítő tartalom
- * 53 =
+ * 53 = Főmenü linkjeinek beállítása
  *
  */
 
@@ -515,7 +515,8 @@
           // ============== ADATKEZELÉS - MÓDOSÍTÁS =====================
           if ($ErrorStr=='') {
             if (isset($_POST['OLeiras']))      {$OLeiras=test_post($_POST['OLeiras']);}  
-            if (isset($_POST['OTartalom']))    {$OTartalom=test_post($_POST['OTartalom']);}  
+            if (isset($_POST['OTartalom']))    {$OTartalom=test_post($_POST['OTartalom']);} 
+           // if (isset($_POST['OTartalom']))    {$OTartalom=($_POST['OTartalom']);} 
             if (isset($_POST['OPrioritas']))   {$OPrioritas=test_post($_POST['OPrioritas']);}  
 	    if (isset($_POST['OLathatosag']))  {$OLathatosag=test_post($_POST['OLathatosag']);}
 	    if (isset($_POST['OKulcsszavak'])) {$OKulcsszavak=test_post($_POST['OKulcsszavak']);}
@@ -671,7 +672,7 @@
         
         // ----------  Speciális tartalom kiíratása  ----------------------------
         $HTMLkod  .= "<div id='divOTartalom'>\n";  
-        //$HTMLkod  .= "<h1>".$Aktoldal['OTipus']."</h1>\n";
+       // $HTMLkod  .= "<h1>".$Aktoldal['OTipus']."</h1>\n";
         switch ($Aktoldal['OTipus']) {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap
                     $HTMLkod  .= $HTMLFormkod;
@@ -715,7 +716,10 @@
           case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
                     $HTMLkod  .= getKiegTForm();
                     $HTMLkod  .= getUjKiegTForm();
-                   break;                
+                   break;   
+          case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
+                    $HTMLkod  .= getFoMenuForm();
+                   break;       
         }
         $HTMLkod  .= "</div>\n"; 
       }  
