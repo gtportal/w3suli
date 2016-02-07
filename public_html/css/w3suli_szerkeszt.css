@@ -25,3 +25,20 @@
 #divOldalKepForm .Kepszerk input[type="number"] {width:45px;}
 
 .pKTorol {color:#f00;}
+
+
+#labelchFormkod {display:block; margin-bottom: 5px;}
+#labelchFormkod:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelchFormkod:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+
+#labelUjOldalForm:before{content:url('../img/ikonok/newpage28.png');position:relative;top:7px;}
+#labelUjOldalForm:hover:before{content:url('../img/ikonok/newpagepushed28.png');}
+
+#labelOldalForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelOldalForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+
+#labelOldalTorolForm:before{content:url('../img/ikonok/delete28.png');position:relative;top:7px;}
+#labelOldalTorolForm:hover:before{content:url('../img/ikonok/deletepushed28.png');}
+
+#labelOldalKepForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelOldalKepForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
