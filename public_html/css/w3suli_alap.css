@@ -2,24 +2,25 @@
 a {text-decoration:none;}
 .Error {border: 1px solid #d00; }
 .AktLink {font-weight:bold;}
+
 /* Fő szerkezet nagy felbontásnál*/
 	  
 
 	  
 * { box-sizing: border-box;}		 
-body, html {margin:0; padding:0; height:100%;  background-color:#eee;}		 
+body, html {margin:0; padding:0; height:100%;  background-color:#999999;}		 
 #Keret {width:100%; min-height:100%;}
        
-#FoHeder {background-color:#888; width:100%; line-height:100px;}
-#FoNav {background-color:#ff0; width:100%; line-height:30px;}
+#FoHeder {background-color:#CC9966; width:100%; line-height:100px;}
+#FoNav {width:100%; line-height:30px;}
        
 
-#BelsoKeret {background-color:#f0f; width:100%; padding:0 300px;}       
-#Tartalom {background-color:#eee; width:100%; min-height:90%; float:left; margin-right:-100%;margin-bottom:40px; }
+#BelsoKeret {background-color:#CC9966; width:100%; padding:0 300px;}       
+#Tartalom {background-color:#CC9966; width:100%; min-height:90%; float:left; margin-right:-100%;margin-bottom:40px; }
 #HelyiNav {background-color:#888; width:300px; float:left; margin: 0 0 0 -300px;}
  #KiegeszitoInfo {background-color:#08f; width:300px; margin-right:-300px; float:right;}       
        
-footer {background-color:#333; width:100%;clear:left; position: fixed;  bottom: 0;}
+footer {background-color:#999999; width:100%;clear:left; position: fixed;  bottom: 0;}
        
 /* Menüsor*/
 #FoNav #MenuIkon1 {display: none;}
@@ -29,7 +30,8 @@ footer {background-color:#333; width:100%;clear:left; position: fixed;  bottom: 
        
 #FoNavBal {float:left; width:100px;}
 #FoNavJobb {width:100%;margin:0 100px; text-align:center;}
-       
+    
+   
 /***************************************** Helyi menü ********************************************/
 
 #HelyiNav {margin-bottom:40px; }
@@ -41,31 +43,22 @@ footer {background-color:#333; width:100%;clear:left; position: fixed;  bottom: 
 #HelyiNav .AktLink {font-weight:bold;}
 #HelyiNav  li a::before{content: " » ";}
 
-#HelyiNav li a { display: inline-block; background-color:#000; padding:8px 5px 0px 5px;
-	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #888; border-top:1px solid #888;} 
-#HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#00ff99;
-    font:  14px/24px Verdana, Geneva, sans-serif;
-    text-decoration:none; }
+#HelyiNav li a { display: inline-block; padding:8px 5px 0px 5px; width:100%; height: 40px; } 
+#HelyiNav a:link,  #HelyiNav  a:visited {text-decoration:none; }
 
 /* A link állapotainak megkülönböztetése  */
-#HelyiNav  li a:hover  {color:#00ff99; text-decoration:none;} 
-#HelyiNav  li a:active {color:#00ff99; border-bottom:2px; border-top:2px; padding-top:7px; }
-  
-  
+#HelyiNav  li a:hover  { text-decoration:none;} 
+#HelyiNav  li a:active {border-bottom:2px; border-top:2px; padding-top:7px; }
+   
 /*---- Második szint --*/
-#HelyiNav li li a {background-color:#222; padding-left:15px;} 
-#HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
+#HelyiNav li li a {padding-left:15px;} 
  
 /*---- Harmadik szint --*/
-#HelyiNav li li li a {background-color:#333; padding-left:25px;} 
-#HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
-
+#HelyiNav li li li a { padding-left:25px;} 
 
 /*---- Negyedik szint --*/
-#HelyiNav li li li li a {background-color:#555; padding-left:35px;} 
-#HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
-  
-  
+#HelyiNav li li li li a {padding-left:35px;} 
+ 
        
 /* Menü ki-be*/
 #chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
@@ -73,6 +66,19 @@ footer {background-color:#333; width:100%;clear:left; position: fixed;  bottom: 
        
 #Tartalom section img {margin:10px;}
 #Tartalom article  {margin:6px;}
-       
+     
 
-       
+/***************************************** Lábléc menü ********************************************/
+#FoFooter {
+    text-align: center;
+}
+
+#FoFooter ul {
+    list-style-type: none;
+    padding-left:0px;
+}
+
+#FoFooter li {
+    display: inline-block;
+    padding-left:10px;
+}
