@@ -1,10 +1,128 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 2015.12.30., 13:13:19
-    Author     : gtportal
-*/
+/* Általános beállítások*/
+a {text-decoration:none;}
+.Error {border: 1px solid #d00; }
+.AktLink {font-weight:bold;}
+/* Fő szerkezet nagy felbontásnál*/
+	  
 
+	  
+* { box-sizing: border-box;}		 
+body, html {margin:0; padding:0; height:100%;  background-color:#f2f2f2;}		 
+#Keret {width:100%; min-height:100%; background-color:#f2f2f2;}
+       
+#FoHeder {background-color:#f2f2f2; width:100%; line-height:100px;}
+#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
+       
+
+#BelsoKeret {background-color:#f2f2f2; width:100%; padding:0 300px;}       
+#Tartalom {background-color:#f2f2f2; width:100%; min-height:90%; float:left; margin-right:-100%;margin-bottom:40px; 
+padding:10px; border-right:2px solid #DCCBBB; border-bottom:2px solid #DCCBBB;}
+
+ #KiegeszitoInfo {background-color:#DCCBBB; width:300px; margin-right:-300px; float:right;}       
+       
+footer {background-color:#DCCBBB; width:100%;clear:left; position: fixed;  bottom: 0;}
+       
+/*------------Menüsor-----------*/
+#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
+#FoNav #MenuIkon1 {display: none;}
+#FoNav #MenuIkon2 {display: block;}       
+#chmenu:checked ~ #FoNav #MenuIkon1 {display: block;}
+#chmenu:checked ~ #FoNav #MenuIkon2 {display: none;}
+       
+#FoNavBal {float:left; width:100px;}
+#FoNavJobb {width:100%;margin:0 100px; text-align:center;}
+       
+/*------------Menü-----------*/
+#HelyiNav {background-color:#f2f2f2; width:300px; float:left; margin: 0 0 0 -300px; padding-right:10px; border-right:2px solid #DCCBBB;}
+#HelyiNav {margin-bottom:40px; }
+
+#HelyiNav ul {
+    list-style-type: none;
+    padding-left:0px;
+}
+#HelyiNav .AktLink {font-weight:bold;}
+#HelyiNav  li a::before{content: " » ";}
+
+#HelyiNav li a { display: inline-block; background-color: 	#DCCBBB; padding:8px 5px 0px 5px;
+	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #888; border-top:1px solid #888;} 
+#HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#000;
+    font:  14px/24px Verdana, Geneva, sans-serif;
+    text-decoration:none; }
+
+/* A link állapotainak megkülönböztetése  */
+#HelyiNav  li a:hover  {color:#000; text-decoration:none; margin-left:10px;} 
+#HelyiNav  li a:active {color:#000; border-bottom:2px; border-top:2px; padding-top:7px; }
+  
+  
+/*---- Második szint --*/
+#HelyiNav li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#000;}
+ 
+/*---- Harmadik szint --*/
+#HelyiNav li li li a {background-color:#DCCBBB; padding-left:25px} 
+#HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#000;}
+
+
+/*---- Negyedik szint --*/
+#HelyiNav li li li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#000;}
+  
+  
+       
+/* Menü ki-be*/
+#chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
+#chmenu:checked ~ #BelsoKeret {padding-left:0;}
+       
+#Tartalom section img {margin:10px;}
+#Tartalom article  {margin:6px;}
+       
+
+#OTartalom{width:95%;}
+#OLeiras{width:95%;}
+
+/*----------------------------------------------------- el innét*/
+#divFormkod{margin-left:1px;}
+#chFormkod {display:none;}
+#chUjOldalForm{display:none;}
+#chOldalForm{display:none;}
+#chOldalTorolForm{display:none;}
+#chOldalKepForm{display:none;}
+
+/*------------Admin panel-új oldal-----------*/
+#divUjOldalForm{background-color:#f2f2f2; padding:7px;}
+
+#labelUjOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px; padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+ 
+ #UjONev{background-color:#DCCBBB;}
+ #UjOTipValszt{background-color:#DCCBBB;}
+
+/*------------Admin panel-oldal módosítás------------*/
+#divOldalForm{background-color:#f2f2f2; padding:7px;}
+
+#labelOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+
+#OLeiras{background-color:#DCCBBB;}
+#OTartalom{background-color:#DCCBBB;}
+#OKulcsszavak{background-color:#DCCBBB;}
+#OLathatosag{background-color:#DCCBBB;}
+#OPrioritas{background-color:#DCCBBB;}
+#OTipValszt{background-color:#DCCBBB;}
+#ONev{background-color:#DCCBBB;}
+#submitKisKepTolt{background-color:#DCCBBB;}
+/*#fileKepTolt{background-color:#DCCBBB;}*/
+
+/*------------Admin panel-oldal törlése------------*/
+#divOldalTorolForm{background-color:#f2f2f2; padding:7px;}
+
+#labelOldalTorolForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+ 
+/*------------Admin panel-oldal képeinek módosítás------------*/
+#divOldalKepForm{background-color:#f2f2f2; padding:7px;}
+
+#labelOldalKepForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+
+#submit_KepekFeltoltForm{background-color:#DCCBBB;}
