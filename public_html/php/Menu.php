@@ -5,22 +5,31 @@
 
     function getMenuHTML() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
+         $HTMLkod1 = '';
+        // ================ FELHASZNÁLÓ ÜDVÖZLÉSE ============================= 
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  {             
+           $HTMLkod1 .= "<div id='divFelhasznaloUdv'>\n Üdv: ";
+           $HTMLkod1 .= $_SESSION['AktFelhasznalo'.'FNev'];
+           $HTMLkod1 .= "<div>\n";           
+        }
+        
         // ================ FELHASZNÁLÓKEZELÉSHEZ TARTOZÓ OLDALAK ============================= 
-        $HTMLkod1      = "<ul class='Ul1'>\n";
+        $HTMLkod1     .= "<ul class='Ul1'>\n";
         if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  { 
-            $HTMLkod1 .= "<li class='M1'><a href='?f0=kijelentkezes'>Kijelentkezés</a></li>\n"; 
-            $HTMLkod1 .= "<li class='M1'><a href='?f0=adatmodositas'>Adatmódosítás</a></li>\n";
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=kijelentkezes'>Kijelentkezés</a></li>\n";            
             $HTMLkod1 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";            
         } else {
             $HTMLkod1 .= "<li class='M1'><a href='?f0=bejelentkezes'>Bejelentkezés</a></li>\n";  
-            $HTMLkod1 .= "<li class='M1'><a href='?f0=regisztracio'>Regisztráció</a></li>\n"; 
+            
         }
         $HTMLkod1     .= "</ul>\n";
         
         // ================ RENDSZERGAZDÁK OLDALAI ============================= 
         $HTMLkod2      = '';
-        if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { 
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { 
             $HTMLkod2 .= "<ul class='Ul1'>\n";
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=regisztracio'>Regisztráció</a></li>\n"; 
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=adatmodositas'>Adatmódosítás</a></li>\n";
             $HTMLkod2 .= "<li class='M1'><a href='?f0=alapbeallitasok'>Alapbeállítások</a></li>\n"; 
             $HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>Felhasználó lista</a></li>\n";
             $HTMLkod2 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";
