@@ -53,6 +53,7 @@
   require_once("php/FelhasznaloCsoport.php");  
   require_once("php/FCsoportTagok.php");
   require_once 'php/KiegeszitoTartalom.php';
+  require_once 'php/FoMenu.php';
   require_once 'php/OldalModerator.php';
   require_once 'php/Menu.php';
   require_once 'php/OldalCikkei.php';
@@ -88,6 +89,8 @@
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
  $_SESSION['ErrorStr']   .= setUjKiegT();
  $_SESSION['ErrorStr']   .= setKiegT();
+ 
+ $_SESSION['ErrorStr']   .= setFoMenu();
 ?>
 
 
@@ -112,8 +115,8 @@
        <nav id='FoNav'> 
 		 <div id='FoNavBal'>  
 		   <label for="chmenu" class="MenusorElem" id="MenuLabel">
-             <img src="img/ikonok/menu_k.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon1">
-             <img src="img/ikonok/menu_z.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon2">     
+             <img src="img/ikonok/menu1pushed28.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon1">
+             <img src="img/ikonok/menu128.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon2">     
              <span id="MENUGombDiv">Menü </span>
            </label>
          </div>
@@ -130,26 +133,7 @@
 		  <div id='Tartalom'>
                         <?php echo getMorzsaHTML(); ?>
                         <?php echo getOldalHTML(); ?>
-			<section>  		
-			 <article>   
-				 <img src="img/Shrek_fierce.jpg" alt="leírás" title="1 cikk címe" style="float:left;">
-				 <h2>1 cikk címe</h2>
-		  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br><br>
-		   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-		   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."	
-		     </article>  
-		     
-		     
-		     			 <article>   
-				<img src="img/Shrek_1.jpg" alt="leírás" title="2 cikk címe" style="float:left;">			 
-				 <h2>2. cikk címe</h2>
-		  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-		   Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-		   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br><br>
-		   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."	
-		     </article> 
-		     </section>
+			
 		  </div> 		     
 		  <aside id='KiegeszitoInfo'>Kiegészítő tartalmak</aside>       
        </div>     
