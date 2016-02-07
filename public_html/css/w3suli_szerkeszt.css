@@ -4,6 +4,7 @@
 #chFormkod:checked    ~ #divFormkod    {display: block;}
 
 #divUjOldalForm, #divOldalForm, #divOldalTorolForm, #divOldalKepForm {display: none; border: 1px solid #000;}
+#chFormkod, #chUjOldalForm, #chOldalForm, #chOldalTorolForm, #chOldalKepForm {display:none;}
 
 #chUjOldalForm:checked    ~ #labelUjOldalForm     {font-weight:bold;}
 #chOldalForm:checked      ~ #labelOldalForm       {font-weight:bold;}
