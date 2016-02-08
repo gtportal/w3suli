@@ -8,19 +8,19 @@ a {text-decoration:none;}
 
 	  
 * { box-sizing: border-box;}		 
-body, html {margin:0; padding:0; height:100%;  background-color:#999999;}		 
+body, html {margin:0; padding:0; width:100%; background-color:#999999; overflow-x: hidden;}		 
 #Keret {width:100%; min-height:100%;}
        
-#FoHeder {background-color:#CC9966; width:100%; line-height:100px;}
+#FoHeder {background-color:#CC9966; width:100%; width:100%; line-height:100px;}
 #FoNav {width:100%; line-height:30px;}
        
 
-#BelsoKeret {background-color:#CC9966; width:100%; padding:0 300px;}       
+#BelsoKeret {background-color:#CC9966; width:100%; padding:0 300px; min-height: 100%;}       
 #Tartalom {background-color:#CC9966; width:100%; min-height:90%; float:left; margin-right:-100%;margin-bottom:40px; }
-#HelyiNav {background-color:#888; width:300px; float:left; margin: 0 0 0 -300px;}
+#HelyiNav {background-color:#888; width:300px; float:left; margin: 0 0 0 -300px; }
  #KiegeszitoInfo {background-color:#08f; width:300px; margin-right:-300px; float:right;}       
        
-footer {background-color:#999999; width:100%;clear:left; position: fixed;  bottom: 0;}
+footer {background-color:#999999; width:100%;clear:left; }
        
 /* Menüsor*/
 #FoNav #MenuIkon1 {display: none;}
