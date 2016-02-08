@@ -433,11 +433,129 @@ function getUjFelhasznaloForm() {
 // A felhasználók jelszavait a rendszergazdák és a felhasználók is módosíthatják     
 // Ha a felhasználó módosítja a jelszót, akkor meg kell adnia az érvényes jelszót   
     function SetUjJelszo() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
+        global $MySqliLink;
+	$ErrorStr = ''; 
+	$FRJelszo  = '';
+	$FUJelszo  = '';
+	$FUJelszo2 = '';
+	$FFNev     = $_SESSION['AktFelhasznalo'.'FFNev'];
+	
+	if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitUjJelszoForm'])))
+	{ 
+		if (isset($_POST['FRJelszo']))       {$FRJelszo  = test_post($_POST['FRJelszo']);}			
+		if (isset($_POST['FUJelszo']))       {$FUJelszo  = test_post($_POST['FUJelszo']);}
+		if (isset($_POST['FUJelszo2']))      {$FUJelszo2 = test_post($_POST['FUJelszo2']);}
+		
+		//----------------- HIBAKEZELÉS -------------------------
+		if($FRJelszo == '')				{$ErrorStr .= ' Err001 ';}
+		if(($FUJelszo == '') || ($FUJelszo2 == ''))	{$ErrorStr .= ' Err002 ';}
+
+		$SelectStr   = "SELECT FJelszo FROM Felhasznalok WHERE FFNev='$FFNev'"; // echo "<h1>$SelectStr</h1>";
+       		$result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba setUjJelszo 01 ");
+    		$row         = mysqli_fetch_array($result); mysqli_free_result($result);
+
+		$FRJelszo    = md5($FRJelszo); 
+
+		if($FRJelszo != $row['FJelszo']){$ErrorStr .= ' Err003 ';} //nem jól adta meg a régi jelszót
+
+		if (strlen($FUJelszo)>20) { $ErrorStr .= ' Err004 ';} //túl hosszú jelszó
+		if (strlen($FUJelszo)<6)  { $ErrorStr .= ' Err005 ';} //túl rövid jelszó			
+		if ($FUJelszo!=$FUJelszo2){ $ErrorStr .= ' Err006 ';} // nem egyeznek a jelszavak
+		
+		// ---------------- JELSZÓ MÓDOSÍTÁSA AZ ADATBÁZISBAN ---------------------
+		if($ErrorStr ==''){
+			 $FUJelszo = md5($FUJelszo); 
+			 $UpdateStr = "UPDATE Felhasznalok SET FJelszo = '$FUJelszo' WHERE FFNev='$FFNev'"; // echo "<h1>$UpdateStr</h1>";
+			 if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba setUjJelszo 02 ");} 
+			 $ErrorStr .= ' Err007 ';              
+	    	} 
+	
+	}	
+	return $ErrorStr;
     }
     
     function getUjJelszoForm() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
+        $HTMLkod  = '';
+	$ErrorStr = ''; 
+	
+	if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+
+	//Jelszó ellenőrzése
+	$ErrClassFRJelszo = ''; 
+	$ErrClassFUJelszo = '';
+	if (strpos($_SESSION['ErrorStr'],'Err001')!==false) 
+	{
+	$ErrClassFRJelszo = ' Error '; 
+	$ErrorStr .= 'Hiányzik a régi jelszó! ';
+	} 
+	else
+	{
+		if (strpos($_SESSION['ErrorStr'],'Err003')!==false) 
+		{
+		$ErrClassFRJelszo = ' Error '; 
+		$ErrorStr .= 'Nem adta meg jól a régi jelszót! ';
+		} 
+	}
+	
+	if (strpos($_SESSION['ErrorStr'],'Err002')!==false) 
+	{
+	$ErrClassFUJelszo = ' Error '; 
+	$ErrorStr .= 'Hiányzik az új jelszó! ';
+	} 
+	else
+	{
+		if (strpos($_SESSION['ErrorStr'],'Err004')!==false) 
+		{
+		$ErrClassFUJelszo = ' Error '; 
+		$ErrorStr .= 'Túl rövid a megadott jelszó! ';
+		} 
+		if (strpos($_SESSION['ErrorStr'],'Err005')!==false) 
+		{
+		$ErrClassFUJelszo = ' Error '; 
+		$ErrorStr .= 'Túl hosszú a megadott jelszó! ';
+		} 
+		if (strpos($_SESSION['ErrorStr'],'Err006')!==false) 
+		{
+		$ErrClassFUJelszo = ' Error '; 
+		$ErrorStr .= 'Jelszavak nem egyeznek! ';
+		} 
+	}
+	if (strpos($_SESSION['ErrorStr'],'Err007')!==false) 
+	{ 
+	$ErrorStr .= 'Sikeres jelszómódosítás!';
+	} 	
+	
+	$HTMLkod .= "<div id='divUjJelszoForm' >\n";
+	if ($ErrorStr!='') {
+	$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+
+
+	$HTMLkod .= "<form action='?f0=jelszomodositas' method='post' id='formUjJelszoForm'>\n";
+
+	//Régi jelszó
+
+	$HTMLkod .= "<p class='pFRJelszo'><label for='FRJelszo' class='label_1'>Régi jelszó: </label><br>\n ";
+	$HTMLkod .= "<input type='password' name='FRJelszo' class='$ErrClassFRJelszo' id='FRJelszo' placeholder='Régi jelszó' size='20'></p>\n"; 
+
+	//Új jelszó
+
+	$HTMLkod .= "<p class='pFUJelszo'><label for='FUJelszo' class='label_1'>Új jelszó: </label><br>\n ";
+	$HTMLkod .= "<input type='password' name='FUJelszo' class='$ErrClassFUJelszo' id='FUJelszo' placeholder='Új jelszó' size='20'></p>\n"; 
+
+	//Új jelszó újra
+
+	$HTMLkod .= "<p class='pFUJelszo2'><label for='FUJelszo2' class='label_1'>Új jelszó újra: </label><br>\n ";
+	$HTMLkod .= "<input type='password' name='FUJelszo2' class='$ErrClassFUJelszo' id='FUJelszo2' placeholder='Új jelszó újra' size='20'>";
+	$HTMLkod .= "</p>\n"; 
+
+	//Submit
+	$HTMLkod .= "<input type='submit' name='submitUjJelszoForm' value='Módosít'><br>\n";        
+	$HTMLkod .= "</form>\n";            
+	$HTMLkod .= "</div>\n";   
+	}    
+
+	return $HTMLkod;
+
     }
  
     
