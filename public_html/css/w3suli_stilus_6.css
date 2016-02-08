@@ -1,0 +1,167 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2015.12.30., 13:13:19
+    Author     : gtportal
+*/
+
+	   a {text-decoration:none;}
+	  
+	   * { box-sizing: border-box;}		 
+	   body, html {margin:0; padding:0; height:100%;}		 
+       #Keret {color:black;
+				background-color:#000; width:100%; min-height:100%;
+				background-color: #660000;  ;  border-radius:0%;    
+				background: -webkit-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033); 
+				background: -moz-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);
+				background: -ms-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
+				background: -o-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
+				
+				
+
+			}
+       
+       #FoHeder {background-color:#888; width:100%; line-height:100px;
+				background-color: #660000;  ;  border-radius:0%;    
+				background: -webkit-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033); 
+				background: -moz-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);
+				background: -ms-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
+				background: -o-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
+				}
+       #FoNav {background-color:#ff0; width:100%; line-height:30px;
+	   
+	   }
+       
+       
+       
+       #BelsoKeret {background-color:#f0f; width:100%; padding:0 300px;}       
+       #Tartalom {background-color:#0f0; width:100%; min-height:90%; float:left; margin-right:-100%;}
+       #HelyiNav {background-color:#660000; color:white; background:transparent;    width:300px; float:left; margin: 0 0 0 -300px; }
+	   
+	   
+       #KiegeszitoInfo {background-color:#08f; color:white; width:300px; margin-right:-300px; float:right;}       
+       #logoImgLink{color:white;}
+	   
+	   
+       footer {background-color:#333; width:100%;clear:left; position: fixed;  bottom: 0;}
+       
+       /* Menüsor*/
+	   
+	   
+
+       #FoNav #MenuIkon1 {display: none ;}
+       #FoNav #MenuIkon2{display: block;} 
+		
+       #chmenu:checked ~ #FoNav #MenuIkon1 {display: block;}
+       #chmenu:checked ~ #FoNav #MenuIkon2 {display: none;}
+       
+       #FoNavBal {float:left; width:100px;}
+       #FoNavJobb {width:100%;margin:0 100px; color:black; text-align:center;
+		
+		}
+       
+       /* Helyi menü*/
+       .Ul1{
+			list-style-type:none;    text-decoration: none;
+		  background-color: #660000;  width:100%; height:10%; border-radius:15%;    
+					background: -webkit-radial-gradient(center, circle farthest-corner, #4444ff 0%,#000044 90%,#000000 100%);
+					background: -moz-radial-gradient(30% 30%, circle farthest-corner, #4444ff 0%,#000044 90%,#000000 100%);
+					background: -ms-radial-gradient(30% 30%, circle farthest-corner, #4444ff 0%,#e3a1ff 90%,#000000 100%);
+					
+					background: radial-gradient(circle farthest-corner at 30% 30%, #7f95ff 0%, #e3a1ff 90%, #000000 100%); 
+					
+					
+
+
+		}
+       .Ul2 {list-style-type:none;;
+ 
+					}
+       .Ul3 {list-style-type:none;    text-decoration: none;
+ 
+
+		}
+		.Ul4{
+			list-style-type:none;
+			
+		}
+       .AktLink {
+		}
+		
+		
+			
+		
+		
+		.M4{
+			border: 1px solid black;
+			border-radius: 15%;
+			padding:3px 20px;
+			background-image: -webkit-gradient(linear,right top,right bottom,color-stop(0.28, rgb(255, 255, 255)),color-stop(1, rgb(181, 178, 177)));
+			background-image: -o-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: -moz-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: -webkit-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: -ms-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: linear-gradient(to bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+		}
+		.M4:active{
+			background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.28, rgb(255, 255, 255)),color-stop(1, rgb(181, 178, 177)));
+			background-image: -o-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: -moz-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: -webkit-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: -ms-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+			background-image: linear-gradient(to top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+
+			
+		}
+			
+		
+		
+			
+		
+		
+       
+	   
+		a:link {color:#F0FFFF;} /* nem látogatott link */
+		a:visited {color:black;} /* meglátogatott link */
+		a:hover {color:#6A5ACD;} /* egérkurzor a link felett */
+		a:active {color:#808080;} /* egérgom lenyomva */
+	   
+	   
+       /* Menü ki-be*/
+       #chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
+       #chmenu:checked ~ #BelsoKeret {padding-left:0;}
+       
+       #Tartalom section img {margin:10px;}
+       #Tartalom article  {margin:6px;}
+       
+       /* Responsive átalakítás 1200px a        */       
+       @media only screen and (min-width : 1300px)  {  
+            #Tartalom section {
+				-webkit-column-count: 2; /* Chrome, Safari, Opera */
+                -moz-column-count: 2; /* Firefox */
+                column-count: 2;
+
+                -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+                -moz-column-gap: 40px; /* Firefox */
+                column-gap: 40px;
+				
+				
+			}
+       } 
+        
+        
+       @media only screen and (max-width : 1200px)  {  
+            #BelsoKeret {padding-right:0;}
+            #KiegeszitoInfo {margin-right:0px; width:100%; clear:left;} 
+       }
+
+       @media only screen and (max-width : 710px)  {  
+            #FoHeder, #FoNavJobb {display: none;}
+            #FoNavBal {height:40px; width:100%; display:block;} 
+            #FoNav {display:block; position:fixed; left:0px; top:0px;}
+            #Tartalom, #HelyiNav {margin: 40px 0 0 0; padding: 0; clear:left; }
+            #BelsoKeret {padding: 0;}
+       }   
