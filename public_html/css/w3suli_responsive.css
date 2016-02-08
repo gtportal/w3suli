@@ -14,14 +14,15 @@
         
         
 @media only screen and (max-width : 1200px)  {  
-    #BelsoKeret {padding-right:0;}
-    #KiegeszitoInfo {margin-right:0px; width:100%; clear:left;} 
+    #Keret #BelsoKeret {padding-right:0;}
+    #BelsoKeret #KiegeszitoInfo {margin-right:0px; width:100%; clear:both;float:none;} 
 }
 
 @media only screen and (max-width : 710px)  {  
     #FoHeder, #FoNavJobb {display: none;}
     #FoNavBal {height:40px; width:100%; display:block;} 
     #FoNav {display:block; position:fixed; left:0px; top:0px;}
-    #Tartalom, #HelyiNav {margin: 40px 0 0 0; padding: 0; clear:left; }
-    #BelsoKeret {padding: 0;}
+    #Keret #HelyiNav { position:fixed; left:0px; top:40px; z-index: 1000; width:300px; margin:0;}
+    #Keret #BelsoKeret {padding:0; margin:0;}
+    body #Keret {margin:0; padding:0;} 
 }     
