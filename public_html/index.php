@@ -46,7 +46,7 @@
   $_SESSION['ErrorStr']   .= setKilepes(); 
   $_SESSION['ErrorStr']   .= setFelhasznalo();
   $_SESSION['ErrorStr']   .= setUjFelhasznalo();
-  $_SESSION['ErrorStr']   .= setUjJelszo();
+  $_SESSION['ErrorStr']   .= SetUjJelszo();
   $_SESSION['ErrorStr']   .= setFelhasznaloTorol();    
   
   require_once("php/Oldal.php");
