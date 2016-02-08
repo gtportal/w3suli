@@ -20,7 +20,7 @@ padding:10px; border-right:2px solid #DCCBBB; border-bottom:2px solid #DCCBBB;}
 
  #KiegeszitoInfo {background-color:#DCCBBB; width:300px; margin-right:-300px; float:right;}       
        
-footer {background-color:#DCCBBB; width:100%;clear:left; position: fixed;  bottom: 0;}
+footer {background-color:#DCCBBB; width:100%;clear:left; }
        
 /*------------Menüsor-----------*/
 #FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
