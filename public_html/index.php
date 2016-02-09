@@ -87,7 +87,6 @@
   
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
- $_SESSION['ErrorStr']   .= setUjKiegT();
  $_SESSION['ErrorStr']   .= setKiegT();
  
  $_SESSION['ErrorStr']   .= setFoMenu();
@@ -135,7 +134,7 @@
                         <?php echo getOldalHTML(); ?>
 			
 		  </div> 		     
-		  <aside id='KiegeszitoInfo'>Kiegészítő tartalmak</aside>       
+		  <aside id='KiegeszitoInfo'><?php echo getKiegTHTML(); ?></aside>       
        </div>     
        <footer id='FoFooter'><?php echo getLablecHTML(); ?></footer>
      

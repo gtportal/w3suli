@@ -7,13 +7,27 @@ $KiegTartalom['KiegTNev']      = '';
 $KiegTartalom['KiegTTartalom'] = '';
 $KiegTartalom['KiegTPrioritas'] = 0;
 
+function InitKiegT() {
+  global $MySqliLink;
+  // Ha nincs, akkor létrehozzuk a FoMenuLink tábla 10 rekordját
+  $SelectStr = "SELECT id FROM KiegTartalom"; 
+  $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba KTinit 01 ");
+  $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
+  if ($rowDB < 10) {
+    for ($i=$rowDB;$i<10;$i++) {
+      $InsertIntoStr = "INSERT INTO KiegTartalom VALUES ('', '', '', 0)"; //echo "<h1>$InsertIntoStr</h1>";
+      if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba FoMenuLinit 01 ");}         
+    }        
+  }           
+}
+
 function setKiegT() {
     global $MySqliLink;
     $ErrorStr       = "";  
     $KiegTNev       = "";
     $KiegTTartalom  = "";
     $KiegTPrioritas = 0;
-    
+    InitKiegT();
     
     if (isset($_POST['submitKiegTartalom'])) {
         for ($i = 0; $i < 10; $i++){
@@ -78,6 +92,9 @@ function getKiegTForm() {
             $KiegTNev = $KiegTTomb[$i]['KiegTNev'];
             $KiegTTartalom = $KiegTTomb[$i]['KiegTTartalom'];
             $KiegTPrioritas = $KiegTTomb[$i]['KiegTPrioritas'];
+            
+            $HTMLkod .= "<p class='pKiegTid'>$i</p><br>\n ";
+            
             //Kiegészítő tartalom neve
             $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='ModKTNev_$i' id='ModKTNev_$i' placeholder='$KiegTNev' value='$KiegTNev' size='40'></p>\n"; 
@@ -108,18 +125,18 @@ function getKiegTForm() {
 
 
 
-function setUjKiegT() {
-    trigger_error('Not Implemented!', E_USER_WARNING);
-}
-
-
-
-function getUjKiegTForm() {
-    trigger_error('Not Implemented!', E_USER_WARNING);
-}
-
-
-
 function getKiegTHTML() {
-    trigger_error('Not Implemented!', E_USER_WARNING);
+    global $MySqliLink;
+    $HTMLkod        = '';
+
+    $SelectStr = "SELECT * FROM KiegTartalom ORDER BY KiegTPrioritas DESC";
+    $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
+
+    while ($row = mysqli_fetch_array($result)){
+        if ($row['KiegTTartalom']){
+            $HTMLkod .= "<div class ='divKiegTKulso'><h2>".$row['KiegTNev']."</h2>\n";
+            $HTMLkod .= "<div class = 'divKiegT'>".$row['KiegTTartalom']."</div></div>\n";
+        }
+    }
+    return $HTMLkod;
 }

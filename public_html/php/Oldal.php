@@ -715,7 +715,6 @@
                    break;    
           case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
                     $HTMLkod  .= getKiegTForm();
-                    $HTMLkod  .= getUjKiegTForm();
                    break;   
           case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
                     $HTMLkod  .= getFoMenuForm();
