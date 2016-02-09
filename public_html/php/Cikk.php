@@ -86,13 +86,7 @@ function getCikkTorolForm() {
 
 // ==================== AZ OLDAL CIKKEINEK MEGJELENÍTÉSE =================
 function getCikkHTML() {
-  $HTMLkod  = '';  
-  // Egyenlőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
-    
-    
-  $HTMLkod  = getUjCikkForm;
-  $HTMLkod  = getCikkForm();
-  $HTMLkod  = getCikkTorolForm();
+  //????
 }
 
 
