@@ -1,192 +1,109 @@
 <?php
-require_once 'CikkKep.php';
 
-/**
- * XXX detailed description
- *
- * @author    XXX
- * @version   XXX
- * @copyright XXX
- */
-class Cikk {
-    // Attributes
-    /**
-     * XXX
-     *
-     * @var    integer $id
-     * @access private
-     */
-    var $_id;
+// http://webfejlesztes.gtportal.eu/index.php?f0=7_tobbtbl
+// http://webfejlesztes.gtportal.eu/index.php?f0=7_friss_04
 
-    /**
-     * XXX
-     *
-     * @var    string $CNev
-     * @access private
-     */
-    var $_CNev;
+// A set -ek az index.php-ba beillesztve
+// A getCikkekHTML() oldal.php-ba beillesztve
 
-    /**
-     * XXX
-     *
-     * @var    string $CLeiras
-     * @access private
-     */
-    var $_CLeiras;
 
-    /**
-     * XXX
-     *
-     * @var    string $CTartalom
-     * @access private
-     */
-    var $_CTartalom;
+//Minta tömb
+$Cikkek                      = array();
+$Cikkek['id']                = '';
+$Cikkek['CNev']              = '';
+$Cikkek['CLeiras']           = '';
+$Cikkek['CTartalom']         = '';
+$Cikkek['CLathatosag']       = 1;
+$Cikkek['CSzerzo']           = '';
+$Cikkek['CSzerzoNev']        = '';
+$Cikkek['CLetrehozasTime']   = '';
+$Cikkek['CModositasTime']    = '';
 
-    /**
-     * XXX
-     *
-     * @var    integer $CLathatosag
-     * @access private
-     */
-    var $_CLathatosag;
 
-    /**
-     * XXX
-     *
-     * @var    Fid $CSzerzo
-     * @access private
-     */
-    var $_CSzerzo;
-
-    /**
-     * XXX
-     *
-     * @var    string $CSzerzoNev
-     * @access private
-     */
-    var $_CSzerzoNev;
-
-    /**
-     * XXX
-     *
-     * @var    string $CLetrehozasTime
-     * @access private
-     */
-    var $_CLetrehozasTime;
-
-    /**
-     * XXX
-     *
-     * @var    string $CModositasTime
-     * @access private
-     */
-    var $_CModositasTime;
-
-    /**
-     * XXX
-     *
-     * @var    array $Cikkek
-     * @access protected
-     */
-    var $_Cikkek;
-
-    // Associations
-    /**
-     * XXX
-     *
-     * @var    CikkKep $unnamed
-     * @access private
-     * @accociation CikkKep to unnamed
-     */
-    #var $unnamed;
-
-    // Operations
-    /**
-     * XXX
-     * 
-     * @param  integer $Cid XXX
-     * @return string XXX
-     * @access public
-     */
-    function setCikk($Cid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    /**
-     * XXX
-     * 
-     * @return string XXX
-     * @access public
-     */
-    function setUjCikk() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    /**
-     * XXX
-     * 
-     * @param  integer $Cid XXX
-     * @return string XXX
-     * @access public
-     */
-    function setCikkTorol($Cid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    /**
-     * XXX
-     * 
-     * @param  integer $Cid XXX
-     * @return string XXX
-     * @access public
-     */
-    function getCikkForm($Cid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    /**
-     * XXX
-     * 
-     * @return string XXX
-     * @access public
-     */
-    function getUjCikkForm() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    /**
-     * XXX
-     * 
-     * @param  integer $Cid XXX
-     * @return string XXX
-     * @access public
-     */
-    function getCikkTorolForm($Cid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    /**
-     * XXX
-     * 
-     * @param  integer $Cid XXX
-     * @return string XXX
-     * @access public
-     */
-    function getCikkHTML($Cid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    /**
-     * XXX
-     * 
-     * @param  integer $Cid XXX
-     * @return string XXX
-     * @access public
-     */
-    function getCikkElozetesHTML($Cid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
+// ==================== ÚJ CIKK LÉTREHOZÁSA =================
+function setUjCikk() {
+	// Létrehoz egy az aktuális oldalhoz tartozó cikket
+	trigger_error('Not Implemented!', E_USER_WARNING);
 }
+
+function getUjCikkForm() {
+	// Az aktuális oldalhoz tartozó cikk létrehozásához szükséges form
+	trigger_error('Not Implemented!', E_USER_WARNING);
+}
+
+// ==================== MEGLÉVŐ CIKK MÓDOSÍTÁSA =================
+
+// egy DIV-be kerül a cikk kiválasztását és a módosítását lehetővé tévő form
+// Minte a: Felhasznalo.php
+
+function getCikkValasztForm() {
+	// A felhasználóknál készített getFelhasznaloValasztForm() fgv-hez hasonló módon lehetővé teszi 
+	// a választást az oldal cikkei közül
+	// A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változókban tároljuk az 
+	// aktuális cikk adatait	
+}	
+
+function getCikkForm() {
+    $HTMLkod  = '';
+    $HTMLkod .= getCikkValasztForm();
+        
+    //A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk űrlapja   
+	trigger_error('Not Implemented!', E_USER_WARNING);
+}
+
+function setCikkValaszt() {
+	// I.) A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változók beállítása, ha
+	// a cikkválasztó űrlapot elküdték
+	
+	// II.) A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változók törlése, ha
+	// sem a cikkválasztó űrlapot sem a cikk módosítása elküdték nem küldték el (pl. új oldalt töltenek le)	
+	
+}	
+
+
+function setCikk() {
+  $ErrorStr = '';
+  $ErrorStr .= setFelhasznaloValaszt();	
+	
+  //A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk adatainak kezelése   
+  trigger_error('Not Implemented!', E_USER_WARNING);	
+	
+}
+
+
+
+
+// ==================== CIKK TÖRLÉSE =================
+
+function setCikkTorol() {
+	trigger_error('Not Implemented!', E_USER_WARNING);
+}
+
+function getCikkTorolForm() {
+	trigger_error('Not Implemented!', E_USER_WARNING);
+}
+
+
+// ==================== AZ OLDAL CIKKEINEK MEGJELENÍTÉSE =================
+function getCikkHTML() {
+  $HTMLkod  = '';  
+  // Egyenlőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
+    
+    
+  $HTMLkod  = getUjCikkForm;
+  $HTMLkod  = getCikkForm();
+  $HTMLkod  = getCikkTorolForm();
+}
+
+
+
+
+
+
+function getCikkElozetesHTML() {
+	trigger_error('Not Implemented!', E_USER_WARNING);
+}
+
+
 
 ?>
