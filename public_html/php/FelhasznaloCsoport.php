@@ -1,8 +1,6 @@
 <?php
 
 $FelhasznaloCsopor = array();
-
-
 $FelhasznaloCsopor['id']       = 0;
 $FelhasznaloCsopor['CsNev']    = '';
 $FelhasznaloCsopor['CsLeiras'] = '';
