@@ -85,14 +85,16 @@ function getCikkTorolForm() {
 
 
 // ==================== AZ OLDAL CIKKEINEK MEGJELENÍTÉSE =================
+
+
+
+// getCikkekHTML()-t használjuk !!!!
+
+
+
 function getCikkHTML() {
-  //????
+  // Ha szükség van rá
 }
-
-
-
-
-
 
 function getCikkElozetesHTML() {
 	trigger_error('Not Implemented!', E_USER_WARNING);
