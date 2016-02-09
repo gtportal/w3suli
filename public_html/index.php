@@ -58,6 +58,7 @@
   require_once 'php/OldalModerator.php';
   require_once 'php/Menu.php';
   require_once 'php/OldalCikkei.php';
+  require_once 'php/Cikk.php';
   
   require_once 'php/OldalKeptar.php';
   require_once 'php/morzsa.php';
