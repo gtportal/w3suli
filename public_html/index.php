@@ -1,13 +1,13 @@
 <?php
   global $oURL;
-  $oURL=''; 
-  $MySqliLink='';
-    $Aktoldal       = array();
-    $SzuloOldal     = array();
-    $NagyszuloOldal = array();
-    $DedSzuloId = 0;
+  $oURL           = ''; 
+  $MySqliLink     = '';
+  $Aktoldal       = array();
+  $SzuloOldal     = array();
+  $NagyszuloOldal = array();
+  $DedSzuloId = 0;
 
-    require_once 'php/AlapFgvek.php';
+  require_once 'php/AlapFgvek.php';
   //MUNKAMENET INDÍTÁSA
   session_start();
   $mm_azon   = session_id(); 
@@ -25,7 +25,8 @@
       $_SESSION['AktFelhasznalo'.'FSzerep']= '';
       $_SESSION['AktFelhasznalo'.'FKep']   = '';  
       
-      $_SESSION['ElozoOldalId']   = 1; 
+      $_SESSION['ElozoOldalId']            = 1; 
+      $_SESSION['SzerkFelhasznalo']        = 0;
   }  
   
   $_SESSION['ErrorStr']   = '';
@@ -84,7 +85,10 @@
   $_SESSION['ErrorStr']   .= setOldalKepek();
   $_SESSION['ErrorStr']   .= setOldalKepFeltolt();
   $_SESSION['ErrorStr']   .= setOldalKepTorol();
-  
+
+  //A CIKKEK ADATAINAK MÓDOSÍTÁSA
+ // $_SESSION['ErrorStr']   .= setUjOldal();
+ // $_SESSION['ErrorStr']   .= setOldal();  
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
  $_SESSION['ErrorStr']   .= setKiegT();
