@@ -87,8 +87,9 @@
   $_SESSION['ErrorStr']   .= setOldalKepTorol();
 
   //A CIKKEK ADATAINAK MÓDOSÍTÁSA
- // $_SESSION['ErrorStr']   .= setUjOldal();
- // $_SESSION['ErrorStr']   .= setOldal();  
+  $_SESSION['ErrorStr']   .= setUjCikk();
+  $_SESSION['ErrorStr']   .= setCikk();  
+  $_SESSION['ErrorStr']   .= setCikkTorol(); 
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
  $_SESSION['ErrorStr']   .= setKiegT();
