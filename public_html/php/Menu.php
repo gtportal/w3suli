@@ -32,7 +32,7 @@
             $HTMLkod2 .= "<li class='M1'><a href='?f0=adatmodositas'>Adatmódosítás</a></li>\n";
             $HTMLkod2 .= "<li class='M1'><a href='?f0=alapbeallitasok'>Alapbeállítások</a></li>\n"; 
             $HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>Felhasználó lista</a></li>\n";
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=Felhasznaloi_csoportok'>Felhasználói csoportok</a></li>\n";
             $HTMLkod2 .= "<li class='M1'><a href='?f0=kiegeszito_tartalom'>Kiegészítő tartalom</a></li>\n";    
             $HTMLkod2 .= "<li class='M1'><a href='?f0=Fomenu_linkek_beallitasa'>Főmenü linkjeinek beállítása</a></li>\n"; 
             $HTMLkod2 .= "</ul>\n";
