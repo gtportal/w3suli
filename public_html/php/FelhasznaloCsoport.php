@@ -62,7 +62,7 @@ function setFCsoport() {
     return $ErrorStr;
 }
 
-function getFCsoportForm() {
+function getFCsoportForm() {        // Ez kerül meghívásra a Felhasználói csoport kezelése oldalon
     global $MySqliLink;
     $HTMLkod   = '';
     
