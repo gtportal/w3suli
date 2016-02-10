@@ -6,20 +6,24 @@
     $CsoportTagok['Fid']  = -1;
     $CsoportTagok['CSid'] = -1;    
     
+// ============= Felhasználó csoport tagjainak ============  
+function setCsoportTagok() {
+    global $MySqliLink;
+    $ErrorStr = ''; 
+    
+    return $ErrorStr;
+}
 
-    function setCsoportTagok() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
+function getCsoportTagsagForm() {
+    global $MySqliLink;
+    $HTMLkod   = '';
+    
+    return $HTMLkod;
+}
 
-
-    function getTesztTagsag($Fid, $CSid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-    function getCsoportTagsagForm() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
-
-
+// ============= Annak eldöntése, hogy egy felhasználó tagja-e egy csoportnak ============     
+function getTesztTagsag($Fid, $CSid) {
+    trigger_error('Not Implemented!', E_USER_WARNING);
+}
 
 ?>
