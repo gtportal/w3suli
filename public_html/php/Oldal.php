@@ -15,6 +15,8 @@
  * 15 = Adatmódosítás
  * 16 = Jelszómodosítás 
  * 
+ * 20 = Felhasználói csoportok 
+ * 
  * 51 = Alapbeállítások
  * 52 = Kiegészítő tartalom
  * 53 = Főmenü linkjeinek beállítása
@@ -65,7 +67,7 @@
         $tiszta_OURL = $OUrl;
         if ($tiszta_OURL=='') {$tiszta_OURL = 'kezdolap';}
         //Az aktuális oldal adatainak betöltése
-        $SelectStr   = "SELECT * FROM Oldalak WHERE OUrl='$tiszta_OURL' LIMIT 1"; 
+        $SelectStr   = "SELECT * FROM Oldalak WHERE OUrl='$tiszta_OURL' LIMIT 1"; //echo $SelectStr;
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 01 ");
         $rowDB       = mysqli_num_rows($result); 
         if ($rowDB > 0) {
@@ -672,7 +674,7 @@
         
         // ----------  Speciális tartalom kiíratása  ----------------------------
         $HTMLkod  .= "<div id='divOTartalom'>\n";  
-       // $HTMLkod  .= "<h1>".$Aktoldal['OTipus']."</h1>\n";
+        //$HTMLkod  .= "<h1>".$Aktoldal['OTipus']."</h1>\n";
         switch ($Aktoldal['OTipus']) {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap
                     $HTMLkod  .= $HTMLFormkod;
@@ -709,7 +711,12 @@
                    break;                
           case 16:  $HTMLkod  .= "<h1>Jelszómódosítás</h1> \n";
                     $HTMLkod  .= getUjJelszoForm();
-                   break;           
+                   break;      
+               
+          case 20:  $HTMLkod  .= "<h1>Felhasználói csoport kezelése</h1> \n";
+                    $HTMLkod  .= getFCsoportForm();
+                   break;  
+               
           case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
                     $HTMLkod  .= getAlapbeallitasForm();
                    break;    
