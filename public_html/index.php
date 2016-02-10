@@ -27,6 +27,7 @@
       
       $_SESSION['ElozoOldalId']            = 1; 
       $_SESSION['SzerkFelhasznalo']        = 0;
+      $_SESSION['SzerkFCsoport']           = 0;
   }  
   
   $_SESSION['ErrorStr']   = '';
