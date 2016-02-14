@@ -1,21 +1,60 @@
+/* 
+    Author     : Pallagi Dániel
+*/
+
+
 /* Helyi menü*/
 .Ul1 {list-style-type:none;padding-left:20px;padding:5px;}
 .Ul2 {list-style-type:none;padding-left:20px;padding:5px;}
 .Ul3 {list-style-type:none;padding-left:20px;padding:5px;}
 .AktLink {font-weight:none;}
 
-#HelyiNav {background-color:#C0C0C0; width:300px; float:left; margin: 0 0 0 -300px; color:#ffffff;}
-#BelsoKeret {background-color:#f0f; width:100%; padding:0 300px;}  
+#HelyiNav {background-color:#C0C0C0; color:#ffffff;}
+#BelsoKeret {background-color:#f0f; }  
 #KiegeszitoInfo{background-color:#C0C0C0;color:#ffffff;}
 #Keret{background-color:#C0C0C0;}
-#FoNav{/*background-color:#CC6600;*/ background-image:url('hatter.jpg'); color:#ffffff;}
+#FoNav{/*background-color:#CC6600;*/ background-image:url('../img/pallagi_hatter.jpg'); color:#ffffff;}
+#Tartalom{background-color:#999999;}
+#FoHeder{background-color:#999999;}
 
-.FonavJobb 
-		a:link{color:#ffffff;} 
-        a:visited {color:#ffffff;} 
-		a:hover {color:#C0C0C0;}
-		a:active {color:#ffffff;}
+.footer_li {color:#ffffff;}
 
+#LogoLink
+			a:link {color:#ffffff;}
+			a:visited {color:#ffffff;}
+			a:hover {color:#CCCCCC;}
+			a:active {color:#ffffff;}
+
+.MPontLink{
+    padding: 1px 35px 1px 35px; background:#808080;
+    color: #ffffff;text-decoration:none;
+    border: solid 1px #000000;
+   -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+       -ms-border-radius: 4px;    
+        -o-border-radius: 4px;
+           border-radius: 2px;     
+  -webkit-box-shadow: inset 0 1px 0 #000000, 0 1px 1px #000000;
+     -moz-box-shadow: inset 0 1px 0 #000000, 0 1px 1px #000000;
+      -ms-box-shadow: inset 0 1px 0 #000000, 0 1px 1px #000000;
+       -o-box-shadow: inset 0 1px 0 #000000, 0 1px 1px #000000;         
+          box-shadow: inset 0 1px 0 #000000, 0 1px 1px #000000;     
+   -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+       -ms-transition-duration: 0.3s;
+        -o-transition-duration: 0.3s;        
+           transition-duration: 0.3s;  }
+  .MPontLink:hover {
+    background: #CCCCCC; border: solid 1px #000000;
+    text-decoration: none;}
+  .MPontLink:active {
+    background: #CCCCCC; border: solid 1px #000000;
+    -webkit-box-shadow: inset 0 -1px 0 #338833, 0 1px 1px #000000;
+       -moz-box-shadow: inset 0 -1px 0 #338833, 0 1px 1px #000000;
+        -ms-box-shadow: inset 0 -1px 0 #338833, 0 1px 1px #000000;
+         -o-box-shadow: inset 0 -1px 0 #338833, 0 1px 1px #000000;
+            box-shadow: inset 0 -1px 0 #338833, 0 1px 1px #000000;
+			   }
 
 .Ul1 a {
     padding: 1px 35px 1px 35px; background:DimGrey;

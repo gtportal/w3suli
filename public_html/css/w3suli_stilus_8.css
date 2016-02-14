@@ -1,32 +1,27 @@
-/* Általános beállítások*/
-a {text-decoration:none;}
-.Error {border: 1px solid #d00; }
-.AktLink {font-weight:bold;}
-a {color:#00FF99;}
-/* Fő szerkezet nagy felbontásnál*/
-	  
+/* 
+    Author     : Szabó Máté
+*/
 
-	  
-* { box-sizing: border-box;}		 
-body, html {margin:0; padding:0; height:100%;  background-color:#2F4F4F;}		 
-#Keret {width:100%; min-height:100%;}
+
+body, html {background-color:#2F4F4F;}		 
+
        
-#FoHeder {background-color:#396666; width:100%; line-height:100px;}
-#FoNav {background-color:#000000; width:100%; line-height:35px;color:#00ff99;text-align:center; box-shadow: -5px -5px 15px 0px #00FF99; box-shadow: 5px 5px 15px 0px #00FF99; margin-bottom:50px;
+#FoHeder {background-color:#396666; }
+#FoNav {background-color:#000000; color:#00ff99;text-align:center; box-shadow: -5px -5px 15px 0px #00FF99; box-shadow: 5px 5px 15px 0px #00FF99; margin-bottom:50px;
 border-bottom:2px solid #00FF99; border-top:2px solid #00FF99;}
 #FoNav a{color:#00ff99;}
 #BelsoKeret {box-shadow: -5px -5px 15px 0px #00FF99;}       
 
-#BelsoKeret {background-color:#f0f; width:100%; padding:0 300px;}       
-#Tartalom {background-color:#2F4F4F; width:100%; margin-left:70px; min-height:90%; float:left; margin-right:-100%;margin-bottom:40px; 
+#BelsoKeret {background-color:#f0f; }       
+#Tartalom {background-color:#2F4F4F; margin-left:5px; margin-bottom:40px; 
 border-style:outset 3px black;box-shadow: -5px -5px 15px 0px #00FF99;}
-#HelyiNav {background-color:#2F4F4F; width:300px; float:left; margin: 0 0 0 -300px;}
- #KiegeszitoInfo {text-align:center; background-color:#000000; width:220px; margin-right:-300px;
+#HelyiNav {background-color:#2F4F4F; padding:4px;margin-bottom:14px;}
+ #KiegeszitoInfo {text-align:center; background-color:#000000; width:290px; margin-right:-300px;
  border-radius:15px  15x 30px 15px; float:right;color:#00FF99;border-bottom:2px solid #00FF99;border-left:2px solid #00FF99;}       
        
-footer {background-color:#396666; width:100%;clear:left; position: fixed;  bottom: 0;margin-right:-100%;}
+footer {background-color:#396666;  color:#00FF99}
        
-/* Menüsor*/
+/* Menüsor */
 #FoNav #MenuIkon1 {display: none;}
 #FoNav #MenuIkon2 {display: block;}       
 #chmenu:checked ~ #FoNav #MenuIkon1 {display: block;}
@@ -38,12 +33,12 @@ footer {background-color:#396666; width:100%;clear:left; position: fixed;  botto
 
 /*--------------------------DIV Módosítások (kerekítés, elválasztás, hoverek)-----------------------*/
 
-#FoNavBal:hover{background-color:#2B2626;}       
+#FoNavBal:hover{background-color:#2B2626;box-shadow: -5px -5px 15px 0px #00FF99;}       
        
        
-.MPontLink {display: inline-block;color:#00FF99;background-color:#000000;border-radius:15px  15x 30px 15px;}
-.MPontLink:active{border-radius:40px 40x 40px 40px; border-bottom:2px solid #3F3E3E;border-top:2px solid #3F3E3E;border-right:2px solid #3F3E3E; border-left:2px solid #3F3E3E;}
-.MPontLink:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
+.MPontLink {display: inline-block;color:#00FF99;background-color:#000000;border-radius:15px  15x 30px 15px;margin-left:5px;}
+.MPontLink:active{border-radius:40px 40x 40px 40px; border-bottom:2px solid #3F3E3E; box-shadow: -5px -5px 15px 0px #00FF99; border-top:2px solid #3F3E3E;border-right:2px solid #3F3E3E; border-left:2px solid #3F3E3E;}
+.MPontLink:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;box-shadow: -5px -5px 15px 0px #00FF99;}
 .MPontlink a:hover{color:red;}
 footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px solid #00FF99;}     
 
@@ -51,8 +46,7 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
   background-image: -moz-linear-gradient(top, #396666 95%, #00FF99);
   background-image: -ms-linear-gradient(top, #396666 95%, #00FF99);
   background-image: -o-linear-gradient(top, #396666 95%, #00FF99);
-  background-image: linear-gradient(to bottom, #396666 95%, #00FF99);}            
-  
+  background-image: linear-gradient(to bottom, #396666 95%, #00FF99);}      
 /*----------------------------------- Helyi menü ---------------------------------*/
 
 #HelyiNav {margin-bottom:40px; }
@@ -61,7 +55,7 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #HelyiNav ul:hover{background-color:#2B2626;}
 
 #HelyiNav .AktLink {font-weight:bold;}
-#HelyiNav  li a::before{content: " » ";}
+#HelyiNav  li a:before{content: " » ";}
 
 #HelyiNav li a { display: inline-block; background-color:#000; padding:8px 5px 0px 5px;
 	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #00FF99; border-top:1px solid #00FF99;border-right:1px solid #00FF99;} 
@@ -71,30 +65,35 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 
 
 /* A link állapotainak megkülönböztetése  */
-#HelyiNav  li a:hover  {color:#00ff99; text-decoration:none;} 
+
+#HelyiNav  li a:hover  {color:#00ff99; text-decoration:none; box-shadow: -5px -5px 15px 0px #00FF99;} 
 #HelyiNav  li a:active {color:#00ff99; border-bottom:2px; border-top:2px; padding-top:7px; }
 #HelyiNav  li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
   
   
 /*---- Második szint --*/
-#HelyiNav li li a {background-color:#121212; padding-left:15px;} 
+
+#HelyiNav li li a {background-color:#000000; padding-left:15px;} 
 #HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
 #HelyiNav li li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
  
 /*---- Harmadik szint --*/
-#HelyiNav li li li a {background-color:#1C1C1C; padding-left:25px;} 
+
+#HelyiNav li li li a {background-color:#000000; padding-left:25px;} 
 #HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
 #HelyiNav li li li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
 
 
 /*---- Negyedik szint --*/
-#HelyiNav li li li li a {background-color:#262626; padding-left:35px;} 
+
+#HelyiNav li li li li a {background-color:#000000; padding-left:35px;} 
 #HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
-#HelyiNav li li li li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
+#HelyiNav li li li li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;margin-left:10px;}
   
   
        
 /* Menü ki-be*/
+
 #chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
 #chmenu:checked ~ #BelsoKeret {padding-left:0;}
        
@@ -102,6 +101,38 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #Tartalom article  {margin:6px;}
 
 
-       
+                        /*----------------------------Adminpanel-----------------------*/
+
+
+#divFormkod{margin-left:1px;}
+   
+#divUjOldalForm{background-color:#2F4F4F; padding:7px; border:none;}
+#divOldalForm{background-color:#2F4F4F; padding:7px;}
+#divOldalTorolForm{background-color:#2F4F4F; padding:7px;}
+#divOldalKepForm{background-color:#2F4F4F; padding:7px;}
+
+#chFormkod {display:none;}
+
+#chUjOldalForm{display:none;}
+#chOldalForm{display:none;}
+#chOldalTorolForm{display:none;}
+#chOldalKepForm{display:none;}
+
+#labelUjOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px; padding:3px;
+ color:#000; border-radius: 3px  7px 0px 0px; color:#00FF99;}
+#labelOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000; border-radius: 3px  7px 0px 0px; color:#00FF99;}
+#labelOldalTorolForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000;  border-radius: 3px  7px 0px 0px; color:#00FF99;}
+#labelOldalKepForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000;  border-radius: 3px  7px 0px 0px; color:#00FF99;}
+ 
+#OTartalom{width:95%; background-color:#2F4F4F; border-color:#000000; color:#00FF99;}
+#OLeiras{width:95%; background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
+#UjONev{background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration:italic;}
+#OPrioritas{background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
+#OLathatosag{background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
+#OKulcsszavak {background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
+#ONev {background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
 
        
