@@ -146,4 +146,10 @@
      $data = htmlspecialchars($data);
    return $data;
    }
+   
+   function SQL_post($data) {
+     $data = trim($data);
+     $data = stripslashes($data);
+   return $data;
+   }
 ?>

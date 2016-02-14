@@ -88,12 +88,13 @@ function getKiegTForm() {
 	$HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formModKiegTForm'>\n";
         
         for ($i = 0; $i < 10; $i++){
-            $id = $KiegTTomb[$i]['id'];
-            $KiegTNev = $KiegTTomb[$i]['KiegTNev'];
-            $KiegTTartalom = $KiegTTomb[$i]['KiegTTartalom'];
+            $id             = $KiegTTomb[$i]['id'];
+            $KiegTNev       = $KiegTTomb[$i]['KiegTNev'];
+            $KiegTTartalom  = $KiegTTomb[$i]['KiegTTartalom'];
             $KiegTPrioritas = $KiegTTomb[$i]['KiegTPrioritas'];
             
-            $HTMLkod .= "<p class='pKiegTid'>$i</p><br>\n ";
+            $HTMLkod .= "<div class='divKiegTElem'>\n ";
+            $HTMLkod .= "<p class='pKiegTid'>".$i.". rekord</p>\n ";            
             
             //Kiegészítő tartalom neve
             $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
@@ -101,7 +102,8 @@ function getKiegTForm() {
 
             //Kiegészítő tartalom tartalma
             $HTMLkod .= "<p class='pModKTTartalom'><label for='ModKTTartalom_$i' class='label_1'>Módosított kiegészítő tartalom tartalma:</label><br>\n ";
-            $HTMLkod .= "<input type='text' name='ModKTTartalom_$i' id='ModKTTartalom_$i' placeholder='$KiegTTartalom' value='$KiegTTartalom' size='40'></p>\n"; 
+            $HTMLkod .= "<textarea type='text' name='ModKTTartalom_$i' id='ModKTTartalom_$i' placeholder='$KiegTTartalom' 
+                         rows='4' cols='60'>$KiegTTartalom</textarea></p>\n"; 
 
             //Kiegészítő tartalom prioritása
             $HTMLkod .= "<p class='pModKTPrioritas'><label for='ModKTPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
@@ -109,14 +111,16 @@ function getKiegTForm() {
             
             //Törlésre jelölés
             $HTMLkod .= "<p class='pTorolKiegT'><label for='pTorolKiegT_$i' class='label_1'>TÖRLÉS:</label>\n ";
-            $HTMLkod .= "<input type='checkbox' name='TorolKiegT_$i' id='TorolKiegT_$i'></p><br>\n";
+            $HTMLkod .= "<input type='checkbox' name='TorolKiegT_$i' id='TorolKiegT_$i'></p>\n";
             
             //id
             $HTMLkod .= "<input type='hidden' name='ModKTid_$i' id='ModKTid_$i' value='$id'>\n";
+            $HTMLkod .= "</div>\n ";
         }
         
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitKiegTartalom' value='Módosítás'><br>\n";
+        $HTMLkod .= "<br style='clear:both;float:none;'>\n";
+        $HTMLkod .= "<input type='submit' name='submitKiegTartalom' id='submitKiegTartalom' value='Módosítás'>\n";
         $HTMLkod .= "</form>\n";
         $HTMLkod .= "</div>\n";
         return $HTMLkod;

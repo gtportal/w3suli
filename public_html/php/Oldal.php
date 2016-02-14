@@ -517,8 +517,8 @@
           // ============== ADATKEZELÉS - MÓDOSÍTÁS =====================
           if ($ErrorStr=='') {
             if (isset($_POST['OLeiras']))      {$OLeiras=test_post($_POST['OLeiras']);}  
-            if (isset($_POST['OTartalom']))    {$OTartalom=test_post($_POST['OTartalom']);} 
-           // if (isset($_POST['OTartalom']))    {$OTartalom=($_POST['OTartalom']);} 
+           // if (isset($_POST['OTartalom']))    {$OTartalom=test_post($_POST['OTartalom']);} 
+            if (isset($_POST['OTartalom']))    {$OTartalom=SQL_post($_POST['OTartalom']);} 
             if (isset($_POST['OPrioritas']))   {$OPrioritas=test_post($_POST['OPrioritas']);}  
 	    if (isset($_POST['OLathatosag']))  {$OLathatosag=test_post($_POST['OLathatosag']);}
 	    if (isset($_POST['OKulcsszavak'])) {$OKulcsszavak=test_post($_POST['OKulcsszavak']);}
@@ -678,18 +678,24 @@
         switch ($Aktoldal['OTipus']) {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap
                     $HTMLkod  .= $HTMLFormkod;
+                    $HTMLkod  .= "<main>";
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
+                    $HTMLkod  .= "</main>";
                    break;
           case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
                     $HTMLkod  .= $HTMLFormkod;
+                    $HTMLkod  .= "<main>";
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
+                    $HTMLkod  .= "</main>";
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
                     $HTMLkod  .= $HTMLFormkod;
+                    $HTMLkod  .= "<main>";
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
+                    $HTMLkod  .= "</main>";
                    break; 
           case 10:  $HTMLkod  .= "<h1>Bejelentkezés</h1> \n";
                     $HTMLkod  .= getBelepesForm();

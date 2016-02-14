@@ -114,15 +114,15 @@
   <body>	  
      <div id='Keret'> 
        <header id='FoHeder'>
-		   <a href="./" id="logoImgLink"><img src="img/shrek_k.png" alt="logó" title="Oldal neve" style="float:left;"></a>
-		   <a href="./" id="logoImgLink">Az oldal neve</a>
+		   <a href="./" id="logoImgLink"><img src="img/ikonok/w3logo.png" alt="logó" title="Oldal neve" style="float:left;"></a>
+		   <a href="./" id="logoLink"><span>Nyílt forráskódú</span> <br><span>blog-motor projekt</span></a>
 	   </header>
 	   <input name="chmenu" id="chmenu" value="chmenu" type="checkbox" style='display:none;'>
        <nav id='FoNav'> 
 		 <div id='FoNavBal'>  
 		   <label for="chmenu" class="MenusorElem" id="MenuLabel">
-             <img src="img/ikonok/menu1pushed28.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon1">
-             <img src="img/ikonok/menu128.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon2">     
+             <img src="img/ikonok/menu128.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon1">
+             <img src="img/ikonok/menu228.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon2">     
              <span id="MENUGombDiv">Menü </span>
            </label>
          </div>
