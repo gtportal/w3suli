@@ -1,3 +1,6 @@
+/* 
+    Author     : Gál Tamás, Guti Patrik
+*/
 
 /* Oldalak  szerkesztése*/
 #divFormkod {display: none;}
@@ -10,6 +13,12 @@
 #chOldalForm:checked      ~ #labelOldalForm       {font-weight:bold;}
 #chOldalTorolForm:checked ~ #labelOldalTorolForm  {font-weight:bold;}
 #chOldalKepForm:checked   ~ #labelOldalKepForm    {font-weight:bold;}
+
+#chUjOldalForm:checked    ~ #labelUjOldalForm:before{content:url('../img/ikonok/newpage2pushed28.png');position:relative;top:7px;}     
+#chOldalForm:checked      ~ #labelOldalForm:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;} 
+#chOldalTorolForm:checked ~ #labelOldalTorolForm:before{content:url('../img/ikonok/delete2pushed28.png');position:relative;top:7px;}
+#chOldalKepForm:checked   ~ #labelOldalKepForm:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;}
+
 
 #chUjOldalForm:checked    ~ #divUjOldalForm    {display: block;}
 #chOldalForm:checked      ~ #divOldalForm      {display: block;}
@@ -31,6 +40,8 @@
 #labelchFormkod {display:block; margin-bottom: 5px;}
 #labelchFormkod:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
 #labelchFormkod:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+#chFormkod:checked   ~ #labelchFormkod    {font-weight:bold;}
+#chFormkod:checked   ~ #labelchFormkod:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;}
 
 #labelUjOldalForm:before{content:url('../img/ikonok/newpage28.png');position:relative;top:7px;}
 #labelUjOldalForm:hover:before{content:url('../img/ikonok/newpagepushed28.png');}
@@ -43,3 +54,10 @@
 
 #labelOldalKepForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
 #labelOldalKepForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+
+
+/*************************  Kiegészítő tartalom form ******************************/
+.pKiegTid {font-weight:bold;}
+.divKiegTElem {width:450px; display:block; float:left; padding:5px; margin:5px; border:1px solid #000;}
+#submitKiegTartalom {clear:both;float:none;}
+
