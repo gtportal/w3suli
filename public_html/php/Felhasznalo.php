@@ -483,9 +483,9 @@ function getFelhasznaloForm() {
         $HTMLkod  = '';
         $ErrorStr = '';
         
-$HTMLkod .= getFelhasznaloValasztForm();
+        $HTMLkod .= getFelhasznaloValasztForm();
         
-if($_SESSION['SzerkFelhasznalo']>0)
+        if($_SESSION['SzerkFelhasznalo']>0)
         {
 	    // ============== FORM KIVÁLASZTÁSA ===================== 
             if(isset($_POST['submitFelhasznaloForm']) || !isset($_POST['submitFelhasznaloTorol'])){$checked = " checked ";} else {$checked = "";}			
