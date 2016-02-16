@@ -415,7 +415,7 @@ function getUjFelhasznaloForm() {
 		$ErrorStr = '';
 		
 		$ErrorStr .= setFelhasznaloValaszt();
-		
+
 		if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitFelhasznaloForm']))){ 			
 			if (isset($_POST['FNev']))   {$FNev    = test_post($_POST['FNev']);}  
 			if (isset($_POST['FFNev']))  {$FFNev   = test_post($_POST['FFNev']);} 
@@ -434,12 +434,20 @@ function getUjFelhasznaloForm() {
             if (strlen($FFNev)<6)  { $ErrorStr .= ' Err006 ';}   //túl rövid felhasználónév
         }
 			
-        if ($ErrorStr=='') {                                   // Megj. az $FFNev-et csak akkor használjuk legérdezésben, ha nincs vele gond
-            $SelectStr   = "SELECT * FROM Felhasznalok WHERE FFNev='$FFNev'"; 
+     
+        if ($ErrorStr=='') {                                   // Megj. az $FFNev-et csak akkor használjuk lekérdezésben, ha nincs vele gond
+            $SelectStr   = "SELECT id FROM Felhasznalok WHERE FFNev='$FFNev'"; 
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUF 01 ");
-            $rowDB       = mysqli_num_rows($result); mysqli_free_result($result);
-            if ($rowDB > 0) { $ErrorStr .= ' Err007,';}          //van ilyen néven már felhasználó   
-        }
+            $rowDB       = mysqli_num_rows($result); 
+            if ($rowDB > 0) { 
+		$row = mysqli_fetch_array($result);
+		if($_SESSION['SzerkFelhasznalo']!=$row['id'])
+		{
+		    $ErrorStr .= ' Err007,';  //echo "<h1>".$_SESSION['SzerkFelhasznalo']." - ".$row['id']."</h1>";
+		}
+		mysqli_free_result($result);
+	    }          //van ilyen néven már felhasználó   
+        }  
                         
         if ($FNev=='') {$ErrorStr  .= ' Err001 '; }            //nincs név
         else {                                                 // Megj. az $FNev hosszát csak akkor ellenőrizük, ha 0-nál nagyobb 
@@ -456,12 +464,13 @@ function getUjFelhasznaloForm() {
             if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba sFV 04 "); }               
         } 
 		}
-		
+		//echo "<h1>ErrorStr: $ErrorStr</h1>";
         return $ErrorStr;
     }
 
 function getFelhasznaloForm() {
     global $MySqliLink;
+    
     
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $FNev     = '';
@@ -472,12 +481,28 @@ function getFelhasznaloForm() {
         $FKep     = '';
 		
         $HTMLkod  = '';
-        $HTMLkod .= getFelhasznaloValasztForm();
-        $ErrorStr = ''; 
+        $ErrorStr = '';
+        
+$HTMLkod .= getFelhasznaloValasztForm();
+        
+if($_SESSION['SzerkFelhasznalo']>0)
+        {
+	    // ============== FORM KIVÁLASZTÁSA ===================== 
+            if(isset($_POST['submitFelhasznaloForm']) || !isset($_POST['submitFelhasznaloTorol'])){$checked = " checked ";} else {$checked = "";}			
+            $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloForm'   value='chFelhasznaloForm'   type='radio' $checked >\n";
+            $HTMLkod  .= "  <label for='chFelhasznaloForm'    class='chLabel'    id='labelFelhasznaloForm'>Felhasználó adatainak módosítása</label>\n";
+			
+            if(isset($_POST['submitFelhasznaloTorol'])){$checked = " checked ";} else {$checked = "";}			
+            $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloTorolForm'  value='chFelhasznaloTorolForm'  type='radio' $checked >\n";
+            $HTMLkod  .= "  <label for='chFelhasznaloTorolForm'   class='chLabel'    id='labelFelhasznaloTorolForm'>Felhasználó törlése</label>\n \n";
+        } else {            
+            $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloTorolForm'  value='chFelhasznaloTorolForm'  type='radio' checked >\n";
+	    $HTMLkod  .= "  <label for='chFelhasznaloTorolForm'   class='chLabel'    id='labelFelhasznaloTorolForm'>Felhasználó törlése</label>\n \n";
+        }		        
 			  
         if($_SESSION['SzerkFelhasznalo']>0)
         {
-            $FId = $_SESSION['SzerkFelhasznalo'];
+            $FId = $_SESSION['SzerkFelhasznalo']; //echo "<h1>HÚÚÚÚÚÚÚÚÚÚÚ</h1>";
 
             $SelectStr = "SELECT * FROM Felhasznalok WHERE id='$FId' LIMIT 1"; //echo $SelectStr;
             $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 03 ");
@@ -490,9 +515,9 @@ function getFelhasznaloForm() {
             $FSzerep  = $row['FSzerep'];
             $FKep     = $row['FKep'];
 
-$ErrClassFNev = '';
-$ErrClassFFNev = '';
-$ErrClassFEmail = '';
+			$ErrClassFNev = '';
+			$ErrClassFFNev = '';
+			$ErrClassFEmail = '';
 
             // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
             if (isset($_POST['submitFelhasznaloForm'])) {
@@ -552,10 +577,15 @@ $ErrClassFEmail = '';
                 } 
 
                 if($_SESSION['ErrorStr']==''){$ErrorStr='Sikeres módosítás!';} 
+                
             }	
+            
+
 			
-// ============== FORM ÖSSZEÁLLÍTÁSA ===================== 
+			
+			// ============== FORM ÖSSZEÁLLÍTÁSA ===================== 
             $HTMLkod .= "<div id='divFelhasznaloForm' >\n";
+            
             if ($ErrorStr!='') {
             $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
 
@@ -585,6 +615,8 @@ $ErrClassFEmail = '';
             $HTMLkod .= "<input type='submit' name='submitFelhasznaloForm' value='Módosítás'><br>\n";        
             $HTMLkod .= "</form>\n";            
             $HTMLkod .= "</div>\n";   
+            
+            $HTMLkod.=getFelhasznaloTorolForm();
         }	  
     }
     return $HTMLkod;	
@@ -650,6 +682,7 @@ function getFelhasznaloValasztForm() {
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
     }
+           
     return $HTMLkod;
 }    
 
@@ -786,11 +819,66 @@ function SetUjJelszo() {
     
 // ============= Felhasználó törlése ============    
     function setFelhasznaloTorol() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
+	
+	global $MySqliLink;
+    $ErrorStr = '';
+
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+
+        // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
+        if (isset($_POST['submitFelhasznaloTorol'])) {
+		
+				$FFNev       = '';
+				
+                $SelectStr   = "SELECT FFNev FROM Felhasznalok"; 
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");
+                
+                while($row = mysqli_fetch_array($result)){
+					
+					$FFNev = $row['FFNev'];
+					
+					if(isset($_POST[$FFNev])){
+					$DeleteStr = "DELETE FROM Felhasznalok WHERE FFNev='$FFNev'";  //echo "<h1>$DeleteStr</h1>";
+					$result      = mysqli_query($MySqliLink,$DeleteStr) OR die("Hiba sFT 02 ");
+					}
+				}               
+        }
+    }
+    return $ErrorStr;
     }    
 
     function getFelhasznaloTorolForm() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
+		
+	global $MySqliLink;
+    $HTMLkod  = '';
+    $ErrorStr = ''; 
+    $TorolFelhasznalo = array();
+
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+
+        $HTMLkod .= "<div id='divFelhasznaloTorol' >\n";
+        if ($ErrorStr!='') {
+        $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+
+        $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloTorol'>\n";
+
+        $SelectStr   = "SELECT FNev, FFNev FROM Felhasznalok";  //echo "<h1>$SelectStr</h1>";
+        $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");
+        while($row = mysqli_fetch_array($result))
+        {
+            $FNev = $row['FNev'];
+            $FFNev = $row['FFNev'];
+
+			$HTMLkod.="<input type='checkbox' name='$FFNev' id='$FFNev' value='$FFNev'>";
+		    $HTMLkod.="<label for='$FFNev'>$FNev</label><br>";
+        }	
+        
+        //Submit
+        $HTMLkod .= "<input type='submit' name='submitFelhasznaloTorol' value='Töröl'><br>\n";        
+        $HTMLkod .= "</form>\n";            
+        $HTMLkod .= "</div>\n";    
+		}
+		return $HTMLkod;    
     }    
     
 // ============= Egy felhasználó adatainak lekérdezése============      
