@@ -61,3 +61,21 @@
 .divKiegTElem {width:450px; display:block; float:left; padding:5px; margin:5px; border:1px solid #000;}
 #submitKiegTartalom {clear:both;float:none;}
 
+/*************************  Felhasználó módosítása form ******************************/
+#chFelhasznaloForm, #chFelhasznaloTorolForm {display: none; border: 1px solid #000;}
+#chFelhasznaloForm:checked    ~ #labelFelhasznaloForm     {font-weight:bold;}
+#chFelhasznaloTorolForm:checked      ~ #labelFelhasznaloTorolForm       {font-weight:bold;}
+			
+#labelFelhasznaloForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelFelhasznaloForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+
+#labelFelhasznaloTorolForm:before{content:url('../img/ikonok/delete28.png');position:relative;top:7px;}
+#labelFelhasznaloTorolForm:hover:before{content:url('../img/ikonok/deletepushed28.png');}
+			
+#chFelhasznaloForm:checked      ~ #labelFelhasznaloForm:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;} 
+#chFelhasznaloTorolForm:checked ~ #labelFelhasznaloTorolForm:before{content:url('../img/ikonok/delete2pushed28.png');position:relative;top:7px;}
+			
+#divFelhasznaloForm, #divFelhasznaloTorol {display: none; border: 1px solid #000;}
+			
+#chFelhasznaloForm:checked    ~ #divFelhasznaloForm    {display: block;}
+#chFelhasznaloTorolForm:checked      ~ #divFelhasznaloTorol      {display: block;}
