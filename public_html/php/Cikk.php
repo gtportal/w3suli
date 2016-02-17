@@ -24,6 +24,7 @@ function setUjCikk() {
     if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitUjCikkForm']))) {
         $FNev = $_SESSION['AktFelhasznalo'.'FNev'];
         $Fid = $_SESSION['AktFelhasznalo'.'id'];
+        echo "Fid:".$Fid;
         $Oid = $Aktoldal['id'];
         // ============== HIBAKEZELÉS =====================
         //Az oldalnév ellenőrzése  
@@ -45,7 +46,7 @@ function setUjCikk() {
 
         //=========REKORDOK LÉTREHOZÁSA =============
         if ($ErrorStr=='') {
-            $InsertStr = "INSERT INTO Cikkek VALUES ('', '$UjCNev', '$UjCLeiras', '$UjCTartalom', 1, '$Fid', '$FNev', '', '')";
+            $InsertStr = "INSERT INTO Cikkek VALUES ('', '$UjCNev', '$UjCLeiras', '$UjCTartalom', 1, '$Fid', '$FNev', NOW(), NOW())";
             mysqli_query($MySqliLink, $InsertStr) OR die("Hiba iUC 01 ");
 
             $InsertStr = "INSERT INTO OldalCikkei VALUES ('', '$Oid', LAST_INSERT_ID(), 1)";
@@ -149,23 +150,61 @@ function getCikkValasztForm() {
 	// a választást az oldal cikkei közül
 	// A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változókban tároljuk az 
 	// aktuális cikk adatait
+    global $MySqliLink, $Aktoldal;
+    $HTMLkod  = '';
+    $ErrorStr = '';
+    $OUrl = $Aktoldal['OUrl'];
+    $Oid = $Aktoldal['id'];
+    
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+
+        $HTMLkod .= "<div id='divCikkValaszt' >\n";
+        if ($ErrorStr!='') {
+            $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";
+        }
+
+        $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkValaszt'>\n";
+
+        //Cikk kiválasztása a lenyíló listából
+        $HTMLkod .= "<select name='selectCikkValaszt' size='1'>";
+
+        $SelectStr = "SELECT C.id, C.CNev
+                        FROM Cikkek AS C
+                        LEFT JOIN OldalCikkei AS OC
+                        ON OC.id=$Oid";
+        
+        $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCV 01 ");
+        while($row = mysqli_fetch_array($result))
+        {
+            $CNev = $row['CNev'];
+            if($_SESSION['SzerkCikk'.'id'] == $row['id']){$Select = " selected ";}else{$Select = "";}
+
+            $HTMLkod.="<option value='$CNev' $Select >$CNev</option>";
+        }	
+        //Submit
+        $HTMLkod .= "<input type='submit' name='submitCikkValaszt' value='Kiválaszt'><br>\n";        
+        $HTMLkod .= "</form>\n";            
+        $HTMLkod .= "</div>\n";    
+    }
+           
+    return $HTMLkod;
 }
 
 function getCikkForm() {
     $HTMLkod  = '';
-    $HTMLkod .= getCikkValasztForm();
+    //$HTMLkod .= getCikkValasztForm();
         
     //A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk űrlapja   
 	trigger_error('Not Implemented!', E_USER_WARNING);
 }
 
 function setCikkValaszt() {
-	// I.) A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változók beállítása, ha
-	// a cikkválasztó űrlapot elküdték
-	
-	// II.) A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változók törlése, ha
-	// sem a cikkválasztó űrlapot sem a cikk módosítása elküdték nem küldték el (pl. új oldalt töltenek le)	
-	
+// I.) A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változók beállítása, ha
+// a cikkválasztó űrlapot elküdték
+
+// II.) A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változók törlése, ha
+// sem a cikkválasztó űrlapot sem a cikk módosítása elküdték nem küldték el (pl. új oldalt töltenek le)	
+    
 }
 
 

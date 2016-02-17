@@ -18,6 +18,7 @@
   //FSzint=4 > Rendszergazda
   //FSzint=5 > Kiemelt rendszergazda
   if (!isset($_SESSION['AktFelhasznalo'.'FSzint'])) {
+      $_SESSION['AktFelhasznalo'.'id']   = 0;
       $_SESSION['AktFelhasznalo'.'FNev']   = '';
       $_SESSION['AktFelhasznalo'.'FFNev']  = '';
       $_SESSION['AktFelhasznalo'.'FEmail'] = '';
@@ -28,6 +29,9 @@
       $_SESSION['ElozoOldalId']            = 1; 
       $_SESSION['SzerkFelhasznalo']        = 0;
       $_SESSION['SzerkFCsoport']           = 0;
+      
+      $_SESSION['SzerkCikk'.'id']          = 0;
+      $_SESSION['SzerkCikk'.'Oid']         = 0;
   }  
   
   $_SESSION['ErrorStr']   = '';

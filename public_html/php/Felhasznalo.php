@@ -55,6 +55,7 @@ function setBelepes() {
                 $row = mysqli_fetch_array($result);
                 mysqli_free_result($result);
 				
+                $_SESSION['AktFelhasznalo'.'id']    = $row['id']; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 $_SESSION['AktFelhasznalo'.'FNev']    = $row['FNev'];
                 $_SESSION['AktFelhasznalo'.'FFNev']   = $row['FFNev'];
                 $_SESSION['AktFelhasznalo'.'FJelszo'] = $row['FJelszo'];
@@ -152,7 +153,8 @@ function getBelepesForm() {
 function setKilepes() {	
     global $MySqliLink, $oURL; 
     $ErrorStr = ''; 
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) &&  ($oURL == 'kijelentkezes')){		
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) &&  ($oURL == 'kijelentkezes')){
+        $_SESSION['AktFelhasznalo'.'id']      = 0;
         $_SESSION['AktFelhasznalo'.'FNev']    = "";
         $_SESSION['AktFelhasznalo'.'FFNev']   = "";
         $_SESSION['AktFelhasznalo'.'FJelszo'] = "";
