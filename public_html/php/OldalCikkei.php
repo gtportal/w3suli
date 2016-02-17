@@ -27,7 +27,7 @@ function getCikkekForm() {
   $HTMLkod  = '';    
   // Új cikk és
   // a $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk kezelése
-  $HTMLkod .= "<div id='divCikkek>";
+  $HTMLkod .= "<div id='divCikkek'>";
   $HTMLkod  .= getCikkValasztForm();
   
   

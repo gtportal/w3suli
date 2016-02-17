@@ -24,7 +24,6 @@ function setUjCikk() {
     if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitUjCikkForm']))) {
         $FNev = $_SESSION['AktFelhasznalo'.'FNev'];
         $Fid = $_SESSION['AktFelhasznalo'.'id'];
-        echo "Fid:".$Fid;
         $Oid = $Aktoldal['id'];
         // ============== HIBAKEZELÉS =====================
         //Az oldalnév ellenőrzése  
@@ -204,13 +203,34 @@ function setCikkValaszt() {
 
 // II.) A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] munkamenet változók törlése, ha
 // sem a cikkválasztó űrlapot sem a cikk módosítása elküdték nem küldték el (pl. új oldalt töltenek le)	
+    global $MySqliLink;
+    $ErrorStr = '';
     
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+        $CNev     = '';
+
+        // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
+        if (isset($_POST['submitCikkValaszt'])) {
+            if (isset($_POST['selectCikkValaszt'])) {$CNev = test_post($_POST['selectCikkValaszt']);}      
+
+            if($CNev!='')
+            {
+                $SelectStr   = "SELECT id FROM Cikkek WHERE CNev='$CNev' LIMIT 1";
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCV 02 ");
+                $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
+
+                $_SESSION['SzerkCikk'.'id'] = $row['id'];
+            }
+        }
+    }
+    return $ErrorStr;
 }
 
 
 function setCikk() {
   $ErrorStr = '';
-  $ErrorStr .= setFelhasznaloValaszt();
+  
+  $ErrorStr .= setCikkValaszt();
 	
   //A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk adatainak kezelése   
   trigger_error('Not Implemented!', E_USER_WARNING);
