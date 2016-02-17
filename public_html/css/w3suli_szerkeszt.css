@@ -79,3 +79,30 @@
 			
 #chFelhasznaloForm:checked    ~ #divFelhasznaloForm    {display: block;}
 #chFelhasznaloTorolForm:checked      ~ #divFelhasznaloTorol      {display: block;}
+
+
+/*************************  Felhasználó csoport módosítása form ******************************/
+#chUjFCsoportForm, #chFCsoportForm, #chFCsoportTorolForm {display: none; border: 1px solid #000;}
+#chUjFCsoportForm:checked    ~ #labelUjFCsoportForm     {font-weight:bold;}
+#chFCsoportForm:checked    ~ #labelFCsoportForm     {font-weight:bold;}
+#chFCsoportTorolForm:checked      ~ #labelFCsoportTorolForm       {font-weight:bold;}
+
+
+#labelUjFCsoportForm:before{content:url('../img/ikonok/newpage28.png');position:relative;top:7px;}
+#labelUjFCsoportForm:hover:before{content:url('../img/ikonok/newpagepushed28.png');}
+			
+#labelFCsoportForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelFCsoportForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+
+#labelFCsoportTorolForm:before{content:url('../img/ikonok/delete28.png');position:relative;top:7px;}
+#labelFCsoportTorolForm:hover:before{content:url('../img/ikonok/deletepushed28.png');}
+	
+#chUjFCsoportForm:checked      ~ #labelUjFCsoportForm:before{content:url('../img/ikonok/newpage2pushed28.png');position:relative;top:7px;} 	
+#chFCsoportForm:checked      ~ #labelFCsoportForm:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;} 
+#chFCsoportTorolForm:checked ~ #labelFCsoportTorolForm:before{content:url('../img/ikonok/delete2pushed28.png');position:relative;top:7px;}
+			
+#divUjFCsoportForm, #divFCsoportForm, #divFCsoportTorol {display: none; border: 1px solid #000;}
+			
+#chUjFCsoportForm:checked    ~ #divUjFCsoportForm    {display: block;}
+#chFCsoportForm:checked    ~ #divFCsoportForm    {display: block;}
+#chFCsoportTorolForm:checked      ~ #divFCsoportTorol      {display: block;}
