@@ -16,6 +16,7 @@
  * 16 = Jelszómodosítás 
  * 
  * 20 = Felhasználói csoportok 
+ * 21 = Oldaltérkép
  * 
  * 51 = Alapbeállítások
  * 52 = Kiegészítő tartalom
@@ -701,6 +702,7 @@
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
                     $HTMLkod  .= $HTMLFormkodCikk;
+                    $HTMLkod  .= getOElozetesekHTML();
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                     $HTMLkod  .= "</main>";
@@ -709,6 +711,7 @@
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
                     $HTMLkod  .= $HTMLFormkodCikk;
+                    $HTMLkod  .= getOElozetesekHTML();
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                     $HTMLkod  .= "</main>";
@@ -746,6 +749,9 @@
           case 20:  $HTMLkod  .= "<h1>Felhasználói csoport kezelése</h1> \n";
                     $HTMLkod  .= getFCsoportForm();
                    break;  
+          case 21:  $HTMLkod  .= "<h1>Oldaltérkep 1</h1> \n";
+                    $HTMLkod  .= getOldalterkepHTML();
+                   break;                 
                
           case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
                     $HTMLkod  .= getAlapbeallitasForm();
@@ -756,6 +762,9 @@
           case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
                     $HTMLkod  .= getFoMenuForm();
                    break;       
+          case 54:  $HTMLkod  .= "<h1>Helyi menű plusz infók</h1> \n";
+                    $HTMLkod  .= getMenuPluszForm();
+                   break;                  
         }
         $HTMLkod  .= "</div>\n"; 
       }  

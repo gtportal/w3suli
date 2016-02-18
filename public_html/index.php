@@ -69,6 +69,10 @@
   require_once 'php/morzsa.php';
   require_once 'php/Lablec.php';
   
+  require_once 'php/OldalElozetesek.php';
+  require_once 'php/Oldalterkep.php';
+  require_once 'php/MenuPlusz.php';
+  
   //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA
   getOldalData($oURL);  
   
@@ -101,6 +105,7 @@
  $_SESSION['ErrorStr']   .= setKiegT();
  
  $_SESSION['ErrorStr']   .= setFoMenu();
+ $_SESSION['ErrorStr']   .= setMenuPlusz();
 ?>
 
 

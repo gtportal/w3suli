@@ -14,6 +14,8 @@
        InitFelhasznalok(); 
        InitAlapAdatok();
     }    
+    InitOldalterkep();
+    InitMenuPlusz();
     
     function InitOldalak() {
       global $MySqliLink;
@@ -75,3 +77,33 @@
       if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba IA 01 ");} 
       
     } 
+    
+    function InitOldalterkep() {
+      global $MySqliLink;
+        // Ha nincs, akkor létrehozzuk tesztelek rendszergazda felhasználót JESZAVA: 'tesztelek'
+
+        $SelectStr = "SELECT id FROM Oldalak WHERE OTipus=21 LIMIT 1";   
+        $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 01 ");
+        $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
+        if ($rowDB < 1) {
+          $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', 'Oldaltérkép','oldalterkep',1,1,'Oldaltérkép leírása','Oldaltérkép kulcsszavai',
+                           1,21,'Oldaltérkép tartalma','','')";
+          if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba IOterkep 01x ");}
+
+        }    
+    }
+    
+    function InitMenuPlusz() {
+      global $MySqliLink;
+        // Ha nincs, akkor létrehozzuk tesztelek rendszergazda felhasználót JESZAVA: 'tesztelek'
+
+        $SelectStr = "SELECT id FROM Oldalak WHERE OTipus=54 LIMIT 1";   
+        $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 01 ");
+        $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
+        if ($rowDB < 1) {
+          $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', 'Menű plusz infók','menuplusz',1,1,'Menű plusz infók leírása','Menű plusz infók kulcsszavai',
+                           1,54,'Menű plusz infók tartalma','','')";
+          if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba IOterkep 01x ");}
+
+        }    
+    }    
