@@ -31,7 +31,37 @@ function setFoMenu() {
   
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
   
-  
+  if (isset($_POST['submitFoMenu'])) {
+        for ($i = 0; $i < 10; $i++){
+            $id = $_POST["ModFoMenuid_$i"];
+            if (!$_POST["TorolFoMenu_$i"]){
+                if (isset($_POST["ModFoMenuNev_$i"])) {
+                    $LNev = $_POST["ModFoMenuNev_$i"];
+                }
+                if (isset($_POST["ModFoMenuTartalom_$i"]))  {
+                    $LURL  = $_POST["ModFoMenuTartalom_$i"];
+                }
+                if (isset($_POST["ModFoMenuPrioritas_$i"])) {
+                    $LPrioritas = $_POST["ModFoMenuPrioritas_$i"];
+                }
+
+                $UpdateStr = "UPDATE FoMenuLink SET
+                                LNev       = '$LNev',
+                                LURL  = '$LURL',
+                                LPrioritas =  '$LPrioritas'
+                                WHERE id = '$id'";                     
+                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+            } else {
+                $UpdateStr = "UPDATE FoMenuLink SET
+                                LNev       = '',
+                                LURL  = '',
+                                LPrioritas =  0
+                                WHERE id = '$id'";
+                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+            }
+        }
+    }
+    return $ErrorStr;
 
   // A KiegTartalom.php-hoz hasonlóan bekérjük a $_POST tömb tartalmát  
   
@@ -50,7 +80,7 @@ function getFoMenuForm() {
   $HTMLkod   = '';
  //echo '<h1>Tesztzzzzzzzzzzzzzz</h1>';
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
-  
+  $HTMLkod .= getFoMenuHTML();
   
   $SelectStr = "SELECT * FROM FoMenuLink";
         $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 01");
@@ -67,7 +97,7 @@ function getFoMenuForm() {
   // A KiegTartalom.php-hoz hasonlóan összeállítjuk a FORM tartalmát
        
         $HTMLkod .= "<div id='divModFoMenuForm' >\n";
-	$HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formModFoMenuForm'>\n";
+	$HTMLkod .= "<form action='?f0=Fomenu_linkek_beallitasa' method='post' id='formModFoMenuForm'>\n";
         
         for ($i = 0; $i < 10; $i++){
             $id             = $FoMenuLinkTmb[$i]['id'];
@@ -92,8 +122,8 @@ function getFoMenuForm() {
             $HTMLkod .= "<input type='number' name='ModFoMenuPrioritas_$i' id='ModFoMenuPrioritas_$i' min='0' max='9' step='1' value='$LPrioritas'></p>\n";  
             
             //Törlésre jelölés
-          //  $HTMLkod .= "<p class='pTorolKiegT'><label for='pTorolKiegT_$i' class='label_1'>TÖRLÉS:</label>\n ";
-           // $HTMLkod .= "<input type='checkbox' name='TorolKiegT_$i' id='TorolKiegT_$i'></p>\n";
+            $HTMLkod .= "<p class='pTorolFoMenu'><label for='pTorolFoMenu_$i' class='label_1'>TÖRLÉS:</label>\n ";
+            $HTMLkod .= "<input type='checkbox' name='TorolFoMenu_$i' id='TorolFoMenu_$i'></p>\n";
             
             //id
             $HTMLkod .= "<input type='hidden' name='ModFoMenuid_$i' id='ModFoMenuid_$i' value='$id'>\n";
@@ -102,7 +132,7 @@ function getFoMenuForm() {
         
         //Submit
         $HTMLkod .= "<br style='clear:both;float:none;'>\n";
-        $HTMLkod .= "<input type='submit' name='submitFoMenuartalom' id='submitFoMenu' value='Módosítás'>\n";
+        $HTMLkod .= "<input type='submit' name='submitFoMenu' id='submitFoMenu' value='Módosítás'>\n";
         $HTMLkod .= "</form>\n";
         $HTMLkod .= "</div>\n";
         return $HTMLkod;
@@ -113,13 +143,14 @@ function getFoMenuForm() {
 function getFoMenuHTML() {
   global $MySqliLink;
   $FoMenuLink = array();
-  $HTMLkod1   = '';
+  $HTMLkod   = '';
  
+  $HTMLkod   = "<h1>Hahó</h1>";
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
   
   
   // Összeállítjuk a Főmenű Linkjeinek listáját
-  // <a href='./' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
+  // <a href='LURL' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
            
     
   return $HTMLkod;	
