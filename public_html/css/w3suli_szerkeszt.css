@@ -55,6 +55,59 @@
 #labelOldalKepForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
 #labelOldalKepForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
 
+/* Cikkek  szerkesztése*/
+#divFormkodCikk {display: none;}
+#chFormkodCikk:checked    ~ #divFormkodCikk    {display: block;}
+
+#divUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm {display: none; border: 1px solid #000;}
+#chFormkodCikk, #chUjCikkForm, #chCikkForm, #chCikkTorolForm, #chCikkKepForm {display:none;}
+
+#chUjCikkForm:checked    ~ #labelUjCikkForm     {font-weight:bold;}
+#chCikkForm:checked      ~ #labelCikkForm       {font-weight:bold;}
+#chCikkTorolForm:checked ~ #labelCikkTorolForm  {font-weight:bold;}
+#chCikkKepForm:checked   ~ #labelCikkKepForm    {font-weight:bold;}
+
+#chUjCikkForm:checked    ~ #labelUjCikkForm:before{content:url('../img/ikonok/newpage2pushed28.png');position:relative;top:7px;}     
+#chCikkForm:checked      ~ #labelCikkForm:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;} 
+#chCikkTorolForm:checked ~ #labelCikkTorolForm:before{content:url('../img/ikonok/delete2pushed28.png');position:relative;top:7px;}
+#chCikkKepForm:checked   ~ #labelCikkKepForm:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;}
+
+
+#chUjCikkForm:checked    ~ #divCikkek #divUjCikkForm    {display: block;}
+#chCikkForm:checked      ~ #divCikkek #divCikkForm      {display: block;}
+#chCikkTorolForm:checked ~ #divCikkek #divCikkTorolForm {display: block;}
+#chCikkKepForm:checked   ~ #divCikkek #divCikkKepForm   {display: block;}
+
+
+#divCikkKepForm .Kepszerk img {display:block; float:left; height:100px; margin:5px;}
+#divCikkKepForm .Kepszerk     {display:block; clear:left;  margin:5px;}
+#divCikkKepForm .Kepszerk  p  {display:block; float:left; margin:5px;}
+#divCikkKepForm .Kepszerk  p.pKSzelesseg  {clear:left;}
+
+
+#divCikkKepForm .Kepszerk input[type="number"] {width:45px;}
+
+.pKTorol {color:#f00;}
+
+
+#labelchFormkodCikk {display:block; margin-bottom: 5px;}
+#labelchFormkodCikk:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelchFormkodCikk:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+#chFormkodCikk:checked   ~ #labelchFormkodCikk    {font-weight:bold;}
+#chFormkodCikk:checked   ~ #labelchFormkodCikk:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;}
+
+#labelUjCikkForm:before{content:url('../img/ikonok/newpage28.png');position:relative;top:7px;}
+#labelUjCikkForm:hover:before{content:url('../img/ikonok/newpagepushed28.png');}
+
+#labelCikkForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelCikkForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+
+#labelCikkTorolForm:before{content:url('../img/ikonok/delete28.png');position:relative;top:7px;}
+#labelCikkTorolForm:hover:before{content:url('../img/ikonok/deletepushed28.png');}
+
+#labelCikkKepForm:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}
+#labelCikkKepForm:hover:before{content:url('../img/ikonok/modifypushed28.png');}
+
 
 /*************************  Kiegészítő tartalom form ******************************/
 .pKiegTid {font-weight:bold;}

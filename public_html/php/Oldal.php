@@ -668,7 +668,28 @@
         $HTMLFormkod  .= getOldalTorolForm();
         $HTMLFormkod  .= getOldalKepForm();
         $HTMLFormkod  .= "</div>\n\n";
-      }    
+        
+        
+        $HTMLFormkodCikk  .= "  <input name='chFormkodCikk'   id='chFormkodCikk'   value='chFormkodCikk'   type='checkbox'>\n";
+        $HTMLFormkodCikk  .= "  <label for='chFormkodCikk'    class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";  
+        $HTMLFormkodCikk  .= "<div id='divFormkodCikk'>\n";      
+        // ================ CIKK FORMJAINAK MEGJELENÍTÉSÉT SZABÁLYZÓ INPUT ELEMEK =============================        
+        
+        $HTMLFormkodCikk  .= "  <input name='chCikkForm'   id='chUjCikkForm' value='chUjCikkForm' type='radio'>\n";
+        $HTMLFormkodCikk  .= "  <label for='chUjCikkForm'  class='chLabel'    id='labelUjCikkForm'>Új cikk</label>\n";
+        
+        $HTMLFormkodCikk  .= "  <input name='chCikkForm'   id='chCikkForm'   value='chCikkForm'   type='radio'>\n";
+        $HTMLFormkodCikk  .= "  <label for='chCikkForm'    class='chLabel'    id='labelCikkForm'>Cikk módosítása</label>\n";
+        $HTMLFormkodCikk  .= "  <input name='chCikkForm'   id='chCikkTorolForm'  value='chCikkTorolForm'  type='radio'>\n";
+        $HTMLFormkodCikk  .= "  <label for='chCikkTorolForm'   class='chLabel'    id='labelCikkTorolForm'>Cikk törlése</label>\n \n";
+        
+        $HTMLFormkodCikk  .= "  <input name='chCikkForm'   id='chCikkKepForm' value='chCikkKepForm'  type='radio'>\n";
+        $HTMLFormkodCikk  .= "  <label for='chCikkKepForm' class='chLabel'     id='labelCikkKepForm'>Cikk képeinek módosítása</label>\n \n";
+      
+      // ================ AZ CIKK MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================
+        $HTMLFormkodCikk  .= getCikkekForm();
+        $HTMLFormkodCikk  .= "</div>\n\n";
+      }
       if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!
         // ================ AZ OLDALTARTALMÁNAK MEGJELENÍTÉSE =============================     
         
@@ -679,6 +700,7 @@
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
+                    $HTMLkod  .= $HTMLFormkodCikk;
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                     $HTMLkod  .= "</main>";
@@ -686,6 +708,7 @@
           case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
+                    $HTMLkod  .= $HTMLFormkodCikk;
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                     $HTMLkod  .= "</main>";
@@ -693,6 +716,7 @@
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
+                    $HTMLkod  .= $HTMLFormkodCikk;
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                     $HTMLkod  .= "</main>";

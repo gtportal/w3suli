@@ -16,7 +16,7 @@ function getCikkekHTML() {
     
     
     
-    $HTMLkod  .= getCikkekForm();
+    
     
     //....
     return $HTMLkod;
