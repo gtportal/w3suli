@@ -98,7 +98,7 @@ function setUjFCsoport() {
 
     global $MySqliLink;
     $ErrorStr = ''; 
-    //initFCsoport();
+    initFCsoport();
 	
     $CsNev     = '';
     $CsLeiras  = '';
