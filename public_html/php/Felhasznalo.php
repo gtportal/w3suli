@@ -678,7 +678,8 @@ function getFelhasznaloValasztForm() {
             if($_SESSION['SzerkFelhasznalo'] == $row['id']){$Select = " selected ";}else{$Select = "";}
 
             $HTMLkod.="<option value='$FNev' $Select >$FNev</option>";
-        }	
+        }
+        $HTMLkod .= "</select>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitFelhasznaloValaszt' value='Kiválaszt'><br>\n";        
         $HTMLkod .= "</form>\n";            
