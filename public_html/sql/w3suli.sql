@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Hoszt: localhost
--- Létrehozás ideje: 2016. Feb 18. 18:53
+-- Létrehozás ideje: 2016. Feb 19. 09:13
 -- Szerver verzió: 5.5.47-0ubuntu0.14.04.1
 -- PHP verzió: 5.5.9-1ubuntu4.14
 
@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `FCsoportTagok` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `Fid` int(10) NOT NULL,
   `CSid` int(10) NOT NULL,
+  `KapcsTip` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ;
 
