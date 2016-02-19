@@ -69,6 +69,10 @@
   require_once 'php/morzsa.php';
   require_once 'php/Lablec.php';
   
+  require_once 'php/OldalElozetesek.php';
+  require_once 'php/Oldalterkep.php';
+  require_once 'php/MenuPlusz.php';
+  
   //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA
   getOldalData($oURL);  
   
@@ -101,6 +105,7 @@
  $_SESSION['ErrorStr']   .= setKiegT();
  
  $_SESSION['ErrorStr']   .= setFoMenu();
+ $_SESSION['ErrorStr']   .= setMenuPlusz();
 ?>
 
 
@@ -131,10 +136,8 @@
            </label>
          </div>
          <div id='FoNavJobb'>  
-		   <a href='./' class='MPontLink'>Menüpont1</a>   
-		   <a href='./' class='MPontLink'>Menüpont2</a>   
-		   <a href='./' class='MPontLink'>Menüpont3</a> 
-		 </div>  		    		 
+	     <?php echo getFoMenuHTML(); ?>
+	 </div>  		    		 
        </nav>
        <div id='BelsoKeret'>
 		  <nav id='HelyiNav'>

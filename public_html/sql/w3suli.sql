@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Hoszt: localhost
--- Létrehozás ideje: 2016. Feb 07. 17:09
+-- Létrehozás ideje: 2016. Feb 19. 09:13
 -- Szerver verzió: 5.5.47-0ubuntu0.14.04.1
 -- PHP verzió: 5.5.9-1ubuntu4.14
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `AlapAdatok` (
 --
 
 INSERT INTO `AlapAdatok` (`id`, `WebhelyNev`, `Iskola`, `Cim`, `Telefon`, `Stilus`) VALUES
-(3, 'WebhelyNev', 'Iskola', 'Cim', 'Telefon', 0);
+(3, 'WebhelyNev012', 'Iskola123', 'Cim234', 'Telefon345', 7);
 
 -- --------------------------------------------------------
 
@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS `FCsoportTagok` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `Fid` int(10) NOT NULL,
   `CSid` int(10) NOT NULL,
+  `KapcsTip` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ;
 
@@ -109,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `FelhasznaloCsoport` (
   `CsNev` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   `CsLeiras` varchar(255) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -135,8 +136,7 @@ CREATE TABLE IF NOT EXISTS `Felhasznalok` (
 --
 
 INSERT INTO `Felhasznalok` (`id`, `FNev`, `FFNev`, `FJelszo`, `FEmail`, `FSzint`, `FSzerep`, `FKep`) VALUES
-(3, 'root', 'Root', 'root', 'root@root.hu', 5, 'Root', 'root.jpg'),
-(4, 'Rendszergazda', 'Rendszergazda', 'Rendszergazda', 'rendszergazda@rendszergazda.hu', 5, 'tanÃ¡r', ''),
+(4, 'Rendszergazda1', 'Rendszergazda', 'Rendszergazda', 'rendszergazda@rendszergazda.hu', 5, 'tanÃ¡r', ''),
 (10, 'tesztelek', 'tesztelek', 'bf7fd979986bf2313dca63d533cc8a7f', 'r@r.hu', 5, 'tanÃƒÂ¡r', '');
 
 -- --------------------------------------------------------
@@ -184,6 +184,37 @@ CREATE TABLE IF NOT EXISTS `KiegTartalom` (
   `KiegTTartalom` text COLLATE utf8_hungarian_ci NOT NULL,
   `KiegTPrioritas` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=11 ;
+
+--
+-- A tábla adatainak kiíratása `KiegTartalom`
+--
+
+INSERT INTO `KiegTartalom` (`id`, `KiegTNev`, `KiegTTartalom`, `KiegTPrioritas`) VALUES
+(1, '', '', 0),
+(2, '', '', 0),
+(3, '', '', 0),
+(4, '', '', 0),
+(5, '', '', 0),
+(6, '', '', 0),
+(7, '', '', 0),
+(8, '', '', 0),
+(9, '', '', 0),
+(10, '', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `MenuPlusz`
+--
+
+DROP TABLE IF EXISTS `MenuPlusz`;
+CREATE TABLE IF NOT EXISTS `MenuPlusz` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `MenuPlNev` varchar(125) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+  `MenuPlTartalom` text COLLATE utf8_hungarian_ci NOT NULL,
+  `MenuPlPrioritas` smallint(6) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -207,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `Oldalak` (
   `OImgDir` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   `OImg` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=44 ;
 
 --
 -- A tábla adatainak kiíratása `Oldalak`
@@ -240,7 +271,10 @@ INSERT INTO `Oldalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeir
 (37, 'rrrrrrrrrrr321aa', 'rrrrrrrrrrr321aa', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 28, 1, 'Az oldal tartalma', '', ''),
 (38, 'rrrrrrrrrrr321aaeeee', 'rrrrrrrrrrr321aaeeee', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 28, 1, 'Az oldal tartalma', '', ''),
 (39, 'FÅ‘menÃ¼ linkek beÃ¡llÃ­tÃ¡sa', 'Fomenu_linkek_beallitasa', 1, 1, 'FÅ‘menÃ¼ linkek beÃ¡llÃ­tÃ¡sa', 'Az oldal kulcsszavai', 1, 53, '', '', ''),
-(40, 'Iskola hÃ­rei', 'Iskola_hirei', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 1, '<section> <article> <img src="img/Shrek_fierce.jpg" alt="leÃ­rÃ¡s" title="1 cikk cÃ­me" style="float:left;"> <h2>1 cikk cÃ­me</h2> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br><br> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </article> <article> <img src="img/Shrek_1.jpg" alt="leÃ­rÃ¡s" title="2 cikk cÃ­me" style="float:left;"> <h2>2. cikk cÃ­me</h2> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br><br> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </article> </section>', '', '');
+(40, 'Iskola hÃ­rei', 'Iskola_hirei', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 1, '<section> <article> <img src="img/Shrek_fierce.jpg" alt="leÃ­rÃ¡s" title="1 cikk cÃ­me" style="float:left;"> <h2>1 cikk cÃ­me</h2> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br><br> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </article> <article> <img src="img/Shrek_1.jpg" alt="leÃ­rÃ¡s" title="2 cikk cÃ­me" style="float:left;"> <h2>2. cikk cÃ­me</h2> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <br><br> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </article> </section>', '', ''),
+(41, 'FelhasznÃ¡lÃ³i csoportok', 'Felhasznaloi_csoportok', 1, 1, 'Oldal leÃ­rÃ¡sa', 'Oldal kulcsszavai', 1, 20, 'Oldal tartalma', '', ''),
+(42, 'OldaltÃ©rkÃ©p', 'oldalterkep', 1, 1, 'OldaltÃ©rkÃ©p leÃ­rÃ¡sa', 'OldaltÃ©rkÃ©p kulcsszavai', 1, 21, 'AlapbeÃ¡llÃ­tÃ¡sok tartalma', '', ''),
+(43, 'MenÅ± plusz infÃ³k', 'menuplusz', 1, 1, 'MenÅ± plusz infÃ³k leÃ­rÃ¡sa', 'MenÅ± plusz infÃ³k kulcsszavai', 1, 54, 'MenÅ± plusz infÃ³k tartalma', '', '');
 
 -- --------------------------------------------------------
 

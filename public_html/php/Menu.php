@@ -35,6 +35,8 @@
             $HTMLkod2 .= "<li class='M1'><a href='?f0=Felhasznaloi_csoportok'>Felhasználói csoportok</a></li>\n";
             $HTMLkod2 .= "<li class='M1'><a href='?f0=kiegeszito_tartalom'>Kiegészítő tartalom</a></li>\n";    
             $HTMLkod2 .= "<li class='M1'><a href='?f0=Fomenu_linkek_beallitasa'>Főmenü linkjeinek beállítása</a></li>\n"; 
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=menuplusz'>Menü plusz infók</a></li>\n"; 
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=oldalterkep'>Oldaltérkép</a></li>\n"; 
             $HTMLkod2 .= "</ul>\n";
         }
         if ($HTMLkod2 != '') {$HTMLkod1 .= $HTMLkod2;}
@@ -59,6 +61,8 @@
         } 
         if ($HTMLkod > '') {$HTMLkod = "<ul class='Ul1'>\n $HTMLkod  </ul>\n";}
         mysqli_free_result($result);  
+        
+        $HTMLkod  .= getMenuPluszHTML();
         return $HTMLkod1.$HTMLkod;
     }
 
