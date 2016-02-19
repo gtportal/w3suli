@@ -113,6 +113,13 @@
 .pKiegTid {font-weight:bold;}
 .divKiegTElem {width:450px; display:block; float:left; padding:5px; margin:5px; border:1px solid #000;}
 #submitKiegTartalom {clear:both;float:none;}
+.divKiegTElem textarea {width:440px;}
+
+/*************************  Főmenüform ******************************/
+.pFoMenuid {font-weight:bold;}
+.divFoMenuElem {width:450px; display:block; float:left; padding:5px; margin:5px; border:1px solid #000;}
+#submitFoMenu{clear:both;float:none;}
+.divFoMenuElem textarea {width:440px;}
 
 /*************************  Felhasználó módosítása form ******************************/
 #chFelhasznaloForm, #chFelhasznaloTorolForm {display: none; border: 1px solid #000;}

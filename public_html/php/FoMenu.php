@@ -80,7 +80,7 @@ function getFoMenuForm() {
   $HTMLkod   = '';
  //echo '<h1>Tesztzzzzzzzzzzzzzz</h1>';
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
-  $HTMLkod .= getFoMenuHTML();
+ // $HTMLkod .= getFoMenuHTML();
   
   $SelectStr = "SELECT * FROM FoMenuLink";
         $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 01");
@@ -91,7 +91,7 @@ function getFoMenuForm() {
             $FoMenuLink['LNev']      = $row['LNev'];
             $FoMenuLink['LURL']      = $row['LURL'];
             $FoMenuLink['LPrioritas']= $row['LPrioritas'];
-            $FoMenuLinkTmb[]   = $FoMenuLink;
+            $FoMenuLinkTmb[]         = $FoMenuLink;
         }
   //Print_r($FoMenuLinkTmb);
   // A KiegTartalom.php-hoz hasonlóan összeállítjuk a FORM tartalmát
@@ -145,7 +145,9 @@ function getFoMenuHTML() {
   $FoMenuLink = array();
   $HTMLkod   = '';
  
-  $HTMLkod   = "<h1>Hahó</h1>";
+  $HTMLkod   = "<a href='./' class='MPontLink'>Menüpont1</a>   
+		   <a href='./' class='MPontLink'>Menüpont2</a>   
+		   <a href='./' class='MPontLink'>Menüpont3</a> ";
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
   
   
