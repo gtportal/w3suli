@@ -368,11 +368,57 @@ function setCikk() {
 // ==================== CIKK TÖRLÉSE =================
 
 function setCikkTorol() {
-	trigger_error('Not Implemented!', E_USER_WARNING);
+    global $MySqliLink, $Aktoldal;
+    if (isset($_POST['submitCikkTorol'])) {
+        $TorolDB = test_post($_POST['TorolDB']);
+        for ($i = 0; $i < $TorolDB; $i++){
+            $id = test_post($_POST["CikkTorolId_$i"]);
+            if ($_POST["CikkTorol_$i"]){
+                $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
+                mysqli_query($MySqliLink, $DeleteStr);
+                $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
+                mysqli_query($MySqliLink, $DeleteStr);
+            }
+        }
+    }
 }
 
 function getCikkTorolForm() {
-    trigger_error('Not Implemented!', E_USER_WARNING);
+    global $MySqliLink, $Aktoldal;
+    $HTMLkod = "";
+    $Oid = $Aktoldal['id'];
+    $OUrl = $Aktoldal['OUrl'];
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>1) {
+        $SelectStr = "SELECT C.id, C.CNev
+                        FROM Cikkek AS C
+                        LEFT JOIN OldalCikkei AS OC
+                        ON OC.Cid= C.id 
+                        WHERE OC.Oid=$Oid";
+        $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCT 01 ");
+        $rowDB  = mysqli_num_rows($result);
+
+        $HTMLkod .= "<div id='divCikkTorolForm' >\n";
+        $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkTorolForm'>\n";
+        while ($row = mysqli_fetch_array($result)) {
+            $CNev = $row['CNev'];
+            $id = $row['id'];
+
+            //Törlésre jelölés
+            $HTMLkod .= "<p class='pCikkTorol'><label for='pCikkTorol_$i' class='label_1'>$CNev</label>\n ";
+            $HTMLkod .= "<input type='checkbox' name='CikkTorol_$i' id='CikkTorol_$i'></p>\n";
+
+            //id
+            $HTMLkod .= "<input type='hidden' name='CikkTorolId_$i' id='CikkTorolId_$i' value='$id'>\n";
+
+            $i++;
+        }
+        $HTMLkod .= "<input type='hidden' name='TorolDB' id='TorolDB' value='$rowDB'>\n";
+        
+        $HTMLkod .= "<input type='submit' name='submitCikkTorol' id='submitCikkTorol' value='Törlés'>\n";
+        $HTMLkod .= "</form>\n";
+        $HTMLkod .= "</div>\n";
+    }
+    return $HTMLkod;
 }
 
 
