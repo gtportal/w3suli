@@ -32,14 +32,14 @@ function setUjCikk() {
             $SelectStr   = "SELECT id FROM Cikkek WHERE CNev = '$UjCNev' LIMIT 1";
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUC 01 ");
             $rowDB       = mysqli_num_rows($result); mysqli_free_result($result);
-            if ($rowDB > 0) { $ErrorStr .= ' Err302,';}
-            if (strlen($UjCNev)>60) { $ErrorStr .= ' Err303,';}
-            if (strlen($UjCNev)<3)  { $ErrorStr .= ' Err304,';}
-        } else {$ErrorStr = ' Err301,';}
+            if ($rowDB > 0) { $ErrorStr .= ' Err002,';}
+            if (strlen($UjCNev)>60) { $ErrorStr .= ' Err003,';}
+            if (strlen($UjCNev)<3)  { $ErrorStr .= ' Err004,';}
+        } else {$ErrorStr = ' Err001,';}
         //Tartalom ellenőrzése
         if (isset($_POST['UjCTartalom'])) {
             $UjCTartalom = test_post($_POST['UjCTartalom']);
-            if (strlen(!$UjCTartalom)){ $ErrorStr .= ' Err305';}
+            if (strlen(!$UjCTartalom)){ $ErrorStr .= ' Err005';}
         }
         if (isset($_POST['UjCLeiras'])) {$UjCLeiras   = test_post($_POST['UjCLeiras']);}
 
@@ -66,7 +66,7 @@ function getUjCikkForm() {
             if (isset($_POST['UjCNev']))      {$UjCNev      = test_post($_POST['UjCNev']);}
             if (isset($_POST['UjCTartalom'])) {$UjCTartalom = test_post($_POST['UjCTartalom']);}
             if (isset($_POST['UjCLeiras']))   {$UjCLeiras   = test_post($_POST['UjCLeiras']);}
-        
+            
             //============FORM ÖSSZEÁLLÍTÁSA===================
             $HTMLkod .= "<div id='divUjCikkForm' >\n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjCikkForm'>\n";
@@ -76,7 +76,7 @@ function getUjCikkForm() {
             $HTMLkod .= "<input type='text' name='UjCNev' id='UjCNev' placeholder='Cikk név' value='$UjCNev' size='60'></p>\n";
             //Cikk rövid leírása
             $HTMLkod .= "<p class='pUjCLeiras'><label for=UjCLeiras class='label_1'>Cikk rövid leírása:</label><br>\n ";
-            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='Cikk leírása' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
+            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='Cikk leíráss' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
             //Cikk tartalma
             $HTMLkod .= "<p class='pUjCTartalom'><label for='UjCTartalom' class='label_1'>Cikk tartalma:</label><br>\n ";
             $HTMLkod .= "<textarea name='UjCTartalom' id='UjCTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$UjCTartalom."</textarea></p>\n";
@@ -93,24 +93,24 @@ function getUjCikkForm() {
             // ============== HIBAKEZELÉS ===================== 
             $ErrorStr = '';
              //Cikknév
-            if (strpos($_SESSION['ErrorStr'],'Err301')!==false) {
+            if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
               $ErrClassCNev = ' Error '; 
               $ErrorStr .= 'Hiányzik a cikk neve! ';
             }
-            if (strpos($_SESSION['ErrorStr'],'Err302')!==false) {
+            if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
               $ErrClassCNev = ' Error '; 
               $ErrorStr .= 'Ilyen nevű cikk már létezik! ';
             }
-            if (strpos($_SESSION['ErrorStr'],'Err303')!==false) {
+            if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
               $ErrClassCNev = ' Error '; 
               $ErrorStr .= 'Az cikk neve túl hosszú! ';
             }
-            if (strpos($_SESSION['ErrorStr'],'Err304')!==false) {
+            if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
               $ErrClassCNev = ' Error '; 
               $ErrorStr .= 'Az cikk neve legalább 3 karakter hosszú kell legyen! ';
             }         
             //Cikk tartalom
-            if (strpos($_SESSION['ErrorStr'],'Err305')!==false) {
+            if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
               $ErrClassCTartalom = ' Error '; 
               $ErrorStr .= 'A tartalom nem lehet üres! ';
             }
@@ -125,7 +125,7 @@ function getUjCikkForm() {
             $HTMLkod .= "<input type='text' name='UjCNev' id='UjCNev' class='$ErrClassCNev' placeholder='Cikk név' value='$UjCNev' size='60'></p>\n";
             //Cikk rövid leírása
             $HTMLkod .= "<p class='pUjCLeiras'><label for=UjCLeiras class='label_1'>Cikk rövid leírása:</label><br>\n ";
-            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='Cikk leírása' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
+            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='Cikk leírás' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
             //Cikk tartalma
             $HTMLkod .= "<p class='pUjCTartalom'><label for='UjCTartalom' class='label_1'>Cikk tartalma:</label><br>\n ";
             $HTMLkod .= "<textarea name='UjCTartalom' id='UjCTartalom' class='$ErrClassCTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$UjCTartalom."</textarea></p>\n";
@@ -165,12 +165,15 @@ function getCikkValasztForm() {
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkValaszt'>\n";
 
         //Cikk kiválasztása a lenyíló listából
-        $HTMLkod .= "<select name='selectCikkValaszt' size='1'>";
+        $HTMLkod .= "<label for='selectCikkValaszt' class='label_1'>Módosítandó cikk neve:</label><br>\n ";
+        $HTMLkod .= "<select id='selectCikkValaszt' name='selectCikkValaszt' size='1'>";
 
         $SelectStr = "SELECT C.id, C.CNev
                         FROM Cikkek AS C
                         LEFT JOIN OldalCikkei AS OC
-                        ON OC.id=$Oid";
+                        ON OC.Cid= C.id 
+                        WHERE OC.Oid=$Oid";
+        
         
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCV 01 ");
         while($row = mysqli_fetch_array($result))
@@ -179,7 +182,8 @@ function getCikkValasztForm() {
             if($_SESSION['SzerkCikk'.'id'] == $row['id']){$Select = " selected ";}else{$Select = "";}
 
             $HTMLkod.="<option value='$CNev' $Select >$CNev</option>";
-        }	
+        }
+        $HTMLkod .= "</select>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitCikkValaszt' value='Kiválaszt'><br>\n";        
         $HTMLkod .= "</form>\n";            
@@ -190,11 +194,93 @@ function getCikkValasztForm() {
 }
 
 function getCikkForm() {
-    $HTMLkod  = '';
-    //$HTMLkod .= getCikkValasztForm();
-        
-    //A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk űrlapja   
-	trigger_error('Not Implemented!', E_USER_WARNING);
+    //A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk űrlapja
+    global $Aktoldal, $MySqliLink;
+    $HTMLkod = '';
+    $OUrl = $Aktoldal['OUrl'];
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>1) {
+        if (!isset($_POST['submitCikkForm']) || $_SESSION['ErrorStr'=='']){
+        //Ha még nem lett elküldve vagy a cikk már módosítva lett
+            $id = $_SESSION['SzerkCikk'.'id'];
+            $SelectStr   = "SELECT * FROM Cikkek WHERE id = $id LIMIT 1";
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sC 02 ");
+                $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
+            
+            $CNev = $row['CNev'];
+            $CLeiras = $row['CLeiras'];
+            $CTartalom = $row['CTartalom'];
+            if ($_SESSION['SzerkCikk'.'id']>0)
+            {   //============FORM ÖSSZEÁLLÍTÁSA===================
+                $HTMLkod .= "<div id='divCikkForm' >\n";
+                $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkForm'>\n";
+
+                //Cikk neve
+                $HTMLkod .= "<p class='pCNev'><label for='CNev' class='label_1'>Módosított cikk neve:</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='CNev' id='CNev' placeholder='Cikk név' value='$CNev' size='60'></p>\n";
+                //Cikk rövid leírása
+                $HTMLkod .= "<p class='pCLeiras'><label for=CLeiras class='label_1'>Módosított cikk rövid leírása:</label><br>\n ";
+                $HTMLkod .= "<textarea name='CLeiras' id='CLeiras' placeholder='Cikk leírás' rows='2' cols='88'>".$CLeiras."</textarea></p>\n";
+                //Cikk tartalma
+                $HTMLkod .= "<p class='pCTartalom'><label for='CTartalom' class='label_1'>Módosított cikk tartalma:</label><br>\n ";
+                $HTMLkod .= "<textarea name='CTartalom' id='CTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$CTartalom."</textarea></p>\n";
+                //Submit
+                $HTMLkod .= "<input type='submit' name='submitCikkForm' value='Módosítás'><br>\n";
+
+                $HTMLkod .= "</form>\n";
+                $HTMLkod .= "</div>\n";
+            }
+        } else {//Ha elküldték és hibás
+            if (isset($_POST['CNev']))      {$CNev      = test_post($_POST['CNev']);}
+            if (isset($_POST['CTartalom'])) {$CTartalom = test_post($_POST['CTartalom']);}
+            if (isset($_POST['CLeiras']))   {$CLeiras   = test_post($_POST['CLeiras']);}
+            
+            // ============== HIBAKEZELÉS ===================== 
+            $ErrorStr = '';
+             //Cikknév
+            if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
+              $ErrClassCNev = ' Error '; 
+              $ErrorStr .= 'Hiányzik a cikk neve! ';
+            }
+            if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
+              $ErrClassCNev = ' Error '; 
+              $ErrorStr .= 'Ilyen nevű cikk már létezik! ';
+            }
+            if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
+              $ErrClassCNev = ' Error '; 
+              $ErrorStr .= 'Az cikk neve túl hosszú! ';
+            }
+            if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
+              $ErrClassCNev = ' Error '; 
+              $ErrorStr .= 'Az cikk neve legalább 3 karakter hosszú kell legyen! ';
+            }         
+            //Cikk tartalom
+            if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
+              $ErrClassCTartalom = ' Error '; 
+              $ErrorStr .= 'A tartalom nem lehet üres! ';
+            }
+            
+            //============FORM ÖSSZEÁLLÍTÁSA===================
+            $HTMLkod .= "<div id='divCikkForm' >\n";
+            if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+            $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkForm'>\n";
+
+            //Cikk neve
+            $HTMLkod .= "<p class='pCNev'><label for='CNev' class='label_1'>Cikk neve:</label><br>\n ";
+            $HTMLkod .= "<input type='text' name='CNev' id='CNev' class='$ErrClassCNev' placeholder='Cikk név' value='$CNev' size='60'></p>\n";
+            //Cikk rövid leírása
+            $HTMLkod .= "<p class='pCLeiras'><label for=CLeiras class='label_1'>Cikk rövid leírása:</label><br>\n ";
+            $HTMLkod .= "<textarea name='CLeiras' id='CLeiras' placeholder='Cikk leírás' rows='2' cols='88'>".$CLeiras."</textarea></p>\n";
+            //Cikk tartalma
+            $HTMLkod .= "<p class='pCTartalom'><label for='CTartalom' class='label_1'>Cikk tartalma:</label><br>\n ";
+            $HTMLkod .= "<textarea name='CTartalom' id='CTartalom' class='$ErrClassCTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$CTartalom."</textarea></p>\n";
+            //Submit
+            $HTMLkod .= "<input type='submit' name='submitCikkForm' value='Létrehozás'><br>\n";
+
+            $HTMLkod .= "</form>\n";
+            $HTMLkod .= "</div>\n";
+        }
+    }
+    return $HTMLkod;
 }
 
 function setCikkValaszt() {
@@ -205,7 +291,6 @@ function setCikkValaszt() {
 // sem a cikkválasztó űrlapot sem a cikk módosítása elküdték nem küldték el (pl. új oldalt töltenek le)	
     global $MySqliLink;
     $ErrorStr = '';
-    
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $CNev     = '';
 
@@ -228,13 +313,53 @@ function setCikkValaszt() {
 
 
 function setCikk() {
-  $ErrorStr = '';
-  
-  $ErrorStr .= setCikkValaszt();
-	
-  //A $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk adatainak kezelése   
-  trigger_error('Not Implemented!', E_USER_WARNING);
-	
+  global $MySqliLink, $Aktoldal;
+    $ErrorStr = "";
+    $ErrorStr .= setCikkValaszt();
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitCikkForm']))) {
+        $Oid = $Aktoldal['id'];
+        // ============== HIBAKEZELÉS =====================
+        //Az oldalnév ellenőrzése  
+        if (isset($_POST['CNev'])) {
+            $CNev      = test_post($_POST['CNev']);
+            $id       = $_SESSION['SzerkCikk'.'id'];
+            $SelectStr = "SELECT C.id, C.CNev
+                        FROM Cikkek AS C
+                        LEFT JOIN OldalCikkei AS OC
+                        ON OC.Cid = C.id
+                        WHERE OC.Oid=$Oid
+                        AND C.CNev='$CNev'";
+            $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMC 01 ");
+            $rowDB       = mysqli_num_rows($result);
+            if ($rowDB > 0) {
+		$row = mysqli_fetch_array($result);
+		if($id!=$row['id']) {$ErrorStr .= ' Err002,';}
+            }
+            mysqli_free_result($result);
+            
+            if (strlen($CNev)>60) { $ErrorStr .= ' Err003,';}
+            if (strlen($CNev)<3)  { $ErrorStr .= ' Err004,';}
+        } else {$ErrorStr = ' Err001,';}
+        
+        //Tartalom ellenőrzése
+        if (isset($_POST['CTartalom'])) {
+            $CTartalom = test_post($_POST['CTartalom']);
+            if (strlen(!$CTartalom)){ $ErrorStr .= ' Err005';}
+        }
+        if (isset($_POST['CLeiras'])) {$CLeiras   = test_post($_POST['CLeiras']);}
+
+        //=========REKORDOK MÓDOSÍTÁSA =============
+        if ($ErrorStr=='') {
+            $UpdateStr = "UPDATE Cikkek SET
+                        CNev       = '$CNev',
+                        CTartalom  = '$CTartalom',
+                        Cleiras =  '$CLeiras',
+                        CModositasTime = NOW()
+                        WHERE id = $id";
+            mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 01 ");
+        }
+    }
+    return $ErrorStr;
 }
 
 
@@ -247,7 +372,7 @@ function setCikkTorol() {
 }
 
 function getCikkTorolForm() {
-	trigger_error('Not Implemented!', E_USER_WARNING);
+    trigger_error('Not Implemented!', E_USER_WARNING);
 }
 
 
