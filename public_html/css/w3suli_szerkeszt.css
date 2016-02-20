@@ -59,7 +59,7 @@
 #divFormkodCikk {display: none;}
 #chFormkodCikk:checked    ~ #divFormkodCikk    {display: block;}
 
-#divUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm {display: none; border: 1px solid #000;}
+#divCikkValaszt, #divUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm {display: none; border: 1px solid #000;}
 #chFormkodCikk, #chUjCikkForm, #chCikkForm, #chCikkTorolForm, #chCikkKepForm {display:none;}
 
 #chUjCikkForm:checked    ~ #labelUjCikkForm     {font-weight:bold;}
@@ -73,10 +73,12 @@
 #chCikkKepForm:checked   ~ #labelCikkKepForm:before{content:url('../img/ikonok/modify2pushed28.png');position:relative;top:7px;}
 
 
-#chUjCikkForm:checked    ~ #divCikkek #divUjCikkForm    {display: block;}
-#chCikkForm:checked      ~ #divCikkek #divCikkForm      {display: block;}
-#chCikkTorolForm:checked ~ #divCikkek #divCikkTorolForm {display: block;}
-#chCikkKepForm:checked   ~ #divCikkek #divCikkKepForm   {display: block;}
+#chUjCikkForm:checked    ~ #divUjCikkForm    {display: block;}
+#chCikkForm:checked      ~ #divCikkForm      {display: block;}
+#chCikkForm:checked      ~ #divCikkValaszt   {display: block;}
+#chCikkTorolForm:checked ~ #divCikkTorolForm {display: block;}
+#chCikkKepForm:checked   ~ #divCikkKepForm   {display: block;}
+#chCikkKepForm:checked   ~ #divCikkValaszt   {display: block;}
 
 
 #divCikkKepForm .Kepszerk img {display:block; float:left; height:100px; margin:5px;}
