@@ -13,7 +13,7 @@
 #BelsoKeret {background-color:#f0f; }  
 #KiegeszitoInfo{background-color:#C0C0C0;color:#ffffff;}
 #Keret{background-color:#C0C0C0;}
-#FoNav{/*background-color:#CC6600;*/ background-image:url('../img/pallagi_hatter.jpg'); color:#ffffff;}
+#FoNav{background-color:#222; /* background-image:url('../img/pallagi_hatter.jpg');*/ color:#ffffff;}
 #Tartalom{background-color:#999999;}
 #FoHeder{background-color:#999999;}
 

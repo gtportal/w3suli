@@ -40,7 +40,7 @@ a#logoLink:link   {color:#fff;}
 #FoNavBal {float:left; width:100px;}
 #FoNavJobb {width:100%;margin:0 100px; text-align:center;}
     
-   
+#divFelhasznaloUdv:before{content:url('../img/ikonok/user1.png');}   
 /***************************************** Helyi menü ********************************************/
 
 #HelyiNav {margin-bottom:40px; }
