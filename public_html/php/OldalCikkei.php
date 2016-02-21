@@ -80,7 +80,7 @@ function getCikkekForm() {
         $HTMLkod  .= getUjCikkForm();
         $HTMLkod  .= getCikkForm();
         $HTMLkod  .= getCikkTorolForm();
-        //$HTMLkod  .= getCikkKepForm();
+        $HTMLkod  .= getCikkKepForm();                        // Élesítve!!!
         $HTMLkod  .= "</div>\n";
     $HTMLkod  .= "</div>\n";
     //...

@@ -64,6 +64,7 @@
   require_once 'php/Menu.php';
   require_once 'php/OldalCikkei.php';
   require_once 'php/Cikk.php';
+  require_once 'php/CikkKep.php';
   
   require_once 'php/OldalKeptar.php';
   require_once 'php/morzsa.php';
@@ -99,7 +100,11 @@
   //A CIKKEK ADATAINAK MÓDOSÍTÁSA
   $_SESSION['ErrorStr']   .= setUjCikk();
   $_SESSION['ErrorStr']   .= setCikk();  
-  $_SESSION['ErrorStr']   .= setCikkTorol(); 
+  $_SESSION['ErrorStr']   .= setCikkTorol();
+  
+  $_SESSION['ErrorStr']   .= setCikkKepek();
+  $_SESSION['ErrorStr']   .= setCikkKepFeltolt();
+  $_SESSION['ErrorStr']   .= setCikkKepTorol();  
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
  $_SESSION['ErrorStr']   .= setKiegT();
