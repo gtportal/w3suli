@@ -150,6 +150,7 @@
     function getUjOldalForm() {
         global $Aktoldal;
         $HTMLkod  = '';
+        $ErrorStr = $_SESSION['ErrorStr']; 
 
         //Csak rendszergazdáknak és moderátoroknak!
         if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
@@ -164,7 +165,10 @@
             if (isset($_POST['UjOTipValszt'])) {$UjOTipS = test_post($_POST['UjOTipValszt']);}  
             // ============== FORM ÖSSZEÁLLÍTÁSA =====================  
             $HTMLkod .= "<div id='divUjOldalForm' >\n";
-            $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjOldalForm'>\n";
+            $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjOldalForm'>\n";   //echo "<h1>'. $ErrorStr</h1>";
+            //Üzenet megjelenítése
+            if ($ErrorStr!='') {
+            $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
             //Oldalnév
             $HTMLkod .= "<p class='pUjONev'><label for='UjONev' class='label_1'>ÚJ oldal neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='UjONev' id='UjONev' placeholder='Oldalnév' 
@@ -187,8 +191,8 @@
             if (isset($_POST['UjOTipValszt'])) {$UjOTipS = test_post($_POST['UjOTipValszt']);}
             
             // ============== HIBAKEZELÉS ===================== 
-            $ErrorStr = '';
-             //Oldalnév
+            $ErrClassONev = '';
+            //Oldalnév
             $ErrClass = '';
             if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
               $ErrClassONev = ' Error '; 
@@ -283,7 +287,8 @@
                     mysqli_free_result($result);
                     $oURL = $row['OUrl'];
                     getOldalData($oURL);       // Most már ez lesz az aktuális oldal
-                }               
+                }
+                $ErrorStr = "A(z) $UjONev oldal elkészült.";
            }               
           }            
         }
@@ -293,7 +298,7 @@
     function getOldalForm() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
         $HTMLkod  = '';
-
+        $ErrorStr = $_SESSION['ErrorStr']; 
         //Csak rendszergazdáknak és moderátoroknak!
         if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
       
@@ -377,7 +382,7 @@
           if (isset($_POST['submitOldalForm']) && ($_SESSION['ErrorStr']!=''))  {             
             if (isset($_POST['ONev']))       {$ONev  = test_post($_POST['ONev']);}
             if (isset($_POST['OTipValszt'])) {$OTipS = test_post($_POST['OTipValszt']);}
-            $ErrorStr = '';         
+           // $ErrorStr = '';         
                         
             //Oldalnév
             $ErrClass = '';
@@ -453,7 +458,8 @@
     function setOldal() {
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
       //Csak rendszergazdáknak és moderátoroknak!
-      $ErrorStr = '';        
+      $ErrorStr = '';  
+     // $ErrorStr = $_SESSION['ErrorStr'];
         
       if ($_SESSION['AktFelhasznalo'.'FSzint']>3) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
           
@@ -537,6 +543,7 @@
                          WHERE id=$AktOid LIMIT 1"; 
            if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 01 ";}
            getOldalData($OUrl);
+           $ErrorStr = "A(z) $ONev oldal változott.";
           }            
         } 
         }
@@ -600,11 +607,11 @@
           //Csak akkor tötőlhető egy oldal, ha 0<típusa<10
           if ((0<$OTipus) && ($OTipus<10)) {
             //Ha még nem lett elküldve vagy az oldal adatait sikerült módosítani >> nem volt hiba
-            if (!isset($_POST['submitOldalTorolForm']) || (strpos($_SESSION['ErrorStr'],'Err0')===false))  { 
+            if ((!isset($_POST['submitOldalTorolForm'])) && (!isset($_POST['submitOldalTorolVegleges'])))  { 
               // ============== FORM ÖSSZEÁLLÍTÁSA =====================   
               $HTMLkod .= "<div id='divOldalTorolForm' >\n";
               $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalTorolForm'>\n"; 
-              $HTMLkod .= "<p class='FontosStr'>Valóban töli a $ONev oldalt??? A művelet végleges!</p>";
+              $HTMLkod .= "<p class='FontosStr'>Valóban töli a $ONev oldalt???!!! A művelet végleges!</p>";
               $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolForm' value='Törlés'><br>\n";        
               $HTMLkod .= "</form>\n";
               $HTMLkod .= "</div>\n";
@@ -612,7 +619,7 @@
             //Ha elküldték és hibás 
             if (isset($_POST['submitOldalTorolForm']) &&  (strpos($_SESSION['ErrorStr'],'Err0')!==false))  {  
               // ============== FORM ÖSSZEÁLLÍTÁSA =====================   
-              $HTMLkod .= "<div id='divOldalTorolForm' style='display: block;'>\n";
+              $HTMLkod .= "<div id='divOldalTorolForm' >\n";
               $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalTorolForm'>\n";
               $HTMLkod .= "<p class='ErrorStr'>".$_SESSION['ErrorStr']."</p>";
               if ($_SESSION['ErrorStr']=='Err001') {$HTMLkod .= "A $ONev oldal törlése előtt aloldalait kell törőlni! ";}
@@ -623,7 +630,7 @@
             //Ha elküldték és az oldal törőlhető 
             if (isset($_POST['submitOldalTorolForm']) &&  (strpos($_SESSION['ErrorStr'],'Err0')===false))  { 
               // ============== FORM ÖSSZEÁLLÍTÁSA =====================   
-              $HTMLkod .= "<div id='divOldalTorolForm' style='display: block;'>\n";
+              $HTMLkod .= "<div id='divOldalTorolForm' >\n";
               $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalTorolForm'>\n"; 
               $HTMLkod .= "<p class='FontosStr'>Biztosan tőrlöd a $ONev oldalt? </p>";
               $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolVegleges' value='Törlés'><br>\n";        
@@ -633,7 +640,7 @@
             //Ha törőltük az oldalt
             if (isset($_POST['submitOldalTorolVegleges']) &&  (strpos($_SESSION['ErrorStr'],'Err0')===false))  {  
               // ============== DIV ÖSSZEÁLLÍTÁSA =====================   
-              $HTMLkod .= "<div id='divOldalTorolForm' style='display: block;'>\n";              
+              $HTMLkod .= "<div id='divOldalTorolForm' >\n";              
               $HTMLkod .= "<p class='FontosStr'>".$_SESSION['ErrorStr']."</p>";                       
               $HTMLkod .= "</div>\n";
             } 
@@ -647,21 +654,28 @@
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $AlapAdatok, $MySqliLink;  
       $HTMLkod   = ''; //style='display:none;
       $HTMLFormkod   = '';
-      if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!  
-        $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox'>\n";
+      if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+        if(isset($_POST['submitOldalTorolForm'])    || isset($_POST['submitOldalTorolVegleges']) ||
+           isset($_POST['submitOldalForm'])         || isset($_POST['submitUjOldalForm']) || 
+           isset($_POST['submit_KepekFeltoltForm']) || isset($_POST['submitOldalKepForm']))
+			{$checked = " checked ";} else {$checked = "";}  
+        $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox' $checked>\n";
         $HTMLFormkod  .= "  <label for='chFormkod'    class='chLabel'    id='labelchFormkod'>Oldal szerkesztése</label>\n";  
         $HTMLFormkod  .= "<div id='divFormkod'>\n";      
         // ================ A FORMOK MEGJELENÍTÉSÉT SZABÁLYZÓ INPUT ELEMEK =============================        
-        if ($DedSzuloId['id']==0) { //5. szintű oldal már nem hozható létre
-          $HTMLFormkod  .= "  <input name='chOldalForm'   id='chUjOldalForm' value='chUjOldalForm' type='radio'>\n";
+        if ($DedSzuloId['id']==0) { //5. szintű oldal már nem hozható 
+          if(isset($_POST['submitUjOldalForm'])) {$checked = " checked ";} else {$checked = "";} 
+          $HTMLFormkod  .= "  <input name='chOldalForm'   id='chUjOldalForm' value='chUjOldalForm' type='radio' $checked>\n";
           $HTMLFormkod  .= "  <label for='chUjOldalForm'  class='chLabel'    id='labelUjOldalForm'>Új oldal</label>\n";
         }
-        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalForm'   value='chOldalForm'   type='radio'>\n";
+        if(isset($_POST['submitOldalForm'])) {$checked = " checked ";} else {$checked = "";}
+        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalForm'   value='chOldalForm'   type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalForm'    class='chLabel'    id='labelOldalForm'>Oldal módosítása</label>\n";
-        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalTorolForm'  value='chOldalTorolForm'  type='radio'>\n";
+        if(isset($_POST['submitOldalTorolForm']) || isset($_POST['submitOldalTorolVegleges'])) {$checked = " checked ";} else {$checked = "";}
+        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalTorolForm'  value='chOldalTorolForm'  type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalTorolForm'   class='chLabel'    id='labelOldalTorolForm'>Oldal törlése</label>\n \n";
-        
-        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalKepForm' value='chOldalKepForm'  type='radio'>\n";
+        if(isset($_POST['submitOldalKepForm']) || isset($_POST['submit_KepekFeltoltForm'])) {$checked = " checked ";} else {$checked = "";}
+        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalKepForm' value='chOldalKepForm'  type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalKepForm' class='chLabel'     id='labelOldalKepForm'>Oldal képeinek módosítása</label>\n \n";
         // ================ AZ OLDAL MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================
         if ($DedSzuloId['id']==0) {$HTMLFormkod  .= getUjOldalForm();} //5. szintű oldal már nem hozható létre

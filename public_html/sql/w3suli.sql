@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Hoszt: localhost
--- Létrehozás ideje: 2016. Feb 21. 12:28
+-- Létrehozás ideje: 2016. Feb 21. 15:16
 -- Szerver verzió: 5.5.47-0ubuntu0.14.04.1
 -- PHP verzió: 5.5.9-1ubuntu4.14
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `AlapAdatok` (
 --
 
 INSERT INTO `AlapAdatok` (`id`, `WebhelyNev`, `Iskola`, `Cim`, `Telefon`, `Stilus`) VALUES
-(3, 'WebhelyNev012', 'Iskola123', 'Cim234', 'Telefon345', 7);
+(3, 'w3 Suli', 'Iskola neve', 'Cim', 'Telefon', 7);
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `Cikkek` (
   `CLetrehozasTime` datetime NOT NULL,
   `CModositasTime` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=25 ;
 
 --
 -- A tábla adatainak kiíratása `Cikkek`
@@ -70,7 +70,29 @@ CREATE TABLE IF NOT EXISTS `Cikkek` (
 
 INSERT INTO `Cikkek` (`id`, `CNev`, `CLeiras`, `CTartalom`, `CLathatosag`, `CSzerzo`, `CSzerzoNev`, `CLetrehozasTime`, `CModositasTime`) VALUES
 (1, 'teszt cikk', '', 'fasfsadsdafsdf', 1, 10, 'tesztelek', '2016-02-21 08:08:21', '2016-02-21 08:08:21'),
-(2, 'rrrrrrrrr', '', 'weqfwqef', 1, 10, 'tesztelek', '2016-02-21 09:13:11', '2016-02-21 09:13:11');
+(2, 'rrrrrrrrr', '', 'weqfwqef', 1, 10, 'tesztelek', '2016-02-21 09:13:11', '2016-02-21 09:13:11'),
+(3, '1. cikk', '', '1. cikk', 1, 10, 'tesztelek', '2016-02-21 13:29:29', '2016-02-21 13:29:29'),
+(4, '2. cikk', '', '2. cikk', 1, 10, 'tesztelek', '2016-02-21 13:29:57', '2016-02-21 13:29:57'),
+(5, '3. cikk', '', '3. cikk', 1, 10, 'tesztelek', '2016-02-21 13:30:14', '2016-02-21 13:30:14'),
+(6, '4. cikk', '', '4. cikk', 1, 10, 'tesztelek', '2016-02-21 13:30:24', '2016-02-21 13:30:24'),
+(7, '5. cikk', '', '5. cikk', 1, 10, 'tesztelek', '2016-02-21 13:30:35', '2016-02-21 13:30:35'),
+(8, '6. cikk', '', '6. cikk', 1, 10, 'tesztelek', '2016-02-21 13:30:52', '2016-02-21 13:30:52'),
+(9, '7. cikk', '', '7. cikk', 1, 10, 'tesztelek', '2016-02-21 13:31:01', '2016-02-21 13:31:01'),
+(10, '8. cikk', '', '8. cikk', 1, 10, 'tesztelek', '2016-02-21 13:31:11', '2016-02-21 13:31:11'),
+(11, '9. cikk', '', '9. cikk', 1, 10, 'tesztelek', '2016-02-21 13:31:20', '2016-02-21 13:31:20'),
+(12, '10. cikk', '', '10. cikk', 1, 10, 'tesztelek', '2016-02-21 13:31:37', '2016-02-21 13:31:37'),
+(13, '11. cikk', '', '11. cikk', 1, 10, 'tesztelek', '2016-02-21 13:31:47', '2016-02-21 13:31:47'),
+(14, '12. cikk', '', '12. cikk', 1, 10, 'tesztelek', '2016-02-21 13:31:56', '2016-02-21 13:31:56'),
+(15, '13. cikk', '', '13. cikk', 1, 10, 'tesztelek', '2016-02-21 13:32:10', '2016-02-21 13:32:10'),
+(16, '14. cikk', '', '14. cikk', 1, 10, 'tesztelek', '2016-02-21 13:32:20', '2016-02-21 13:32:20'),
+(17, '15. cikk', '', '15. cikk', 1, 10, 'tesztelek', '2016-02-21 13:32:32', '2016-02-21 13:32:32'),
+(18, '16. cikk', '', '16. cikk', 1, 10, 'tesztelek', '2016-02-21 13:32:53', '2016-02-21 13:32:53'),
+(19, '17. cikk', '', '17. cikk', 1, 10, 'tesztelek', '2016-02-21 13:33:04', '2016-02-21 13:33:04'),
+(20, '18. cikk', '', '18. cikk', 1, 10, 'tesztelek', '2016-02-21 13:33:14', '2016-02-21 13:33:14'),
+(21, '19. cikk', '', '19. cikk', 1, 10, 'tesztelek', '2016-02-21 13:33:23', '2016-02-21 13:33:23'),
+(22, '20. cikk', '', '20. cikk', 1, 10, 'tesztelek', '2016-02-21 13:33:37', '2016-02-21 13:33:37'),
+(23, '21. cikk', '', '21. cikk', 1, 10, 'tesztelek', '2016-02-21 13:33:46', '2016-02-21 13:33:46'),
+(24, '22. cikk', '', '22. cikk', 1, 10, 'tesztelek', '2016-02-21 13:33:58', '2016-02-21 13:33:58');
 
 -- --------------------------------------------------------
 
@@ -130,7 +152,18 @@ CREATE TABLE IF NOT EXISTS `FelhasznaloCsoport` (
   `CsNev` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   `CsLeiras` varchar(255) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=6 ;
+
+--
+-- A tábla adatainak kiíratása `FelhasznaloCsoport`
+--
+
+INSERT INTO `FelhasznaloCsoport` (`id`, `CsNev`, `CsLeiras`) VALUES
+(1, '13.I', '13.I osztÃ¡ly'),
+(2, '10.K', '10.K osztÃ¡ly'),
+(3, '11.A', '11.A osztÃ¡ly'),
+(4, 'tanÃ¡rok', 'tanÃ¡r csoport'),
+(5, 'rendszergazdÃ¡k', 'RendszergazdÃ¡k csoportja');
 
 -- --------------------------------------------------------
 
@@ -212,9 +245,9 @@ CREATE TABLE IF NOT EXISTS `KiegTartalom` (
 
 INSERT INTO `KiegTartalom` (`id`, `KiegTNev`, `KiegTTartalom`, `KiegTPrioritas`) VALUES
 (1, '', '<a href="./letolt/w3_suli_kornel.pptx">\r\n<img src="./img/ikonok/kornel_eloadas.png" width="300">\r\n</a>', 6),
-(2, '', '', 0),
-(3, '', '', 0),
-(4, '', '', 0),
+(2, '', '', 1),
+(3, '', '', 2),
+(4, 'TovÃ¡bbi kiemelt informÃ¡ciÃ³k', 'ÃrvÃ­ztÅ±rÅ‘ fÃºrÃ³gÃ©p', 0),
 (5, '', '', 0),
 (6, '', '', 0),
 (7, '', '', 0),
@@ -258,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `Oldalak` (
   `OImgDir` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   `OImg` varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=79 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=88 ;
 
 --
 -- A tábla adatainak kiíratása `Oldalak`
@@ -318,11 +351,16 @@ INSERT INTO `Oldalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeir
 (75, 'KÃ©pzÃ©sek', 'Kepzesek', 1, 49, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 1, 'Az oldal tartalma', '', ''),
 (76, 'TanÃ¡raink', 'Tanaraink', 1, 47, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 1, 'Az oldal tartalma', '', ''),
 (77, 'A W3 Suli projekt rÃ©sztvevÅ‘i', 'A_W3_Suli_projekt_resztvevoi', 1, 99, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 1, 'Az oldal tartalma', '', ''),
-(78, 'Teszt kategÃ³ria', 'Teszt_kategoria', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 1, 'Az oldal tartalma', '', '');
+(78, 'Teszt kategÃ³ria', 'Teszt_kategoria', 1, 0, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 1, 'Az oldal tartalma', '', ''),
+(79, 'Teszt hÃ­roldal', 'Teszt_hiroldal', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 1, 2, 'Az oldal tartalma', '', ''),
+(81, 't45', 't45', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 78, 1, 'Az oldal tartalma', '', ''),
+(82, 't45aaa', 't45aaa', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 81, 1, 'Az oldal tartalma', '', ''),
+(86, 'ccccc', 'ccccc', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 78, 1, 'Az oldal tartalma', '', ''),
+(87, 'ccccc4565', 'ccccc4565', 1, 1, 'Az oldal leÃ­rÃ¡sa', 'Az oldal kulcsszavai', 86, 1, 'Az oldal tartalma r', '', '');
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Tábla szerkezet ehhez a táblához `OldalCikkei`
 --
 
@@ -333,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `OldalCikkei` (
   `Cid` int(10) NOT NULL,
   `CPrioritas` smallint(6) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=25 ;
 
 --
 -- A tábla adatainak kiíratása `OldalCikkei`
@@ -341,7 +379,29 @@ CREATE TABLE IF NOT EXISTS `OldalCikkei` (
 
 INSERT INTO `OldalCikkei` (`id`, `Oid`, `Cid`, `CPrioritas`) VALUES
 (1, 1, 1, 1),
-(2, 1, 2, 1);
+(2, 1, 2, 1),
+(3, 78, 3, 1),
+(4, 78, 4, 1),
+(5, 78, 5, 1),
+(6, 78, 6, 1),
+(7, 78, 7, 1),
+(8, 78, 8, 1),
+(9, 78, 9, 1),
+(10, 78, 10, 1),
+(11, 78, 11, 1),
+(12, 78, 12, 1),
+(13, 78, 13, 1),
+(14, 78, 14, 1),
+(15, 78, 15, 1),
+(16, 78, 16, 1),
+(17, 78, 17, 1),
+(18, 78, 18, 1),
+(19, 78, 19, 1),
+(20, 78, 20, 1),
+(21, 78, 21, 1),
+(22, 78, 22, 1),
+(23, 78, 23, 1),
+(24, 78, 24, 1);
 
 -- --------------------------------------------------------
 
