@@ -27,6 +27,8 @@ function getCikkekForm() {
     $HTMLkod  = '';
     // Új cikk és
     // a $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk kezelése
+    
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>1) {  // Meg. A FSzint vizsgálata FONTOS!!! Később még a tulajdonossal bővűl.
             $UjCikk = true;
             $Cikk = true;
             $TorolCikk = true;
@@ -85,7 +87,7 @@ function getCikkekForm() {
     $HTMLkod  .= "</div>\n";
     //...
   
-  
+    }
     return $HTMLkod;
 }
 
