@@ -201,9 +201,10 @@ function getCikkForm() {
     if ($_SESSION['AktFelhasznalo'.'FSzint']>1) {
         if (!isset($_POST['submitCikkForm']) || $_SESSION['ErrorStr'=='']){
         //Ha még nem lett elküldve vagy a cikk már módosítva lett
-            $id = $_SESSION['SzerkCikk'.'id'];
-            $SelectStr   = "SELECT * FROM Cikkek WHERE id = $id LIMIT 1";
-                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sC 02 ");
+            $id = 0;
+            if (isset($_SESSION['SzerkCikk'.'id'])) {$id = $_SESSION['SzerkCikk'.'id'];}
+            $SelectStr   = "SELECT * FROM Cikkek WHERE id=$id LIMIT 1"; //echo "<h1>$SelectStr</h1>";
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sC 02a ");
                 $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
             
             $CNev = $row['CNev'];
