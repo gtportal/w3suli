@@ -62,6 +62,15 @@
         if ($HTMLkod > '') {$HTMLkod = "<ul class='Ul1'>\n $HTMLkod  </ul>\n";}
         mysqli_free_result($result);  
         
+        
+        $HTMLkod  .="<br>
+                A projekt támogatói:
+                <img src='./img/ikonok/eem_logo.jpg'><br>
+                <img src='./img/ikonok/eet_logo.jpg'><br>
+                <img src='./img/ikonok/ntp_logo.jpg'>
+
+                ";
+        
         $HTMLkod  .= getMenuPluszHTML();
         return $HTMLkod1.$HTMLkod;
     }
