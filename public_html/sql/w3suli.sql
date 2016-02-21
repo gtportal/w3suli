@@ -322,7 +322,7 @@ INSERT INTO `Oldalak` (`id`, `ONev`, `OUrl`, `OLathatosag`, `OPrioritas`, `OLeir
 
 -- --------------------------------------------------------
 
---
+-- 
 -- Tábla szerkezet ehhez a táblához `OldalCikkei`
 --
 
