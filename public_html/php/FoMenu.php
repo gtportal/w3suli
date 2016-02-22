@@ -109,13 +109,12 @@ function getFoMenuForm() {
             $HTMLkod .= "<p class='pFoMenuid'>".$i.". rekord</p>\n ";            
             
             //Kiegészítő tartalom neve
-            $HTMLkod .= "<p class='pModFoMenuNev'><label for='ModFoMenuNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
+            $HTMLkod .= "<p class='pModFoMenuNev'><label for='ModFoMenuNev_$i' class='label_1'>Linkfelirat:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='ModFoMenuNev_$i' id='ModFoMenuNev_$i' placeholder='$LNev' value='$LNev' size='40'></p>\n"; 
 
             //Kiegészítő tartalom tartalma
-            $HTMLkod .= "<p class='pModFoMenuTartalom'><label for='ModFoMenuTartalom_$i' class='label_1'>Módosított kiegészítő tartalom tartalma:</label><br>\n ";
-            $HTMLkod .= "<textarea type='text' name='ModFoMenuTartalom_$i' id='ModFoMenuTartalom_$i' placeholder='$LURL' 
-                         rows='4' cols='60'>$LURL</textarea></p>\n"; 
+            $HTMLkod .= "<p class='pModFoMenuTartalom'><label for='ModFoMenuTartalom_$i' class='label_1'>URL:</label><br>\n ";
+            $HTMLkod .= "<input type='text' name='ModFoMenuTartalom_$i' id='ModFoMenuTartalom_$i' placeholder='$LURL' value='$LURL' size='40'></p>\n";
 
             //Kiegészítő tartalom prioritása
             $HTMLkod .= "<p class='pModFoMenuPrioritas'><label for='ModFoMenuPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
@@ -145,15 +144,18 @@ function getFoMenuHTML() {
   $FoMenuLink = array();
   $HTMLkod   = '';
  
-  $HTMLkod   = "<a href='./' class='MPontLink'>Menüpont1</a>   
-		   <a href='./' class='MPontLink'>Menüpont2</a>   
-		   <a href='./' class='MPontLink'>Menüpont3</a> ";
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
-  
-  
   // Összeállítjuk a Főmenű Linkjeinek listáját
   // <a href='LURL' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
-           
+   $SelectStr = "SELECT * FROM FoMenuLink ORDER BY LPrioritas DESC";
+    $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 02");
+
+    while ($row = mysqli_fetch_array($result)){
+        if ($row['LURL']){
+            $HTMLkod .= "<a href='".$row['LURL']."' class ='MPontLink'>".$row['LNev']."</a>\n";
+            
+        }
+    }         
     
   return $HTMLkod;	
 }
