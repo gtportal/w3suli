@@ -9,16 +9,52 @@
 
 
 function getCikkekHTML() {
+    global $MySqliLink, $Aktoldal;
     $HTMLkod  = '';
+    $Oid = $Aktoldal['id'];
     
-    // Egyenlőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
-    //...
+    // Egyelőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
+    
+    $SelectStr = "SELECT C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+                        FROM Cikkek AS C
+                        LEFT JOIN OldalCikkei AS OC
+                        ON OC.Cid= C.id
+                        WHERE OC.Oid=$Oid
+                        ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
+    $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
+        while ($row = mysqli_fetch_array($result)){
+            if ($row['CLathatosag'] >= 0 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
+                $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
+                $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div>\n";
+                $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+            }
+        }
+    } elseif ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
+        while ($row = mysqli_fetch_array($result)){
+            if ($row['CLathatosag'] > 1) {
+                $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
+                $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div></div>\n";
+                $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+            }
+        }
+    } elseif ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
+        while ($row = mysqli_fetch_array($result)){
+            if ($row['CLathatosag'] > 2) {
+                $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
+                $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div></div>\n";
+                $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+            }
+        }
+    }
     
     
     
     
-    
-    //....
     return $HTMLkod;
 }
 

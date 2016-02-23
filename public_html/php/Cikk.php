@@ -2,7 +2,10 @@
 
 // http://webfejlesztes.gtportal.eu/index.php?f0=7_tobbtbl
 // http://webfejlesztes.gtportal.eu/index.php?f0=7_friss_04
-
+// CLathatosag értékei: 0 = rendszergazdák, moderátorok, tulajdonos
+//                      1 = csoport tagjai ????
+//                      2 = bejelentkezett felhasználók
+//                      3 = nyilvános
 
 //Minta tömb
 $Cikkek                      = array();
@@ -10,7 +13,7 @@ $Cikkek['id']                = '';
 $Cikkek['CNev']              = '';
 $Cikkek['CLeiras']           = '';
 $Cikkek['CTartalom']         = '';
-$Cikkek['CLathatosag']       = 1;
+$Cikkek['CLathatosag']       = 0;
 $Cikkek['CSzerzo']           = '';
 $Cikkek['CSzerzoNev']        = '';
 $Cikkek['CLetrehozasTime']   = '';
@@ -45,7 +48,7 @@ function setUjCikk() {
 
         //=========REKORDOK LÉTREHOZÁSA =============
         if ($ErrorStr=='') {
-            $InsertStr = "INSERT INTO Cikkek VALUES ('', '$UjCNev', '$UjCLeiras', '$UjCTartalom', 1, '$Fid', '$FNev', NOW(), NOW())";
+            $InsertStr = "INSERT INTO Cikkek VALUES ('', '$UjCNev', '$UjCLeiras', '$UjCTartalom', 0, '$Fid', '$FNev', NOW(), NOW())";
             mysqli_query($MySqliLink, $InsertStr) OR die("Hiba iUC 01 ");
 
             $InsertStr = "INSERT INTO OldalCikkei VALUES ('', '$Oid', LAST_INSERT_ID(), 1)";
@@ -422,18 +425,6 @@ function getCikkTorolForm() {
     return $HTMLkod;
 }
 
-
-// ==================== AZ OLDAL CIKKEINEK MEGJELENÍTÉSE =================
-
-
-
-// getCikkekHTML()-t használjuk !!!!
-
-
-
-function getCikkHTML() {
-  // Ha szükség van rá
-}
 
 function getCikkElozetesHTML() {
 	trigger_error('Not Implemented!', E_USER_WARNING);
