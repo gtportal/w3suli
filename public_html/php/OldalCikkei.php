@@ -25,29 +25,30 @@ function getCikkekHTML() {
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         while ($row = mysqli_fetch_array($result)){
-            if ($row['CLathatosag'] >= 0 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
                 $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                 $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
                 $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div>\n";
                 $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+        }
+    } else {
+        if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
+            while ($row = mysqli_fetch_array($result)){
+                if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
+                    $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
+                    $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                    $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div>\n";
+                    $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+                }
             }
         }
-    } elseif ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
-        while ($row = mysqli_fetch_array($result)){
-            if ($row['CLathatosag'] > 1) {
-                $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div></div>\n";
-                $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
-            }
-        }
-    } elseif ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
-        while ($row = mysqli_fetch_array($result)){
-            if ($row['CLathatosag'] > 2) {
-                $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div></div>\n";
-                $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+        if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
+            while ($row = mysqli_fetch_array($result)){
+                if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
+                    $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
+                    $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                    $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div>\n";
+                    $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+                }
             }
         }
     }
