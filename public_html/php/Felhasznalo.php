@@ -972,47 +972,32 @@ function SetUjJelszo() {
     }
  
     
-// ============= Felhasználó törlése ============    
+// ============= Felhasználó törlése ============  
     function setFelhasznaloTorol() {
-	
-	global $MySqliLink;
+    global $MySqliLink;
     $ErrorStr = '';
-
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
-
-        // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
         if (isset($_POST['submitFelhasznaloTorol'])) {
-		
-				$FFNev       = '';
-				
-                $SelectStr   = "SELECT id, FFNev FROM Felhasznalok"; 
-                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");
-                
-                while($row = mysqli_fetch_array($result)){
-					
-					$FFNev = $row['FFNev'];
-					$FId   = $row['id'];
-					
-					if(isset($_POST[$FFNev])){
-					$DeleteStr = "DELETE FROM Felhasznalok WHERE FFNev='$FFNev'";  //echo "<h1>$DeleteStr</h1>";
-					$result      = mysqli_query($MySqliLink,$DeleteStr) OR die("Hiba sFT 02 ");
-					
-					$DeleteStr = "DELETE FROM FCsoportTagok WHERE Fid=$FId";  //echo "<h1>$DeleteStr</h1>";
-					$result      = mysqli_query($MySqliLink,$DeleteStr) OR die("Hiba sFT 03 ");
-					
-					}
-				}               
+            $FTorolDB = test_post($_POST['FTorolDB']);
+            for ($i = 0; $i < $FTorolDB; $i++){
+                $id = test_post($_POST["FTorolId_$i"]);
+                if ($_POST["FTorol_$i"]){
+                    $DeleteStr = "DELETE FROM Felhasznalok WHERE id = $id"; //echo "<h1>$DeleteStr</h1>";
+                    mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sFT 02 ");
+                    $DeleteStr = "DELETE FROM FCsoportTagok WHERE Fid = $id"; //echo "<h1>$DeleteStr</h1>";
+                    mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sFT 03 "); 
+                }
+            }
         }
     }
     return $ErrorStr;
-    }    
+    }
 
     function getFelhasznaloTorolForm() {
 		
     global $MySqliLink;
     $HTMLkod  = '';
     $ErrorStr = ''; 
-    $TorolFelhasznalo = array();
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
@@ -1024,21 +1009,31 @@ function SetUjJelszo() {
         $CsId = $_SESSION['SzerkFCsoport'];
         
         
-        $SelectStr ="SELECT F.FNev, F.FFNev
+        $SelectStr ="SELECT F.id, F.FNev, F.FFNev
                     FROM Felhasznalok AS F
                     LEFT JOIN FCsoportTagok AS FCsT
                     ON FCsT.Fid= F.id 
-                    WHERE FCsT.Csid=$CsId";//echo "<h1>$SelectStr</h1>";
+                    WHERE FCsT.Csid=$CsId";
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");
-        while($row = mysqli_fetch_array($result))
-        {
+        $rowDB  = mysqli_num_rows($result);
+        $i = 0;
+        while ($row = mysqli_fetch_array($result)) {
             $FNev = $row['FNev'];
-            $FFNev = $row['FFNev'];
-
-            $HTMLkod.="<input type='checkbox' name='$FFNev' id='$FFNev' value='$FFNev'>";
-            $HTMLkod.="<label for='$FFNev'>$FNev</label><br>";
+        //  $FFNev = $row['FFNev'];
+            $id = $row['id'];
             
-        }	
+            //$HTMLkod.="<input type='checkbox' name='$FFNev' id='$FFNev' value='$FFNev'>";
+
+            //Törlésre jelölés
+            $HTMLkod .= "<input type='checkbox' name='FTorol_$i' id='FTorol_$i'>\n";
+            $HTMLkod .= "<label for='FTorol_$i' class='label_1'>$FNev</label>\n ";
+
+            //id
+            $HTMLkod .= "<input type='hidden' name='FTorolId_$i' id='FTorolId_$i' value='$id'><br>\n";
+
+            $i++;
+        }
+        $HTMLkod .= "<input type='hidden' name='FTorolDB' id='FTorolDB' value='$rowDB'>\n";
         
         //Submit
         $HTMLkod .= "<input type='submit' name='submitFelhasznaloTorol' value='Töröl'><br>\n";        
