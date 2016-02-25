@@ -392,43 +392,27 @@ function getFCsoportForm() {
     
 // ============= Felhasználó csoport törlése ============  
 function setFCsoportTorol() {
-    
     global $MySqliLink;
     $ErrorStr = '';
-
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
-
-        // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
+    
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         if (isset($_POST['submitFCsoportTorol'])) {
-		
-		$CsNev       = '';
-				
-                $SelectStr   = "SELECT CsNev FROM FelhasznaloCsoport"; 
-                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsT 01 ");
-                
-                while($row = mysqli_fetch_array($result)){
-					
-			$CsNev = $row['CsNev'];
-			$temp = getTXTtoURL($CsNev);
-
-			while(strpos($temp,' ')) { $temp = getTXTtoURL($temp);}
-
-			if(isset($_POST[$temp])){
-			$DeleteStr = "DELETE FROM FelhasznaloCsoport WHERE CsNev='$CsNev'";  //echo "<h1>$DeleteStr</h1>";
-			$result      = mysqli_query($MySqliLink,$DeleteStr) OR die("Hiba sCsT 02 ");
-			}
-		}               
-        }
+            $CsTorolDB = test_post($_POST['CsTorolDB']);
+            for ($i = 0; $i < $CsTorolDB; $i++){
+                $id = test_post($_POST["CsoportTorolId_$i"]);
+                if ($_POST["CsoportTorol_$i"]){
+                    $DeleteStr = "DELETE FROM FelhasznaloCsoport WHERE id = $id"; //echo "<h1>$DeleteStr</h1>";
+                    mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 02 ");
+                }
+            }
+        }  
     }
     return $ErrorStr;  
 }
-
+	
 function getFCsoportTorolForm() {
     global $MySqliLink;
     $HTMLkod   = '';
-
-    $ErrorStr = ''; 
-    $TorolCsoport = array();
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
@@ -438,19 +422,25 @@ function getFCsoportTorolForm() {
 
         $HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formFCsoportTorol'>\n";
 
-        $SelectStr   = "SELECT CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
+        $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");
-        while($row = mysqli_fetch_array($result))
-        {
+        $rowDB  = mysqli_num_rows($result);
+
+        while ($row = mysqli_fetch_array($result)) {
             $CsNev = $row['CsNev'];
-	    $temp = getTXTtoURL($CsNev);
+            $id = $row['id'];
+            
+            //Törlésre jelölés
+            $HTMLkod .= "<input type='checkbox' name='CsoportTorol_$i' id='CsoportTorol_$i'>\n";
+            $HTMLkod .= "<label for='CsoportTorol_$i' class='label_1'>$CsNev</label><br>\n";
 
-	    while(strpos($temp,' ')) { $temp = getTXTtoURL($temp);}
+            //id
+            $HTMLkod .= "<input type='hidden' name='CsoportTorolId_$i' id='CsoportTorolId_$i' value='$id'>\n";
 
-	    $HTMLkod.="<input type='checkbox' name='$temp' id='$temp' value='$CsNev'>";
-	    $HTMLkod.="<label for='$temp'>$CsNev</label><br>";
-
-        }	
+            $i++;
+        }
+        $HTMLkod .= "<input type='hidden' name='CsTorolDB' id='CsTorolDB' value='$rowDB'>\n";
+        
         
         //Submit
         $HTMLkod .= "<input type='submit' name='submitFCsoportTorol' value='Töröl'><br>\n";        
