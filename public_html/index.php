@@ -29,6 +29,8 @@
       $_SESSION['ElozoOldalId']            = 1; 
       $_SESSION['SzerkFelhasznalo']        = 0;
       $_SESSION['SzerkFCsoport']           = 0;
+      $_SESSION['SzerkModerator']          = 0;
+      $_SESSION['SzerkMCsoport']           = 0;
       
       $_SESSION['SzerkCikk'.'id']          = 0;
       $_SESSION['SzerkCikk'.'Oid']         = 0;

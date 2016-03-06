@@ -656,9 +656,10 @@
       $HTMLFormkod   = '';
       if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         if(isset($_POST['submitOldalTorolForm'])    || isset($_POST['submitOldalTorolVegleges']) ||
-           isset($_POST['submitOldalForm'])         || isset($_POST['submitUjOldalForm']) || 
+           isset($_POST['submitOModeratorCsoportValaszt'])         || isset($_POST['submitOModeratorValaszt']) ||         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+           isset($_POST['submitOldalForm'])         || isset($_POST['submitUjOldalForm']) ||       
            isset($_POST['submit_KepekFeltoltForm']) || isset($_POST['submitOldalKepForm']))
-			{$checked = " checked ";} else {$checked = "";}  
+			{$checked = " checked ";} else {$checked = "";}                                 //
         $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox' $checked>\n";
         $HTMLFormkod  .= "  <label for='chFormkod'    class='chLabel'    id='labelchFormkod'>Oldal szerkesztése</label>\n";  
         $HTMLFormkod  .= "<div id='divFormkod'>\n";      
@@ -677,11 +678,16 @@
         if(isset($_POST['submitOldalKepForm']) || isset($_POST['submit_KepekFeltoltForm'])) {$checked = " checked ";} else {$checked = "";}
         $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalKepForm' value='chOldalKepForm'  type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalKepForm' class='chLabel'     id='labelOldalKepForm'>Oldal képeinek módosítása</label>\n \n";
+        
+        if(isset($_POST['submitOModeratorValaszt']) || isset($_POST['submitOModeratorCsoportValaszt'])) {$checked = " checked ";} else {$checked = "";}
+        $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalModeratorForm' value='chOldalModeratorForm'  type='radio' $checked>\n";
+        $HTMLFormkod  .= "  <label for='chOldalModeratorForm' class='chLabel'     id='labelOldalModeratorForm'>Oldal moderátorainak módosítása</label>\n \n";
         // ================ AZ OLDAL MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================
         if ($DedSzuloId['id']==0) {$HTMLFormkod  .= getUjOldalForm();} //5. szintű oldal már nem hozható létre
         $HTMLFormkod  .= getOldalForm();
         $HTMLFormkod  .= getOldalTorolForm();
         $HTMLFormkod  .= getOldalKepForm();
+        $HTMLFormkod  .= getOModeratorForm(); 
         $HTMLFormkod  .= "</div>\n\n";
       }
       if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!

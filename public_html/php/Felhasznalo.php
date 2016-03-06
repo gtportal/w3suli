@@ -28,16 +28,13 @@ function initRoot() {
    }     
 }           
 
-
-
-
 // ============= Be és kijelentkezés ============
 function setBelepes() {
     global $MySqliLink, $oURL; 
-    $ErrorStr = '';		
-    $FFNev    = '';
-    $FJelszo  = '';
-    initRoot();		
+    $ErrorStr = '';	
+    
+    initRoot();	
+    	
     if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitBelepesForm']))){
         if (isset($_POST['FFNev']))         {$FFNev    = test_post($_POST['FFNev']);}
         if (isset($_POST['FJelszo']))       {$FJelszo  = test_post($_POST['FJelszo']); }
@@ -55,7 +52,7 @@ function setBelepes() {
                 $row = mysqli_fetch_array($result);
                 mysqli_free_result($result);
 				
-                $_SESSION['AktFelhasznalo'.'id']    = $row['id']; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                $_SESSION['AktFelhasznalo'.'id']      = $row['id']; //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 $_SESSION['AktFelhasznalo'.'FNev']    = $row['FNev'];
                 $_SESSION['AktFelhasznalo'.'FFNev']   = $row['FFNev'];
                 $_SESSION['AktFelhasznalo'.'FJelszo'] = $row['FJelszo'];
@@ -88,16 +85,14 @@ function setBelepes() {
 function getBelepesForm() {
     $HTMLkod  = '';
     $ErrorStr = ''; 
-    $FFNev    = '';
-    $FJelszo  = '';
 		
     if ($_SESSION['AktFelhasznalo'.'FSzint']==1)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!					
         $FFNev    = '';
         $FJelszo  = '';
 
         if (isset($_POST['submitBelepesForm'])) {
-            if (isset($_POST['FNev']))   {$FFNev   = test_post($_POST['FFNev']);}   // Megj. test_post()
-            if (isset($_POST['FJelszo'])){$FJelszo = test_post($_POST['FJelszo']);} 
+            if (isset($_POST['FFNev']))   {$FFNev   = test_post($_POST['FFNev']);}   // Megj. test_post()
+            if (isset($_POST['FJelszo'])) {$FJelszo = test_post($_POST['FJelszo']);} 
 		   
             //Felhasználó felhasználónevének ellenőrzése		   
             $ErrClassFFNev   = '';
@@ -271,7 +266,7 @@ function setUjFelhasznalo() {
     
     
 function getUjFelhasznaloForm() {
-	global $MySqliLink;	
+    global $MySqliLink;	
     $HTMLkod  = '';
     $ErrorStr = ''; 
 	
@@ -324,20 +319,20 @@ function getUjFelhasznaloForm() {
             }
             else 
             {
-                $ErrClassFFNev = '';
-		if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
-                    $ErrClassFFNev = ' Error '; 
-                    $ErrorStr .= 'Túl hosszú a felhasználónév! ';
-		}
-		if (strpos($_SESSION['ErrorStr'],'Err006')!==false) {
-                    $ErrClassFFNev = ' Error '; 
-                    $ErrorStr .= 'Túl rövid a felhasználónév! ';
-		}
-		if (strpos($_SESSION['ErrorStr'],'Err007')!==false) {
-                    $ErrClassFFNev = ' Error '; 
-                    $ErrorStr .= 'Létezik már a megadott felhasználó! ';
-		}
-	    }
+				$ErrClassFFNev = '';
+				if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
+							$ErrClassFFNev = ' Error '; 
+							$ErrorStr .= 'Túl hosszú a felhasználónév! ';
+				}
+				if (strpos($_SESSION['ErrorStr'],'Err006')!==false) {
+							$ErrClassFFNev = ' Error '; 
+							$ErrorStr .= 'Túl rövid a felhasználónév! ';
+				}
+				if (strpos($_SESSION['ErrorStr'],'Err007')!==false) {
+							$ErrClassFFNev = ' Error '; 
+							$ErrorStr .= 'Létezik már a megadott felhasználó! ';
+				}
+			}
        
             //Jelszó ellenőrzése       
             $ErrClassFJelszo = '';       
@@ -349,7 +344,7 @@ function getUjFelhasznaloForm() {
             else 
             {
                 $ErrClassFJelszo = ''; 
-		if (strpos($_SESSION['ErrorStr'],'Err008')!==false) {
+				if (strpos($_SESSION['ErrorStr'],'Err008')!==false) {
                     $ErrClassFJelszo = ' Error '; 
                     $ErrorStr .= 'Túl hosszú a jelszó! ';
                 }
@@ -377,50 +372,48 @@ function getUjFelhasznaloForm() {
             if($_SESSION['ErrorStr']==''){$ErrorStr='Sikeres regisztráció!';} 
 	}	
 		
-        // ============== FORM ÖSSZEÁLLÍTÁSA ===================== 
-	$HTMLkod .= "<div id='divUjFelhasznaloForm' >\n";
-        if ($ErrorStr!='') {
-            $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
+        // ============== FORM ÖSSZEÁLLÍTÁSA ===================== 	
+        $HTMLkod .= "<div id='divUjFelhasznaloForm' >\n";
+        if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
+        $HTMLkod .= "<form action='?f0=regisztracio' method='post' id='formUjFelhasznaloForm'>\n";
 
-	$HTMLkod .= "<form action='?f0=regisztracio' method='post' id='formUjFelhasznaloForm'>\n";
-          	   
-        //Felhasználó neve    
+        //Felhasználó neve  
         $HTMLkod .= "<p class='pFNev'><label for='FNev' class='label_1'>A felhasználó neve:</label><br>\n ";
-	$HTMLkod .= "<input type='text' name='FNev' class='$ErrClassFNev' id='FNev' placeholder='Felhasználó neve' value='$FNev' size='20'></p>\n"; 
-	
-	//Felhasználó felhasználói neve    
+        $HTMLkod .= "<input type='text' name='FNev' class='$ErrClassFNev' id='FNev' placeholder='Felhasználó neve' value='$FNev' size='20'></p>\n"; 
+
+        //Felhasználó felhasználói neve    
         $HTMLkod .= "<p class='pFFNev'><label for='FFNev' class='label_1'>Felhasználónév: </label><br>\n ";
-	$HTMLkod .= "<input type='text' name='FFNev' class='$ErrClassFFNev' id='FFNev' placeholder='Felhasználónév' value='$FFNev' size='20'></p>\n"; 
-	   
+        $HTMLkod .= "<input type='text' name='FFNev' class='$ErrClassFFNev' id='FFNev' placeholder='Felhasználónév' value='$FFNev' size='20'></p>\n"; 
+
         //Jelszó    
         $HTMLkod .= "<p class='pJelszo1'><label for='FJelszo' class='label_1'>Jelszó: </label><br>\n ";
-	$HTMLkod .= "<input type='password' name='FJelszo' class='$ErrClassFJelszo' id='FJelszo' placeholder='Jelszó' value='$FJelszo' size='20'></p>\n"; 
-	
-	//Jelszó újra    
+        $HTMLkod .= "<input type='password' name='FJelszo' class='$ErrClassFJelszo' id='FJelszo' placeholder='Jelszó' value='$FJelszo' size='20'></p>\n"; 
+
+        //Jelszó újra    
         $HTMLkod .= "<p class='pJelszo2'><label for='FJelszo2' class='label_1'>Jelszó újra: </label><br>\n ";
-	$HTMLkod .= "<input type='password' name='FJelszo2' class='$ErrClassFJelszo' id='FJelszo2' placeholder='Jelszó újra' value='$FJelszo2' size='20'></p>\n"; 
-	   
+        $HTMLkod .= "<input type='password' name='FJelszo2' class='$ErrClassFJelszo' id='FJelszo2' placeholder='Jelszó újra' value='$FJelszo2' size='20'></p>\n"; 
+
         //Email cím
-	$HTMLkod .= "<p class='pFEmail'><label for='FEmail' class='label_1'>E-mail cím: </label><br>\n ";
-	$HTMLkod .= "<input type='text' name='FEmail' class='$ErrClassFEmail' id='FEmail' placeholder='E-mail cím' value='$FEmail' size='30'></p>\n"; 
-	   
-	//Email cím újra
-	$HTMLkod .= "<p class='pFEmail2'><label for='FEmail2' class='label_1'>E-mail cím újra: </label><br>\n ";
-	$HTMLkod .= "<input type='text' name='FEmail2' class='$ErrClassFEmail' id='FEmail2' placeholder='E-mail cím újra' value='$FEmail2' size='30'></p>\n";   
-	   
+        $HTMLkod .= "<p class='pFEmail'><label for='FEmail' class='label_1'>E-mail cím: </label><br>\n ";
+        $HTMLkod .= "<input type='text' name='FEmail' class='$ErrClassFEmail' id='FEmail' placeholder='E-mail cím' value='$FEmail' size='30'></p>\n"; 
+
+        //Email cím újra
+        $HTMLkod .= "<p class='pFEmail2'><label for='FEmail2' class='label_1'>E-mail cím újra: </label><br>\n ";
+        $HTMLkod .= "<input type='text' name='FEmail2' class='$ErrClassFEmail' id='FEmail2' placeholder='E-mail cím újra' value='$FEmail2' size='30'></p>\n";   
+
         //Felhasználói szint
-	$HTMLkod .= "<p class='pFSzint'><label for='FSzint' class='label_1'>Felhasználói szint: </label><br>\n ";
+        $HTMLkod .= "<p class='pFSzint'><label for='FSzint' class='label_1'>Felhasználói szint: </label><br>\n ";
         $HTMLkod .= "<input type='number' name='FSzint' id='FSzint' min='0' max='5' step='1' value='$FSzint'></p>\n";  
-    
+
         //Felhasználó szerepe    
         $HTMLkod .= "<p class='pFSzerep'><label for='FSzerep' class='label_1'>Felhasználó szerepe: </label><br>\n ";
-	$HTMLkod .= "<input type='text' name='FSzerep' id='FSzerep' placeholder='Felhasználó szerepe' value='$FSzerep' size='20'></p>\n"; 
-	
+        $HTMLkod .= "<input type='text' name='FSzerep' id='FSzerep' placeholder='Felhasználó szerepe' value='$FSzerep' size='20'></p>\n"; 
+
         //Felhasználó csoportba rendelése
 
         $HTMLkod .= "<p class='pFCsoport'><label for='selectCsoportValaszt2' class='label_1'>Felhasználó csoporthoz rendelése: </label><br>\n ";
         $HTMLkod .= "<select name='selectCsoportValaszt2' id='selectCsoportValaszt2' size='1'>";
-			
+
         $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 10 ");
         while($row = mysqli_fetch_array($result))
@@ -435,8 +428,7 @@ function getUjFelhasznaloForm() {
         $HTMLkod .= "<input type='submit' name='submitUjFelhasznaloForm' value='Elküld'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";   
-    }        
-	   
+    }           
     return $HTMLkod;
 }     
 	
@@ -444,48 +436,46 @@ function getUjFelhasznaloForm() {
 // ============= Felhasználó adatainak módosítása ============    
 // A felhasználók adatait csak a rendszergazdák módosíthatják    
 function setFelhasznalo() {        
-        global $MySqliLink;
-        $ErrorStr = '';
+    global $MySqliLink;
+    $ErrorStr = '';
 
+    $ErrorStr .= setFelhasznaloCsoportValaszt();
+    $ErrorStr .= setFelhasznaloValaszt();
 
-        $ErrorStr .= setFelhasznaloCsoportValaszt();
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitFelhasznaloForm']))){ 			
+        if (isset($_POST['FNev']))   {$FNev    = test_post($_POST['FNev']);}  
+        if (isset($_POST['FFNev']))  {$FFNev   = test_post($_POST['FFNev']);} 
+        if (isset($_POST['FEmail'])) {$FEmail  = test_post($_POST['FEmail']);} 
+        if (isset($_POST['FSzint'])) {$FSzint  = test_post($_POST['FSzint']);} 
+        if (isset($_POST['FSzerep'])){$FSzerep = test_post($_POST['FSzerep']);} 
+        //if (isset($_POST['FKep'])) {$FKep = test_post($_POST['FKep']);} 
+        if (isset($_POST['selectCsoportValaszt3'])) {$FCsoport = $_POST['selectCsoportValaszt3'];}
 
-        $ErrorStr .= setFelhasznaloValaszt();
+        $FId = $_SESSION['SzerkFelhasznalo'];
 
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitFelhasznaloForm']))){ 			
-                if (isset($_POST['FNev']))   {$FNev    = test_post($_POST['FNev']);}  
-                if (isset($_POST['FFNev']))  {$FFNev   = test_post($_POST['FFNev']);} 
-                if (isset($_POST['FEmail'])) {$FEmail  = test_post($_POST['FEmail']);} 
-                if (isset($_POST['FSzint'])) {$FSzint  = test_post($_POST['FSzint']);} 
-                if (isset($_POST['FSzerep'])){$FSzerep = test_post($_POST['FSzerep']);} 
-                //if (isset($_POST['FKep'])) {$FKep = test_post($_POST['FKep']);} 
-                if (isset($_POST['selectCsoportValaszt3'])) {$FCsoport = $_POST['selectCsoportValaszt3'];}
-
-                $FId = $_SESSION['SzerkFelhasznalo'];
-			
         //----------------- HIBAKEZELÉS -------------------------		
-        	
+
         if($FFNev==''){$ErrorStr .= ' Err004 '; }              //nincs felhasználónév
         else {                                                 // Megj. az $FFNev hosszát csak akkor ellenőrizük, ha 0-nál nagyobb
             if (strlen($FFNev)>40) { $ErrorStr .= ' Err005 ';}   //túl hosszú felhasználónév
             if (strlen($FFNev)<6)  { $ErrorStr .= ' Err006 ';}   //túl rövid felhasználónév
         }
-			
-     
+
+
         if ($ErrorStr=='') {                                   // Megj. az $FFNev-et csak akkor használjuk lekérdezésben, ha nincs vele gond
             $SelectStr   = "SELECT id FROM Felhasznalok WHERE FFNev='$FFNev'"; 
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUF 01 ");
             $rowDB       = mysqli_num_rows($result); 
             if ($rowDB > 0) { 
-		$row = mysqli_fetch_array($result);
-		if($_SESSION['SzerkFelhasznalo']!=$row['id'])
-		{
-		    $ErrorStr .= ' Err007,';  //echo "<h1>".$_SESSION['SzerkFelhasznalo']." - ".$row['id']."</h1>";
-		}
-		mysqli_free_result($result);
-	    }          //van ilyen néven már felhasználó   
+                $row = mysqli_fetch_array($result);
+                if($_SESSION['SzerkFelhasznalo']!=$row['id'])
+                {
+                    $ErrorStr .= ' Err007,';  //echo "<h1>".$_SESSION['SzerkFelhasznalo']." - ".$row['id']."</h1>";
+                }
+                mysqli_free_result($result);
+            }          //van ilyen néven már felhasználó   
         }  
-                        
+
         if ($FNev=='') {$ErrorStr  .= ' Err001 '; }            //nincs név
         else {                                                 // Megj. az $FNev hosszát csak akkor ellenőrizük, ha 0-nál nagyobb 
             if (strlen($FNev)>40)  { $ErrorStr .= ' Err002 ';}   //túl hosszú a név
@@ -493,43 +483,43 @@ function setFelhasznalo() {
         }
 
         if($FEmail=='')          { $ErrorStr .= ' Err008 ';}   //nincs email cím megadva			
-			
+
         // ---------------- ADATOK TÁROLÁSA ---------------------
         if($ErrorStr ==''){
             $FJelszo = md5($FJelszo);  
             $UpdateStr = "UPDATE Felhasznalok SET FNev='$FNev', FFNev='$FFNev', FEmail='$FEmail', FSzint=$FSzint, FSzerep='$FSzerep' WHERE id='$FId'";    
             if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba sFV 04 "); }   
-            
+
             $SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CSNev='$FCsoport'"; //echo $SelectStr;
             $result = mysqli_query($MySqliLink,$SelectStr); if (!mysqli_query($MySqliLink,$SelectStr)) {die("Hiba sFV 05 "); }   
             $row  = mysqli_fetch_array($result);
-            
+
             $CsId = $row['id'];
-             
-            
+
+
             $SelectStr   = "SELECT * FROM FCsoportTagok WHERE KapcsTip=0 AND Fid=$FId"; //echo $SelectStr;
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 06 ");
             $rowDB       = mysqli_num_rows($result); 
             if ($rowDB > 0)
-			{
-				 $UpdateStr = "UPDATE FCsoportTagok SET Csid=$CsId WHERE Fid=$FId"; //echo "<h1>$UpdateStr</h1>";
-                 if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba sFV 07 "); }  
-					
-			}
-			else
-			{
-				$InsertIntoStr = "INSERT INTO FCsoportTagok VALUES ('', $FId, $CsId, 0)"; //echo "<h1>$InsertIntoStr</h1>";
-				if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba sFV 08 "); }  
-			}         
+            {
+                $UpdateStr = "UPDATE FCsoportTagok SET Csid=$CsId WHERE Fid=$FId"; //echo "<h1>$UpdateStr</h1>";
+                if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba sFV 07 "); }
+            }
+            else
+            {
+                $InsertIntoStr = "INSERT INTO FCsoportTagok VALUES ('', $FId, $CsId, 0)"; //echo "<h1>$InsertIntoStr</h1>";
+                if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba sFV 08 "); }  
+            }         
         } 
-		}
-		//echo "<h1>ErrorStr: $ErrorStr</h1>";
-        return $ErrorStr;
     }
+    //echo "<h1>ErrorStr: $ErrorStr</h1>";
+    return $ErrorStr;
+}
 
 function getFelhasznaloForm() {
     global $MySqliLink;
-    
+    $HTMLkod  = '';
+    $ErrorStr = ''; 
     
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $FNev     = '';
@@ -538,166 +528,159 @@ function getFelhasznaloForm() {
         $FSzint   = 0;
         $FSzerep  = '';
         $FKep     = '';
-		
-        $HTMLkod  = '';
-        $ErrorStr = '';
+
         $HTMLkod .= getFelhasznaloCsoportValasztForm();
         
-        //$_SESSION['SzerkFCsoport']=0;   
-        //$_SESSION['SzerkFelhasznalo'] = 0; 
         if($_SESSION['SzerkFCsoport']>0)
         {
         $HTMLkod .= getFelhasznaloValasztForm();
-	
         
-        if($_SESSION['SzerkFelhasznalo']>0)
-        {
-	    // ============== FORM KIVÁLASZTÁSA ===================== 
-            if(isset($_POST['submitFelhasznaloForm']) || !isset($_POST['submitFelhasznaloTorol'])){$checked = " checked ";} else {$checked = "";}			
-            $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloForm'   value='chFelhasznaloForm'   type='radio' $checked >\n";
-            $HTMLkod  .= "  <label for='chFelhasznaloForm'    class='chLabel'    id='labelFelhasznaloForm'>Felhasználó adatainak módosítása</label>\n";
-			
-            if(isset($_POST['submitFelhasznaloTorol'])){$checked = " checked ";} else {$checked = "";}			
-            $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloTorolForm'  value='chFelhasznaloTorolForm'  type='radio' $checked >\n";
-            $HTMLkod  .= "  <label for='chFelhasznaloTorolForm'   class='chLabel'    id='labelFelhasznaloTorolForm'>Felhasználó törlése</label>\n \n";
-        } else {            
-            $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloTorolForm'  value='chFelhasznaloTorolForm'  type='radio' checked >\n";
-	    $HTMLkod  .= "  <label for='chFelhasznaloTorolForm'   class='chLabel'    id='labelFelhasznaloTorolForm'>Felhasználó törlése</label>\n \n";
-        }		        
-			  
-        if($_SESSION['SzerkFelhasznalo']>0)
-        {
-            $FId = $_SESSION['SzerkFelhasznalo']; //echo "<h1>HÚÚÚÚÚÚÚÚÚÚÚ</h1>";
-
-            $SelectStr = "SELECT * FROM Felhasznalok WHERE id='$FId' LIMIT 1"; //echo $SelectStr;
-            $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 03 ");
-            $row       = mysqli_fetch_array($result);  mysqli_free_result($result);
-
-            $FNev     = $row['FNev'];
-            $FFNev    = $row['FFNev'];
-            $FEmail   = $row['FEmail'];
-            $FSzint   = $row['FSzint'];
-            $FSzerep  = $row['FSzerep'];
-            $FKep     = $row['FKep'];
-
-			$ErrClassFNev = '';
-			$ErrClassFFNev = '';
-			$ErrClassFEmail = '';
-
-            // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
-            if (isset($_POST['submitFelhasznaloForm'])) {
-                if (isset($_POST['FNev']))   {$FNev     = test_post($_POST['FNev']);}  
-                if (isset($_POST['FFNev']))   {$FFNev   = test_post($_POST['FFNev']);} 
-                if (isset($_POST['FEmail']))  {$FEmail  = test_post($_POST['FEmail']);} 
-                if (isset($_POST['FSzint']))  {$FSzint  = test_post($_POST['FSzint']);} 
-                if (isset($_POST['FSzerep'])) {$FSzerep = test_post($_POST['FSzerep']);} 
-                //if (isset($_POST['FKep'])) {$FKep = test_post($_POST['FKep']);} 
-					
-					
-                //Felhasználó nevének ellenőrzése                	   
-                if (strpos($_SESSION['ErrorStr'],'Err001')!==false) 
-                {
-                        $ErrClassFNev = ' Error '; 
-                        $ErrorStr    .= 'Hiányzik a felhasználó neve! ';
-                } 
-                else 
-                {                    
-                    if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
-                        $ErrClassFNev = ' Error '; 
-                        $ErrorStr .= 'Túl hosszú a felhasználó neve! ';
-                    }
-                    if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
-                        $ErrClassFNev = ' Error '; 
-                        $ErrorStr .= 'Túl rövid a felhasználó neve! ';
-                    }
-                } 
-
-                //Felhasználó felhasználónevének ellenőrzése                  	
-                if (strpos($_SESSION['ErrorStr'],'Err004')!==false) 
-                {
-                    $ErrClassFFNev = ' Error '; 
-                    $ErrorStr .= 'Nincs felhasználónév megadva! ';
-                }
-                else 
-                {                 
-                    if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
-                        $ErrClassFFNev = ' Error '; 
-                        $ErrorStr .= 'Túl hosszú a felhasználónév! ';
-                    }
-                    if (strpos($_SESSION['ErrorStr'],'Err006')!==false) {
-                        $ErrClassFFNev = ' Error '; 
-                        $ErrorStr .= 'Túl rövid a felhasználónév! ';
-                    }
-                    if (strpos($_SESSION['ErrorStr'],'Err007')!==false) {
-                        $ErrClassFFNev = ' Error '; 
-                        $ErrorStr .= 'Létezik már a megadott felhasználó! ';
-                    }
-                }
-
-                //Email cím ellenőrzése                           
-                if (strpos($_SESSION['ErrorStr'],'Err008')!==false) 
-                {
-                    $ErrClassFEmail = ' Error '; 
-                    $ErrorStr .= 'Nem adott meg e-mail címet! ';
-                } 
-
-                if($_SESSION['ErrorStr']==''){$ErrorStr='Sikeres módosítás!';} 
-                
-            }	
-            
-
-			
-			
-			// ============== FORM ÖSSZEÁLLÍTÁSA ===================== 
-            $HTMLkod .= "<div id='divFelhasznaloForm' >\n";
-            
-            if ($ErrorStr!='') {
-            $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
-
-            $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloForm'>\n";
-
-            //Felhasználó neve    
-            $HTMLkod .= "<p class='pFNev'><label for='FNev' class='label_1'>A felhasználó neve:</label><br>\n ";
-            $HTMLkod .= "<input type='text' name='FNev' class='$ErrClassFNev' id='FNev' placeholder='Felhasználó neve' value='$FNev' size='20'></p>\n"; 
-
-            //Felhasználó felhasználói neve    
-            $HTMLkod .= "<p class='pFFNev'><label for='FFNev' class='label_1'>Felhasználónév: </label><br>\n ";
-            $HTMLkod .= "<input type='text' name='FFNev' class='$ErrClassFFNev' id='FFNev' placeholder='Felhasználónév' value='$FFNev' size='20'></p>\n"; 
-
-            //Email cím
-            $HTMLkod .= "<p class='pFEmail'><label for='FEmail' class='label_1'>E-mail cím: </label><br>\n ";
-            $HTMLkod .= "<input type='text' name='FEmail' class='$ErrClassFEmail' id='FEmail' placeholder='E-mail cím' value='$FEmail' size='30'></p>\n"; 
-
-            //Felhasználói szint
-            $HTMLkod .= "<p class='pFSzint'><label for='FSzint' class='label_1'>Felhasználói szint: </label><br>\n ";
-            $HTMLkod .= "<input type='number' name='FSzint' id='FSzint' min='0' max='5' step='1' value='$FSzint'></p>\n";  
-
-            //Felhasználó szerepe    
-            $HTMLkod .= "<p class='pFSzerep'><label for='FSzerep' class='label_1'>Felhasználó szerepe: </label><br>\n ";
-            $HTMLkod .= "<input type='text' name='FSzerep' id='FSzerep' placeholder='Felhasználó szerepe' value='$FSzerep' size='20'></p>\n"; 
-            
-            //Felhasználó csoportba rendelése
-		
-            $HTMLkod .= "<p class='pFCsoport'><label for='selectCsoportValaszt3' class='label_1'>Felhasználó csoporthoz rendelése: </label><br>\n ";
-            $HTMLkod .= "<select name='selectCsoportValaszt3' id='selectCsoportValaszt3' size='1'>";
-
-            $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
-            $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 10 ");
-            while($row = mysqli_fetch_array($result))
+            if($_SESSION['SzerkFelhasznalo']>0)
             {
+                // ============== FORM KIVÁLASZTÁSA ===================== 
+                if(isset($_POST['submitFelhasznaloForm']) || !isset($_POST['submitFelhasznaloTorol'])){$checked = " checked ";} else {$checked = "";}			
+                $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloForm'   value='chFelhasznaloForm'   type='radio' $checked >\n";
+                $HTMLkod  .= "  <label for='chFelhasznaloForm'    class='chLabel'    id='labelFelhasznaloForm'>Felhasználó adatainak módosítása</label>\n";
+
+                if(isset($_POST['submitFelhasznaloTorol'])){$checked = " checked ";} else {$checked = "";}			
+                $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloTorolForm'  value='chFelhasznaloTorolForm'  type='radio' $checked >\n";
+                $HTMLkod  .= "  <label for='chFelhasznaloTorolForm'   class='chLabel'    id='labelFelhasznaloTorolForm'>Felhasználó törlése</label>\n \n";
+            } 
+            else 
+            {            
+                $HTMLkod  .= "  <input name='chFelhasznaloForm'   id='chFelhasznaloTorolForm'  value='chFelhasznaloTorolForm'  type='radio' >\n";
+                $HTMLkod  .= "  <label for='chFelhasznaloTorolForm'   class='chLabel'    id='labelFelhasznaloTorolForm'>Felhasználó törlése</label>\n \n";
+            }	
+        
+            if($_SESSION['SzerkFelhasznalo']>0)
+            {
+                $FId = $_SESSION['SzerkFelhasznalo']; //echo "<h1>HÚÚÚÚÚÚÚÚÚÚÚ</h1>";
+
+                $SelectStr = "SELECT * FROM Felhasznalok WHERE id='$FId' LIMIT 1"; //echo $SelectStr;
+                $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 03 ");
+                $row       = mysqli_fetch_array($result);  mysqli_free_result($result);
+
+                $FNev     = $row['FNev'];
+                $FFNev    = $row['FFNev'];
+                $FEmail   = $row['FEmail'];
+                $FSzint   = $row['FSzint'];
+                $FSzerep  = $row['FSzerep'];
+                $FKep     = $row['FKep'];
+
+                $ErrClassFNev = '';
+                $ErrClassFFNev = '';
+                $ErrClassFEmail = '';
+
+                // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
+                if (isset($_POST['submitFelhasznaloForm'])) {
+                    if (isset($_POST['FNev']))   {$FNev     = test_post($_POST['FNev']);}  
+                    if (isset($_POST['FFNev']))   {$FFNev   = test_post($_POST['FFNev']);} 
+                    if (isset($_POST['FEmail']))  {$FEmail  = test_post($_POST['FEmail']);} 
+                    if (isset($_POST['FSzint']))  {$FSzint  = test_post($_POST['FSzint']);} 
+                    if (isset($_POST['FSzerep'])) {$FSzerep = test_post($_POST['FSzerep']);} 
+                    //if (isset($_POST['FKep'])) {$FKep = test_post($_POST['FKep']);} 
+					
+					
+                    //Felhasználó nevének ellenőrzése                	   
+                    if (strpos($_SESSION['ErrorStr'],'Err001')!==false) 
+                    {
+                            $ErrClassFNev = ' Error '; 
+                            $ErrorStr    .= 'Hiányzik a felhasználó neve! ';
+                    } 
+                    else 
+                    {                    
+                        if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
+                            $ErrClassFNev = ' Error '; 
+                            $ErrorStr .= 'Túl hosszú a felhasználó neve! ';
+                        }
+                        if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
+                            $ErrClassFNev = ' Error '; 
+                            $ErrorStr .= 'Túl rövid a felhasználó neve! ';
+                        }
+                    } 
+
+                    //Felhasználó felhasználónevének ellenőrzése                  	
+                    if (strpos($_SESSION['ErrorStr'],'Err004')!==false) 
+                    {
+                        $ErrClassFFNev = ' Error '; 
+                        $ErrorStr .= 'Nincs felhasználónév megadva! ';
+                    }
+                    else 
+                    {                 
+                        if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
+                            $ErrClassFFNev = ' Error '; 
+                            $ErrorStr .= 'Túl hosszú a felhasználónév! ';
+                        }
+                        if (strpos($_SESSION['ErrorStr'],'Err006')!==false) {
+                            $ErrClassFFNev = ' Error '; 
+                            $ErrorStr .= 'Túl rövid a felhasználónév! ';
+                        }
+                        if (strpos($_SESSION['ErrorStr'],'Err007')!==false) {
+                            $ErrClassFFNev = ' Error '; 
+                            $ErrorStr .= 'Létezik már a megadott felhasználó! ';
+                        }
+                    }
+
+                    //Email cím ellenőrzése                           
+                    if (strpos($_SESSION['ErrorStr'],'Err008')!==false) 
+                    {
+                        $ErrClassFEmail = ' Error '; 
+                        $ErrorStr .= 'Nem adott meg e-mail címet! ';
+                    } 
+                    
+                    if($_SESSION['ErrorStr']==''){$ErrorStr='Sikeres módosítás!';} 
+                }	
+
+		// ============== FORM ÖSSZEÁLLÍTÁSA ===================== 
+                
+                $HTMLkod .= "<div id='divFelhasznaloForm' >\n";
+
+                if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
+
+                $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloForm'>\n";
+
+                //Felhasználó neve    
+                $HTMLkod .= "<p class='pFNev'><label for='FNev' class='label_1'>A felhasználó neve:</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='FNev' class='$ErrClassFNev' id='FNev' placeholder='Felhasználó neve' value='$FNev' size='20'></p>\n"; 
+
+                //Felhasználó felhasználói neve    
+                $HTMLkod .= "<p class='pFFNev'><label for='FFNev' class='label_1'>Felhasználónév: </label><br>\n ";
+                $HTMLkod .= "<input type='text' name='FFNev' class='$ErrClassFFNev' id='FFNev' placeholder='Felhasználónév' value='$FFNev' size='20'></p>\n"; 
+
+                //Email cím
+                $HTMLkod .= "<p class='pFEmail'><label for='FEmail' class='label_1'>E-mail cím: </label><br>\n ";
+                $HTMLkod .= "<input type='text' name='FEmail' class='$ErrClassFEmail' id='FEmail' placeholder='E-mail cím' value='$FEmail' size='30'></p>\n"; 
+
+                //Felhasználói szint
+                $HTMLkod .= "<p class='pFSzint'><label for='FSzint' class='label_1'>Felhasználói szint: </label><br>\n ";
+                $HTMLkod .= "<input type='number' name='FSzint' id='FSzint' min='0' max='5' step='1' value='$FSzint'></p>\n";  
+
+                //Felhasználó szerepe    
+                $HTMLkod .= "<p class='pFSzerep'><label for='FSzerep' class='label_1'>Felhasználó szerepe: </label><br>\n ";
+                $HTMLkod .= "<input type='text' name='FSzerep' id='FSzerep' placeholder='Felhasználó szerepe' value='$FSzerep' size='20'></p>\n"; 
+
+                //Felhasználó csoportba rendelése
+
+                $HTMLkod .= "<p class='pFCsoport'><label for='selectCsoportValaszt3' class='label_1'>Felhasználó csoporthoz rendelése: </label><br>\n ";
+                $HTMLkod .= "<select name='selectCsoportValaszt3' id='selectCsoportValaszt3' size='1'>";
+
+                $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 10 ");
+                while($row = mysqli_fetch_array($result))
+                {
                     $CsNev = $row['CsNev'];
                     if($_POST['selectCsoportValaszt3'] == $row['CsNev']){$Select = " selected ";}else{$Select = "";}
 
                     $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
-            }	
+                }	
 
-            //Submit
-            $HTMLkod .= "<input type='submit' name='submitFelhasznaloForm' value='Módosítás'><br>\n";        
-            $HTMLkod .= "</form>\n";            
-            $HTMLkod .= "</div>\n";   
-            
-            $HTMLkod.=getFelhasznaloTorolForm();
+                //Submit
+                $HTMLkod .= "<input type='submit' name='submitFelhasznaloForm' value='Módosítás'><br>\n";        
+                $HTMLkod .= "</form>\n";            
+                $HTMLkod .= "</div>\n";   
+
             }
+            $HTMLkod .=getFelhasznaloTorolForm();
         }	  
     }
     return $HTMLkod;	
@@ -735,15 +718,14 @@ function getFelhasznaloValasztForm() {
     global $MySqliLink;
     $HTMLkod  = '';
     $ErrorStr = ''; 
-    $FFNev    = '';
-    $CsId     = '';
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
-        //Jelszó ellenőrzése
+        $FFNev    = '';
+        $CsId     = '';
+        
         $HTMLkod .= "<div id='divFelhasznaloValaszt' >\n";
-        if ($ErrorStr!='') {
-        $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+        if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
 
         $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloValaszt'>\n";
 
@@ -772,8 +754,7 @@ function getFelhasznaloValasztForm() {
         $HTMLkod .= "<input type='submit' name='submitFelhasznaloValaszt' value='Kiválaszt'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
-    }
-           
+    }       
     return $HTMLkod;
 }   
 
@@ -783,11 +764,10 @@ function getFelhasznaloCsoportValasztForm()
     global $MySqliLink;
     $HTMLkod  = '';
     $ErrorStr = ''; 
-    $CsNev    = '';
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+        $CsNev    = '';
 
-        //Jelszó ellenőrzése
         $HTMLkod .= "<div id='divCsoportValaszt2' >\n";
         if ($ErrorStr!='') {
         $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
@@ -810,35 +790,36 @@ function getFelhasznaloCsoportValasztForm()
         $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
-
-    }
-           
+    }     
     return $HTMLkod;
 }
 function setFelhasznaloCsoportValaszt()
 {
-	global $MySqliLink;
-	$ErrorStr = '';
+    global $MySqliLink;
+    $ErrorStr = '';
 
-	if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
-	$CsNev     = '';
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+        $CsNev     = '';
 
-		// ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
-		if (isset($_POST['submitCsoportValaszt'])) {
+        // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
+        if (isset($_POST['submitCsoportValaszt'])) {
 
-			if (isset($_POST['selectCsoportValaszt'])) {$CsNev = test_post($_POST['selectCsoportValaszt']);}      
+            if (isset($_POST['selectCsoportValaszt'])) {$CsNev = test_post($_POST['selectCsoportValaszt']);}      
 
-			if($CsNev!='')
-			{
-				$SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev' LIMIT 1";  //echo "<h1>$SelectStr</h1>";
-				$result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 02 ");
-				$row         = mysqli_fetch_array($result);  mysqli_free_result($result);
+            if($CsNev!='')
+            {
+                $SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev' LIMIT 1";  //echo "<h1>$SelectStr</h1>";
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 02 ");
+                $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
 
-				$_SESSION['SzerkFCsoport'] = $row['id'];
-			}
-		}
-	}
-	return $ErrorStr;
+                if($_SESSION['SzerkFCsoport'] != $row['id']){$_SESSION['SzerkFelhasznalo']=0;}
+
+
+                $_SESSION['SzerkFCsoport'] = $row['id'];
+            }
+        }
+    }
+    return $ErrorStr;
 }
 
 
@@ -848,13 +829,14 @@ function setFelhasznaloCsoportValaszt()
 function SetUjJelszo() {
     global $MySqliLink;
     $ErrorStr = ''; 
-    $FRJelszo  = '';
-    $FUJelszo  = '';
-    $FUJelszo2 = '';
-    $FFNev     = $_SESSION['AktFelhasznalo'.'FFNev'];
 
     if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitUjJelszoForm'])))
     { 
+        $FRJelszo  = '';
+        $FUJelszo  = '';
+        $FUJelszo2 = '';
+        $FFNev     = $_SESSION['AktFelhasznalo'.'FFNev'];
+        
         if (isset($_POST['FRJelszo']))       {$FRJelszo  = test_post($_POST['FRJelszo']);}			
         if (isset($_POST['FUJelszo']))       {$FUJelszo  = test_post($_POST['FUJelszo']);}
         if (isset($_POST['FUJelszo2']))      {$FUJelszo2 = test_post($_POST['FUJelszo2']);}
@@ -887,93 +869,89 @@ function SetUjJelszo() {
     return $ErrorStr;
 }
 
-    function getUjJelszoForm() {
-        $HTMLkod  = '';
-	$ErrorStr = ''; 
-	
-	if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+function getUjJelszoForm() {
+    $HTMLkod  = '';
+    $ErrorStr = ''; 
 
-	//Jelszó ellenőrzése
-	$ErrClassFRJelszo = ''; 
-	$ErrClassFUJelszo = '';
-	if (strpos($_SESSION['ErrorStr'],'Err001')!==false) 
-	{
-	$ErrClassFRJelszo = ' Error '; 
-	$ErrorStr .= 'Hiányzik a régi jelszó! ';
-	} 
-	else
-	{
-		if (strpos($_SESSION['ErrorStr'],'Err003')!==false) 
-		{
-		$ErrClassFRJelszo = ' Error '; 
-		$ErrorStr .= 'Nem adta meg jól a régi jelszót! ';
-		} 
-	}
-	
-	if (strpos($_SESSION['ErrorStr'],'Err002')!==false) 
-	{
-	$ErrClassFUJelszo = ' Error '; 
-	$ErrorStr .= 'Hiányzik az új jelszó! ';
-	} 
-	else
-	{
-		if (strpos($_SESSION['ErrorStr'],'Err004')!==false) 
-		{
-		$ErrClassFUJelszo = ' Error '; 
-		$ErrorStr .= 'Túl rövid a megadott jelszó! ';
-		} 
-		if (strpos($_SESSION['ErrorStr'],'Err005')!==false) 
-		{
-		$ErrClassFUJelszo = ' Error '; 
-		$ErrorStr .= 'Túl hosszú a megadott jelszó! ';
-		} 
-		if (strpos($_SESSION['ErrorStr'],'Err006')!==false) 
-		{
-		$ErrClassFUJelszo = ' Error '; 
-		$ErrorStr .= 'Jelszavak nem egyeznek! ';
-		} 
-	}
-	if (strpos($_SESSION['ErrorStr'],'Err007')!==false) 
-	{ 
-	$ErrorStr .= 'Sikeres jelszómódosítás!';
-	} 	
-	
-	$HTMLkod .= "<div id='divUjJelszoForm' >\n";
-	if ($ErrorStr!='') {
-	$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
+        //Jelszó ellenőrzése
+        $ErrClassFRJelszo = ''; 
+        $ErrClassFUJelszo = '';
+        if (strpos($_SESSION['ErrorStr'],'Err001')!==false) 
+        {
+        $ErrClassFRJelszo = ' Error '; 
+        $ErrorStr .= 'Hiányzik a régi jelszó! ';
+        } 
+        else
+        {
+            if (strpos($_SESSION['ErrorStr'],'Err003')!==false) 
+            {
+            $ErrClassFRJelszo = ' Error '; 
+            $ErrorStr .= 'Nem adta meg jól a régi jelszót! ';
+            } 
+        }
 
-	$HTMLkod .= "<form action='?f0=jelszomodositas' method='post' id='formUjJelszoForm'>\n";
+        if (strpos($_SESSION['ErrorStr'],'Err002')!==false) 
+        {
+            $ErrClassFUJelszo = ' Error '; 
+            $ErrorStr .= 'Hiányzik az új jelszó! ';
+        } 
+        else
+        {
+            if (strpos($_SESSION['ErrorStr'],'Err004')!==false) 
+            {
+                $ErrClassFUJelszo = ' Error '; 
+                $ErrorStr .= 'Túl rövid a megadott jelszó! ';
+            } 
+            if (strpos($_SESSION['ErrorStr'],'Err005')!==false) 
+            {
+                $ErrClassFUJelszo = ' Error '; 
+                $ErrorStr .= 'Túl hosszú a megadott jelszó! ';
+            } 
+            if (strpos($_SESSION['ErrorStr'],'Err006')!==false) 
+            {
+                $ErrClassFUJelszo = ' Error '; 
+                $ErrorStr .= 'Jelszavak nem egyeznek! ';
+            } 
+        }
+        if (strpos($_SESSION['ErrorStr'],'Err007')!==false) 
+        { 
+            $ErrorStr .= 'Sikeres jelszómódosítás!';
+        } 	
 
-	//Régi jelszó
+        $HTMLkod .= "<div id='divUjJelszoForm' >\n";
+        if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
 
-	$HTMLkod .= "<p class='pFRJelszo'><label for='FRJelszo' class='label_1'>Régi jelszó: </label><br>\n ";
-	$HTMLkod .= "<input type='password' name='FRJelszo' class='$ErrClassFRJelszo' id='FRJelszo' placeholder='Régi jelszó' size='20'></p>\n"; 
+        $HTMLkod .= "<form action='?f0=jelszomodositas' method='post' id='formUjJelszoForm'>\n";
 
-	//Új jelszó
+        //Régi jelszó
 
-	$HTMLkod .= "<p class='pFUJelszo'><label for='FUJelszo' class='label_1'>Új jelszó: </label><br>\n ";
-	$HTMLkod .= "<input type='password' name='FUJelszo' class='$ErrClassFUJelszo' id='FUJelszo' placeholder='Új jelszó' size='20'></p>\n"; 
+        $HTMLkod .= "<p class='pFRJelszo'><label for='FRJelszo' class='label_1'>Régi jelszó: </label><br>\n ";
+        $HTMLkod .= "<input type='password' name='FRJelszo' class='$ErrClassFRJelszo' id='FRJelszo' placeholder='Régi jelszó' size='20'></p>\n"; 
 
-	//Új jelszó újra
+        //Új jelszó
 
-	$HTMLkod .= "<p class='pFUJelszo2'><label for='FUJelszo2' class='label_1'>Új jelszó újra: </label><br>\n ";
-	$HTMLkod .= "<input type='password' name='FUJelszo2' class='$ErrClassFUJelszo' id='FUJelszo2' placeholder='Új jelszó újra' size='20'>";
-	$HTMLkod .= "</p>\n"; 
+        $HTMLkod .= "<p class='pFUJelszo'><label for='FUJelszo' class='label_1'>Új jelszó: </label><br>\n ";
+        $HTMLkod .= "<input type='password' name='FUJelszo' class='$ErrClassFUJelszo' id='FUJelszo' placeholder='Új jelszó' size='20'></p>\n"; 
 
-	//Submit
-	$HTMLkod .= "<input type='submit' name='submitUjJelszoForm' value='Módosít'><br>\n";        
-	$HTMLkod .= "</form>\n";            
-	$HTMLkod .= "</div>\n";   
-	}    
+        //Új jelszó újra
 
-	return $HTMLkod;
+        $HTMLkod .= "<p class='pFUJelszo2'><label for='FUJelszo2' class='label_1'>Új jelszó újra: </label><br>\n ";
+        $HTMLkod .= "<input type='password' name='FUJelszo2' class='$ErrClassFUJelszo' id='FUJelszo2' placeholder='Új jelszó újra' size='20'>";
+        $HTMLkod .= "</p>\n"; 
 
-    }
+        //Submit
+        $HTMLkod .= "<input type='submit' name='submitUjJelszoForm' value='Módosít'><br>\n";        
+        $HTMLkod .= "</form>\n";            
+        $HTMLkod .= "</div>\n";   
+    }    
+    return $HTMLkod;
+}
  
     
 // ============= Felhasználó törlése ============  
-    function setFelhasznaloTorol() {
+function setFelhasznaloTorol() {
     global $MySqliLink;
     $ErrorStr = '';
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
@@ -991,9 +969,9 @@ function SetUjJelszo() {
         }
     }
     return $ErrorStr;
-    }
+}
 
-    function getFelhasznaloTorolForm() {
+function getFelhasznaloTorolForm() {
 		
     global $MySqliLink;
     $HTMLkod  = '';
@@ -1040,22 +1018,21 @@ function SetUjJelszo() {
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";
 	}
-        
 	return $HTMLkod;    
-    }    
+}    
     
 // ============= Egy felhasználó adatainak lekérdezése============      
-    function getAktFelhasznalo() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
+function getAktFelhasznalo() {
+    trigger_error('Not Implemented!', E_USER_WARNING);
+}
 
-    function getFelhasznalo($Fid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
+function getFelhasznalo($Fid) {
+    trigger_error('Not Implemented!', E_USER_WARNING);
+}
 
 
-    function getFelhasznaloLista() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
+function getFelhasznaloLista() {
+    trigger_error('Not Implemented!', E_USER_WARNING);
+}
 
 ?>
