@@ -1,3 +1,169 @@
 /* 
-    Author     : Hegedüs Erik
+    Author     : Bárczi Dávid
 */
+
+body, html {
+    font-size: 16px;
+    font-family: "Roboto Condensed","Ubuntu Condensed","Open Sans",Helvetica,Arial,sans-serif;
+    height: 100%;
+}
+#HelyiNav ul {
+    list-style-type: none;
+    padding-left:0px;
+}
+
+#Tartalom 
+/* szinek*/
+
+
+#HelyiNav{background-color: -webkit-linear-gradient(top, #111111, #ee0000);
+  background-image: -moz-linear-gradient(top, #111111, #ee0000);
+  background-image: -ms-linear-gradient(top, #111111, #ee0000);
+  background-image: -o-linear-gradient(top, #111111, #ee0000);
+  background-image: linear-gradient(to bottom, #111111, #ee0000);color:ff0000;}/**/
+#Tartalom{  
+  background-color: rgba(0,0,0,0);
+padding-left:30px;
+  }
+  /*fekete -> piros*/
+  
+  /*#53F30F;*/
+#FoNav{background-color:#111111;}/*fekete*/
+body{background-color:-webkit-linear-gradient(top, #111111, #ee0000);
+  background-image: -moz-linear-gradient(top, #111111, #ee0000);
+  background-image: -ms-linear-gradient(top, #111111, #ee0000);
+  background-image: -o-linear-gradient(top, #111111, #ee0000);
+  background-image: linear-gradient(to bottom, #111111, #ee0000); 
+  color:#c9dce0;}/**/
+
+#Keret{  background-image: -webkit-linear-gradient(top, #111111, #ee0000);
+  background-image: -moz-linear-gradient(top, #111111, #ee0000);
+  background-image: -ms-linear-gradient(left, #111111, #ee0000);
+  background-image: -o-linear-gradient(left, #111111, #ee0000);
+  background-image: linear-gradient(to bottom-right, #111111, #ee0000);
+  }
+#KiegeszitoInfo{background-color:#550000;}/*vörös*/
+footer{background-color:#ff0000; }/* vörös */
+
+
+a {color:#ff0000;}
+a:hover {z-index:1000;}
+
+#HelyiNav a{color:#ff0000;}
+#FoNav a{color:#53F30F;
+border:2px solid #c0c0c0;
+ }
+
+/* menű*/
+
+/*{box-shadow: -3px -3px 15px 10px #rgb, 
+             5px 5px 15px 10px #rgb;}   
+       árnyalás
+       */
+       
+       
+       
+   #HelyiNav {
+    background-color: rgba(0,0,0,0);}    
+       
+
+ #HelyiNav .Ul1 li a { display: inline-block; background-color:#000000; padding:8px 5px 0px 5px;/*menü méret*/ color:#ee0000;
+	width:100%; height: 45px; border-radius: 5px  5px 5px 5px; z-index:10;
+    box-shadow: 7px 5px 15px 0px #ee0000, 
+             7px 5px 15px 0px #ee0000;}
+#HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#ee0000;
+    font:  14px/24px Verdana, Geneva, sans-serif;
+    text-decoration:none; }
+    
+#HelyiNav  li a::before{
+    content: " »";
+}
+
+/* A link állapotainak megkülönböztetése  */
+  #HelyiNav  li a:hover {color:#53F30F; background-color:#121212;z-index:100;
+   box-shadow: 10px 5px 15px 0px #53F30F,
+             10px 5px 15px 0px #53F30F;
+    text-decoration:none;} 
+  #HelyiNav  li a:active {color:#0000ee; background-color:#121212;
+    box-shadow: 10px 5px 15px 0px #0000ee, 
+            10px 5px 15px 0px #0000ee;}
+    
+    
+    
+/*----------------------*/
+ #HelyiNav li li a { display: inline-block; background-color:#333333; padding-left:15px;
+    width:100%; height: 40px; border-radius: 5px  5px 5px 5px; 
+    border-right:1px solid #ff0000; 
+    border-bottom:1px solid #ff0000; border-top:1px solid #ff0000;} 
+#HelyiNav  li li a:link,  #HelyiNav  li li a:visited {color:#ee0000;
+    font:  14px/24px Verdana, Geneva, sans-serif; 
+    text-decoration:none;}
+
+/* A link állapotainak megkülönböztetése  */
+  #HelyiNav  li li a:hover {color:#53F30F; background-color:#121212; 
+    text-decoration:none;} 
+  #HelyiNav  li li a:active {color:#0000ee; background-color:#121212;
+    border-bottom:2px; border-top:2px; padding-top:1px; font-size:13px; }
+    
+    
+    
+/*----------------------*/
+ #HelyiNav li li li a { display: inline-block; background-color:#333333; padding-left:25px;
+    width:100%; height: 40px; border-radius: 5px  5px 5px 5px; 
+    border-right:1px solid #ff0000; 
+    border-bottom:1px solid #ff0000; border-top:1px solid #ff0000;} 
+#HelyiNav  li li li a:link,  #HelyiNav  li li li a:visited {color:#ff0000;
+    font:  14px/24px Verdana, Geneva, sans-serif; 
+    text-decoration:none; }
+
+/* A link állapotainak megkülönböztetése  */
+  #HelyiNav  li li li a:hover {color:#53F30F; background-color:#121212;  
+    text-decoration:none;} 
+  #HelyiNav  li li li a:active {color:#0000ee; background-color:#121212;
+    border-bottom:2px; border-top:2px; padding-top:1px; font-size:13px; }
+    
+    
+    
+/*----------------------*/
+ #HelyiNav li li li li a { display: inline-block; background-color:#333333; 
+    width:100%; height: 40px; border-radius: 5px  5px 5px 5px; padding-left:35px;
+     border-right:1px solid #ff0000; 
+    border-bottom:1px solid #ff0000; border-top:1px solid #ff0000;} 
+#HelyiNav  li li li li a:link,  #HelyiNav  li li li li a:visited {color:#ff0000;
+    font:  14px/24px Verdana, Geneva, sans-serif;
+    text-decoration:none; }
+
+/* A link állapotainak megkülönböztetése  */
+  #HelyiNav  li li li li a:hover {color:#53F30F; background-color:#121212; 
+    text-decoration:none;} 
+  #HelyiNav  li li li li a:active {color:#0000ee; background-color:#121212;
+    border-bottom:2px; border-top:2px; padding-top:1px; font-size:13px; }
+    
+    
+    
+    
+
+#FoHeder{
+   background: #ee0000;
+  background-image: -webkit-linear-gradient(top, #ee0000, #111111);
+  background-image: -moz-linear-gradient(top, #ee0000, #111111);
+  background-image: -ms-linear-gradient(top, #ee0000, #111111);
+  background-image: -o-linear-gradient(top, #ee0000, #111111);
+  background-image: linear-gradient(to bottom, #ee0000, #111111);
+  
+}
+/*#FoHeder{background-color:#333333;}*/
+
+.MPontLink{
+
+/*#53F30F zöld*/
+/*#39ff11*/
+    display:inline-block;
+    border:6px solid #ee0000;
+    background-color:#ee0000;
+    padding:3px 5px ;
+    width:130px;
+    border-radius: 15px 15px 15px 15px;
+}
+
+#Tartalom{text-align:justify;}

@@ -1,5 +1,6 @@
-/* 
-    Author     : Beschenbacher Kornél 
+
+/*    
+    Author: Nagy Tamás
 */
 
 /* Helyi menü*/
@@ -8,9 +9,8 @@
 .Ul3 {list-style-type:none; padding-left:5px;padding:4px}
 
 
-
 .Ul1 a {/*padding: 2px 12px;
-	background:#010201 ;
+	background:#FF7F50 ;
 	color:#FF1493 ;
 	text-decoration:none;
 	-webkit-border-radius: 4px;
@@ -19,25 +19,19 @@
 		*/} 
 		
     /* Beállítások*/
-    
-    body, html {background-color:#000100;}		
-    
-			#HelyiNav {background-color:#663300; padding:10px;}
-			#BelsoKeret {background-color:#000000; }
+			#HelyiNav {background-color:#330000; }
+			#BelsoKeret {background-color:#663300; }
 			
 	/*		#Keret{background-image:url('../img/ghb.jpg')}*/
-			#FoNav{background-color:#800000; color:#FFFFFF;text-align:center; box-shadow: -5px -5px 15px 0px #800000; box-shadow: 5px 5px 15px 0px #800000; margin-bottom:30px;
-border-bottom:2px solid #ffffff; border-top:2px solid #ffffff;}
-			#FoHeder {background-color:#000;}
+			#FoNav{background-color:#330000; color:#FFFFFF}
+			#FoHeder {background-color:#996633;}
+			#FoFooter {background-color:#996633;}	
 			
+			#KiegeszitoInfo {background-color:#663300; }
+			#Tartalom {background-color:#330000; color: #FFFFFF;}
+			#HelyiNav {background-color:#663300; color:#FFFFFF; }
 			
-			#KiegeszitoInfo {background-color:#880000; color:white; width:290px; margin-right:-300px;
-			border-radius:15px  15x 30px 15px; float:right;color:#ffffff;
-			border-bottom:2px solid #800000;border-left:2px solid #800000;}
-			#Tartalom {background-color:#000; color:white;margin-left:5px; margin-bottom:40px; 
-border-style:outset 3px black}
-			#HelyiNav {background-color:#000000; color:#FFFFFF; }
-
+			body {background-color: #330000;}
  * {font-family: 'Source Sans Pro', sans-serif;}
  
   a:link	{color:#CCCCCC;} 
@@ -45,13 +39,8 @@ border-style:outset 3px black}
   a:hover 	{color:#CCCCCC;}
   a:active 	{color:#CCCCCC;}
   
-  footer {background-color:#396666;  color:#810000}
- 
-  footer {background-color:#000000;border-bottom:2px solid #800000; border-top:2px solid #800000;} 
-
-     
    .MPontLink {
-    padding: 2px 20px;/*background: #fff*/ /*background-image:url('images.jpg');*/
+    padding: 2px 20px;/*background: #08f*/ /*background-image:url('images.jpg');*/
     color:#FFFFFF;text-decoration:none;
     border: solid 2px #000000;
    -webkit-border-radius: 4px;
@@ -72,7 +61,7 @@ border-style:outset 3px black}
 		   
 		   
 		   .MPontLink :active {
-    border: solid 1px #fff;
+    border: solid 1px #000000;
     text-decoration: none;}
 	
   .MPontLink :hover {
@@ -86,7 +75,6 @@ border-style:outset 3px black}
        
  
  .Ul1 a {
- background-color:#800000;
     padding: 2px 100px;/*background: #08f background-image:url('images.jpg');*/
     color:#FFFFFF;text-decoration:none;
     border: solid 2px #000000;
@@ -108,14 +96,11 @@ border-style:outset 3px black}
 		   
 		   
 		   .Ul1 a:active {
-		   background-color:#800000;
-    border: solid 1px #800000;
+    border: solid 1px #000000;
     text-decoration: none;}
 	
   .Ul1 a:hover {
-  background-color:#ffffff;
-  color:black;
-    border: solid 1px #800000;
+    border: solid 1px #000000;
     -webkit-box-shadow: inset 0 -1px 0 #999999, 0 1px 1px #000000;
        -moz-box-shadow: inset 0 -1px 0 #999999, 0 1px 1px #000000;
         -ms-box-shadow: inset 0 -1px 0 #999999, 0 1px 1px #000000;
@@ -125,7 +110,7 @@ border-style:outset 3px black}
 			
 			
 			.Ul2 a {
-    padding: 1px 30px 1px 30px;background:#800000;
+    padding: 1px 30px 1px 30px;background:#CCCCCC;
     color:#000000;text-decoration:none;
     border: solid 1px #000000;
    -webkit-border-radius: 4px;
@@ -146,7 +131,7 @@ border-style:outset 3px black}
 		   
 		   
 		   .Ul2 a:active {
-    background:#800000; border: solid 1px #000000;
+    background:#000000; border: solid 1px #000000;
     text-decoration: none;}
 	
   .Ul2 a:hover {
@@ -182,7 +167,7 @@ border-style:outset 3px black}
 		   
 		   
 		   .Ul3 a:active {
-    background:#800000; border: solid 1px #000000;
+    background:#000000; border: solid 1px #000000;
     text-decoration: none;}
 	
   .Ul3 a:hover {

@@ -16,8 +16,8 @@ border-bottom:2px solid #00FF99; border-top:2px solid #00FF99;}
 #Tartalom {background-color:#2F4F4F; margin-left:5px; margin-bottom:40px; 
 border-style:outset 3px black;}
 #HelyiNav {background-color:#2F4F4F; padding:4px;margin-bottom:14px;}
- #KiegeszitoInfo {text-align:center; background-color:#000000; width:290px; margin-right:-300px;
- border-radius:15px  15x 30px 15px; float:right;color:#00FF99;border-bottom:2px solid #00FF99;border-left:2px solid #00FF99;}       
+ #KiegeszitoInfo {text-align:center; background-color:#2F4F4F; width:290px; margin-right:-300px;border-top:2px solid #000000;
+ border-radius:15px  15x 30px 15px; float:right;color:#000000;border-bottom:2px solid #000000;border-left:2px solid #000000;}       
        
 footer {background-color:#396666;  color:#00FF99}
        
@@ -96,7 +96,7 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
   
   
        
-/* Menü ki-be*/
+/*--------------------------- Menü ki-be -----------------------*/
 
 #chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
 #chmenu:checked ~ #BelsoKeret {padding-left:0;}
@@ -105,7 +105,7 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #Tartalom article  {margin:6px;}
 
 
-                        /*----------------------------Adminpanel-----------------------*/
+                        /*---------------------------- Adminpanel -----------------------*/
 
 
 #divFormkod{margin-left:1px;}
@@ -139,7 +139,8 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #OKulcsszavak {background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
 #ONev {background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
 
-/**************************** K módosítások ****************************/
+/**************************** Kép módosítások ****************************/
+
 #KSorszam_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
 #KNev_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
 #KLeiras_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
@@ -209,3 +210,5 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #KSzelesseg_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
 #KMagassag_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
 #KStilus_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+

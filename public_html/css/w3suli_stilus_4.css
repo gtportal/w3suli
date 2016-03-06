@@ -1,3 +1,86 @@
-/* 
-    Author     : Nagy GÃ¡bor
-*/
+@charset "iso-8859-1";
+/* CSS Document */
+
+
+* { box-sizing: border-box;}		 
+body, html {margin:0; padding:0; height:100%;  background-color:#161836;}		
+#FoHeder {background-color:#161836; width:100%;}
+
+
+#FoNav {background-color:#2c2f68; width:100%; line-height:28px;color:#FFFAF0;text-align:center; font-size:18px; box-shadow: 5px 5px 15px 0px FFFFE0; margin-bottom:50px;
+border-bottom:2px solid	#FFFFE0; border-top:2px solid #FFFFE0;}
+#FoNav a:hover {}
+
+#FoNav a{color:	white; font-size:18px;}
+
+
+#BelsoKeret {background-color:#f0f; width:100%; padding:0 300px;}       
+#Tartalom {background-color:#2c2f68; width:100%; margin-left:20px; min-height:90%; float:left; margin-right:-100%;margin-bottom:40px; 
+border-style:outset 3px black; color:white;}
+#HelyiNav {background-color:#2c2f68; width:300px; float:left; margin: 0 0 0 -300px; color:white;} /*oldalsó menüsor*/
+ #KiegeszitoInfo {text-align:center; background-color:white; width:260px; margin-right:-300px;}       
+       
+footer {background-color:#161836; width:100%;clear:left; position: fixed;  bottom: 0;margin-right:-100%;}
+
+
+
+/*----------------------------------- Helyi menü ---------------------------------*/
+
+#HelyiNav {margin-bottom:40px;}
+
+#HelyiNav ul {list-style-type: none;padding-left:0px; background-color:#2c2f68;}
+#HelyiNav ul:hover{background-color:#2c2f68;}
+
+#HelyiNav .AktLink {font-weight:bold;}
+#HelyiNav  li a:before{content: " » ";}
+
+#HelyiNav li a {color:white; display: inline-block; background-color:#2c2f68; width:100%; height: 40px;} 
+#HelyiNav  li a:link, #HelyiNav  li a:visited {color:#white;}
+
+/* A link állapotainak megkülönböztetése  */
+
+#HelyiNav  li a { background-color:#2c2f68;}
+#HelyiNav  li a:hover  {color:white; text-decoration:none;} 
+#HelyiNav  li a:active {color:white;}  
+ 
+/*---- Második szint --*/
+
+#HelyiNav li li a {background-color:#2c2f68;} 
+#HelyiNav li li a:link,  #HelyiNav  li a:visited {color:white;}
+ 
+/*---- Harmadik szint --*/
+
+#HelyiNav li li li a {background-color:#2c2f68;} 
+#HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:white;}
+
+/*---- Negyedik szint --*/
+
+#HelyiNav li li li li a {background-color:#2c2f68;} 
+#HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:white;}
+  
+   /*----------------------------Adminpanel-----------------------*/
+
+
+#divFormkod{margin-left:1px;}
+   
+#divUjOldalForm{background-color:#2c2f68; padding:7px; border:none;}
+#divOldalForm{background-color:#2c2f68; padding:7px;}
+#divOldalTorolForm{background-color:#2c2f68; padding:7px;}
+#divOldalKepForm{background-color:#2c2f68; padding:7px;}
+
+#chFormkod {display:none;}
+
+#chUjOldalForm{display:none;}
+#chOldalForm{display:none;}
+#chOldalTorolForm{display:none;}
+#chOldalKepForm{display:none;}
+
+
+ 
+#OTartalom{width:95%; background-color:#2c2f68; border-color:#000000; color:white;}
+#OLeiras{width:95%; background-color:#2c2f68; border-color:#000000; color:white; text-decoration: bold;}
+#UjONev{background-color:#2c2f68; border-color:#000000; color:white; text-decoration:italic;}
+#OPrioritas{background-color:#2c2f68; border-color:#000000; color:white; text-decoration: bold;}
+#OLathatosag{background-color:#2c2f68; border-color:#000000; color:white; text-decoration: bold;}
+#OKulcsszavak {background-color:#2c2f68; border-color:#000000; color:white; text-decoration: bold;}
+#ONev {background-color:#2c2f68; border-color:#000000; color:white; text-decoration: bold;} 
