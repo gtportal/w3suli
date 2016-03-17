@@ -124,36 +124,42 @@ function getCikkKepFeltoltForm() {
 function setCikkKepek() {
     global $Aktoldal, $MySqliLink;
     $ErrorStr   = '';
-    $Oid        = $Aktoldal['id'];
+    $Oid = 0;
     $Cid        = $_SESSION['SzerkCikk'.'id'];
+    $SelectStr = "SELECT Oid From OldalCikkei WHERE Cid='$Cid'";
+    $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 02");
+    $row = mysqli_fetch_array($result);    mysql_free_result($result);
+    $Oid = $row['Oid'];
+    echo $Oid;
     if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitCikkKepForm'])))   {
         if (isset($_POST["rowDB"])) {$rowDB=test_post($_POST["rowDB"]);}
         for($i=0; $i<$rowDB; $i++) {
-            if  ((isset($_POST["KFile_$i"]))&&($_POST["KFile_$i"]!='')) {
-                $KFile      = FileNevTisztit($_POST["KFile_$i"]);
+            if  ((isset($_POST["CKFile_$i"]))&&($_POST["CKFile_$i"]!='')) {
+                $KFile      = FileNevTisztit($_POST["CKFile_$i"]);
                 $KNev       = '';
                 $KLeiras    = '';
                 $KSzelesseg = 0;
                 $KMagassag  = 0;
                 $KStilus    = 0;
                 $KSorszam   = 0;
-                if (isset($_POST["KNev_$i"]))       {$KNev=test_post($_POST["KNev_$i"]);}
-                if (isset($_POST["KLeiras_$i"]))    {$KLeiras=test_post($_POST["KLeiras_$i"]);}
-                if (isset($_POST["KSzelesseg_$i"])) {$KSzelesseg=test_post($_POST["KSzelesseg_$i"]);}
-                if (isset($_POST["KMagassag_$i"]))  {$KMagassag=test_post($_POST["KMagassag_$i"]);}
-                if (isset($_POST["KStilus_$i"]))    {$KStilus=test_post($_POST["KStilus_$i"]);}
-                if (isset($_POST["KSorszam_$i"]))   {$KSorszam=test_post($_POST["KSorszam_$i"]);}
-                $UpdateStr = "UPDATE CikkKepek SET 
-                            KNev='$KNev', 
-                            KLeiras='$KLeiras', 
-                            KSzelesseg='$KSzelesseg', 
-                            KMagassag='$KMagassag', 
-                            KStilus='$KStilus', 
-                            KSorszam='$KSorszam' 
-                            WHERE KFile='$KFile'
-                            AND Cid=$Cid";
-                            //AND Oid=$Oid 
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uCK 01");
+                if (isset($_POST["CKNev_$i"]))       {$KNev=test_post($_POST["CKNev_$i"]);}
+                if (isset($_POST["CKLeiras_$i"]))    {$KLeiras=test_post($_POST["CKLeiras_$i"]);}
+                if (isset($_POST["CKSzelesseg_$i"])) {$KSzelesseg=test_post($_POST["CKSzelesseg_$i"]);}
+                if (isset($_POST["CKMagassag_$i"]))  {$KMagassag=test_post($_POST["CKMagassag_$i"]);}
+                if (isset($_POST["CKStilus_$i"]))    {$KStilus=test_post($_POST["CKStilus_$i"]);}
+                if (isset($_POST["CKSorszam_$i"]))   {$KSorszam=test_post($_POST["CKSorszam_$i"]);}
+                if ($Oid == $Aktoldal['id']) {
+                    $UpdateStr = "UPDATE CikkKepek SET 
+                                KNev='$KNev', 
+                                KLeiras='$KLeiras', 
+                                KSzelesseg='$KSzelesseg', 
+                                KMagassag='$KMagassag', 
+                                KStilus='$KStilus', 
+                                KSorszam='$KSorszam' 
+                                WHERE KFile='$KFile' 
+                                AND Cid=$Cid";
+                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uCK 01");
+                }
             }
         }
     }
@@ -212,35 +218,35 @@ function getCikkKepForm() {
                 $HTMLkod1 .= "<h3>$i. kép</h3>";
                 $Src       = $KepUtvonal.$CikkKepek[$i]['KFile'];
                 $HTMLkod1 .= "<img src='$Src' alt='$i. kép' >";
-                $HTMLkod1 .= "<input type='hidden' name='KFile_$i' value='".$CikkKepek[$i]['KFile']."'>";
+                $HTMLkod1 .= "<input type='hidden' name='CKFile_$i' value='".$CikkKepek[$i]['KFile']."'>";
 
                 $HTMLkod1 .= "<div style='float:left;'>";
-                $HTMLkod1 .= "<p class='pKSorszam'><label for='KSorszam_$i' class='label_1'>Sorszám:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='KSorszam_$i' id='KSorszam_$i' min='0' max='20' step='1'
+                $HTMLkod1 .= "<p class='pKSorszam'><label for='CKSorszam_$i' class='label_1'>Sorszám:</label>\n ";
+                $HTMLkod1 .= "<input type='number' name='CKSorszam_$i' id='CKSorszam_$i' min='0' max='20' step='1'
                                class='$ErrClassCNev' value='".$CikkKepek[$i]['KSorszam']."' ></p>\n"; 
 
-                $HTMLkod1 .= "<p class='pKNev'><label for='KNev_$i' class='label_1'>A kép neve:</label>\n ";
-                $HTMLkod1 .= "<input type='text' name='KNev_$i' id='KNev_$i' placeholder='Képnév' 
+                $HTMLkod1 .= "<p class='pKNev'><label for='CKNev_$i' class='label_1'>A kép neve:</label>\n ";
+                $HTMLkod1 .= "<input type='text' name='CKNev_$i' id='CKNev_$i' placeholder='Képnév' 
                                class='$ErrClassCNev' value='".$CikkKepek[$i]['KNev']."' size='20'></p>\n"; 
 
-                $HTMLkod1 .= "<p class='pKLeiras'><label for='KLeiras_$i' class='label_1'>Leírás:</label>\n ";
-                $HTMLkod1 .= "<input type='text' name='KLeiras_$i' id='KLeiras_$i' placeholder='Leírás' 
+                $HTMLkod1 .= "<p class='pKLeiras'><label for='CKLeiras_$i' class='label_1'>Leírás:</label>\n ";
+                $HTMLkod1 .= "<input type='text' name='CKLeiras_$i' id='CKLeiras_$i' placeholder='Leírás' 
                                class='$ErrClassCNev' value='".$CikkKepek[$i]['KLeiras']."' size='60'></p>\n"; 
 
-                $HTMLkod1 .= "<p class='pKSzelesseg'><label for='KSzelesseg_$i' class='label_1'>Szélesség:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='KSzelesseg_$i' id='KSzelesseg_$i' min='0' max='20' step='1'
+                $HTMLkod1 .= "<p class='pKSzelesseg'><label for='CKSzelesseg_$i' class='label_1'>Szélesség:</label>\n ";
+                $HTMLkod1 .= "<input type='number' name='CKSzelesseg_$i' id='CKSzelesseg_$i' min='0' max='20' step='1'
                                class='$ErrClassCNev' value='".$CikkKepek[$i]['KSzelesseg']."' ></p>\n"; 
 
-                $HTMLkod1 .= "<p class='pKMagassag'><label for='KMagassag_$i' class='label_1'>Magasság:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='KMagassag_$i' id='KMagassag_$i' min='0' max='20' step='1'
+                $HTMLkod1 .= "<p class='pKMagassag'><label for='CKMagassag_$i' class='label_1'>Magasság:</label>\n ";
+                $HTMLkod1 .= "<input type='number' name='CKMagassag_$i' id='CKMagassag_$i' min='0' max='20' step='1'
                                class='$ErrClassCNev' value='".$CikkKepek[$i]['KMagassag']."' ></p>\n"; 
 
-                $HTMLkod1 .= "<p class='pKStilus'><label for='KStilus_$i' class='label_1'>Stílus:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='KStilus_$i' id='KStilus_$i' min='0' max='20' step='1'
+                $HTMLkod1 .= "<p class='pKStilus'><label for='CKStilus_$i' class='label_1'>Stílus:</label>\n ";
+                $HTMLkod1 .= "<input type='number' name='CKStilus_$i' id='CKStilus_$i' min='0' max='20' step='1'
                                class='$ErrClassCNev' value='".$CikkKepek[$i]['KStilus']."' ></p>\n";           
 
-                $HTMLkod1 .= "<p class='pKTorol'><label for='KTorol_$i' class='label_1'>TÖRLÉS:</label>\n ";
-                $HTMLkod1 .= "<input type='checkbox' name='KTorol_$i' id='KTorol_$i' 
+                $HTMLkod1 .= "<p class='pKTorol'><label for='CKTorol_$i' class='label_1'>TÖRLÉS:</label>\n ";
+                $HTMLkod1 .= "<input type='checkbox' name='CKTorol_$i' id='CKTorol_$i' 
                                class='$ErrClassCNev' value='".$CikkKepek[$i]['KFile']."' ></p>\n";           
 
                 $HTMLkod1 .= "</div>";
@@ -250,7 +256,7 @@ function getCikkKepForm() {
             $HTMLkod1 .= "<input type='hidden' name='rowDB' value='$rowDB'>";
             $HTMLkod .= "<div id='divCikkKepForm' >\n";
             $HTMLkod .= $_SESSION['ErrorStr'];
-            $HTMLkod .= "<div><form action='?f0=$OUrl' method='post' id='formOldalKepForm'>\n";
+            $HTMLkod .= "<div><form action='?f0=$OUrl' method='post' id='formCikkKepForm'>\n";
             $HTMLkod .= $HTMLkod1;
             
 
@@ -264,7 +270,27 @@ function getCikkKepForm() {
 
 
 function setCikkKepTorol() {
-    // setOldalKepTorol() fgv alapján
+    global $Aktoldal, $MySqliLink;
+    $ErrorStr = '';
+    $Oid      = 0;
+    $Cid        = $_SESSION['SzerkCikk'.'id'];
+    $SelectStr = "SELECT Oid From OldalCikkei WHERE Cid='$Cid'";
+    $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 02");
+    $row = mysqli_fetch_array($result);    mysql_free_result($result);
+    $Oid = $row['Oid'];
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitCikkKepForm']))) { 
+        if (isset($_POST["rowDB"])) {$rowDB=test_post($_POST["rowDB"]);}
+        if ($Oid == $Aktoldal['id']) {
+            for($i=0; $i<$rowDB; $i++) {
+                if  (isset($_POST["CKTorol_$i"]) && $_POST["CKTorol_$i"]) {
+                    $KFile = $_POST["CKTorol_$i"];
+                    $DeletetStr = "Delete FROM CikkKepek  WHERE KFile='$KFile' AND Cid=$Cid";
+                    if (!mysqli_query($MySqliLink,$DeletetStr)) {die("Hiba dCK 01");}
+                }
+            }
+        }
+    }
+    return $ErrorStr;
 }
 
 
