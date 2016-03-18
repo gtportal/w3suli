@@ -18,17 +18,17 @@ $CikkKepek['KSorszam']   = 0;
 */
 
 function setCikkKepFeltolt() {
-    global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;    
+    global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
     $ErrorStr = '';
-    $Cid      = $_SESSION['SzerkCikk'.'id']; //echo "<h1>vvvvvvvvvvvv ".$_SESSION['AktFelhasznalo'.'FSzint']."</h1>";
+    $Cid      = $_SESSION['SzerkCikk'.'id'];
     //Csak rendszergazdáknak, moderátoroknak és regisztrált felhasználóknak!
     if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submit_CikkKepekFeltoltForm'])) && ($Cid>0))   {          
-      $Oid          = $Aktoldal['id'];      
+      $Oid          = $Aktoldal['id'];
       $UploadErr    = '';
       if ($Aktoldal['OImgDir']!='') {
-        $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";            
+        $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";
       } else {
-        $KepUtvonal = "img/";    
+        $KepUtvonal = "img/";
       }
       //=============== Lehetséges Fájlnevek ==================
       // Fájlnév felépítése cikk_$Cid_$KSorszam.kiterjesztés
@@ -101,8 +101,7 @@ function setCikkKepFeltolt() {
         }
         if ($i<$KFileDb) { $UploadErr .= "<h1> Csak 10 kép tölthető fel!</h1>";}
       }         
-      return $UploadErr; 
-      
+      return $UploadErr;
     }
 }
 
@@ -110,6 +109,7 @@ function setCikkKepFeltolt() {
 function getCikkKepFeltoltForm() {
     global $Aktoldal;
     $Oid        = $Aktoldal['id'];
+    $OUrl       = $Aktoldal['OUrl'];
     $HTMLkod    ='';    
     $HTMLkod   .="  <div id='CikkKepekFeltoltForm'>
                            <h3>Képek feltöltése a cikkhez:</h3>
@@ -130,7 +130,6 @@ function setCikkKepek() {
     $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 02");
     $row = mysqli_fetch_array($result);    mysql_free_result($result);
     $Oid = $row['Oid'];
-    echo $Oid;
     if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitCikkKepForm'])))   {
         if (isset($_POST["rowDB"])) {$rowDB=test_post($_POST["rowDB"]);}
         for($i=0; $i<$rowDB; $i++) {
@@ -170,8 +169,10 @@ function getCikkKepForm() {
     global $Aktoldal, $MySqliLink;
     $Oid        = $Aktoldal['id'];
     $Cid        = $_SESSION['SzerkCikk'.'id'];
+    $OUrl = $Aktoldal['OUrl'];
     $HTMLkod    ='';
     if ($_SESSION['AktFelhasznalo'.'FSzint']>1){
+        $HTMLkod .= "<div id='divCikkKepForm' >\n";
         $HTMLkod   .=getCikkKepFeltoltForm();
 
         // a $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk képeinek kezelése
@@ -254,7 +255,6 @@ function getCikkKepForm() {
             }
             // ============== A HTML KÓD ÖSSZEÁLLÍTÁSA =====================   
             $HTMLkod1 .= "<input type='hidden' name='rowDB' value='$rowDB'>";
-            $HTMLkod .= "<div id='divCikkKepForm' >\n";
             $HTMLkod .= $_SESSION['ErrorStr'];
             $HTMLkod .= "<div><form action='?f0=$OUrl' method='post' id='formCikkKepForm'>\n";
             $HTMLkod .= $HTMLkod1;
@@ -262,8 +262,8 @@ function getCikkKepForm() {
 
             $HTMLkod .=  "<br><br><br><br><br><br><input type='submit' name='submitCikkKepForm' value='Elküld'><br><br>\n";        
             $HTMLkod .= "</form></div>\n";
-            $HTMLkod .= "</div>\n";
         }
+        $HTMLkod .= "</div>\n";
     }
     return $HTMLkod;
 }
@@ -283,9 +283,11 @@ function setCikkKepTorol() {
         if ($Oid == $Aktoldal['id']) {
             for($i=0; $i<$rowDB; $i++) {
                 if  (isset($_POST["CKTorol_$i"]) && $_POST["CKTorol_$i"]) {
+                    $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";
                     $KFile = $_POST["CKTorol_$i"];
+                    unlink($KepUtvonal."".$KFile);
                     $DeletetStr = "Delete FROM CikkKepek  WHERE KFile='$KFile' AND Cid=$Cid";
-                    if (!mysqli_query($MySqliLink,$DeletetStr)) {die("Hiba dCK 01");}
+                    mysqli_query($MySqliLink,$DeletetStr) OR die("Hiba dCK 01");
                 }
             }
         }

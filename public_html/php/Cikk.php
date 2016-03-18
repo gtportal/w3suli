@@ -399,10 +399,10 @@ function getCikkTorolForm() {
                         ON OC.Cid= C.id 
                         WHERE OC.Oid=$Oid";
         $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCT 01 ");
-        $rowDB  = mysqli_num_rows($result);
 
         $HTMLkod .= "<div id='divCikkTorolForm' >\n";
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkTorolForm'>\n";
+        $i = 0;
         while ($row = mysqli_fetch_array($result)) {
             $CNev = $row['CNev'];
             $id = $row['id'];
@@ -416,7 +416,7 @@ function getCikkTorolForm() {
 
             $i++;
         }
-        $HTMLkod .= "<input type='hidden' name='TorolDB' id='TorolDB' value='$rowDB'>\n";
+        $HTMLkod .= "<input type='hidden' name='TorolDB' id='TorolDB' value='$i'>\n";
         
         $HTMLkod .= "<input type='submit' name='submitCikkTorol' id='submitCikkTorol' value='Törlés'>\n";
         $HTMLkod .= "</form>\n";
