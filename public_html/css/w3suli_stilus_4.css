@@ -1,6 +1,3 @@
-@charset "iso-8859-1";
-/* CSS Document */
-
 
 * { box-sizing: border-box;}		 
 body, html {margin:0; padding:0; height:100%;  background-color:#161836;}		
@@ -14,17 +11,17 @@ border-bottom:2px solid	#FFFFE0; border-top:2px solid #FFFFE0;}
 #FoNav a{color:	white; font-size:18px;}
 
 
-#BelsoKeret {background-color:#f0f; width:100%; padding:0 300px;}       
+#BelsoKeret {width:100%; padding:0 300px;}       
 #Tartalom {background-color:#2c2f68; width:100%; margin-left:20px; min-height:90%; float:left; margin-right:-100%;margin-bottom:40px; 
 border-style:outset 3px black; color:white;}
-#HelyiNav {background-color:#2c2f68; width:300px; float:left; margin: 0 0 0 -300px; color:white;} /*oldalsó menüsor*/
+#HelyiNav {background-color:#2c2f68; width:300px; float:left; margin: 0 0 0 -300px; color:white;} /*oldalsÃ³ menÃ¼sor*/
  #KiegeszitoInfo {text-align:center; background-color:white; width:260px; margin-right:-300px;}       
        
 footer {background-color:#161836; width:100%;clear:left; position: fixed;  bottom: 0;margin-right:-100%;}
 
 
 
-/*----------------------------------- Helyi menü ---------------------------------*/
+/*----------------------------------- Helyi menÃ¼ ---------------------------------*/
 
 #HelyiNav {margin-bottom:40px;}
 
@@ -32,18 +29,18 @@ footer {background-color:#161836; width:100%;clear:left; position: fixed;  botto
 #HelyiNav ul:hover{background-color:#2c2f68;}
 
 #HelyiNav .AktLink {font-weight:bold;}
-#HelyiNav  li a:before{content: " » ";}
+#HelyiNav  li a:before{content: " Â» ";}
 
 #HelyiNav li a {color:white; display: inline-block; background-color:#2c2f68; width:100%; height: 40px;} 
 #HelyiNav  li a:link, #HelyiNav  li a:visited {color:#white;}
 
-/* A link állapotainak megkülönböztetése  */
+/* A link Ã¡llapotainak megkÃ¼lÃ¶nbÃ¶ztetÃ©se  */
 
 #HelyiNav  li a { background-color:#2c2f68;}
 #HelyiNav  li a:hover  {color:white; text-decoration:none;} 
 #HelyiNav  li a:active {color:white;}  
  
-/*---- Második szint --*/
+/*---- MÃ¡sodik szint --*/
 
 #HelyiNav li li a {background-color:#2c2f68;} 
 #HelyiNav li li a:link,  #HelyiNav  li a:visited {color:white;}

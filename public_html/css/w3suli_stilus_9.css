@@ -1,3 +1,138 @@
 /* 
-    Author     : Varga Krisztián
+    Author     : Salamon Péter
 */
+
+a#logoLink        {color:#FFFFF;}
+a#logoLink:hover  {color:#000;}
+a#logoLink:active {color:#222;}
+a#logoLink:link   {color:#222;}
+
+.Morzsa a::after{content: " « ";}  
+.Morzsa a        {color:#222;}   
+.Morzsa a:link   {color:#222;}
+.Morzsa a:active {color:#222;}
+.Morzsa a:hover  {color:#000;}    
+
+/* Fő szerkezet nagy felbontásnál*/  
+	       
+#FoHeder{background-color:#111;}
+
+/*------------Tartalom-----------*/
+body, html{background-color:#111;}		 
+#Keret{background-color:#111;}
+
+#BelsoKeret{
+		/*Színek*/
+		background-color:#f2f2f2; 
+}       
+#Tartalom{
+		/*Színek*/
+		background-color:#f2f2f2; 
+		border-right:2px solid #DCCBBB; 
+		border-bottom:2px solid #DCCBBB;
+}
+
+#KiegeszitoInfo{
+		/*Színek*/
+		background-color:#111;
+}             
+       
+footer {background-color:#111; }
+#FoFooter li{color:#FFF; }
+       
+/*------------Menüsor-----------*/
+#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
+#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
+
+.MPontLink{display:inline-block; color:#000;}
+       
+/*------------Menü-----------*/
+#HelyiNav{
+		background-color:#f2f2f2; 
+		width:300px; float:left; 
+		margin: 0 0 0 -300px; 
+		padding-right:10px; 
+		border-right:2px solid #F7CEA5;}
+		
+#HelyiNav {margin-bottom:40px; }
+
+#HelyiNav ul {
+    list-style-type: none;
+    padding-left:0px;}
+    
+#HelyiNav .AktLink {font-weight:bold;}
+#HelyiNav  li a::before{content: " » ";}
+
+#HelyiNav li a { display: inline-block; background-color: 	#111; padding:8px 5px 0px 5px;
+	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #888; border-top:1px solid #888;} 
+#HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#FFFFFF;
+    font:  14px/24px Verdana, Geneva, sans-serif;
+    text-decoration:none; }
+
+/* A link állapotainak megkülönböztetése  */
+#HelyiNav  li a:hover  {color:#000; text-decoration:none; margin-left:10px;} 
+#HelyiNav  li a:active {color:#000; border-bottom:2px; border-top:2px; padding-top:7px; }
+  
+  
+/*---- Második szint --*/
+#HelyiNav li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#FFFFFF;}
+ 
+/*---- Harmadik szint --*/
+#HelyiNav li li li a {background-color:#DCCBBB; padding-left:25px} 
+#HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#FFF;}
+
+
+/*---- Negyedik szint --*/
+#HelyiNav li li li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#FFF;}
+  
+
+#Tartalom section img {margin:10px;}
+#Tartalom article  {margin:6px;}
+       
+
+/*----------------------------------------------------- el innét*/
+#divFormkod{margin-left:1px;}
+
+
+/*------------Admin panel-új oldal-----------*/
+#divUjOldalForm{background-color:#f2f2f2; padding:7px;}
+
+#labelUjOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px; padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+ 
+ #UjONev{background-color:#DCCBBB;}
+ #UjOTipValszt{background-color:#DCCBBB;}
+
+/*------------Admin panel-oldal módosítás------------*/
+#divOldalForm{background-color:#f2f2f2; padding:7px;}
+
+#labelOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+
+#OLeiras			{background-color:#DCCBBB;}
+#OTartalom			{background-color:#DCCBBB;}
+#OKulcsszavak		{background-color:#DCCBBB;}
+#OLathatosag		{background-color:#DCCBBB;}
+#OPrioritas			{background-color:#DCCBBB;}
+#OTipValszt			{background-color:#DCCBBB;}
+#ONev				{background-color:#DCCBBB;}
+#submitKisKepTolt	{background-color:#DCCBBB;}
+/*#fileKepTolt		{background-color:#DCCBBB;}*/
+
+/*------------Admin panel-oldal törlése------------*/
+#divOldalTorolForm{background-color:#f2f2f2; padding:7px;}
+
+#labelOldalTorolForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+ 
+/*------------Admin panel-oldal képeinek módosítás------------*/
+#divOldalKepForm{background-color:#f2f2f2; padding:7px;}
+
+#labelOldalKepForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+ color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
+
+#submit_KepekFeltoltForm{background-color:#DCCBBB;}
+.divKiegTKulso h2{color:#FFFFFF;}
+.divKiegT{color:#FFFFFF;}

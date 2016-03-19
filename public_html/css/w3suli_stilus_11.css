@@ -1,5 +1,5 @@
 /* 
-    Author     : Guti Patrik
+    Author     : Wimetal Noémi
 */
 
 
@@ -17,55 +17,48 @@ a#logoLink:link   {color:#222;}
 
 /* Fő szerkezet nagy felbontásnál*/  
 	       
-#FoHeder{background-color:#f2f2f2;}
+#FoHeder{background-color:#7CADFD;background-image: -moz-linear-gradient(top, #7CADFD, #BCD5FF);
+  background-image: -ms-linear-gradient(top, #7CADFD, #BCD5FF);
+  background-image: -o-linear-gradient(top, #7CADFD, #BCD5FF);
+  background-image: linear-gradient(to bottom, #7CADFD,#BCD5FF);color:ff0000;}
 
 /*------------Tartalom-----------*/
-body, html{background-color:#f2f2f2;}		 
-#Keret{background-color:#f2f2f2;}
+body, html{background-color:#BCD5FF;}		 
+#Keret{background-color:#BCD5FF;}
 
 #BelsoKeret{
 		/*Színek*/
-		background-color:#f2f2f2; 
-		
-		/*Méretezések*/
-		width:100%; 
-		
-		/*Elhelyezés*/
-		padding:0 300px;
+		background-color:#BCD5FF; 
 }       
 #Tartalom{
 		/*Színek*/
-		background-color:#f2f2f2; 
-		border-right:2px solid #DCCBBB; 
-		border-bottom:2px solid #DCCBBB;
+		background-color:#BCD5FF; 
+		border-right:2px solid #BCD5FF; 
+		border-bottom:2px solid #BCD5FF;
 }
 
 #KiegeszitoInfo{
 		/*Színek*/
-		background-color:#DCCBBB;
-		/*Méretek*/
-		width:300px;
-		
-		/*Elhelyezés*/ 
-		margin-right:-300px; 
-		float:right;}             
+		background-color:#BCD5FF;
+}             
        
-footer {background-color:#DCCBBB; }
+footer {background-color:#2658B4;background-image: -moz-linear-gradient(top, #BCD5FF, #2658B4);
+  background-image: -ms-linear-gradient(top, #BCD5FF, #2658B4);
+  background-image: -o-linear-gradient(top, #BCD5FF, #2658B4);
+  background-image: linear-gradient(to bottom, #BCD5FF,#2658B4);color:888;}
        
 /*------------Menüsor-----------*/
-#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
-#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
-       
+#FoNav {background-color:#7CADFD;height:30px; width:100%;border-bottom:1px solid #7CADFD;
+border-top:1px solid #7CADFD;}
 #FoNavBal {float:left; width:100px;}
 #FoNavJobb {width:100%;margin:0 100px; text-align:right; padding-right:10%;}
 
-.MPontLink{display:inline-block; color:#000;}
+.MPontLink{color:#000;}
        
 /*------------Menü-----------*/
 #HelyiNav{
-		background-color:#f2f2f2; 
-		padding-right:10px; 
-		border-right:2px solid #DCCBBB;}
+		background-color:#BCD5FF; 
+		border-right:2px solid #BCD5FF;}
 		
 #HelyiNav {margin-bottom:40px; }
 
@@ -76,8 +69,11 @@ footer {background-color:#DCCBBB; }
 #HelyiNav .AktLink {font-weight:bold;}
 #HelyiNav  li a::before{content: " » ";}
 
-#HelyiNav li a { display: inline-block; background-color: 	#DCCBBB; padding:8px 5px 0px 5px;
-	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #888; border-top:1px solid #888;} 
+#HelyiNav li a { display: inline-block; background-color: 	#7CADFD ;background-image: -moz-linear-gradient(top, #3B85FF, #BCD5FF);
+  background-image: -ms-linear-gradient(top, #BCD5FF, #7CADFD);
+  background-image: -o-linear-gradient(top, #BCD5FF, #7CADFD);
+  background-image: linear-gradient(to bottom, #BCD5FF,#7CADFD);color:ff0000; padding:8px 5px 0px 5px;
+	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #7CADFD; border-top:0px solid #7CADFD;} 
 #HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#000;
     font:  14px/24px Verdana, Geneva, sans-serif;
     text-decoration:none; }
@@ -88,16 +84,16 @@ footer {background-color:#DCCBBB; }
   
   
 /*---- Második szint --*/
-#HelyiNav li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li a {background-color:#659FFF; padding-left:25px;} 
 #HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#000;}
  
 /*---- Harmadik szint --*/
-#HelyiNav li li li a {background-color:#DCCBBB; padding-left:25px} 
+#HelyiNav li li li a {background-color:#659FFF; padding-left:25px} 
 #HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#000;}
 
 
 /*---- Negyedik szint --*/
-#HelyiNav li li li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li li li a {background-color:#659FFF; padding-left:25px;} 
 #HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#000;}
   
   
@@ -109,9 +105,6 @@ footer {background-color:#DCCBBB; }
 #Tartalom section img {margin:10px;}
 #Tartalom article  {margin:6px;}
        
-
-#OTartalom{width:95%;}
-#OLeiras{width:95%;}
 
 /*----------------------------------------------------- el innét*/
 #divFormkod{margin-left:1px;}

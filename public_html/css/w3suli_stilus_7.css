@@ -22,13 +22,12 @@
 			#HelyiNav {background-color:#663300; }
 			#BelsoKeret {background-color:#000000; }
 			
-	/*		#Keret{background-image:url('../img/ghb.jpg')}*/
 			#FoNav{background-color:#333333; color:#FFFFFF }
 			#FoHeder {background-color:#666666;}
 			
 			
 			#KiegeszitoInfo {background-color:#666666; }
-			#Tartalom {background-color:#888;}
+			#Tartalom, body {background-color:#888;}
 			#HelyiNav {background-color:#666666; color:#FFFFFF; }
 
  * {font-family: 'Source Sans Pro', sans-serif;}
