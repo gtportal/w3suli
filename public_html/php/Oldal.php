@@ -655,10 +655,12 @@
       $HTMLkod   = ''; //style='display:none;
       $HTMLFormkod   = '';
       if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!! 
-        if(isset($_POST['submitOldalTorolForm'])    || isset($_POST['submitOldalTorolVegleges']) ||
-           isset($_POST['submitOModeratorCsoportValaszt'])         || isset($_POST['submitOModeratorValaszt']) ||         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-           isset($_POST['submitOldalForm'])         || isset($_POST['submitUjOldalForm']) ||       
-           isset($_POST['submit_KepekFeltoltForm']) || isset($_POST['submitOldalKepForm']))
+        if(isset($_POST['submitOldalTorolForm'])           || isset($_POST['submitOldalTorolVegleges']) ||
+           isset($_POST['submitOModeratorCsoportValaszt']) || isset($_POST['submitOModeratorValaszt']) ||         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+           isset($_POST['submitOldalForm'])                || isset($_POST['submitUjOldalForm']) ||   
++          isset($_POST['submitOModeratorCsoportValaszt']) || isset($_POST['submitOModeratorValaszt']) ||
++          isset($_POST['submitOModeratorCsoport'])        ||     
+           isset($_POST['submit_KepekFeltoltForm'])        || isset($_POST['submitOldalKepForm']))
 			{$checked = " checked ";} else {$checked = "";}                                 //
         $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox' $checked>\n";
         $HTMLFormkod  .= "  <label for='chFormkod'    class='chLabel'    id='labelchFormkod'>Oldal szerkesztése</label>\n";  
@@ -679,7 +681,7 @@
         $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalKepForm' value='chOldalKepForm'  type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalKepForm' class='chLabel'     id='labelOldalKepForm'>Oldal képeinek módosítása</label>\n \n";
         
-        if(isset($_POST['submitOModeratorValaszt']) || isset($_POST['submitOModeratorCsoportValaszt'])) {$checked = " checked ";} else {$checked = "";}
+        if(isset($_POST['submitOModeratorValaszt']) || isset($_POST['submitOModeratorCsoportValaszt']) || isset($_POST['submitOModeratorCsoport'])) {$checked = " checked ";} else {$checked = "";}
         $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalModeratorForm' value='chOldalModeratorForm'  type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalModeratorForm' class='chLabel'     id='labelOldalModeratorForm'>Oldal moderátorainak módosítása</label>\n \n";
         // ================ AZ OLDAL MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================

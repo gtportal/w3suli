@@ -5,7 +5,7 @@
   $Aktoldal       = array();
   $SzuloOldal     = array();
   $NagyszuloOldal = array();
-  $DedSzuloId = 0;
+  $DedSzuloId     = 0;
 
   require_once 'php/AlapFgvek.php';
   //MUNKAMENET INDÍTÁSA
@@ -18,7 +18,7 @@
   //FSzint=4 > Rendszergazda
   //FSzint=5 > Kiemelt rendszergazda
   if (!isset($_SESSION['AktFelhasznalo'.'FSzint'])) {
-      $_SESSION['AktFelhasznalo'.'id']   = 0;
+      $_SESSION['AktFelhasznalo'.'id']     = 0;
       $_SESSION['AktFelhasznalo'.'FNev']   = '';
       $_SESSION['AktFelhasznalo'.'FFNev']  = '';
       $_SESSION['AktFelhasznalo'.'FEmail'] = '';
@@ -37,7 +37,7 @@
   }  
   
   $_SESSION['ErrorStr']   = '';
-  
+  if ($_SESSION['AktFelhasznalo'.'FSzint']==3) {$_SESSION['AktFelhasznalo'.'FSzint']=2;} // A moderátor oldalanként változik  
   if (isset($_GET['f0'])) { $oURL = $_GET['f0'];} else { $oURL = '';}  
   
   //ADATBÁZIS MEGNYITÁSA
@@ -80,9 +80,13 @@
   getOldalData($oURL);  
   
   //A MODERÁTOR STÁTUSZ ELLENŐRZÉSE
-  if (getOModeratorTeszt($Aktoldal['id']) > 0) {$_SESSION['AktFelhasznalo'.'FSzint'] =  3;}
-  
-  
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] == 2) 
+  {
+    if (getOModeratorTeszt($Aktoldal['id']) > 0)    // Csak akkor érdekes, ha bejelentkezett, de nem rendszergazda     
+    {
+        $_SESSION['AktFelhasznalo'.'FSzint'] =  3;
+    }
+  } 
   
   //FELHASZNÁLÓI CSOPORTADATOK MÓDOSÍTÁSA
   $_SESSION['ErrorStr']   .= setUjFCsoport();  
@@ -109,8 +113,7 @@
   $_SESSION['ErrorStr']   .= setCikkKepTorol();  
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
- $_SESSION['ErrorStr']   .= setKiegT();
- 
+ $_SESSION['ErrorStr']   .= setKiegT(); 
  $_SESSION['ErrorStr']   .= setFoMenu();
  $_SESSION['ErrorStr']   .= setMenuPlusz();
 ?>
