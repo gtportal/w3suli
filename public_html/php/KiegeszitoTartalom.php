@@ -133,13 +133,15 @@ function getKiegTHTML() {
     global $MySqliLink;
     $HTMLkod        = '';
 
-    $SelectStr = "SELECT * FROM KiegTartalom ORDER BY KiegTPrioritas DESC";
+    $SelectStr = "SELECT * FROM KiegTartalom WHERE KiegTPrioritas>0  ORDER BY KiegTPrioritas DESC";
     $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
 
     while ($row = mysqli_fetch_array($result)){
         if ($row['KiegTTartalom']){
-            $HTMLkod .= "<div class ='divKiegTKulso'><h2>".$row['KiegTNev']."</h2>\n";
-            $HTMLkod .= "<div class = 'divKiegT'>".$row['KiegTTartalom']."</div></div>\n";
+            $HTMLkod .= "<div class ='divKiegTKulso'>\n";
+            if ($row['KiegTNev']!='') {$HTMLkod .= "<h2>".$row['KiegTNev']."</h2>\n";}
+            $HTMLkod .= "<div class = 'divKiegT'>".$row['KiegTTartalom']."\n";
+            $HTMLkod .= "</div></div>\n";
         }
     }
     return $HTMLkod;
