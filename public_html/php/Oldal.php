@@ -721,6 +721,7 @@
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
                     $HTMLkod  .= getCikkekForm();
+                    $HTMLkod  .= getOElozetesekHTML();
                     $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
                     $HTMLkod  .= "</main>";
