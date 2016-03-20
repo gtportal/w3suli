@@ -703,27 +703,27 @@
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
                     $HTMLkod  .= getCikkekForm();
-                    $HTMLkod  .= getOElozetesekHTML();
-                    $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
+                    $HTMLkod  .= getCikkekHTML();
+                    $HTMLkod  .= getOElozetesekHTML();
                     $HTMLkod  .= "</main>";
                    break;
           case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
                     $HTMLkod  .= getCikkekForm();
-                    $HTMLkod  .= getOElozetesekHTML();
-                    $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
+                    $HTMLkod  .= getCikkekHTML();
+                    $HTMLkod  .= getOElozetesekHTML();
                     $HTMLkod  .= "</main>";
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
                     $HTMLkod  .= $HTMLFormkod;
                     $HTMLkod  .= "<main>";
                     $HTMLkod  .= getCikkekForm();
-                    $HTMLkod  .= getOElozetesekHTML();
-                    $HTMLkod  .= getCikkekHTML();
                     $HTMLkod  .= $Aktoldal['OTartalom'];
+                    $HTMLkod  .= getCikkekHTML();
+                    $HTMLkod  .= getOElozetesekHTML();
                     $HTMLkod  .= "</main>";
                    break; 
           case 10:  $HTMLkod  .= "<h1>Bejelentkezés</h1> \n";
