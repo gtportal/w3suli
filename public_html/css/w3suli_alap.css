@@ -19,7 +19,7 @@ body, html {margin:0; padding:0; width:100%; overflow-x: hidden;}
 #Tartalom {width:100%; min-height:100%; float:left; margin-right:-100%;margin-bottom:40px; padding:10px;}
 #HelyiNav {background-color:#888; width:300px; float:left; margin: 0 0 0 -300px; }
 #KiegeszitoInfo {background-color:#08f; width:300px; margin-right:-300px; float:right;}       
-footer {background-color:#999999; width:100%;clear:left; border-bottom:1px solid #999999;}
+footer {background-color:#999999; width:100%;clear:left; border-bottom:1px solid #999999; mergin-top:10px; padding-top: 10px;}
 
 /********************************************* Fejléc *******************************************************/
 #logoImgLink img {width:90px;margin:2px 5px;}
@@ -111,4 +111,4 @@ a#logoLink:link   {color:#fff;}
 .imgOE {max-width:100px; max-height: 100px; margin:0;}
 .divOElozetesKep {float: left; width:100px; height: 100px;  margin:10px; padding:0; }
 
-.divOElozetesKulso {border-bottom:1px solid #fff;}
+.divOElozetesKulso {border-bottom:1px solid #fff; min-height: 110px;}
