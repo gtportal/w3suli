@@ -15,7 +15,7 @@ function getCikkekHTML() {
     
     // Egyelőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
     
-    $SelectStr = "SELECT C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+    $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
                         FROM Cikkek AS C
                         LEFT JOIN OldalCikkei AS OC
                         ON OC.Cid= C.id
@@ -27,7 +27,10 @@ function getCikkekHTML() {
         while ($row = mysqli_fetch_array($result)){
                 $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                 $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div>\n";
+                $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
+                    $HTMLkod .= $row['CTartalom']."\n";
+                    $HTMLkod .= getCikkKepekHTML($row['id']);
+                $HTMLkod .= "</div>\n";
                 $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
         }
     } else {
@@ -35,8 +38,10 @@ function getCikkekHTML() {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                    $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                    $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div>\n";
+                    $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";$HTMLkod .= "<div class = 'divCikkTartalom'>\n";
+                        $HTMLkod .= $row['CTartalom']."\n";
+                        $HTMLkod .= getCikkKepekHTML($row['id']);
+                    $HTMLkod .= "</div>\n";
                     $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
                 }
             }
@@ -46,7 +51,10 @@ function getCikkekHTML() {
                 if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                     $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                    $HTMLkod .= "<div class = 'divCikkTartalom'>".$row['CTartalom']."</div>\n";
+                    $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
+                        $HTMLkod .= $row['CTartalom']."\n";
+                        $HTMLkod .= getCikkKepekHTML($row['id']);
+                    $HTMLkod .= "</div>\n";
                     $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
                 }
             }
@@ -79,7 +87,7 @@ function getCikkekForm() {
             if (isset($_POST['submitCikkTorol']) && $_SESSION['ErrorStr']!=''){
                     $TorolCikk = false;
             } else {$TorolCikk = true;}
-            if (isset($_POST['submitCikkKepForm']) && $_SESSION['ErrorStr']!=''){
+            if ((isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])) && $_SESSION['ErrorStr']!=''){
                     $CikkKep   = false;
             } else {$CikkKep   = true;}
     $HTMLkod .= "<div id='divCikkek'>";

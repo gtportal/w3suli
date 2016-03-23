@@ -110,7 +110,6 @@
   
   $_SESSION['ErrorStr']   .= setCikkKepek();
   $_SESSION['ErrorStr']   .= setCikkKepFeltolt();
-  $_SESSION['ErrorStr']   .= setCikkKepTorol();  
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
  $_SESSION['ErrorStr']   .= setKiegT(); 
