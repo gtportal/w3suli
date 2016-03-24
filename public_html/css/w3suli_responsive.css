@@ -65,29 +65,29 @@
 }    
 
 @media only screen and (min-height: 400px) {
-  #BelsoKeret {min-height:400px; border-bottom:1px solid #fff;}
+  #BelsoKeret {min-height:400px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
 }
 
 @media only screen and (min-height: 500px) {
-  #BelsoKeret {min-height:500px; border-bottom:1px solid #fff;}
+  #BelsoKeret {min-height:500px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
 }
 
 @media only screen and (min-height: 600px) {
-  #BelsoKeret {min-height:600px; border-bottom:1px solid #fff;}
+  #BelsoKeret {min-height:600px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
 }
 
 @media only screen and (min-height: 800px) {
-  #BelsoKeret {min-height:800px; border-bottom:1px solid #fff;}
+  #BelsoKeret {min-height:800px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
 }
 
 @media only screen and (min-height: 900px)  {
-  #BelsoKeret {min-height:900px; border-bottom:1px solid #fff;}
+  #BelsoKeret {min-height:900px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
 }
 
 @media only screen and (min-height: 1000px)  {
-  #BelsoKeret {min-height:960px; border-bottom:1px solid #fff;}
+  #BelsoKeret {min-height:960px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
 }
 
 @media only screen and (min-height: 1100px)  {
-  #BelsoKeret {min-height:1060px; border-bottom:1px solid #fff;}
+  #BelsoKeret {min-height:1060px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
 }

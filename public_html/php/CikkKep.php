@@ -89,7 +89,7 @@ function setCikkKepFeltolt() {
               } else {
                 //Új kép feltöltése
                 move_uploaded_file($_FILES["COKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev);
-                $UploadErr .=  "<p class='Uzenet'> Feltöltve: ". $_FILES["COKepFile"]["name"][$i]."</p><br>\n"; $KepOK=true;        
+                $UploadErr .=  "<p class='Uzenet'> Feltöltve: ". $_FILES["COKepFile"]["name"][$i]."</p>\n"; $KepOK=true;        
                 $InsertIntoStr = "INSERT INTO CikkKepek VALUES ('', $Cid,'$AktFileNev','','',0,0,0,0)";
                 if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 03");}
               }
@@ -108,10 +108,10 @@ function setCikkKepFeltolt() {
 
 function getCikkKepFeltoltForm() {
     global $Aktoldal;
-    $Oid        = $Aktoldal['id'];
+    $Oid        = $Aktoldal['id']; 
     $OUrl       = $Aktoldal['OUrl'];
     $HTMLkod    ='';    
-    $HTMLkod   .="  <div id='CikkKepekFeltoltForm'>
+    $HTMLkod   ="  <div id='CikkKepekFeltoltForm'>
                            <h3>Képek feltöltése a cikkhez:</h3>
                            <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data'>
                              <input type='file' name='COKepFile[]' id='file_CikkKepekFeltoltForm' multiple='multiple'>
@@ -177,12 +177,12 @@ function setCikkKepek() {
 function getCikkKepForm() {
     global $Aktoldal, $MySqliLink;
     $Oid        = $Aktoldal['id'];
-    $Cid        = $_SESSION['SzerkCikk'.'id'];
+    $Cid        = $_SESSION['SzerkCikk'.'id']; 
     $OUrl = $Aktoldal['OUrl'];
     $HTMLkod    ='';
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>1){
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>1){      
         $HTMLkod .= "<div id='divCikkKepForm' >\n";
-        $HTMLkod   .=getCikkKepFeltoltForm();
+        $HTMLkod   .=getCikkKepFeltoltForm();   
 
         // a $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk képeinek kezelése
         // Minta OldalKeptar.php getOldalKepForm()- fgv-e. 
@@ -195,7 +195,7 @@ function getCikkKepForm() {
         }
         //Az aktuális cikkhez kapcsolódó képek beolvasása adatbázisból 
           $SelectStr   = "SELECT * FROM CikkKepek WHERE Cid=$Cid order by KSorszam ";
-          $SelectStr = "SELECT *
+          $SelectStr   = "SELECT *
                           FROM CikkKepek AS CK
                           LEFT JOIN OldalCikkei AS OC
                           ON OC.Cid= CK.Cid 
@@ -252,23 +252,23 @@ function getCikkKepForm() {
 
                 $HTMLkod1 .= "<div style='float:left;'>";
                 $HTMLkod1 .= "<p class='pKSorszam'><label for='CKSorszam_$i' class='label_1'>Sorszám:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='CKSorszam_$i' id='CKSorszam_$i' min='0' max='20' step='1' value='".$CikkKepek[$i]['KSorszam']."' ></p>\n"; 
+                $HTMLkod1 .= "<input type='number' name='CKSorszam_$i' id='CKSorszam_$i' min='0' max='1000' step='1' value='".$CikkKepek[$i]['KSorszam']."' ></p>\n"; 
 
                 $HTMLkod1 .= "<p class='pKNev'><label for='CKNev_$i' class='label_1'>A kép neve:</label>\n ";
                 $HTMLkod1 .= "<input type='text' name='CKNev_$i' id='CKNev_$i' placeholder='Képnév' 
-                               class='$ErrClassCNev' value='".$CikkKepek[$i]['KNev']."' size='20'></p>\n"; 
+                               class='$ErrClassCNev' value='".$CikkKepek[$i]['KNev']."' size='1000'></p>\n"; 
 
                 $HTMLkod1 .= "<p class='pKLeiras'><label for='CKLeiras_$i' class='label_1'>Leírás:</label>\n ";
                 $HTMLkod1 .= "<input type='text' name='CKLeiras_$i' id='CKLeiras_$i' placeholder='Leírás'  value='".$CikkKepek[$i]['KLeiras']."' size='60'></p>\n"; 
 
                 $HTMLkod1 .= "<p class='pKSzelesseg'><label for='CKSzelesseg_$i' class='label_1'>Szélesség:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='CKSzelesseg_$i' id='CKSzelesseg_$i' min='0' max='20' step='1' value='".$CikkKepek[$i]['KSzelesseg']."' ></p>\n"; 
+                $HTMLkod1 .= "<input type='number' name='CKSzelesseg_$i' id='CKSzelesseg_$i' min='0' max='1000' step='1' value='".$CikkKepek[$i]['KSzelesseg']."' ></p>\n"; 
 
                 $HTMLkod1 .= "<p class='pKMagassag'><label for='CKMagassag_$i' class='label_1'>Magasság:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='CKMagassag_$i' id='CKMagassag_$i' min='0' max='20' step='1' value='".$CikkKepek[$i]['KMagassag']."' ></p>\n"; 
+                $HTMLkod1 .= "<input type='number' name='CKMagassag_$i' id='CKMagassag_$i' min='0' max='1000' step='1' value='".$CikkKepek[$i]['KMagassag']."' ></p>\n"; 
 
                 $HTMLkod1 .= "<p class='pKStilus'><label for='CKStilus_$i' class='label_1'>Stílus:</label>\n ";
-                $HTMLkod1 .= "<input type='number' name='CKStilus_$i' id='CKStilus_$i' min='0' max='20' step='1' value='".$CikkKepek[$i]['KStilus']."' ></p>\n";           
+                $HTMLkod1 .= "<input type='number' name='CKStilus_$i' id='CKStilus_$i' min='0' max='1000' step='1' value='".$CikkKepek[$i]['KStilus']."' ></p>\n";           
 
                 $HTMLkod1 .= "<p class='pKTorol'><label for='CKTorol_$i' class='label_1'>TÖRLÉS:</label>\n ";
                 $HTMLkod1 .= "<input type='checkbox' name='CKTorol_$i' id='CKTorol_$i'  value='".$CikkKepek[$i]['KFile']."' $checked ></p>\n";           
@@ -278,14 +278,14 @@ function getCikkKepForm() {
             // ============== A HTML KÓD ÖSSZEÁLLÍTÁSA =====================   
             $HTMLkod1 .= "<input type='hidden' name='rowDB' value='$rowDB'>";
             $HTMLkod .= $_SESSION['ErrorStr'];
-            $HTMLkod .= "<div><form action='?f0=$OUrl' method='post' id='formCikkKepForm'>\n";
+            $HTMLkod .= "<div id='divCikkKepForm1'><form action='?f0=$OUrl' method='post' id='formCikkKepForm'>\n";
             $HTMLkod .= $HTMLkod1;
             
 
-            $HTMLkod .=  "<br><br><br><br><br><br><input type='submit' name='submitCikkKepForm' value='Adatok módosítása'><br><br>\n";        
+            $HTMLkod .=  "<input type='submit' name='submitCikkKepForm' value='Adatok módosítása' style='clear:left;'><br><br>\n";        
             $HTMLkod .= "</form></div>\n";
         }
-        $HTMLkod .= "</div>\n";
+        $HTMLkod .= "</div> <br style='clear:left;'>\n";
     }
     return $HTMLkod;
 }

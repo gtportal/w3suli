@@ -41,7 +41,8 @@ function setUjCikk() {
         } else {$ErrorStr = ' Err001,';}
         //Tartalom ellenőrzése
         if (isset($_POST['UjCTartalom'])) {
-            $UjCTartalom = test_post($_POST['UjCTartalom']);
+            $UjCTartalom = test_post($_POST['UjCTartalom']);             
+            if ($_SESSION['AktFelhasznalo'.'FSzint']<4) {$UjCTartalom = SzintaxisCsere($UjCTartalom); }
             if (strlen(!$UjCTartalom)){ $ErrorStr .= ' Err005';}
         }
         if (isset($_POST['UjCLeiras'])) {$UjCLeiras   = test_post($_POST['UjCLeiras']);}
@@ -348,6 +349,7 @@ function setCikk() {
         //Tartalom ellenőrzése
         if (isset($_POST['CTartalom'])) {
             $CTartalom = test_post($_POST['CTartalom']);
+            if ($_SESSION['AktFelhasznalo'.'FSzint']<4) {$CTartalom = SzintaxisCsere($CTartalom); }
             if (strlen(!$CTartalom)){ $ErrorStr .= ' Err005';}
         }
         if (isset($_POST['CLeiras'])) {$CLeiras   = test_post($_POST['CLeiras']);}
