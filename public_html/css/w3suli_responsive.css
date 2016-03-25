@@ -23,25 +23,7 @@
     .divKiegTKulso {width:300px;float:left; margin:5px;}
 }
 
-@media only screen and (max-width : 10px)  {  
-    .x #FoHeder, #FoNavJobb {display: none;}
-    .x #FoNavBal {height:40px; width:100%; display:block;} 
-    .x #FoNav {display:block; position:absolute; left:0px; top:0px;}
-    .x body #Keret {margin:0; padding:0; overflow-x: hidden;} 
-    .x #Keret #BelsoKeret {padding:0; margin:0; overflow-x: hidden;}
     
-    
-   .x #Keret #HelyiNav {width:300px; margin:0; position:absolute; left:0px; top:40px; z-index: 1000;}
-   .x #chmenu:checked ~ #BelsoKeret #HelyiNav {position:relative; display: none;}    
-    
-   .x #Keret #Tartalom {margin-right:0px; width:100%; margin:0 2px; opacity: 0.2; left:0px; top:30px; z-index: 10;}
-   .x #chmenu:checked ~ #BelsoKeret #Tartalom {padding:2px; opacity: 1;}
-    
-
-   .x #KiegeszitoInfo {width:300px;float:none; margin:5px 0; clear:both;}
-   .x #chmenu:checked ~ #BelsoKeret #KiegeszitoInfo {position:relative; display: none;} 
-   .x #chmenu:checked ~ #BelsoKeret   .divKiegTKulso {display: none;}
-}     
 
 @media only screen and (max-width : 709px)  {
     #FoHeder {display: none;}
@@ -90,4 +72,42 @@
 
 @media only screen and (min-height: 1100px)  {
   #BelsoKeret {min-height:1060px; border-bottom:1px solid rgba(0, 0, 0, 0.01);}
+}
+
+@media only screen and (min-width : 1300px) and (max-width : 1400px)  {  
+    #divCikkekKulso, .divCikkKulso {width: 640px;}
+    #chmenu:checked ~ #BelsoKeret #divCikkekKulso,
+    #chmenu:checked ~ #BelsoKeret .divCikkKulso {width: 800px;}
+}
+
+@media only screen and (min-width : 1180px) and (max-width : 1300px)  {  
+    #divCikkekKulso, .divCikkKulso {width: 500px;}
+    #chmenu:checked ~ #BelsoKeret #divCikkekKulso,
+    #chmenu:checked ~ #BelsoKeret .divCikkKulso {width: 800px;}
+}
+
+@media only screen and (min-width : 940px) and (max-width : 1180px)  {  
+    #divCikkekKulso, .divCikkKulso {width: 600px;}
+    #chmenu:checked ~ #BelsoKeret #divCikkekKulso,
+    #chmenu:checked ~ #BelsoKeret .divCikkKulso {width: 800px;}
+}
+
+@media only screen and (min-width : 800px) and (max-width : 940px)  {  
+    #divCikkekKulso, .divCikkKulso {width: 470px;}
+    #chmenu:checked ~ #BelsoKeret #divCikkekKulso,
+    #chmenu:checked ~ #BelsoKeret .divCikkKulso {width: 700px;}
+}
+
+@media only screen and (min-width : 700px) and (max-width : 800px)  {  
+    #divCikkekKulso, .divCikkKulso {width: 320px;}
+    #chmenu:checked ~ #BelsoKeret #divCikkekKulso,
+    #chmenu:checked ~ #BelsoKeret .divCikkKulso {width: 600px;}
+}
+
+@media only screen and (max-width : 700px)  {  
+    #divCikkekKulso, .divCikkKulso {width: 320px;}
+}
+
+@media only screen and (max-width : 800px)  {  
+    div.divCikkKepN, div.divCikkKepN  img {max-width: 300px !important;} 
 }

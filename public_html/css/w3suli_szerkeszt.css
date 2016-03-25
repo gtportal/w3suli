@@ -6,7 +6,8 @@
 #divFormkod {display: none;}
 #chFormkod:checked    ~ #divFormkod    {display: block;}
 
-#divUjOldalForm, #divOldalForm, #divOldalTorolForm, #divOldalKepForm, #divOldalModeratorForm {display: none; border: 1px solid #000;}
+#divUjOldalForm, #divOldalForm, #divOldalTorolForm, #divOldalKepForm, #divOldalModeratorForm 
+{display: none; border: 1px solid #000; background-color:#eee;padding:12px; margin-top:10px;}
 #chFormkod, #chUjOldalForm, #chOldalForm, #chOldalTorolForm, #chOldalKepForm, #chOldalModeratorForm {display:none;}
 
 #chUjOldalForm:checked    ~ #labelUjOldalForm     {font-weight:bold;}
@@ -65,7 +66,7 @@
 #divFormkodCikk {display: none;}
 #chFormkodCikk:checked    ~ #divFormkodCikk    {display: block;}
 
-#divCikkValaszt, #divUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm {display: none; border: 1px solid #000;}
+#divCikkValaszt, #divUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm {display: none; border: 1px solid #000; background-color:#eee;padding:12px; margin-top:10px;}
 #chFormkodCikk, #chUjCikkForm, #chCikkForm, #chCikkTorolForm, #chCikkKepForm {display:none;}
 
 #chUjCikkForm:checked    ~ #labelUjCikkForm     {font-weight:bold;}
