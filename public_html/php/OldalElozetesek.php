@@ -30,16 +30,20 @@ function getOElozetesekHTML() {
                 } else {
                     $HTMLkod .= "<div class = 'divOElozetesKep'> </div>\n";
                 }
-                $HTMLkod .= "<h2>".$row['ONev']."</h2>\n";
+                
+                $HTMLkod .= "<div class='divOElozetesTartalom'>\n";
+                $HTMLkod .= "<h3>".$row['ONev']."</h3>\n";
                 if ($row['OLeiras']!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$row['OLeiras']."\n";}
-                $HTMLkod .= "<a href='?f0=".$row['OUrl']."'>".$row['ONev']." résztletesen...</a>\n";
-                $HTMLkod .= "</div></div>\n";
+                $HTMLkod .= "</div>\n";
+                $HTMLkod .= "<a href='?f0=".$row['OUrl']."' class='OElink'>".$row['ONev']." résztletesen...</a>\n";
+                $HTMLkod .= "</div>\n";
+                $HTMLkod .= "</div>\n";
                 
             }
         }
     }
    
-    
+     if ($HTMLkod!='') {$HTMLkod = "<div id='divOElozetesekKulso'>\n$HTMLkod </div>\n";} // Az összes előzetest becsomagoljuk
     return $HTMLkod;
 }
 

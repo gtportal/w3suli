@@ -21,7 +21,6 @@
 function getMenuPluszForm() {
     global $MySqliLink, $MenuPlTartalom;	
     $HTMLkod  = '';
-    $HTMLkod .= "<h1>Menü plusz form</h1>";
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $SelectStr = "SELECT * FROM MenuPlusz";
         $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");

@@ -764,7 +764,7 @@
           case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
                     $HTMLkod  .= getFoMenuForm();
                    break;       
-          case 54:  $HTMLkod  .= "<h1>Helyi menű plusz infók</h1> \n";
+          case 54:  $HTMLkod  .= "<h1>Helyi menü plusz</h1> \n";
                     $HTMLkod  .= getMenuPluszForm();
                    break;                  
         }

@@ -45,7 +45,7 @@ function getCikkepCsereL($Cid,$CTartalom ) {
 function getCikkekHTML() {
     global $MySqliLink, $Aktoldal;
     $HTMLkod  = '';
-    $Oid      = $Aktoldal['id'];
+    $Oid      = $Aktoldal['id']; 
     
     // Egyelőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
     
@@ -56,49 +56,48 @@ function getCikkekHTML() {
                         WHERE OC.Oid=$Oid
                         ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
     $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
-
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         while ($row = mysqli_fetch_array($result)){     
-                $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Saját kódolás cseréje HTML elemekre 
+                $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
                 $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                 $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
                 $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
                     $HTMLkod .= $CTartalom."\n";
                     $HTMLkod .= getCikkKepekHTML($row['id']);
                 $HTMLkod .= "</div>\n";
-                $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+                $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
         }
     } else {
         if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
-                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Saját kódolás cseréje HTML elemekre 
+                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                     $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";$HTMLkod .= "<div class = 'divCikkTartalom'>\n";
-                        $HTMLkod .= $row['CTartalom']."\n";
+                        $HTMLkod .= $CTartalom."\n";
                         $HTMLkod .= getCikkKepekHTML($row['id']);
                     $HTMLkod .= "</div>\n";
-                    $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+                    $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
                 }
             }
         }
         if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
             while ($row = mysqli_fetch_array($result)){
-                if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
-                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Saját kódolás cseréje HTML elemekre 
+                if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) { 
+                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                     $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
                     $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
-                        $HTMLkod .= $row['CTartalom']."\n";
+                        $HTMLkod .= $CTartalom."\n";
                         $HTMLkod .= getCikkKepekHTML($row['id']);
                     $HTMLkod .= "</div>\n";
-                    $HTMLkod .= "<p class='pCszerzoNev'>".$row['CSzerzoNev']."</p><p class='pCModTime'>".$row['CModositasTime']."</p></div>\n";
+                    $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
                 }
             }
         }
     }
     
-    
+    if ($HTMLkod!='') {$HTMLkod = "<div id='divCikkekKulso'>\n$HTMLkod </div>\n";} // Az összes cikkek becsomagoljuk
     
     
     return $HTMLkod;
