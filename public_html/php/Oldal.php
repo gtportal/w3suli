@@ -139,7 +139,7 @@
                 if ($row['OSzuloId']>1) {$DedSzuloId = $row['OSzuloId'];}
             }
         }
-        
+        if($_SESSION['ElozoOldalId'] != $Aktoldal['id']){$_SESSION['SzerkCikk'.'id']=0; $_SESSION['SzerkCikk'.'Oid']=0; }
         //Ha nem szerkesztő oldal, akkor eltároljuk ez lesz az ElozoOldalId
         //Egy szerkesztés, be- vagy kijelentkezés után ide térünk vissza
         if ($Aktoldal['OTipus']<10) {$_SESSION['ElozoOldalId']   = $Aktoldal['id']; }
@@ -784,6 +784,11 @@
         }
         //Az aktuális stíluslap linkje 
         $HTMLkod .= "<link type='text/css' rel='stylesheet' media='all'   href='css/w3suli_stilus_".$AlapAdatok['Stilus'].".css' />\n";
+        $description = $Aktoldal['OLeiras'];
+        $HTMLkod .= "  <meta name='description' content='$description'> \n";
+        
+        $description = $Aktoldal['OKulcsszavak'];
+        $HTMLkod .= "  <meta name='keywords' content='$keywords'> \n";
         return $HTMLkod;
     }
 

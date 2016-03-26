@@ -28,7 +28,7 @@ function getCikkepCsereL($Cid,$CTartalom ) {
         if ($row['KSzelesseg']>0) {$KepMeret = "style='max-width:".$row['KSzelesseg']."px;'";} else {
            if ($row['KMagassag']>0) {$KepMeret = "style='max-height:".$row['KMagassag']."px;'";}             
         }
-        $KepStilus= " KepStyle".$row['KMagassag']." ";
+        $KepStilus= " KepStyle".$row['KStilus']." ";
         $imgkod   = "<div class = 'divCikkKepN $KepStilus' $KepMeret >";
         $imgkod  .= "<img src='$Src'  class = 'imgCikkKepN $KepStilus' alt='$KNev' $KepMeret>";
         $imgkod  .= "</div>\n";

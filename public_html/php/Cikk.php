@@ -374,7 +374,8 @@ function setCikk() {
         
         //Tartalom ellenőrzése
         if (isset($_POST['CTartalom'])) {
-            $CTartalom = test_post($_POST['CTartalom']);
+            //$CTartalom = test_post($_POST['CTartalom']); 
+            if ($_SESSION['AktFelhasznalo'.'FSzint']<4) {$CTartalom = test_post($_POST['CTartalom']); } else {$CTartalom = SQL_post($_POST['CTartalom']); }
             if ($_SESSION['AktFelhasznalo'.'FSzint']<4) {$CTartalom = SzintaxisCsere($CTartalom); }
             if (strlen(!$CTartalom)){ $ErrorStr .= ' Err005';}
         }

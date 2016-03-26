@@ -24,7 +24,7 @@ function getMorzsaHTML() {
            }
             
         } 
-        if ($HTMLkod > '') {
+        if ($Aktoldal['id']!=0) {
             $HTMLkod = "<div class='Morzsa'>\n
                         <a href='./' >Kezdőlap</a>
                         $HTMLkod 
