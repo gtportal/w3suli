@@ -88,7 +88,7 @@
 #chCikkKepForm:checked   ~ #divCikkValaszt   {display: block;}
 
 #formCikkKepForm {width:900px;}
-#divCikkKepForm .Kepszerk img {display:block; float:left; height:100px; margin:5px;}
+#divCikkKepForm .Kepszerk img {display:block; float:left; max-height:100px; max-width: 100px; margin:5px;}
 #divCikkKepForm .Kepszerk     {display:block; float:left;  margin:2px; width:800px;height: 220px; border:1px solid rgba(0, 0, 0, 0.9);}
 #divCikkKepForm .Kepszerk  p  {display:block; float:left; margin:5px;}
 #divCikkKepForm .Kepszerk  p.pKSzelesseg  {clear:left;}
@@ -97,7 +97,7 @@
 #divCikkKepForm .Kepszerk input[type="number"] {width:65px;}
 #divCikkKepForm .Kepszerk input[type="text"] {width:300px;}
 
-.Kepszerk img {display:block; float:left; height:100px;}
+.Kepszerk img {display:block; float:left;}
 .Kepszerk div {display:block; float:left; width:560px;}
 .Kepszerk h3 {display:block; }
 .pKTorol {color:#f00;}

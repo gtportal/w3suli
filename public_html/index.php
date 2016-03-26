@@ -127,6 +127,7 @@
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_alap.css" />  
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_szerkeszt.css" />  
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_responsive.css" />
+     <link href='https://fonts.googleapis.com/css?family=Istok+Web:700,400&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
      <?php echo getHead(); ?>
   </head>
   <body>	  

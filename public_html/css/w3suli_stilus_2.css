@@ -9,7 +9,7 @@ a#logoLink:hover  {color:#000;}
 a#logoLink:active {color:#222;}
 a#logoLink:link   {color:#222;}
 
-.Morzsa a::after{content: " « ";}  
+.Morzsa_ a::after{content: " « ";}  
 .Morzsa a        {color:#222;}   
 .Morzsa a:link   {color:#222;}
 .Morzsa a:active {color:#222;}
@@ -20,7 +20,7 @@ a#logoLink:link   {color:#222;}
 #FoHeder{background-color:#f2f2f2;}
 
 /*------------Tartalom-----------*/
-body, html{background-color:#f2f2f2;}		 
+body, html{background-color:#f2f2f2; font-family: 'Istok Web', sans-serif;}		 
 #Keret{background-color:#f2f2f2;}
 
 #BelsoKeret{
@@ -54,10 +54,10 @@ footer {background-color:#DCCBBB; }
        
 /*------------Menüsor-----------*/
 #FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
-#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;}
-       
+#FoNav {background-color:#DCCBBB; width:100%; line-height:30px;   font-family: 'Istok Web', sans-serif; font-weight:bold; font-variant:small-caps; color:#210;}
+#FoNav a {color:#210; margin: 0 5px;}   
 #FoNavBal {float:left; width:100px;}
-#FoNavJobb {width:100%;margin:0 100px; text-align:right; padding-right:10%;}
+#FoNavJobb {width:100%;margin:0 100px; text-align:center; padding-right:10%;}
 
 .MPontLink{display:inline-block; color:#000;}
        
@@ -79,7 +79,7 @@ footer {background-color:#DCCBBB; }
 #HelyiNav li a { display: inline-block; background-color: 	#DCCBBB; padding:8px 5px 0px 5px;
 	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #888; border-top:1px solid #888;} 
 #HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#000;
-    font:  14px/24px Verdana, Geneva, sans-serif;
+    
     text-decoration:none; }
 
 /* A link állapotainak megkülönböztetése  */
@@ -120,7 +120,7 @@ footer {background-color:#DCCBBB; }
 /*------------Admin panel-új oldal-----------*/
 #divUjOldalForm{background-color:#f2f2f2; padding:7px;}
 
-#labelUjOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px; padding:3px;
+#labelUjOldalForm{display:inline-block; margin-bottom: -1px;
  color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
  
  #UjONev{background-color:#DCCBBB;}
@@ -129,29 +129,34 @@ footer {background-color:#DCCBBB; }
 /*------------Admin panel-oldal módosítás------------*/
 #divOldalForm{background-color:#f2f2f2; padding:7px;}
 
-#labelOldalForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+#labelOldalForm{display:inline-block; margin-bottom: -1px;
  color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
 
-#OLeiras			{background-color:#DCCBBB;}
-#OTartalom			{background-color:#DCCBBB;}
-#OKulcsszavak		{background-color:#DCCBBB;}
-#OLathatosag		{background-color:#DCCBBB;}
-#OPrioritas			{background-color:#DCCBBB;}
-#OTipValszt			{background-color:#DCCBBB;}
-#ONev				{background-color:#DCCBBB;}
-#submitKisKepTolt	{background-color:#DCCBBB;}
-/*#fileKepTolt		{background-color:#DCCBBB;}*/
 
 /*------------Admin panel-oldal törlése------------*/
 #divOldalTorolForm{background-color:#f2f2f2; padding:7px;}
 
-#labelOldalTorolForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+#labelOldalTorolForm{display:inline-block; margin-bottom: -1px;
  color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
  
 /*------------Admin panel-oldal képeinek módosítás------------*/
 #divOldalKepForm{background-color:#f2f2f2; padding:7px;}
 
-#labelOldalKepForm{display:inline-block; border:1px solid black; margin-bottom: -1px;padding:3px;
+#labelOldalKepForm{display:inline-block; margin-bottom: -1px;
  color:#000; background-color:#f2f2f2; border-radius: 3px  7px 0px 0px;}
 
 #submit_KepekFeltoltForm{background-color:#DCCBBB;}
+
+
+input{background-color:#DCCBBB;}
+textarea{background-color:#DCCBBB;}
+select{background-color:#DCCBBB;}
+buttom{background-color:#DCCBBB;}
+
+
+
+.divCikkKulso {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#divOElozetesekKulso a {color:#338833;}
