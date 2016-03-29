@@ -10,6 +10,7 @@ body, html {
 #HelyiNav ul {
     list-style-type: none;
     padding-left:0px;
+    
 }
 
 #Tartalom 
@@ -80,9 +81,9 @@ border:2px solid #c0c0c0;
 }
 
 /* A link állapotainak megkülönböztetése  */
-  #HelyiNav  li a:hover {color:#53F30F; background-color:#121212;z-index:100;
-   box-shadow: 10px 5px 15px 0px #53F30F,
-             10px 5px 15px 0px #53F30F;
+  #HelyiNav  li a:hover {color:#cc0000; background-color:#121212;z-index:100;
+   box-shadow: 10px 5px 15px 0px #cc0000,
+             10px 5px 15px 0px #cc0000;
     text-decoration:none;} 
   #HelyiNav  li a:active {color:#0000ee; background-color:#121212;
     box-shadow: 10px 5px 15px 0px #0000ee, 

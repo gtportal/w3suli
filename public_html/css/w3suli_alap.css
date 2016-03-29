@@ -86,7 +86,7 @@ a#logoLink:link   {color:#fff;}
 
 /************************************** Morzsa navigáció ********************************************/
      
-.Morzsa a::before{content: " « ";}  
+.Morzsa a:after{content: " « ";}  
 .Morzsa a        {color:#fff;}   
 .Morzsa a:link   {color:#fff;}
 .Morzsa a:active {color:#fff;}

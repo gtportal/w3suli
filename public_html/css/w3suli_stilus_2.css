@@ -88,16 +88,16 @@ footer {background-color:#DCCBBB; }
   
   
 /*---- Második szint --*/
-#HelyiNav li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li a {background-color:#DCCBBB; padding-left:10px;} 
 #HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#000;}
  
 /*---- Harmadik szint --*/
-#HelyiNav li li li a {background-color:#DCCBBB; padding-left:25px} 
+#HelyiNav li li li a {background-color:#DCCBBB; padding-left:20px} 
 #HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#000;}
 
 
 /*---- Negyedik szint --*/
-#HelyiNav li li li li a {background-color:#DCCBBB; padding-left:25px;} 
+#HelyiNav li li li li a {background-color:#DCCBBB; padding-left:30px;} 
 #HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#000;}
   
   
@@ -159,4 +159,5 @@ buttom{background-color:#DCCBBB;}
     border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
-#divOElozetesekKulso a {color:#338833;}
+#divOElozetesekKulso a,
+#divOTartalom .Ul1a a {color:#338833;}

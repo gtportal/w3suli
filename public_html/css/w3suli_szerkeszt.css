@@ -6,8 +6,9 @@
 #divFormkod {display: none;}
 #chFormkod:checked    ~ #divFormkod    {display: block;}
 
-#divUjOldalForm, #divOldalForm, #divOldalTorolForm, #divOldalKepForm, #divOldalModeratorForm 
+#divUjOldalForm, #divOldalForm, #divOldalTorolForm, #divOldalKepForm, #divOldalModeratorForm, #divOLathatosagCsoportValaszt 
 {display: none; border: 1px solid #000; background-color:#eee;padding:12px; margin-top:10px;}
+
 #chFormkod, #chUjOldalForm, #chOldalForm, #chOldalTorolForm, #chOldalKepForm, #chOldalModeratorForm {display:none;}
 
 #chUjOldalForm:checked    ~ #labelUjOldalForm     {font-weight:bold;}
@@ -28,7 +29,7 @@
 #chOldalTorolForm:checked ~ #divOldalTorolForm {display: block;}
 #chOldalKepForm:checked   ~ #divOldalKepForm   {display: block;}
 #chOldalModeratorForm:checked   ~ #divOldalModeratorForm {display: block;}
-
+#chOldalLathatosagForm:checked   ~ #divOLathatosagCsoportValaszt {display: block;}
 
 #divOldalKepForm .Kepszerk img {display:block; float:left; height:100px; margin:5px;}
 #divOldalKepForm .Kepszerk     {display:block; clear:left;  margin:5px;}
