@@ -84,6 +84,8 @@ a#logoLink:link   {color:#fff;}
 #Tartalom section img {margin:10px;}
 #Tartalom article  {margin:6px;}
 
+#HelyiNav .Ul1 div {margin:10px 5px 5px 5px;}
+#HelyiNav .divMenuInfo1 {margin:10px 5px 5px 10px;}
 /************************************** Morzsa navigáció ********************************************/
      
 .Morzsa a:after{content: " « ";}  
