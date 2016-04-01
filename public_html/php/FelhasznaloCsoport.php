@@ -48,31 +48,31 @@ function getCsoportValasztForm() {
 }    
 
 function setCsoportValaszt() {
-	// I.) A $_SESSION['SzerkFCsoport'] munkamenet változó beállítása, ha
-	// a kiválasztó űrlapot elküdték
+    // I.) A $_SESSION['SzerkFCsoport'] munkamenet változó beállítása, ha
+    // a kiválasztó űrlapot elküdték
 
-	global $MySqliLink;
-	$ErrorStr = '';
+    global $MySqliLink;
+    $ErrorStr = '';
 
-	if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
-	$CsNev     = '';
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+        $CsNev     = '';
 
-		// ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
-		if (isset($_POST['submitCsoportValaszt'])) {
+        // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
+        if (isset($_POST['submitCsoportValaszt'])) {
 
-			if (isset($_POST['selectCsoportValaszt'])) {$CsNev = test_post($_POST['selectCsoportValaszt']);}      
+            if (isset($_POST['selectCsoportValaszt'])) {$CsNev = test_post($_POST['selectCsoportValaszt']);}      
 
-			if($CsNev!='')
-			{
-				$SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev' LIMIT 1";  //echo "<h1>$SelectStr</h1>";
-				$result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 02 ");
-				$row         = mysqli_fetch_array($result);  mysqli_free_result($result);
+            if($CsNev!='')
+            {
+                $SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev' LIMIT 1";  //echo "<h1>$SelectStr</h1>";
+                $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 02 ");
+                $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
 
-				$_SESSION['SzerkFCsoport'] = $row['id'];
-			}
-		}
-	}
-	return $ErrorStr;
+                $_SESSION['SzerkFCsoport'] = $row['id'];
+            }
+        }
+    }
+    return $ErrorStr;
 }
 
 
@@ -130,21 +130,16 @@ function setUjFCsoport() {
             $InsertIntoStr = "INSERT INTO FelhasznaloCsoport VALUES ('', '$CsNev','$CsLeiras')";
             if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba UCs 01 "); }               
         } 		
-    }	
-
+    }
     return $ErrorStr;
-
 }
-
-
-
 
 function getUjFCsoportForm() {
 
     global $MySqliLink;
     $HTMLkod   = '';
 	
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $CsNev     = '';
         $CsLeiras  = '';
 

@@ -188,7 +188,7 @@ function setUjFelhasznalo() {
     $FKep     = '';
     $FCsoport = '';
 		
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitUjFelhasznaloForm']))){ 			
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) &&  (isset($_POST['submitUjFelhasznaloForm']))){ 			
         if (isset($_POST['FNev']))   	    {$FNev     = test_post($_POST['FNev']);}
         if (isset($_POST['FFNev']))         {$FFNev    = test_post($_POST['FFNev']);}
         if (isset($_POST['FJelszo']))       {$FJelszo  = test_post($_POST['FJelszo']);}
@@ -251,7 +251,7 @@ function getUjFelhasznaloForm() {
     $HTMLkod  = '';
     $ErrorStr = ''; 
 	
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $FNev     = '';
         $FFNev    = '';
         $FJelszo  = '';
@@ -424,7 +424,7 @@ function setFelhasznalo() {
     $ErrorStr .= setFelhasznaloCsoportValaszt();
     $ErrorStr .= setFelhasznaloValaszt();
 
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitFelhasznaloForm']))){ 			
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) &&  (isset($_POST['submitFelhasznaloForm']))){ 			
         if (isset($_POST['FNev']))   {$FNev    = test_post($_POST['FNev']);}  
         if (isset($_POST['FFNev']))  {$FFNev   = test_post($_POST['FFNev']);} 
         if (isset($_POST['FEmail'])) {$FEmail  = test_post($_POST['FEmail']);} 
@@ -477,20 +477,19 @@ function setFelhasznalo() {
             $FCsoportDB = test_post($_POST['FCsoportDB']);
             for ($i = 0; $i < $FCsoportDB; $i++){
                 $id = test_post($_POST["FCsoportId_$i"]);
-                if ($_POST["FCsoport_$i"]){
-                    $SelectStr = "SELECT * FROM FCsoportTagok WHERE CSid=$id AND Fid=$FId"; //echo $SelectStr."<br>";
+                if ($_POST["FCsoport_$i"]){ //Az adott jelölőnégyzet be volt jelölve
+                    $SelectStr = "SELECT * FROM FCsoportTagok WHERE CSid=$id AND Fid=$FId";
                     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 05 ");
                     $rowDB     = mysqli_num_rows($result);
                     mysql_free_result($result);
 
-                    if($rowDB<1){
-                        
+                    if($rowDB<1){ //Az adott csoportnak még nem tagja
                         if((isset($_POST['FCsoportTip']))&&($_POST['FCsoportTip']=="FCsoportTip_".$i)){$FTip=0;}else{$FTip=1;}
 
                         $InsertIntoStr = "INSERT INTO FCsoportTagok VALUES ('',$FId,$id,$FTip)";
                         $result     = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sFV 06 ");
                     } 
-                    else 
+                    else //Az alapcsoport és a másodlagos csoportok vizsgálata és cseréje
                     {
                         if((isset($_POST['FCsoportTip']))&&($_POST['FCsoportTip']=="FCsoportTip_".$i))
                         {
@@ -504,7 +503,7 @@ function setFelhasznalo() {
                         }
                     }    
                 }
-                else
+                else //A jelölőnégyzet NEM volt bejelölve
                 {
                     $SelectStr = "SELECT * FROM FCsoportTagok WHERE CSid=$id AND Fid=$FId"; //echo $SelectStr."<br>";
                     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 09 ");
@@ -512,19 +511,26 @@ function setFelhasznalo() {
                     $row       = mysqli_fetch_array($result);
                     mysql_free_result($result);
 
-                    if($rowDB>0){
+                    if($rowDB>0){ //Már meglévő csoporttagságot töröltek
                         
                         if($row['KapcsTip']!=0)
                         {
                             $DeleteStr = "DELETE FROM FCsoportTagok WHERE CSid=$id AND Fid=$FId";
-                            //echo $DeleteStr."<br>";
                             $result    = mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sFV 10 ");
                         }
-                        else
+                        else //A törölt csoport a felhasználó alapcsoportja, mely nem törölhető közvetlenül
                         {
                             $ErrorStr.=" Err009 ";
                         }
-                    }  
+                    }
+                    else //A felhasználó alapcsoportjának egy olyan csoportot állítunk, aminek nem volt még tagja
+                    {
+                        if((isset($_POST['FCsoportTip']))&&($_POST['FCsoportTip']=="FCsoportTip_".$i))
+                        {
+                            $InsertIntoStr = "INSERT INTO FCsoportTagok VALUES ('',$FId,$id,0)";
+                            $result    = mysqli_query($MySqliLink, $InsertIntoStr) OR die("Hiba sFV 11 ");
+                        }
+                    }
                 }
             }
         } 
