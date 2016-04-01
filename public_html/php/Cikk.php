@@ -5,7 +5,7 @@
 // CLathatosag értékei: 0 = rendszergazdák, moderátorok, tulajdonos
 //                      1 = csoport tagjai ????
 //                      2 = bejelentkezett felhasználók
-//                      3 = nyilvános
+//                      3+ = nyilvános
 
 //Minta tömb
 $Cikkek                      = array();
@@ -84,6 +84,15 @@ function getUjCikkForm() {
             //Cikk tartalma
             $HTMLkod .= "<p class='pUjCTartalom'><label for='UjCTartalom' class='label_1'>Cikk tartalma:</label><br>\n ";
             $HTMLkod .= "<textarea name='UjCTartalom' id='UjCTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$UjCTartalom."</textarea></p>\n";
+            
+            if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
+                //Láthatóság
+                $HTMLkod .= "<p class='pCikkLathatosag'><label for='CLathatosag' class='label_1'>Láthatóság:</label>\n ";
+                $HTMLkod .= "<input type='number' name='CLathatosag' id='CLathatosag' min='0' max='100' step='1' value='$CLathatosag'></p>\n";
+            }
+            //Prioritas
+            $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>Prioritás:</label>\n ";
+            $HTMLkod .= "<input type='number' name='CPrioritas' id='CPrioritas' min='0' max='100' step='1' value='$CPrioritas'></p>\n";
             //Submit
             $HTMLkod .= "<input type='submit' name='submitUjCikkForm' value='Létrehozás'><br>\n";
 
@@ -158,8 +167,9 @@ function getCikkValasztForm() {
     $ErrorStr = '';
     $OUrl = $Aktoldal['OUrl'];
     $Oid = $Aktoldal['id'];
+    $Fid = $_SESSION['AktFelhasznalo'.'id'];
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
         $HTMLkod .= "<div id='divCikkValaszt' >\n";
         if ($ErrorStr!='') {
@@ -171,13 +181,20 @@ function getCikkValasztForm() {
         //Cikk kiválasztása a lenyíló listából
         $HTMLkod .= "<label for='selectCikkValaszt' class='label_1'>Módosítandó cikk neve:</label><br>\n ";
         $HTMLkod .= "<select id='selectCikkValaszt' name='selectCikkValaszt' size='1'>";
-
-        $SelectStr = "SELECT C.id, C.CNev
-                        FROM Cikkek AS C
-                        LEFT JOIN OldalCikkei AS OC
-                        ON OC.Cid= C.id 
-                        WHERE OC.Oid=$Oid";
-        
+        if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
+            $SelectStr = "SELECT C.id, C.CNev
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id 
+                            WHERE OC.Oid=$Oid 
+                            AND C.CSzerzo=$Fid";
+        } else {
+            $SelectStr = "SELECT C.id, C.CNev
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id 
+                            WHERE OC.Oid=$Oid";
+        }
         
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCV 01 ");
         while($row = mysqli_fetch_array($result))
@@ -237,10 +254,11 @@ function getCikkForm() {
                 $HTMLkod .= "<p class='pCTartalom'><label for='CTartalom' class='label_1'>Módosított cikk tartalma:</label><br>\n ";
                 $HTMLkod .= "<textarea name='CTartalom' id='CTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$CTartalom."</textarea></p>\n";
 
-                //Láthatóság
-                $HTMLkod .= "<p class='pCikkLathatosag'><label for='CLathatosag' class='label_1'>Láthatóság:</label>\n ";
-                $HTMLkod .= "<input type='number' name='CLathatosag' id='CLathatosag' min='0' max='100' step='1' value='$CLathatosag'></p>\n";
-                
+                if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
+                    //Láthatóság
+                    $HTMLkod .= "<p class='pCikkLathatosag'><label for='CLathatosag' class='label_1'>Láthatóság:</label>\n ";
+                    $HTMLkod .= "<input type='number' name='CLathatosag' id='CLathatosag' min='0' max='100' step='1' value='$CLathatosag'></p>\n";
+                }
                 //Prioritas
                 $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>Prioritás:</label>\n ";
                 $HTMLkod .= "<input type='number' name='CPrioritas' id='CPrioritas' min='0' max='100' step='1' value='$CPrioritas'></p>\n";
@@ -322,7 +340,7 @@ function setCikkValaszt() {
 // sem a cikkválasztó űrlapot sem a cikk módosítása elküdték nem küldték el (pl. új oldalt töltenek le)	
     global $MySqliLink;
     $ErrorStr = '';
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $CNev     = '';
 
         // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
@@ -396,7 +414,7 @@ function setCikk() {
             $UpdateStr   = "UPDATE OldalCikkei SET
                              CPrioritas = $CPrioritas
                             WHERE Cid=$id AND Oid=$Oid LIMIT 1"; 
-            
+            mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 02 ");
             
         }
     }
@@ -429,14 +447,25 @@ function getCikkTorolForm() {
     $HTMLkod = "";
     $Oid = $Aktoldal['id'];
     $OUrl = $Aktoldal['OUrl'];
+    $Fid = $_SESSION['AktFelhasznalo'.'id'];
     if ($_SESSION['AktFelhasznalo'.'FSzint']>1) {
-        $SelectStr = "SELECT C.id, C.CNev
-                        FROM Cikkek AS C
-                        LEFT JOIN OldalCikkei AS OC
-                        ON OC.Cid= C.id 
-                        WHERE OC.Oid=$Oid";
-        $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCT 01 ");
-
+        if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
+            $SelectStr = "SELECT C.id, C.CNev
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id 
+                            WHERE OC.Oid=$Oid 
+                            AND C.CSzerzo=$Fid";
+            $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCT 01 ");
+        } else {
+            $SelectStr = "SELECT C.id, C.CNev
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id 
+                            WHERE OC.Oid=$Oid";
+            $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCT 01 ");
+        }
+        
         $HTMLkod .= "<div id='divCikkTorolForm' >\n";
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkTorolForm'>\n";
         $i = 0;
