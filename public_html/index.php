@@ -50,13 +50,16 @@
   
   //BE- vagy KIJELENTKEZÉS; FELHASZNÁLÓI ADATOK MÓDOSÍTÁSA
   require_once("php/Felhasznalo.php");
-  $_SESSION['ErrorStr']   .= setBelepes(); 
-  $_SESSION['ErrorStr']   .= setKilepes(); 
-  $_SESSION['ErrorStr']   .= setFelhasznalo();
-  $_SESSION['ErrorStr']   .= setUjFelhasznalo();
-  $_SESSION['ErrorStr']   .= SetUjJelszo();
-  $_SESSION['ErrorStr']   .= setFelhasznaloTorol();    
-  
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 0) {
+    $_SESSION['ErrorStr']   .= setBelepes(); 
+    $_SESSION['ErrorStr']   .= setKilepes(); 
+    $_SESSION['ErrorStr']   .= SetUjJelszo();
+  }
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+    $_SESSION['ErrorStr']   .= setFelhasznalo();
+    $_SESSION['ErrorStr']   .= setUjFelhasznalo();  
+    $_SESSION['ErrorStr']   .= setFelhasznaloTorol();    
+  }
   require_once("php/Oldal.php");
   require_once("php/FelhasznaloCsoport.php");  
   require_once("php/FCsoportTagok.php");
@@ -90,33 +93,41 @@
   } 
   
   //FELHASZNÁLÓI CSOPORTADATOK MÓDOSÍTÁSA
-  $_SESSION['ErrorStr']   .= setUjFCsoport();  
-  $_SESSION['ErrorStr']   .= setFCsoport(); 
-  $_SESSION['ErrorStr']   .= setFCsoportTorol(); 
-  $_SESSION['ErrorStr']   .= setCsoportTagok(); 
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+    $_SESSION['ErrorStr']   .= setUjFCsoport();  
+    $_SESSION['ErrorStr']   .= setFCsoport(); 
+    $_SESSION['ErrorStr']   .= setFCsoportTorol(); 
+    $_SESSION['ErrorStr']   .= setCsoportTagok(); 
+  }
     
   //AZ OLDAL ADATAINAK MÓDOSÍTÁSA
-  $_SESSION['ErrorStr']   .= setUjOldal();
-  $_SESSION['ErrorStr']   .= setOldal();
-  $_SESSION['ErrorStr']   .= setOldalTorol();  
-  $_SESSION['ErrorStr']   .= setOldalKepek();
-  $_SESSION['ErrorStr']   .= setOldalKepFeltolt();
-  $_SESSION['ErrorStr']   .= setOldalKepTorol();
-  $_SESSION['ErrorStr']   .= setOModerator();
-  $_SESSION['ErrorStr']   .= setOLathatosag();
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {  
+    $_SESSION['ErrorStr']   .= setUjOldal();
+    $_SESSION['ErrorStr']   .= setOldal();
+    $_SESSION['ErrorStr']   .= setOldalTorol();  
+    $_SESSION['ErrorStr']   .= setOldalKepek();
+    $_SESSION['ErrorStr']   .= setOldalKepFeltolt();
+    $_SESSION['ErrorStr']   .= setOldalKepTorol();
+    $_SESSION['ErrorStr']   .= setOModerator();
+    $_SESSION['ErrorStr']   .= setOLathatosag();
+  }
 
   //A CIKKEK ADATAINAK MÓDOSÍTÁSA
-  $_SESSION['ErrorStr']   .= setUjCikk();
-  $_SESSION['ErrorStr']   .= setCikk();  
-  $_SESSION['ErrorStr']   .= setCikkTorol();
-  
-  $_SESSION['ErrorStr']   .= setCikkKepek();
-  $_SESSION['ErrorStr']   .= setCikkKepFeltolt();
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 2) {
+    $_SESSION['ErrorStr']   .= setUjCikk();
+    $_SESSION['ErrorStr']   .= setCikk();  
+    $_SESSION['ErrorStr']   .= setCikkTorol();  
+    $_SESSION['ErrorStr']   .= setCikkKepek();
+    $_SESSION['ErrorStr']   .= setCikkKepFeltolt();
+  }
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
- $_SESSION['ErrorStr']   .= setKiegT(); 
- $_SESSION['ErrorStr']   .= setFoMenu();
- $_SESSION['ErrorStr']   .= setMenuPlusz();
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {   
+    $_SESSION['ErrorStr']   .= setKiegT(); 
+    $_SESSION['ErrorStr']   .= setFoMenu();
+    $_SESSION['ErrorStr']   .= setMenuPlusz();
+  }
+ 
 ?>
 
 
@@ -129,11 +140,34 @@
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_alap.css" />  
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_szerkeszt.css" />  
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_responsive.css" />
-     <link href='https://fonts.googleapis.com/css?family=Istok+Web:700,400&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+     <link href='https://fonts.googleapis.com/css?family=Istok+Web:700,400&amp;subset=latin-ext,latin' rel='stylesheet' type='text/css'>
      <link  rel="icon" type="image/png" href="img/ikonok/logo.png">
      <?php echo getHead(); ?>
+     
+<script>     
+// A menü gombot nagy felbontásnál, az oldal letöltése után eldugjuk. A menü látszik.
+function MenuNagyFelbontasnal() { 
+    if (parseInt(window.innerWidth) > 1500) {
+     document.getElementById('MenuLabel').style.display='none';
+     document.getElementById('chmenu').checked=0;
+    }
+}
+// A menüt kis felbontásnál, az oldal letöltése után eldugjuk
+function MenuKisFelbontasnal() { 
+    if (parseInt(window.innerWidth) < 800) {
+     document.getElementById('chmenu').checked=1;
+    }
+}
+// Az oldal letöltését követően hívandó JS fgv-ek
+function JSonLoad()
+{
+   MenuNagyFelbontasnal();
+   MenuKisFelbontasnal();
+}
+</script>
+     
   </head>
-  <body>	  
+  <body onLoad='JSonLoad()'>	  
      <div id='Keret'> 
        <header id='FoHeder'>
 		   <a href="./" id="logoImgLink"><img src="img/ikonok/w3logo.png" alt="logó" title="Oldal neve" style="float:left;"></a>
