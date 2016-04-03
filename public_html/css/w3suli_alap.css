@@ -18,7 +18,7 @@ body, html {margin:0; padding:0; width:100%; overflow-x: hidden;}
 #BelsoKeret {width:100%; padding:0 300px; min-height: 100%;}       
 #Tartalom {width:100%; min-height:100%; float:left; margin-right:-100%;margin-bottom:40px; padding:10px;}
 #HelyiNav {background-color:#888; width:300px; float:left; margin: 0 0 0 -300px; }
-#KiegeszitoInfo {background-color:#08f; width:300px; margin-right:-300px; float:right; padding-top: 5px;}       
+#KiegeszitoInfo {background-color:#08f; width:300px; margin-right:-300px; float:right; padding-top: 5px; margin-top:1px;}       
 footer {background-color:#999999; width:100%;clear:both; border-bottom:1px solid #999999; margin-top:10px; padding-top: 10px; display: block;}
 
 /********************************************* Fejléc *******************************************************/
