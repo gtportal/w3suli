@@ -8,17 +8,17 @@ $KiegTartalom['KiegTTartalom'] = '';
 $KiegTartalom['KiegTPrioritas'] = 0;
 
 function InitKiegT() {
-  global $MySqliLink;
-  // Ha nincs, akkor létrehozzuk a FoMenuLink tábla 10 rekordját
-  $SelectStr = "SELECT id FROM KiegTartalom"; 
-  $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba KTinit 01 ");
-  $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
-  if ($rowDB < 10) {
-    for ($i=$rowDB;$i<10;$i++) {
-      $InsertIntoStr = "INSERT INTO KiegTartalom VALUES ('', '', '', 0)"; //echo "<h1>$InsertIntoStr</h1>";
-      if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba FoMenuLinit 01 ");}         
-    }        
-  }           
+    global $MySqliLink;
+    // Ha nincs, akkor létrehozzuk a FoMenuLink tábla 10 rekordját
+    $SelectStr = "SELECT id FROM KiegTartalom"; 
+    $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba KTinit 01 ");
+    $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
+    if ($rowDB < 10) {
+        for ($i=$rowDB;$i<10;$i++) {
+            $InsertIntoStr = "INSERT INTO KiegTartalom VALUES ('', '', '', 0)"; //echo "<h1>$InsertIntoStr</h1>";
+            if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba FoMenuLinit 01 ");}         
+        }
+    }           
 }
 
 function setKiegT() {
@@ -29,33 +29,35 @@ function setKiegT() {
     $KiegTPrioritas = 0;
     InitKiegT();
     
-    if (isset($_POST['submitKiegTartalom'])) {
-        for ($i = 0; $i < 10; $i++){
-            $id = $_POST["ModKTid_$i"];
-            if (!$_POST["TorolKiegT_$i"]){
-                if (isset($_POST["ModKTNev_$i"])) {
-                    $KiegTNev = $_POST["ModKTNev_$i"];
-                }
-                if (isset($_POST["ModKTTartalom_$i"]))  {
-                    $KiegTTartalom  = $_POST["ModKTTartalom_$i"];
-                }
-                if (isset($_POST["ModKTPrioritas_$i"])) {
-                    $KiegTPrioritas = $_POST["ModKTPrioritas_$i"];
-                }
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3){
+        if (isset($_POST['submitKiegTartalom'])) {
+            for ($i = 0; $i < 10; $i++){
+                $id = $_POST["ModKTid_$i"];
+                if (!$_POST["TorolKiegT_$i"]){
+                    if (isset($_POST["ModKTNev_$i"])) {
+                        $KiegTNev = $_POST["ModKTNev_$i"];
+                    }
+                    if (isset($_POST["ModKTTartalom_$i"]))  {
+                        $KiegTTartalom  = $_POST["ModKTTartalom_$i"];
+                    }
+                    if (isset($_POST["ModKTPrioritas_$i"])) {
+                        $KiegTPrioritas = $_POST["ModKTPrioritas_$i"];
+                    }
 
-                $UpdateStr = "UPDATE KiegTartalom SET
-                                KiegTNev       = '$KiegTNev',
-                                KiegTTartalom  = '$KiegTTartalom',
-                                KiegTPrioritas =  '$KiegTPrioritas'
-                                WHERE id = '$id'";
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
-            } else {
-                $UpdateStr = "UPDATE KiegTartalom SET
-                                KiegTNev       = '',
-                                KiegTTartalom  = '',
-                                KiegTPrioritas =  0
-                                WHERE id = '$id'";
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+                    $UpdateStr = "UPDATE KiegTartalom SET
+                                    KiegTNev       = '$KiegTNev',
+                                    KiegTTartalom  = '$KiegTTartalom',
+                                    KiegTPrioritas =  '$KiegTPrioritas'
+                                    WHERE id = '$id'";
+                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+                } else {
+                    $UpdateStr = "UPDATE KiegTartalom SET
+                                    KiegTNev       = '',
+                                    KiegTTartalom  = '',
+                                    KiegTPrioritas =  0
+                                    WHERE id = '$id'";
+                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+                }
             }
         }
     }
@@ -65,10 +67,11 @@ function setKiegT() {
 
 
 function getKiegTForm() {
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    global $MySqliLink, $KiegTartalom;
+    $HTMLkod        = '';
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         
-       global $MySqliLink, $KiegTartalom;
-       $HTMLkod        = '';
+       
        //$ErrorStr       = '';
         
       
@@ -123,8 +126,9 @@ function getKiegTForm() {
         $HTMLkod .= "<input type='submit' name='submitKiegTartalom' id='submitKiegTartalom' value='Módosítás'>\n";
         $HTMLkod .= "</form>\n";
         $HTMLkod .= "</div>\n";
-        return $HTMLkod;
+        
     }
+    return $HTMLkod;
 }
 
 

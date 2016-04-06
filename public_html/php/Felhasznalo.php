@@ -754,15 +754,15 @@ function setFelhasznaloValaszt() {
     $ErrorStr = '';
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
-        $FNev     = '';
+        $FFNev     = '';
 
         // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
         if (isset($_POST['submitFelhasznaloValaszt'])) {
-            if (isset($_POST['selectFelhasznaloValaszt'])) {$FNev = test_post($_POST['selectFelhasznaloValaszt']);}      
+            if (isset($_POST['selectFelhasznaloValaszt'])) {$FFNev = test_post($_POST['selectFelhasznaloValaszt']);}      
 
-            if($FNev!='')
+            if($FFNev!='')
             {
-                $SelectStr   = "SELECT id FROM Felhasznalok WHERE FNev='$FNev' LIMIT 1";  //echo "<h1>$SelectStr</h1>";
+                $SelectStr   = "SELECT id FROM Felhasznalok WHERE FFNev='$FFNev' LIMIT 1";  //echo "<h1>$SelectStr</h1>";
                 $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 02 ");
                 $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
 
@@ -793,7 +793,7 @@ function getFelhasznaloValasztForm() {
         //Felhasználó kiválasztása a lenyíló listából
         $HTMLkod .= "<select name='selectFelhasznaloValaszt' size='1'>";
 
-	$SelectStr ="SELECT F.id, F.FNev
+	$SelectStr ="SELECT F.id, F.FFNev, F.FNev
                     FROM Felhasznalok AS F
                     LEFT JOIN FCsoportTagok AS FCsT
                     ON FCsT.Fid= F.id 
@@ -801,10 +801,12 @@ function getFelhasznaloValasztForm() {
         $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFV 01 ");
         while($row = mysqli_fetch_array($result))
         {
-            $FNev = $row['FNev'];
+            $FNev  = $row['FNev'];
+            $FFNev = $row['FFNev'];
+            
             if($_SESSION['SzerkFelhasznalo'] == $row['id']){$select = " selected ";}else{$select = "";}
 
-            $HTMLkod.="<option value='$FNev' $select >$FNev</option>";
+            $HTMLkod.="<option value='$FFNev' $select >$FNev</option>";
         }	
         //Submit
         $HTMLkod .= "<input type='submit' name='submitFelhasznaloValaszt' value='Kiválaszt'><br>\n";        
@@ -883,7 +885,7 @@ function SetUjJelszo() {
     global $MySqliLink;
     $ErrorStr = ''; 
 
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitUjJelszoForm'])))
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) &&  (isset($_POST['submitUjJelszoForm'])))
     { 
         $FRJelszo  = '';
         $FUJelszo  = '';
@@ -925,7 +927,7 @@ function getUjJelszoForm() {
     $HTMLkod  = '';
     $ErrorStr = ''; 
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $ErrClassFRJelszo = ''; 
         $ErrClassFUJelszo = '';
         

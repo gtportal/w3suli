@@ -30,36 +30,37 @@ function setFoMenu() {
   InitFoMenu();   // Ez a fgv később átkerül a Setup.php-ba 
   
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
-  
-  if (isset($_POST['submitFoMenu'])) {
-        for ($i = 0; $i < 10; $i++){
-            $id = $_POST["ModFoMenuid_$i"];
-            if (!$_POST["TorolFoMenu_$i"]){
-                if (isset($_POST["ModFoMenuNev_$i"])) {
-                    $LNev = $_POST["ModFoMenuNev_$i"];
-                }
-                if (isset($_POST["ModFoMenuTartalom_$i"]))  {
-                    $LURL  = $_POST["ModFoMenuTartalom_$i"];
-                }
-                if (isset($_POST["ModFoMenuPrioritas_$i"])) {
-                    $LPrioritas = $_POST["ModFoMenuPrioritas_$i"];
-                }
+  if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    if (isset($_POST['submitFoMenu'])) {
+          for ($i = 0; $i < 10; $i++){
+              $id = $_POST["ModFoMenuid_$i"];
+              if (!$_POST["TorolFoMenu_$i"]){
+                  if (isset($_POST["ModFoMenuNev_$i"])) {
+                      $LNev = $_POST["ModFoMenuNev_$i"];
+                  }
+                  if (isset($_POST["ModFoMenuTartalom_$i"]))  {
+                      $LURL  = $_POST["ModFoMenuTartalom_$i"];
+                  }
+                  if (isset($_POST["ModFoMenuPrioritas_$i"])) {
+                      $LPrioritas = $_POST["ModFoMenuPrioritas_$i"];
+                  }
 
-                $UpdateStr = "UPDATE FoMenuLink SET
-                                LNev       = '$LNev',
-                                LURL  = '$LURL',
-                                LPrioritas =  '$LPrioritas'
-                                WHERE id = '$id'";                     
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
-            } else {
-                $UpdateStr = "UPDATE FoMenuLink SET
-                                LNev       = '',
-                                LURL  = '',
-                                LPrioritas =  0
-                                WHERE id = '$id'";
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
-            }
-        }
+                  $UpdateStr = "UPDATE FoMenuLink SET
+                                  LNev       = '$LNev',
+                                  LURL  = '$LURL',
+                                  LPrioritas =  '$LPrioritas'
+                                  WHERE id = '$id'";                     
+                  mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+              } else {
+                  $UpdateStr = "UPDATE FoMenuLink SET
+                                  LNev       = '',
+                                  LURL  = '',
+                                  LPrioritas =  0
+                                  WHERE id = '$id'";
+                  mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+              }
+          }
+      }
     }
     return $ErrorStr;
 
@@ -81,8 +82,8 @@ function getFoMenuForm() {
  //echo '<h1>Tesztzzzzzzzzzzzzzz</h1>';
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
  // $HTMLkod .= getFoMenuHTML();
-  
-  $SelectStr = "SELECT * FROM FoMenuLink";
+  if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+        $SelectStr = "SELECT * FROM FoMenuLink";
         $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 01");
 
         for ($i = 0; $i < 10; $i++){
@@ -135,7 +136,7 @@ function getFoMenuForm() {
         $HTMLkod .= "</form>\n";
         $HTMLkod .= "</div>\n";
         return $HTMLkod;
-    
+  }
   return $HTMLkod;	
 }
 
@@ -147,7 +148,7 @@ function getFoMenuHTML() {
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
   // Összeállítjuk a Főmenű Linkjeinek listáját
   // <a href='LURL' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
-   $SelectStr = "SELECT * FROM FoMenuLink ORDER BY LPrioritas DESC";
+   $SelectStr = "SELECT * FROM FoMenuLink WHERE LPrioritas>0 ORDER BY LPrioritas DESC";
     $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 02");
 
     while ($row = mysqli_fetch_array($result)){

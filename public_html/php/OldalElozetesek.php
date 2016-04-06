@@ -41,7 +41,7 @@ function getOElozetesekHTML() {
                     $HTMLkod .= "<h3>".$row['ONev']."</h3>\n";
                     if ($row['OLeiras']!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$row['OLeiras']."\n";}
                     $HTMLkod .= "</div>\n";
-                    $HTMLkod .= "<a href='?f0=".$row['OUrl']."' class='OElink'>".$row['ONev']." résztletesen...</a>\n";
+                    $HTMLkod .= "<a href='?f0=".$row['OUrl']."' class='OElink'>".$row['ONev']." részletesen...</a>\n";
                     $HTMLkod .= "</div>\n";
                     $HTMLkod .= "</div>\n";
 
