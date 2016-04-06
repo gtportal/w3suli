@@ -1,5 +1,6 @@
 /* 
     Author     : Guti Patrik
+    
 */
 
 
@@ -42,7 +43,7 @@ body, html{background-color:#f2f2f2; font-family: 'Istok Web', sans-serif;}
 
 #KiegeszitoInfo{
 		/*Színek*/
-		background-color:#DCCBBB;
+		background-color:#f2f2f2;
 		/*Méretek*/
 		width:300px;
 		
@@ -161,3 +162,19 @@ buttom{background-color:#DCCBBB;}
 
 #divOElozetesekKulso a,
 #divOTartalom .Ul1a a {color:#338833;}
+
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------*/
+#divOModeratorValasztForm{float:left;}
+#divOModeratorCsoportForm{padding-left:300px; padding-top:-100px;}
+
+

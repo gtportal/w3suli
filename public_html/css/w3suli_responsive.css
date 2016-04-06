@@ -108,7 +108,11 @@
     #divCikkekKulso, .divCikkKulso {width: 320px;}
 }
 
+@media only screen and (max-width : 1300px)  {  
+    div.divCikkKepN, div.divCikkKepN  img {max-width: 90% !important;} 
+}
+
 @media only screen and (max-width : 800px)  {  
-    div.divCikkKepN, div.divCikkKepN  img {max-width: 300px !important;} 
+    div.divCikkKepN, div.divCikkKepN  img {max-width: 90% !important;} 
 }
 

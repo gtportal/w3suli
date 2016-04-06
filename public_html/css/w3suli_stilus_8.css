@@ -7,20 +7,26 @@ body, html {background-color:#2F4F4F;}
 
        
 #FoHeder {background-color:#396666; }
-#FoNav {background-color:#000000; color:#00ff99;text-align:center; box-shadow: -5px -5px 15px 0px #00FF99; box-shadow: 5px 5px 15px 0px #00FF99; margin-bottom:50px;
+#FoNav {background-color:#000000; color:#00ff99;text-align:center; box-shadow: -5px -5px 15px 0px #00FF99; box-shadow: 5px 5px 15px 0px #00FF99; margin-bottom:17px;
 border-bottom:2px solid #00FF99; border-top:2px solid #00FF99;}
 #FoNav a{color:#00ff99;}
      
-       
-#Tartalom {background-color:#2F4F4F; margin-left:5px; margin-bottom:40px; 
-border-style:outset 3px black;}
+
+#BelsoKeret {background-color:#2F4F4F; }       
+#Tartalom {background-color:#2F4F4F; margin-left:5px; margin-bottom:40px;}
 #HelyiNav {background-color:#2F4F4F; padding:4px;margin-bottom:14px;}
- #KiegeszitoInfo {text-align:center; background-color:#2F4F4F; width:290px; margin-right:-300px;border-top:2px solid #000000;
- border-radius:15px  15x 30px 15px; float:right;color:#000000;border-bottom:2px solid #000000;border-left:2px solid #000000;}       
+ #KiegeszitoInfo {text-align:center; background-color:#2F4F4F; margin-top:20px;
+ color:#000000;
+ 
+ background-color:#111;color:#eee;}       
        
 footer {background-color:#396666;  color:#00FF99}
+
+
        
-/* Menüsor */
+       
+/* ---------------------------- Menüsor ----------------------------*/
+
 #FoNav #MenuIkon1 {display: none;}
 #FoNav #MenuIkon2 {display: block;}       
 #chmenu:checked ~ #FoNav #MenuIkon1 {display: block;}
@@ -30,7 +36,7 @@ footer {background-color:#396666;  color:#00FF99}
 #FoNavJobb {width:100%;margin:0 100px; text-align:center;}
 
 
-/*--------------------------DIV Módosítások (kerekítés, elválasztás, hoverek)-----------------------*/
+/*----------------------------DIV Módosítások (kerekítés, elválasztás, hoverek)----------------------------*/
 
 #FoNavBal:hover{background-color:#2B2626;box-shadow: -5px -5px 15px 0px #00FF99;}       
        
@@ -50,62 +56,86 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #divFelhasznaloUdv{color:#00FF99;}
 
 
-/*----------------------------------- Helyi menü ---------------------------------*/
+/*---------------------------- Helyi menü ----------------------------*/
 
-#HelyiNav {margin-bottom:40px; }
-
+#HelyiNav {margin-bottom:40px; background-color:#2F4F4F;}
 #HelyiNav ul {list-style-type: none;padding-left:0px;}
-#HelyiNav ul:hover{background-color:#2B2626;}
+
 
 #HelyiNav .AktLink {font-weight:bold;}
 #HelyiNav  li a:before{content: " » ";}
 
-#HelyiNav li a { display: inline-block; background-color:#000; padding:8px 5px 0px 5px;
+#HelyiNav li a { display: inline-block; background-color:#000; padding:8px 5px 0px 5px; font-family:  Verdana, Geneva, sans-serif;
 	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #00FF99; border-top:1px solid #00FF99;border-right:1px solid #00FF99;} 
-#HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#00ff99; font:  14px/24px Verdana, Geneva, sans-serif;
+#HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#00ff99; font:Comic Sans MS;
  text-decoration:none; box-shadow: 5px 5px 5px 0px #00FF99;}
 
 
 
-/* A link állapotainak megkülönböztetése  */
+
+
+
+/*---------------------------- !!Helyi Menü módosítások!! ----------------------------*/
+
+/*----------------------- A link állapotainak megkülönböztetése  -----------------------*/
+
+#HelyiNav  li a:hover  {color:#00ff99; text-decoration:none; box-shadow: -5px -5px 15px 0px #00FF99;}
+
+#HelyiNav  li a:active {color:#00ff99; border-bottom:2px; border-top:2px; padding-top:7px; }
+#HelyiNav  li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
+  
+  
+  
+  
+/*---------------------------- Második szint ----------------------------*/
+
+#HelyiNav  li a:hover  {color:#00ff99; text-decoration:none; box-shadow: -5px -5px 15px 0px #00FF99;} 
+#HelyiNav  li a:active {color:#00ff99; border-bottom:2px; border-top:2px; padding-top:7px; }
+#HelyiNav  li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
+ 
+ 
+ 
+/*---------------------------- Harmadik szint ----------------------------*/
+
+#HelyiNav  li a:hover  {color:#00ff99; text-decoration:none; box-shadow: -5px -5px 15px 0px #00FF99;} 
+#HelyiNav  li a:active {color:#00ff99; border-bottom:2px; border-top:2px; padding-top:7px; }
+#HelyiNav  li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
+
+
+
+/*---------------------------- Negyedik szint ----------------------------*/
 
 #HelyiNav  li a:hover  {color:#00ff99; text-decoration:none; box-shadow: -5px -5px 15px 0px #00FF99;} 
 #HelyiNav  li a:active {color:#00ff99; border-bottom:2px; border-top:2px; padding-top:7px; }
 #HelyiNav  li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
   
-  
-/*---- Második szint --*/
-
-#HelyiNav li li a {background-color:#000000; padding-left:15px;} 
-#HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
-#HelyiNav li li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
- 
-/*---- Harmadik szint --*/
-
-#HelyiNav li li li a {background-color:#000000; padding-left:25px;} 
-#HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
-#HelyiNav li li li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;}
-
-
-/*---- Negyedik szint --*/
-
-#HelyiNav li li li li a {background-color:#000000; padding-left:35px;} 
-#HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#00ff99;}
-#HelyiNav li li li li a:hover{background-color:#2B2626;border-radius:40px 40x 40px 40px;margin-left:10px;}
-  
-  
+   
+   
        
-/*--------------------------- Menü ki-be -----------------------*/
+/*---------------------------- Menü ki-be ----------------------------*/
 
-#chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
-#chmenu:checked ~ #BelsoKeret {padding-left:0;}
        
 #Tartalom section img {margin:10px;}
 #Tartalom article  {margin:6px;}
 
 
-                        /*---------------------------- Adminpanel -----------------------*/
 
+/*----------------------------Gombok----------------------------*/
+
+input   {background-color:#000;color:#00FF99;border-color:#00FF99;}
+select  {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+
+
+
+
+
+
+
+
+
+/*---------------------------- Adminpanel -----------------------*/
 
 #divFormkod{margin-left:1px;}
    
@@ -122,13 +152,25 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #chOldalKepForm{display:none;}
 
 #labelUjOldalForm{display:inline-block;  margin-bottom: -1px; padding:3px;
- color:#000; border-radius: 3px  7px 0px 0px; color:#00FF99;}
+ color:#000000; border-radius: 3px  7px 0px 0px;}
+ 
 #labelOldalForm{display:inline-block; margin-bottom: -1px;padding:3px;
- color:#000; border-radius: 3px  7px 0px 0px; color:#00FF99;}
+ color:#000000; border-radius: 3px  7px 0px 0px;}
+ 
 #labelOldalTorolForm{display:inline-block; margin-bottom: -1px;padding:3px;
- color:#000;  border-radius: 3px  7px 0px 0px; color:#00FF99;}
+ color:#000000;  border-radius: 3px  7px 0px 0px;}
+ 
 #labelOldalKepForm{display:inline-block; margin-bottom: -1px;padding:3px;
- color:#000;  border-radius: 3px  7px 0px 0px; color:#00FF99;}
+ color:#000000;  border-radius: 3px  7px 0px 0px;}
+ 
+#labelOldalModeratorForm{display:inline-block; margin-bottom: -1px;padding:3px;
+ color:#000000;  border-radius: 3px  7px 0px 0px;}
+ 
+ 
+ 
+ 
+ 
+ /*---------------------------- Oldal módosítása (style) ----------------------------*/
  
 #OTartalom{width:95%; background-color:#2F4F4F; border-color:#000000; color:#00FF99;}
 #OLeiras{width:95%; background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
@@ -138,7 +180,13 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #OKulcsszavak {background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
 #ONev {background-color:#2F4F4F; border-color:#000000; color:#00FF99; text-decoration: bold;}
 
-/**************************** Kép módosítások ****************************/
+
+
+
+
+
+
+/*---------------------------- Kép módosítások ----------------------------*/
 
 #KSorszam_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
 #KNev_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
@@ -211,3 +259,231 @@ footer {background-color:#000000;border-bottom:2px solid #00FF99; border-top:2px
 #KStilus_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
 
 
+
+
+
+/*---------------------------- Alapbeállítások módosítása (style) ----------------------------*/
+
+
+#WNev{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#Iskola{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#Cim{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#Telefon{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#Stilus{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#submitAlapbeallitasok{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+
+
+
+/*---------------------------- Kiegészítő tartalom módosítása  (style) ----------------------------*/
+
+
+#ModKTTartalom_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModKTTartalom_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTNev_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModKTPrioritas_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+
+
+
+/*---------------------------- Regisztráció   (style) ----------------------------*/
+
+#FNev      {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FFNev     {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FJelszo   {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FJelszo2  {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FEmail    {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FEmail2   {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FSzint    {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FSzerep   {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FCsoport  {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+
+
+
+/*---------------------------- Elfelejtett jelszó  (style) ----------------------------*/
+
+#FRJelszo   {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FUJelszo   {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#FUJelszo2  {background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+
+
+
+/*---------------------------- Főmenü módosítása  (style) ----------------------------*/
+
+#ModFoMenuNev_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModFoMenuNev_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuTartalom_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModFoMenuPrioritas_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+
+
+/*---------------------------- Menü plussz módosítás  (style) ----------------------------*/
+
+#ModMenuPlNev_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_0{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_1{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_2{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_3{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_4{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_5{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_6{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_7{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_8{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+#ModMenuPlNev_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlTartalom_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#ModMenuPlPrioritas_9{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+/*---------------------------- Csoport módosítás (Moderátorok)  (style) ----------------------------*/
+
+#CsNev{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#CsLeiras{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+/*---------------------------- Form változtatások ----------------------------*/
+#divOldalModeratorForm {background-color:#2F4F4F;}
+#divOModeratorValasztForm{float:left;}
+#divOModeratorCsoportForm{padding-left:300px; padding-top:-100px;}
+#divCikkTorolForm{background-color:#2F4F4F; border-color:#000000;}
+#divCikkKepForm{background-color:#2F4F4F; border-color:#000000;}
+
+
+#file_CikkKepekFeltoltForm{background-color:#2F4F4F; border:2px solid; border-color:#000000;color:#00FF99;}
+#file_KepekFeltoltForm{background-color:#2F4F4F; border:2px solid; border-color:#000000;color:#00FF99;}
+#fileKepTolt {background-color:#2F4F4F; border:2px solid; border-color:#000000;color:#00FF99;}
+#file_KepekFeltoltForm{background-color:#2F4F4F; border:2px solid; border-color:#000000;color:#00FF99;}
+
+
+
+
+/*---------------------------- Projekt részvevők ----------------------------*/
+
+/*----------------------- Új cikk (style) ------------------------*/
+
+#divUjCikkForm{background-color:#2F4F4F; border-color:#000000;}
+#UjCNev{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#UjCLeiras{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#UjCTartalom{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#CLathatosag{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+#CPrioritas{background-color:#2F4F4F; border-color:#000000;color:#00FF99;}
+
+
+/*---------------------------- Cikk módosítás ----------------------------*/
+
+#divCikkValaszt{background-color:#2F4F4F; border-color:#000000;}
+
+
+
+
+
+
+
+
+/*---------------------------- END GAME ----------------------------*/
