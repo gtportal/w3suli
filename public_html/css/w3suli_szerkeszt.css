@@ -35,9 +35,10 @@
 #divOldalKepForm .Kepszerk     {display:block; clear:left;  margin:5px;}
 #divOldalKepForm .Kepszerk  p  {display:block; float:left; margin:5px;}
 #divOldalKepForm .Kepszerk  p.pKSzelesseg  {clear:left;}
-
-
 #divOldalKepForm .Kepszerk input[type="number"] {width:45px;}
+
+#divOModeratorCsoportValaszt, #divOModeratorValasztForm, #KepekFeltoltForm, #KisKepFelForm, #CikkKepTolForm, #formCsoportValaszt, 
+#formCsoportValaszt2, #formFelhasznaloValaszt {border-bottom:1px solid #fff; width: 100%;}
 
 .pKTorol {color:#f00;}
 
