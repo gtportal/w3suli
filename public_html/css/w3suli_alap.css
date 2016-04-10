@@ -6,6 +6,7 @@
 a {text-decoration:none;}
 .Error {border: 1px solid #d00; }
 .AktLink {font-weight:bold;}
+.FontosStr {font-weight:bold; font-size: 1.2em;}
 
 /***************************************** Szerkezet kialakítása ********************************************/
 * { box-sizing: border-box;}		 
