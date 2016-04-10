@@ -171,6 +171,7 @@
             //Üzenet megjelenítése
             if ($ErrorStr!='') {
             $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+            $HTMLkod .= "<h2>Új oldal létrehozása</h2>\n ";
             //Oldalnév
             $HTMLkod .= "<p class='pUjONev'><label for='UjONev' class='label_1'>ÚJ oldal neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='UjONev' id='UjONev' placeholder='Oldalnév' 
@@ -331,13 +332,13 @@
             if (isset($_POST['OTipValszt'])) {$OTipS = test_post($_POST['OTipValszt']);}  
             // ============== FORM ÖSSZEÁLLÍTÁSA =====================         
             $HTMLkod .= "<div id='divOldalForm' >\n";
-            
-            $HTMLkod .= "<form action='?f0=$OUrl' method='post' enctype='multipart/form-data'>\n";
+            $HTMLkod .= "<h2>Kis kép feltöltése</h2>\n";
+            $HTMLkod .= "<form action='?f0=$OUrl' method='post' enctype='multipart/form-data' id='KisKepFelForm'>\n";
             $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='KiskepKep'>\n";
             $HTMLkod .= "<input type='file' name='file' id='fileKepTolt' >";
-            $HTMLkod .= "<input type='submit' name='submitKisKepTolt' id='submitKisKepTolt' value='Feltöltés'>";
+            $HTMLkod .= "<input type='submit' name='submitKisKepTolt' id='submitKisKepTolt' value='Feltöltés'><br><br>";
             $HTMLkod .= "</form>\n";
-            
+            $HTMLkod .= "<h2 style='float:none;'>Az oldal adatainak módosítása</h2><br> \n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalForm'>\n";
             
             
@@ -794,7 +795,7 @@
                         $HTMLkod  .= getOElozetesekHTML();
                         $HTMLkod  .= "</main>";                   
                    break;
-          case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
+          case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."CCCCCCCCCCCCCCC</h1> \n"; // Kategória
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0)
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
                         $HTMLkod  .= $HTMLFormkod;

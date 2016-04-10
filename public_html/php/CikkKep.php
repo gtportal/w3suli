@@ -112,10 +112,10 @@ function getCikkKepFeltoltForm() {
     $OUrl       = $Aktoldal['OUrl'];
     $HTMLkod    ='';    
     $HTMLkod   ="  <div id='CikkKepekFeltoltForm'>
-                           <h3>Képek feltöltése a cikkhez:</h3>
-                           <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data'>
+                           <h2>Képek feltöltése a cikkhez</h2>
+                           <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data' id='CikkKepTolForm'>
                              <input type='file' name='COKepFile[]' id='file_CikkKepekFeltoltForm' multiple='multiple'>
-                             <input type='submit' name='submit_CikkKepekFeltoltForm' id='submit_CikkKepekFeltoltForm' value='Feltöltés'>                                      
+                             <input type='submit' name='submit_CikkKepekFeltoltForm' id='submit_CikkKepekFeltoltForm' value='Feltöltés'>   <br>   <br>                                 
                            </form>
                          </div>";
     return $HTMLkod;
@@ -183,7 +183,7 @@ function getCikkKepForm() {
     if ($_SESSION['AktFelhasznalo'.'FSzint']>1){      
         $HTMLkod .= "<div id='divCikkKepForm' >\n";
         $HTMLkod   .=getCikkKepFeltoltForm();   
-
+        $HTMLkod .= "<h2>A képek adatainak módosítása</h2>\n";
         // a $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk képeinek kezelése
         // Minta OldalKeptar.php getOldalKepForm()- fgv-e. 
         // Változás: a képek feltöltéséhez szüksége form saját fgv-t kap. >> getCikkKepFeltoltForm()

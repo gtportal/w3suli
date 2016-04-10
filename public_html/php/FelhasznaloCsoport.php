@@ -22,7 +22,7 @@ function getCsoportValasztForm() {
         $HTMLkod .= "<div id='divCsoportValaszt' >\n";
         if ($ErrorStr!='') {
         $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
-
+        $HTMLkod .= "<h2>Felhasználói csoport kiválasztása</h2>\n";
         $HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formCsoportValaszt'>\n";
 
         //Felhasználó kiválasztása a lenyíló listából
@@ -38,7 +38,7 @@ function getCsoportValasztForm() {
             $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
         }	
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br>\n";        
+        $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
 
@@ -189,6 +189,7 @@ function getUjFCsoportForm() {
             $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
 
 	$HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formUjFCsoportForm'>\n";
+        $HTMLkod .= "<h2>Új csoport létrehozása</h2>\n";
           	   
         //Felhasználó neve    
         $HTMLkod .= "<p class='pCsNev'><label for='CsNev' class='label_1'>A csoport neve:</label><br>\n ";
@@ -363,7 +364,7 @@ function getFCsoportForm() {
 		    $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
 
 		$HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formFCsoportForm'>\n";
-		  	   
+		$HTMLkod .= "<h2>A csoport adatainak módosítása</h2>\n";  	   
 		//Felhasználó neve    
 		$HTMLkod .= "<p class='pCsNev'><label for='CsNev' class='label_1'>A csoport új neve:</label><br>\n ";
 		$HTMLkod .= "<input type='text' name='CsNev' class='$ErrClassCsNev' id='CsNev' placeholder='Csoport új neve' value='$CsNev' size='40'></p>\n"; 
@@ -416,6 +417,7 @@ function getFCsoportTorolForm() {
         $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
 
         $HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formFCsoportTorol'>\n";
+        $HTMLkod .= "<h2>Felhasználói csoportok törlése</h2>\n";
 
         $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");

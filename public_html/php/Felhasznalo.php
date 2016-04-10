@@ -406,7 +406,7 @@ function getUjFelhasznaloForm() {
             
         }	
         //Submit
-        $HTMLkod .= "</p>\n";
+        
         $HTMLkod .= "<input type='submit' name='submitUjFelhasznaloForm' value='Elküld'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";   
@@ -665,6 +665,7 @@ function getFelhasznaloForm() {
                 if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
 
                 $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloForm'>\n";
+                $HTMLkod .= "<h2>A felhasználó adatainak módosítása</h2>\n";
 
                 //Felhasználó neve    
                 $HTMLkod .= "<p class='pFNev'><label for='FNev' class='label_1'>A felhasználó neve:</label><br>\n ";
@@ -789,6 +790,7 @@ function getFelhasznaloValasztForm() {
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
 
         $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloValaszt'>\n";
+        $HTMLkod .= "<h2>Felhasználó kiválasztása</h2>\n";
 
         //Felhasználó kiválasztása a lenyíló listából
         $HTMLkod .= "<select name='selectFelhasznaloValaszt' size='1'>";
@@ -809,7 +811,7 @@ function getFelhasznaloValasztForm() {
             $HTMLkod.="<option value='$FFNev' $select >$FNev</option>";
         }	
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitFelhasznaloValaszt' value='Kiválaszt'><br>\n";        
+        $HTMLkod .= "<input type='submit' name='submitFelhasznaloValaszt' value='Kiválaszt'><br><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
     }       
@@ -831,6 +833,7 @@ function getFelhasznaloCsoportValasztForm()
 
         //Felhasználó kiválasztása a lenyíló listából
         $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formCsoportValaszt2'>\n";
+        $HTMLkod .= "<h2>Felhasználói csoport kiválasztása</h2>\n";
         $HTMLkod .= "<select name='selectCsoportValaszt' size='1'>";
 
         $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
@@ -843,7 +846,7 @@ function getFelhasznaloCsoportValasztForm()
             $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
         }	
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br>\n";        
+        $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
     }     
@@ -1038,6 +1041,7 @@ function getFelhasznaloTorolForm() {
         $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
 
         $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloTorol'>\n";
+        $HTMLkod .= "<h2>Felhasználók törlése</h2>\n";
         $CsId = $_SESSION['SzerkFCsoport'];
         
         $SelectStr ="SELECT F.id, F.FNev, F.FFNev

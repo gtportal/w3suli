@@ -74,7 +74,7 @@ function getUjCikkForm() {
             //============FORM ÖSSZEÁLLÍTÁSA===================
             $HTMLkod .= "<div id='divUjCikkForm' >\n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjCikkForm'>\n";
-
+            $HTMLkod .= "<h2>Új cikk létrehozása</h2>\n ";
             //Cikk neve
             $HTMLkod .= "<p class='pUjCNev'><label for='CUjNev' class='label_1'>Cikk neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='UjCNev' id='UjCNev' placeholder='Cikk név' value='$UjCNev' size='60'></p>\n";
@@ -177,7 +177,7 @@ function getCikkValasztForm() {
         }
 
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkValaszt'>\n";
-
+        $HTMLkod .= "<h2>Cikk kiválasztása</h2>\n";
         //Cikk kiválasztása a lenyíló listából
         $HTMLkod .= "<label for='selectCikkValaszt' class='label_1'>Módosítandó cikk neve:</label><br>\n ";
         $HTMLkod .= "<select id='selectCikkValaszt' name='selectCikkValaszt' size='1'>";
@@ -244,6 +244,7 @@ function getCikkForm() {
                 $HTMLkod .= "<div id='divCikkForm' >\n";
                 $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkForm'>\n"; 
 
+                $HTMLkod .= "<h2>Cikk módosítása</h2>\n";
                 //Cikk neve
                 $HTMLkod .= "<p class='pCNev'><label for='CNev' class='label_1'>Módosított cikk neve:</label><br>\n ";
                 $HTMLkod .= "<input type='text' name='CNev' id='CNev' placeholder='Cikk név' value='$CNev' size='60'></p>\n";
@@ -323,7 +324,7 @@ function getCikkForm() {
             $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>Prioritás:</label>\n ";
             $HTMLkod .= "<input type='number' name='CPrioritas' id='CPrioritas' min='0' max='100' step='1' value='$CPrioritas'></p>\n";            
             //Submit
-            $HTMLkod .= "<input type='submit' name='submitCikkForm' value='Létrehozás'><br>\n";
+            $HTMLkod .= "<input type='submit' name='submitCikkForm' value='Módosítás'><br>\n";
 
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";
@@ -467,6 +468,7 @@ function getCikkTorolForm() {
         }
         
         $HTMLkod .= "<div id='divCikkTorolForm' >\n";
+        $HTMLkod .= "<h2>Cikkek törlése</h2>\n";
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkTorolForm'>\n";
         $i = 0;
         while ($row = mysqli_fetch_array($result)) {

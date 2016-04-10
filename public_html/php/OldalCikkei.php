@@ -59,6 +59,7 @@ function getCikkekHTML() {
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         while ($row = mysqli_fetch_array($result)){     
                 $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
+                $CTartalom = SzintaxisCsere($CTartalom);
                 $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                 $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
                 $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
@@ -72,6 +73,7 @@ function getCikkekHTML() {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
                     $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
+                    $CTartalom = SzintaxisCsere($CTartalom);
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                     $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";$HTMLkod .= "<div class = 'divCikkTartalom'>\n";
                         $HTMLkod .= $CTartalom."\n";
@@ -85,6 +87,7 @@ function getCikkekHTML() {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) { 
                     $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
+                    $CTartalom = SzintaxisCsere($CTartalom);
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
                     $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
                     $HTMLkod .= "<div class = 'divCikkTartalom'>\n";

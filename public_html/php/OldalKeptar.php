@@ -217,11 +217,11 @@ function setOldalKepFeltolt() {
         // ============== A KepekFeltoltForm ÖSSZEÁLLÍTÁSA =====================
         $HTMLkod0    ='';
         $HTMLkod0   .="  <div id='KepekFeltoltForm'>
-                               <h3>Képek feltöltése:</h3>
+                               <h2>Képek feltöltése</h2>
                                <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data'>
                                  <input type='file' name='OKepFile[]' id='file_KepekFeltoltForm' multiple='multiple'>
                                  <input type='submit' name='submit_KepekFeltoltForm' id='submit_KepekFeltoltForm' value='Feltöltés'>                                      
-                               </form>
+                               </form><br>
                              </div>";
         
         
@@ -274,7 +274,8 @@ function setOldalKepFeltolt() {
         $HTMLkod .= "<div id='divOldalKepForm' >\n";
         $HTMLkod .= $_SESSION['ErrorStr'];
         $HTMLkod .= $HTMLkod0;
-        $HTMLkod .= "<div><form action='?f0=$OUrl' method='post' id='formOldalKepForm'>\n";
+        $HTMLkod .= "<br><div><form action='?f0=$OUrl' method='post' id='formOldalKepForm'>\n";
+        $HTMLkod .= "<h2>Képek adatainak módosítása</h2>\n";
         $HTMLkod .= $HTMLkod1;
         
         $HTMLkod .=  "<br><br><br><br><br><br><input type='submit' name='submitOldalKepForm' value='Elküld'><br><br>\n";        
