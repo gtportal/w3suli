@@ -49,9 +49,9 @@ footer {background-color:#2658B4;background-image: -moz-linear-gradient(top, #BC
 
 #divFelhasznaloUdv {margin-bottom:10px;}
 /*------------Menüsor-----------*/
-#FoNav {background-color:#7CADFD;height:30px; width:100%;border-bottom:1px solid #7CADFD; font-variant:small-caps; font-size:1.2em;
+#FoNav {background-color:#7CADFD; border-bottom:1px solid #7CADFD; font-variant:small-caps; font-size:1.2em;
 border-top:1px solid #7CADFD;}
-#FoNavBal {float:left; width:100px;}
+
 #FoNavJobb {width:100%;margin:0 100px; text-align:right; padding-right:10%;}
 
 .MPontLink{color:#000;}
@@ -99,23 +99,18 @@ border-top:1px solid #7CADFD;}
   
   
        
-/* Menü ki-be*/
-#chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
-#chmenu:checked ~ #BelsoKeret {padding-left:0;}
-       
-#Tartalom section img {margin:10px;}
-#Tartalom article  {margin:6px;}
+
        
 
 /*----------------------------------------------------- el innét*/
-#divFormkod{margin-left:1px;}
+
 
 
 
 #submit_KepekFeltoltForm{background-color:#DCCBBB;}
 
 
-.divCikkKulso {
+.divCikkKulso_ {
     border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
