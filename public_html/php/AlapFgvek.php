@@ -61,19 +61,28 @@
     }
     
    function test_post($data) {
+     global $MySqliLink;
      $data = trim($data);
-     $data = stripslashes($data);
-     $data = htmlspecialchars($data);
+     $arr = array( "'" => "&apos;", '"' => "&quot;", '”' => "&quot;", ":" => "&#58;", "<" => "&lt;", ">" => "&gt;",   "=" => "&#61;", "\x5C" => "" );
+     $data  = strtr($data, $arr);
+     $data = mysqli_real_escape_string($MySqliLink, $data);
    return $data;
    }
    
    function SQL_post($data) {
+     global $MySqliLink;
      $data = trim($data);
-     $data = stripslashes($data);
+     $arr  = array( "'" => "&apos;",  "\x5C" => "" );
+     $data = strtr($data, $arr);
+     $data = mysqli_real_escape_string($MySqliLink, $data);
    return $data;
    }
    
-   
+   function INT_post($szov) {
+     $data = trim($data);
+     settype($data,'integer');  if (!(is_int($data))) {$data=0;}
+     return $data;
+}
 //=========================================================================================================================
 // 
 // SAJÁT SZINTAKTIKA KEZELÉSE

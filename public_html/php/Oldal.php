@@ -795,7 +795,7 @@
                         $HTMLkod  .= getOElozetesekHTML();
                         $HTMLkod  .= "</main>";                   
                    break;
-          case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."CCCCCCCCCCCCCCC</h1> \n"; // Kategória
+          case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0)
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
                         $HTMLkod  .= $HTMLFormkod;
@@ -896,7 +896,7 @@
         if ($Aktoldal['OTipus']!=0) {
            $HTMLkod   = "<title>".$Aktoldal['ONev']." - ".$AlapAdatok['WebhelyNev']."</title>\n";
         } else {
-           $HTMLkod   = "<title>".$AlapAdatok['WebhelyNev']."</title>\n";  
+           $HTMLkod   = "<title>".$AlapAdatok['WebhelyNev']." </title>\n";  
         }
         //Az aktuális stíluslap linkje 
         $HTMLkod .= "<link type='text/css' rel='stylesheet' media='all'   href='css/w3suli_stilus_".$AlapAdatok['Stilus'].".css' />\n";
