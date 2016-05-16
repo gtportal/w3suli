@@ -68,7 +68,7 @@
 #divFormkodCikk {display: none;}
 #chFormkodCikk:checked    ~ #divFormkodCikk    {display: block;}
 
-#divCikkValaszt, #divUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm {display: none; border: 1px solid #000; background-color:#eee;padding:12px; margin-top:10px;}
+#divCikkValaszt_, #divUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm {display: none; border: 1px solid #000; background-color:#eee;padding-left:12px; margin-top:10px;}
 #chFormkodCikk, #chUjCikkForm, #chCikkForm, #chCikkTorolForm, #chCikkKepForm {display:none;}
 
 #chUjCikkForm:checked    ~ #labelUjCikkForm     {font-weight:bold;}
@@ -88,6 +88,9 @@
 #chCikkTorolForm:checked ~ #divCikkTorolForm {display: block;}
 #chCikkKepForm:checked   ~ #divCikkKepForm   {display: block;}
 #chCikkKepForm:checked   ~ #divCikkValaszt   {display: block;}
+
+#chUjCikkForm:checked    ~ #divCikkValaszt   {display: none;}
+#chCikkTorolForm:checked ~ #divCikkValaszt   {display: none;}
 
 #formCikkKepForm {width:900px;}
 #divCikkKepForm .Kepszerk img {display:block; float:left; max-height:100px; max-width: 100px; margin:5px;}
@@ -181,3 +184,5 @@
 #chUjFCsoportForm:checked    ~ #divUjFCsoportForm    {display: block;}
 #chFCsoportForm:checked    ~ #divFCsoportForm    {display: block;}
 #chFCsoportTorolForm:checked      ~ #divFCsoportTorol      {display: block;}
+
+form h2, form p {margin-top: 5px; margin-bottom: 5px;}

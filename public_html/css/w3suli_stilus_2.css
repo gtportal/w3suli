@@ -65,8 +65,8 @@ footer {background-color:#DCCBBB; }
 /*------------Menü-----------*/
 #HelyiNav{
 		background-color:#f2f2f2; 
-		padding-right:10px; 
-		border-right:2px solid #DCCBBB;}
+		padding-right:10px; padding-bottom:10px; 
+		border-right:2px solid #DCCBBB; border-bottom:2px solid #DCCBBB;}
 		
 #HelyiNav {margin-bottom:40px; }
 

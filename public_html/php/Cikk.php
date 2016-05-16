@@ -179,7 +179,8 @@ function getCikkValasztForm() {
         }
 
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkValaszt'>\n";
-        $HTMLkod .= "<h2>Cikk kiválasztása</h2>\n";
+        $HTMLkod .= "<b>Cikk kiválasztása</b><br>\n";
+        $HTMLkod .= "<i>Az itt kiválasztott jellemzőit tudja módosítani. Új cikk létrehozásához és régi törléséhez nincs szükség itt cikk kiválasztására.</i><br>\n";
         //Cikk kiválasztása a lenyíló listából
         $HTMLkod .= "<label for='selectCikkValaszt' class='label_1'>Módosítandó cikk neve:</label><br>\n ";
         $HTMLkod .= "<select id='selectCikkValaszt' name='selectCikkValaszt' size='1'>";
