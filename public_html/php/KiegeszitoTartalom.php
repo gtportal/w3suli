@@ -32,16 +32,16 @@ function setKiegT() {
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3){
         if (isset($_POST['submitKiegTartalom'])) {
             for ($i = 0; $i < 10; $i++){
-                $id = $_POST["ModKTid_$i"];
+                $id = INT_post($_POST["ModKTid_$i"]);
                 if (!$_POST["TorolKiegT_$i"]){
                     if (isset($_POST["ModKTNev_$i"])) {
-                        $KiegTNev = $_POST["ModKTNev_$i"];
+                        $KiegTNev = test_post($_POST["ModKTNev_$i"]);
                     }
                     if (isset($_POST["ModKTTartalom_$i"]))  {
-                        $KiegTTartalom  = $_POST["ModKTTartalom_$i"];
+                        $KiegTTartalom  = SQL_post($_POST["ModKTTartalom_$i"]);
                     }
                     if (isset($_POST["ModKTPrioritas_$i"])) {
-                        $KiegTPrioritas = $_POST["ModKTPrioritas_$i"];
+                        $KiegTPrioritas = INT_post($_POST["ModKTPrioritas_$i"]);
                     }
 
                     $UpdateStr = "UPDATE KiegTartalom SET

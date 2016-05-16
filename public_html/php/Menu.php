@@ -6,6 +6,12 @@
     function getMenuHTML() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId;
          $HTMLkod1 = '';
+         
+        $HTMLkod1 = '
+            <!-- Helyezd el ezt a címkét ott, ahol a(z) +1 gomb modult meg szeretnéd jeleníteni. -->
+            <div id="Gplusz" style="width:100%;text-align:center;margin-top:4px;"><div class="g-plusone"></div></div>
+        ';
+         
         // ================ FELHASZNÁLÓ ÜDVÖZLÉSE ============================= 
         if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  {             
            $HTMLkod1 .= "<div id='divFelhasznaloUdv'>\n Üdv: ";
@@ -72,6 +78,7 @@
                  $HTMLkod .= "</li>\n";
             }
         } 
+        $HTMLkod .= "<li class='M1'><a href='?f0=Archivum'>Archívum</a></li>\n";
         if ($HTMLkod > '') {$HTMLkod = "<ul class='Ul1'>\n $HTMLkod  </ul>\n";}
         mysqli_free_result($result);          
    

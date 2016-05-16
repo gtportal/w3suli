@@ -26,21 +26,21 @@ function getOElozetesekHTML() {
                 if ($row['ONev']){
                     $HTMLkod .= "<div class ='divOElozetesKulso'>\n";
                     if ($row['OImg']!='') {
-                        if ($Aktoldal['OImgDir']!='') {
-                            $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";            
+                        if ($row['OImgDir']!='') {
+                            $KepUtvonal = "img/oldalak/".$row['OImgDir']."/";            
                           } else {
-                            $KepUtvonal = "img/";    
+                            $KepUtvonal = "img/oldalak/";    
                           }
                         $Src = $KepUtvonal.$row['OImg']; 
-                        $HTMLkod .= "<div class = 'divOElozetesKep'><img src='$Src'  class = 'imgOE'></div>\n";                    
+                        $HTMLkod .= "<div class = 'divOElozetesKep'><img src='$Src'  class = 'imgOE' alt='' ></div>\n";                    
                     } else {
                         $HTMLkod .= "<div class = 'divOElozetesKep'> </div>\n";
                     }
 
                     $HTMLkod .= "<div class='divOElozetesTartalom'>\n";
                     $HTMLkod .= "<h3>".$row['ONev']."</h3>\n";
-                    if ($row['OLeiras']!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$row['OLeiras']."\n";}
-                    $HTMLkod .= "</div>\n";
+                    if ($row['OLeiras']!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$row['OLeiras']."</div>\n";}
+                    //$HTMLkod .= "</div>\n";
                     $HTMLkod .= "<a href='?f0=".$row['OUrl']."' class='OElink'>".$row['ONev']." részletesen...</a>\n";
                     $HTMLkod .= "</div>\n";
                     $HTMLkod .= "</div>\n";

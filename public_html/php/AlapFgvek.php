@@ -43,7 +43,8 @@
     function getTXTtoURL($txt) {
         $arr = array(' ' => '_', ',' => '_',  ';' => '',  '"' => '',  "'" => '',  ':' => '',  '  ' => ' ', 'á' => 'a', 'Á' => 'A', 
                'é' => 'e', 'É' => 'e', 'ó' => 'o', 'Ó' => 'O', 'í' => 'i', 'Í' => 'I', 'Ú' => 'U', 'ú' => 'u', 'Ö' => 'O', 
-               'ö' => 'o', 'Ő' => 'O', 'ő' => 'o', 'Ü' => 'U', 'ü' => 'u', 'Ű' => 'U', 'ű' => 'u', '.' => '_', "\x5C" => "");  
+               'ö' => 'o', 'Ő' => 'O', 'ő' => 'o', 'Ü' => 'U', 'ü' => 'u', 'Ű' => 'U', 'ű' => 'u', '.' => '_', "\x5C" => "", 
+               "/" => "", '|' => '', '?' => '', '*' => '', '\\' => '', ':' => '', '<' => '', '<' => '>');  
         $txt = strtr($txt ,$arr);
         return $txt;
     }
@@ -78,11 +79,26 @@
    return $data;
    }
    
-   function INT_post($szov) {
+   function STR_post($data) {
+     global $MySqliLink;
+     $data = trim($data);
+     $arr  = array( "'" => "&apos;",  "\x5C" => "" );
+     $data = strtr($data, $arr);
+     //$data = mysql_escape_string($data);
+   return $data;
+   }
+   
+   function INT_post($data) {
      $data = trim($data);
      settype($data,'integer');  if (!(is_int($data))) {$data=0;}
      return $data;
-}
+    }
+
+   function SoremelesVissza($data) {
+     $arr  = array( "\r" => "&#13;","\0" => "&#10;");
+     $data = strtr($data, $arr);     
+   return $data;
+   }
 //=========================================================================================================================
 // 
 // SAJÁT SZINTAKTIKA KEZELÉSE

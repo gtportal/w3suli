@@ -211,6 +211,13 @@ function JSonLoad()
         ga('send', 'pageview');
 
     </script>
+    
+    
+    <!-- Helyezd el ezt a címkét a head szakaszban vagy közvetlenül a záró body címke elé. -->
+    <script src="https://apis.google.com/js/platform.js" async defer>
+      {lang: 'hu'}
+    </script>
+
   </body>
 
 </html>

@@ -33,44 +33,36 @@ function setFoMenu() {
   if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
     if (isset($_POST['submitFoMenu'])) {
           for ($i = 0; $i < 10; $i++){
-              $id = $_POST["ModFoMenuid_$i"];
+              $id = INT_post($_POST["ModFoMenuid_$i"]);
               if (!$_POST["TorolFoMenu_$i"]){
                   if (isset($_POST["ModFoMenuNev_$i"])) {
-                      $LNev = $_POST["ModFoMenuNev_$i"];
+                      $LNev = test_post($_POST["ModFoMenuNev_$i"]);
                   }
                   if (isset($_POST["ModFoMenuTartalom_$i"]))  {
-                      $LURL  = $_POST["ModFoMenuTartalom_$i"];
+                      $LURL  = test_post($_POST["ModFoMenuTartalom_$i"]);
                   }
                   if (isset($_POST["ModFoMenuPrioritas_$i"])) {
-                      $LPrioritas = $_POST["ModFoMenuPrioritas_$i"];
+                      $LPrioritas = INT_post($_POST["ModFoMenuPrioritas_$i"]);
                   }
 
                   $UpdateStr = "UPDATE FoMenuLink SET
                                   LNev       = '$LNev',
-                                  LURL  = '$LURL',
+                                  LURL       = '$LURL',
                                   LPrioritas =  '$LPrioritas'
-                                  WHERE id = '$id'";                     
+                                  WHERE id   = '$id'";                     
                   mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
               } else {
                   $UpdateStr = "UPDATE FoMenuLink SET
                                   LNev       = '',
-                                  LURL  = '',
+                                  LURL       = '',
                                   LPrioritas =  0
-                                  WHERE id = '$id'";
+                                  WHERE id    = '$id'";
                   mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
               }
           }
       }
     }
     return $ErrorStr;
-
-  // A KiegTartalom.php-hoz hasonlóan bekérjük a $_POST tömb tartalmát  
-  
-  
-  
-  
-  // Frissítjük az adatbázis tartalmaát
-            
 }
 
 

@@ -1,21 +1,17 @@
 <?php
-
+/*
  $OldalCikk               = array();
  $OldalCikk['id']         = 0;
  $OldalCikk['Oid']        = 0; 
  $OldalCikk['Cid']        = 0; 
  $OldalCikk['CPrioritas'] = 0; 
- 
+*/ 
  // A tartalomban lecseréli a #0, #1, #2 .... kódokat img elemekre
  
-function getCikkepCsereL($Cid,$CTartalom ) {
+function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     global $MySqliLink, $Aktoldal;
     $HTMLkod      = '';
-    if ($Aktoldal['OImgDir']!='') {
-      $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";
-    } else {
-      $KepUtvonal = "img/";
-    }
+    
     
     $SelectStr = "SELECT KNev, KFile, KSzelesseg, KMagassag, KStilus FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
     $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
@@ -25,7 +21,7 @@ function getCikkepCsereL($Cid,$CTartalom ) {
         $Src      = $KepUtvonal.$row['KFile'];
         $KNev     = $row['KNev'];
         $KepMeret = '';
-        if ($row['KSzelesseg']>0) {$KepMeret = "style='max-width:".$row['KSzelesseg']."px;'";} else {
+        if ($row['KSzelesseg']>0)   {$KepMeret = "style='max-width:".$row['KSzelesseg']."px;'";} else {
            if ($row['KMagassag']>0) {$KepMeret = "style='max-height:".$row['KMagassag']."px;'";}             
         }
         $KepStilus= " KepStyle".$row['KStilus']." ";
@@ -34,11 +30,10 @@ function getCikkepCsereL($Cid,$CTartalom ) {
         $imgkod  .= "</div>\n";
         $HTMLHirKepTMB[$i] = $imgkod;
         $i++;
-    }    
-    
+    }  
     $arr          = array( "#1" => "$HTMLHirKepTMB[0]", "#2" => "$HTMLHirKepTMB[1]", "#3" => "$HTMLHirKepTMB[2]", 
                            "#4" => "$HTMLHirKepTMB[3]", "#5" => "$HTMLHirKepTMB[4]", "##" => "");  
-    $HTMLkod  = strtr($CTartalom ,$arr);
+    $HTMLkod      = strtr($CTartalom ,$arr);
     return $HTMLkod;            
 }
 
@@ -46,6 +41,11 @@ function getCikkekHTML() {
     global $MySqliLink, $Aktoldal;
     $HTMLkod  = '';
     $Oid      = $Aktoldal['id']; 
+    if ($Aktoldal['OImgDir']!='') {
+      $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";
+    } else {
+      $KepUtvonal = "img/oldalak/";
+    }
     
     // Egyelőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
     
@@ -58,13 +58,16 @@ function getCikkekHTML() {
     $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         while ($row = mysqli_fetch_array($result)){     
-                $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
+                $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                 $CTartalom = SzintaxisCsere($CTartalom);
                 $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                
+                //$HTMLkod .= "<h2>".getTXTtoURL($row['CNev'])."</h2>\n";                   //!!!!!!!!!!!!!!!!!!!!!!!!!!!      
+                
+               // $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
                 $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
-                    $HTMLkod .= $CTartalom."\n";
-                    $HTMLkod .= getCikkKepekHTML($row['id']);
+                $HTMLkod .= $CTartalom."\n";
+                $HTMLkod .= getCikkKepekHTML($row['id']);
                 $HTMLkod .= "</div>\n";
                 $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
         }
@@ -72,27 +75,28 @@ function getCikkekHTML() {
         if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
-                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
+                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                     $CTartalom = SzintaxisCsere($CTartalom);
-                    $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                    $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";$HTMLkod .= "<div class = 'divCikkTartalom'>\n";
-                        $HTMLkod .= $CTartalom."\n";
-                        $HTMLkod .= getCikkKepekHTML($row['id']);
-                    $HTMLkod .= "</div>\n";
-                    $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
+                    $HTMLkod  .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
+                    $HTMLkod  .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                   // $HTMLkod  .= "<div class = 'divCikkTartalom'>\n";
+                    $HTMLkod  .= $CTartalom."\n";
+                    $HTMLkod  .= getCikkKepekHTML($row['id']);
+                    $HTMLkod  .= "</div>\n";
+                    $HTMLkod  .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
                 }
             }
         }
         if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) { 
-                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom']);  // Képek beillesztése #0, #1,.. helyére
+                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                     $CTartalom = SzintaxisCsere($CTartalom);
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                    $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                 //   $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
                     $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
-                        $HTMLkod .= $CTartalom."\n";
-                        $HTMLkod .= getCikkKepekHTML($row['id']);
+                    $HTMLkod .= $CTartalom."\n";
+                    $HTMLkod .= getCikkKepekHTML($row['id']);
                     $HTMLkod .= "</div>\n";
                     $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
                 }
@@ -130,16 +134,6 @@ function getCikkekForm() {
                     $CikkKep   = false;
             } else {$CikkKep   = true;}
     $HTMLkod .= "<div id='divCikkek'>";
-    
-    // A LENTI KÓDOT ÁTÍRTAM, MERT NEM MŰKÖDÖTT A post-OKAT HASZNÁLJA MOST VALAMENNYI IF!!!!
-    
-    /*if ($UjCikk && $Cikk && $TorolCikk && $CikkKep && !isset($_POST['submitCikkValaszt'])){
-        $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk'   value='chFormkodCikk'   type='checkbox'>\n";
-        $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
-    } else {
-        $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk'   value='chFormkodCikk'   type='checkbox' checked >\n";
-        $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
-    }*/
     
     if (isset($_POST['submitCikkValaszt']) || isset($_POST['submitUjCikkForm']) || isset($_POST['submitCikkForm']) ||
         isset($_POST['submitCikkTorol']) || isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])                 

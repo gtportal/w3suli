@@ -1,6 +1,6 @@
 <?php
 
-
+/*
 $OldalKepek = array();
 $OldalKepek['id']         = 0;
 $OldalKepek['Oid']        = 0;
@@ -11,10 +11,10 @@ $OldalKepek['KSzelesseg'] = 0;
 $OldalKepek['KMagassag']  = 0;
 $OldalKepek['KStilus']    = 0;
 $OldalKepek['KSorszam']   = 0;
+*/
 
     function setOldalKepek() {
-        //'KFile_$i'
-        
+          
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
         //Csak rendszergazdáknak és moderátoroknak!
         $ErrorStr = '';
@@ -43,7 +43,7 @@ $OldalKepek['KSorszam']   = 0;
                    KStilus='$KStilus', 
                    KSorszam='$KSorszam'             
                    WHERE KFile='$KFile' AND Oid=$Oid";
-               if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba OK 01 ");}// echo "<h1>".$UpdateStr."</h1>";
+               if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba OK 01 ");}
             }
           }            
         } 
@@ -61,10 +61,11 @@ function setOldalKepFeltolt() {
       $Oid          = $Aktoldal['id'];
       $UploadErr    = '';
       if ($Aktoldal['OImgDir']!='') {
-        $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";            
+        $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";            
       } else {
-        $KepUtvonal = "img/";    
+        $KepUtvonal = "img/oldalak/";    
       }
+      
       //=============== Lehetséges Fájlnevek ==================
       $lehetKFile     = array();
       for($i=9; $i>=0; $i--) {
@@ -73,7 +74,7 @@ function setOldalKepFeltolt() {
       //print_r($lehetKFile);
       //=============== Létező Fájlnevek ==================
       $vanKFile     = array();
-      $SelectStr    = "SELECT KFile FROM OldalKepek WHERE Oid=$Oid" ; //echo "<h1>$SelectStr1</h1>";
+      $SelectStr    = "SELECT KFile FROM OldalKepek WHERE Oid=$Oid" ; 
       $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sKF 01");  
       $rowDB        = mysqli_num_rows($result); 
       if ($rowDB > 0) {
@@ -99,8 +100,8 @@ function setOldalKepFeltolt() {
           $temp        = explode(".", $_FILES["OKepFile"]["name"][$i]);          
           $extension   = end($temp);  
             
-          print_r($OkKFile);
-          $AktFileNev = $OkKFile[$OkKFileCt-1].'.'.$extension; echo "<h1>AktFileNev:$KepUtvonal $AktFileNev</h1>";    
+         // print_r($OkKFile);
+          $AktFileNev = $OkKFile[$OkKFileCt-1].'.'.$extension;    
           
           if (( ($_FILES["OKepFile"]["type"][$i] == "image/gif")
              || ($_FILES["OKepFile"]["type"][$i] == "image/jpeg")
@@ -129,7 +130,7 @@ function setOldalKepFeltolt() {
               }
             }
           } else {
-            if ($AktFileNev >'') {$UploadErr .= "Err101 Érvénytelen file.".$_FILES["OKepFile"]["name"][$i]; echo "<h1>GGGGGGGGGGG</h1>";}
+            if ($AktFileNev >'') {$UploadErr .= "Err101 Érvénytelen file.".$_FILES["OKepFile"]["name"][$i]; }
           }            
           $i++; $OkKFileCt--;
         }
@@ -153,6 +154,19 @@ function setOldalKepFeltolt() {
                 $KFile = $_POST["KTorol_$i"];
                 $DeletetStr = "Delete FROM OldalKepek  WHERE KFile='$KFile' AND Oid=$Oid"; 
                 if (!mysqli_query($MySqliLink,$DeletetStr)) {die("Hiba Okt 01");}
+                
+                //Kép törlése
+                if ($Aktoldal['OImgDir']!='') {
+                    $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";            
+                } else {
+                    $KepUtvonal = "img/oldalak/";    
+                }
+                
+                $AktFile = $KepUtvonal.$KFile;                  
+                if (!@unlink($AktFile)) {
+                    $ErrorStr = 'Err100'; // Nem sikerült a törlés
+                }
+               
             }
           }            
         } 
@@ -169,9 +183,9 @@ function setOldalKepFeltolt() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
         $Oid          = $Aktoldal['id'];
         if ($Aktoldal['OImgDir']!='') {
-          $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";            
+          $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";            
         } else {
-          $KepUtvonal = "img/";    
+          $KepUtvonal = "img/oldalak/";    
         }
         $KepCT        = 0;
         $OUrl         = $Aktoldal['OUrl'];
@@ -287,5 +301,54 @@ function setOldalKepFeltolt() {
 
     function getOldalKepTorolForm() {
         trigger_error('Not Implemented!', E_USER_WARNING);
+    }
+    
+    
+//=========================================================================================================================
+//
+// KÉPKÖNYVTÁR KEZELÉS
+// 
+//=========================================================================================================================
+    function KepkonyvtarLetrehoz($KTarNev) {
+        $ErrorStr       = '';
+        $AktAlKonytart  = 'img/oldalak/'.$KTarNev;       
+        if (!is_dir($AktAlKonytart)) {     
+            if (!mkdir($AktAlKonytart, 0777)) {
+              $ErrorStr = 'Err100'; // Nem sikerült létrehozni
+            }
+        }  else {
+            $ErrorStr   = 'Err101'; // Van már adott néven könyvtár
+            
+        }
+        return $ErrorStr;        
+    }
+    
+    function KepkonyvtarAtnevez($RKTarNev,$UKTarNev) {
+        $ErrorStr     = '';
+        $RegiKonytart = 'img/oldalak/'.$RKTarNev; 
+        $UjKonytart   = 'img/oldalak/'.$UKTarNev; 
+      
+        if (is_dir($RegiKonytart)) {  
+            if (!is_dir($UjKonytart)) { 
+                if (!rename($RegiKonytart, $UjKonytart)) {
+                    $ErrorStr .= 'Err100'; // Nem sikerült átnevezni
+                }
+            } else {$ErrorStr .= 'Err101';} // Van már az új néven könyvtár
+        }  else { $ErrorStr   .= 'Err101'; }  // A forráskönyvtár nem létezik
+        return $ErrorStr;    
+    }
+    
+    function KepkonyvtarTorol($KTarNev) {
+        $ErrorStr         = '';
+        $AktAlKonytart    = 'img/oldalak/'.$KTarNev;  
+        if (is_dir($AktAlKonytart)) {     
+            if (!rmdir($AktAlKonytart)) {
+                $ErrorStr .= 'Err100'; // Nem sikerült a törlés
+            }
+        }  else {
+            $ErrorStr     .= 'Err101'; //A könyvtár nem létezik
+            
+        }
+        return $ErrorStr; 
     }
 ?>

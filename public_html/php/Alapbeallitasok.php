@@ -73,7 +73,7 @@ function getAlapbeallitasForm() {
 
         //Stíluskiválasztó
         $HTMLkod .= "<p class='pStilus'><label for='Stilus' class='label_1'>Stilus:</label>\n ";
-        $HTMLkod .= "<input type='number' name='Stilus' id='Stilus' min='0' max='12' step='1' value='$Stilus'></p>\n";  
+        $HTMLkod .= "<input type='number' name='Stilus' id='Stilus' min='0' max='13' step='1' value='$Stilus'></p>\n";  
 
         //Submit
         $HTMLkod .= "<input type='submit' name='submitAlapbeallitasok' value='Módosítás'><br>\n";        

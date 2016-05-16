@@ -23,82 +23,93 @@ function setCikkKepFeltolt() {
     $Cid      = $_SESSION['SzerkCikk'.'id'];
     //Csak rendszergazdáknak, moderátoroknak és regisztrált felhasználóknak!
     if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submit_CikkKepekFeltoltForm'])) && ($Cid>0))   {          
-      $Oid          = $Aktoldal['id'];
-      $UploadErr    = '';
-      if ($Aktoldal['OImgDir']!='') {
-        $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";
-      } else {
-        $KepUtvonal = "img/";
-      }
-      //=============== Lehetséges Fájlnevek ==================
-      // Fájlnév felépítése cikk_$Cid_$KSorszam.kiterjesztés
-      $lehetKFile     = array();
-      for($i=9; $i>=0; $i--) {
-        $lehetKFile[] = 'cikk_'.$Cid.'_'.$i; 
-      }
-      //print_r($lehetKFile);
-      //=============== Létező Fájlnevek ==================
-      $vanKFile     = array();
-      $SelectStr    = "SELECT KFile FROM CikkKepek WHERE Cid=$Cid" ;
-      $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CKF 01");
-      $rowDB        = mysqli_num_rows($result);
-      if ($rowDB > 0) {
-        while($row = mysqli_fetch_array($result))
-        {
-          $temp       = explode(".", $row['KFile']);
-          $vanKFile[] = $temp[0];
+        $Oid          = $Aktoldal['id'];
+        $UploadErr    = '';
+        if ($Aktoldal['OImgDir']!='') {
+          $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";
+        } else {
+          $KepUtvonal = "img/oldalak/";
         }
-      }
-      //=============== Használható Fájlnevek ==================
-      $OkKFile     = array();
-      $OkKFile0    = array_diff($lehetKFile,$vanKFile);
-      foreach ($OkKFile0 as $key => $value) {$OkKFile[] = $value;}
-      $OkKFileCt   = count($OkKFile);
-      $KFileDb     = count($_FILES['COKepFile']['name']);
-      if (($KFileDb==1) && ($_FILES["COKepFile"]["name"][0]=='')) {$KFileDb=0; $UploadErr = "<p class='Error'>Nincs fájl kijelölve. </p><br>\n";}
-     
-      if (isset($_FILES["COKepFile"])) {
-        $i=0;
-        while (($i<$KFileDb) && ($OkKFileCt>0)) {
-          if ($i==0) {$UploadErr = '';}
-          $allowedExts = array("gif", "jpeg", "jpg", "png");
-          $temp        = explode(".", $_FILES["COKepFile"]["name"][$i]);
-          $extension   = end($temp);
-            
-         // print_r($OkKFile);
-          $AktFileNev = $OkKFile[$OkKFileCt-1].'.'.$extension;
-          
-          if (( ($_FILES["COKepFile"]["type"][$i] == "image/gif")
-             || ($_FILES["COKepFile"]["type"][$i] == "image/jpeg")
-             || ($_FILES["COKepFile"]["type"][$i] == "image/jpg")
-             || ($_FILES["COKepFile"]["type"][$i] == "image/pjpeg")
-             || ($_FILES["COKepFile"]["type"][$i] == "image/x-png")
-             || ($_FILES["COKepFile"]["type"][$i] == "image/png"))
-             && ($_FILES["COKepFile"]["size"][$i] < 2000000)
-             && in_array($extension, $allowedExts))
+        //=============== Lehetséges Fájlnevek ==================
+        // Fájlnév felépítése cikk_$Cid_$KSorszam.kiterjesztés
+        $lehetKFile  = array();
+        $SelectStr   = "SELECT CNev FROM Cikkek WHERE id=$Cid ";  //echo "<h1>$SelectStr</h1>";
+        $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CKx 01aa ");
+        $rowDB       = mysqli_num_rows($result); 
+        if ($rowDB > 0) {
+                    $row  = mysqli_fetch_array($result);
+                    mysqli_free_result($result);
+                    $CKNev = $row['CNev'];
+        }
+        if (strlen($CKNev)>50) {$CKNev=substr($CKNev,0,50);} //echo "<h1>CNev: $CKNev</h1>";
+        $CKNev = getTXTtoURL($CKNev);
+        
+        for($i=9; $i>=0; $i--) {
+          $lehetKFile[] = $CKNev.'_'.$i; 
+        }
+        //print_r($lehetKFile);
+        //=============== Létező Fájlnevek ==================
+        $vanKFile     = array();
+        $SelectStr    = "SELECT KFile FROM CikkKepek WHERE Cid=$Cid" ;
+        $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CKF 01");
+        $rowDB        = mysqli_num_rows($result);
+        if ($rowDB > 0) {
+          while($row = mysqli_fetch_array($result))
           {
-            if ($_FILES["COKepFile"]["error"][$i] > 0) {
-              $UploadErr = "<p class='Error'> Hibakód: " . $_FILES["COKepFile"]["error"][$i] . "</p><br>\n"; 
-            } else {
-              if (file_exists($KepUtvonal.$AktFileNev)) {
-                //Meglévő kép felülírása
-                move_uploaded_file($_FILES["COKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev);
-                $UploadErr .=  "<p class='Uzenet'> Felülírva: " .$KepUtvonal.$AktFileNev."</p><br>\n"; $KepOK=true;
-                $InsertIntoStr = "INSERT INTO CikkKepek VALUES ('', $Cid,'$AktFileNev','','',0,0,0,0)";
-                if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 02");}
-              } else {
-                //Új kép feltöltése
-                move_uploaded_file($_FILES["COKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev);
-                $UploadErr .=  "<p class='Uzenet'> Feltöltve: ". $_FILES["COKepFile"]["name"][$i]."</p>\n"; $KepOK=true;        
-                $InsertIntoStr = "INSERT INTO CikkKepek VALUES ('', $Cid,'$AktFileNev','','',0,0,0,0)";
-                if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 03");}
-              }
-            }
-          } else {
-            if ($AktFileNev >'') {$UploadErr .= "<p class='Error'> Err101 Érvénytelen file.".$_FILES["COKepFile"]["name"][$i]."</p>\n";}
+            $temp       = explode(".", $row['KFile']);
+            $vanKFile[] = $temp[0];
           }
-          $i++; $OkKFileCt--;
         }
+      //=============== Használható Fájlnevek ==================
+        $OkKFile     = array();
+        $OkKFile0    = array_diff($lehetKFile,$vanKFile);
+        foreach ($OkKFile0 as $key => $value) {$OkKFile[] = $value;}
+        $OkKFileCt   = count($OkKFile);
+        $KFileDb     = count($_FILES['COKepFile']['name']);
+        if (($KFileDb==1) && ($_FILES["COKepFile"]["name"][0]=='')) {$KFileDb=0; $UploadErr = "<p class='Error'>Nincs fájl kijelölve. </p><br>\n";}
+
+        if (isset($_FILES["COKepFile"])) {
+            $i=0;
+            while (($i<$KFileDb) && ($OkKFileCt>0)) {
+              if ($i==0) {$UploadErr = '';}
+              $allowedExts = array("gif", "jpeg", "jpg", "png");
+              $temp        = explode(".", $_FILES["COKepFile"]["name"][$i]);
+              $extension   = end($temp);
+
+             // print_r($OkKFile);
+              $AktFileNev = $OkKFile[$OkKFileCt-1].'.'.$extension;
+
+              if (( ($_FILES["COKepFile"]["type"][$i] == "image/gif")
+                 || ($_FILES["COKepFile"]["type"][$i] == "image/jpeg")
+                 || ($_FILES["COKepFile"]["type"][$i] == "image/jpg")
+                 || ($_FILES["COKepFile"]["type"][$i] == "image/pjpeg")
+                 || ($_FILES["COKepFile"]["type"][$i] == "image/x-png")
+                 || ($_FILES["COKepFile"]["type"][$i] == "image/png"))
+                 && ($_FILES["COKepFile"]["size"][$i] < 2000000)
+                 && in_array($extension, $allowedExts))
+                {
+                    if ($_FILES["COKepFile"]["error"][$i] > 0) {
+                      $UploadErr = "<p class='Error'> Hibakód: " . $_FILES["COKepFile"]["error"][$i] . "</p><br>\n"; 
+                    } else {
+                      if (file_exists($KepUtvonal.$AktFileNev)) {
+                        //Meglévő kép felülírása
+                        move_uploaded_file($_FILES["COKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev);
+                        $UploadErr .=  "<p class='Uzenet'> Felülírva: " .$KepUtvonal.$AktFileNev."</p><br>\n"; $KepOK=true;
+                        $InsertIntoStr = "INSERT INTO CikkKepek VALUES ('', $Cid,'$AktFileNev','','',0,0,0,0)";
+                        if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 02");}
+                      } else {
+                        //Új kép feltöltése
+                        move_uploaded_file($_FILES["COKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev);
+                        $UploadErr .=  "<p class='Uzenet'> Feltöltve: ". $_FILES["COKepFile"]["name"][$i]."</p>\n"; $KepOK=true;        
+                        $InsertIntoStr = "INSERT INTO CikkKepek VALUES ('', $Cid,'$AktFileNev','','',0,0,0,0)";
+                        if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 03");}
+                      }
+                    }
+                } else {
+                    if ($AktFileNev >'') {$UploadErr .= "<p class='Error'> Err101 Érvénytelen file.".$_FILES["COKepFile"]["name"][$i]."</p>\n";}
+                }
+                $i++; $OkKFileCt--;
+            }
         if ($i<$KFileDb) { $UploadErr .= "<p class='Error'> Csak 10 kép tölthető fel!</p>\n";}
       }
       return $UploadErr;
@@ -189,9 +200,9 @@ function getCikkKepForm() {
         // Változás: a képek feltöltéséhez szüksége form saját fgv-t kap. >> getCikkKepFeltoltForm()
 
         if ($Aktoldal['OImgDir']!='') {
-          $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";            
+          $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";            
         } else {
-          $KepUtvonal = "img/";    
+          $KepUtvonal = "img/oldalak/";    
         }
         //Az aktuális cikkhez kapcsolódó képek beolvasása adatbázisból 
           $SelectStr   = "SELECT * FROM CikkKepek WHERE Cid=$Cid order by KSorszam ";
@@ -246,7 +257,7 @@ function getCikkKepForm() {
                 $HTMLkod1 .= "<div class='Kepszerk'>"; 
 
                 $HTMLkod1 .= "<h3>$i. kép</h3>";
-                $Src       = $KepUtvonal.$CikkKepek[$i]['KFile'];
+                $Src       = $KepUtvonal.$CikkKepek[$i]['KFile']; //echo "<h1>$Src</h1>";
                 $HTMLkod1 .= "<img src='$Src' alt='$i. kép' >";
                 $HTMLkod1 .= "<input type='hidden' name='CKFile_$i' value='".$CikkKepek[$i]['KFile']."'>";
 
@@ -280,8 +291,6 @@ function getCikkKepForm() {
             $HTMLkod .= $_SESSION['ErrorStr'];
             $HTMLkod .= "<div id='divCikkKepForm1'><form action='?f0=$OUrl' method='post' id='formCikkKepForm'>\n";
             $HTMLkod .= $HTMLkod1;
-            
-
             $HTMLkod .=  "<input type='submit' name='submitCikkKepForm' value='Adatok módosítása' style='clear:left;'><br><br>\n";        
             $HTMLkod .= "</form></div>\n";
         }
@@ -296,16 +305,35 @@ function setCikkKepTorol($i) {
     $Cid        = $_SESSION['SzerkCikk'.'id'];
     if (isset($_POST["rowDB"])) {$rowDB=test_post($_POST["rowDB"]);}
     if ($Aktoldal['OImgDir']!='') {
-      $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";
+      $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";
     } else {
-      $KepUtvonal = "img/";
+      $KepUtvonal = "img/oldalak/";
     }
     if  (isset($_POST["CKTorol_$i"]) && $_POST["CKTorol_$i"]) {
-        $KFile = $_POST["CKTorol_$i"];
+        $KFile = test_post($_POST["CKTorol_$i"]); //echo "<h1>KFile:$KFile</h1>";
         unlink($KepUtvonal.$KFile);
         $DeletetStr = "Delete FROM CikkKepek  WHERE KFile='$KFile' AND Cid=$Cid";
         mysqli_query($MySqliLink,$DeletetStr) OR die("Hiba dCK 01");
     }
+}
+
+function CikkOsszesKepTorol($Cid,$OImgDir) {
+    global $Aktoldal, $MySqliLink;
+    $ErrorStr   = '';   
+    if ($OImgDir!='') {
+      $KepUtvonal = "img/oldalak/".$OImgDir."/";
+    } else {
+      $KepUtvonal = "img/oldalak/";
+    }
+    $SelectStr  = "SELECT KFile FROM CikkKepek WHERE Cid=$Cid";  
+    $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba COT 01");
+    while ($row = mysqli_fetch_array($result)){        
+        $Src = $KepUtvonal.$row['KFile'];
+        if (!unlink($Src)) {$ErrorStr .= 'Err200'.$row['KFile'].' '; }
+        $DeletetStr = "Delete FROM CikkKepek  WHERE Cid=$Cid";
+        mysqli_query($MySqliLink,$DeletetStr) OR die("Hiba ddCK 01");
+    }
+    return $ErrorStr; 
 }
 
 
@@ -319,9 +347,9 @@ function getCikkKepekHTML($Cid) {
     $HTMLkod  = '';
     
     if ($Aktoldal['OImgDir']!='') {
-      $KepUtvonal = "img/".$Aktoldal['OImgDir']."/";
+      $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";
     } else {
-      $KepUtvonal = "img/";
+      $KepUtvonal = "img/oldalak/";
     }
     $SelectStr = "SELECT KNev, KFile FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
     $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
@@ -332,10 +360,47 @@ function getCikkKepekHTML($Cid) {
         $KNev = $row['KNev'];
         $HTMLkod .= "<div class = 'divCikkKep'>";
             $HTMLkod .= "<img src='$Src'  class = 'imgCikkKep' alt='$KNev'>";
+            //$HTMLkod .= $row['KFile'];
         $HTMLkod .= "</div>\n";
     }
     $HTMLkod .= "</div>\n";
     return $HTMLkod;
+}
+
+
+function KepekAtnevez($RFNev,$UFNev,$Cid) { 
+global $Aktoldal, $MySqliLink;       
+    $ErrorStr   = '';
+    $Konytar    = 'img/oldalak/'.$Aktoldal['OImgDir']."/";     
+    $SelectStr  = "SELECT * FROM CikkKepek WHERE Cid=$Cid";
+    $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01ab");
+    while ($row = mysqli_fetch_array($result)){
+        $KFile  = $row['KFile'];
+        $UFNev  = getTXTtoURL($UFNev);
+        if (strlen($CKNev)>50) {$CKNev=substr($CKNev,0,50);}
+        $RFNev  = getTXTtoURL($RFNev);
+        if (strlen($RFNev)>50) {$RFNev=substr($RFNev,0,50);}
+        
+        $arr    = array($RFNev => $UFNev);
+        $UKFile = strtr($KFile ,$arr);
+
+        $KFileM  = $Konytar.$KFile;
+        $UKFileM = $Konytar.$UKFile;
+       
+        if (file_exists($KFileM)) {
+            if (!rename($KFileM, $UKFileM)) {
+                    $ErrorStr = 'Err100'; // Nem sikerült átnevezni
+            }       
+        } else {$ErrorStr = 'Err101';} // A fájl nem létezik
+        
+        if ($ErrorStr=='') {
+           $UpdateStr = "UPDATE CikkKepek SET 
+                           KFile='$UKFile'
+                           WHERE Cid=$Cid AND KFile='$KFile' LIMIT 1";          
+           if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setOK 01 ";}  
+        }
+    }
+    return $ErrorStr;    
 }
 
 ?>

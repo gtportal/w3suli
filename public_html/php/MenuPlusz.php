@@ -83,34 +83,34 @@ function setMenuPlusz() {
     $MenuPlTartalom  = "";
     $MenuPlPrioritas = 0;
     InitMenuPl();
-    
+   // echo "<h1>HŐŐŐŐŐŐŐŐŐŐ</h1>";
     if (isset($_POST['submitMenuPlTartalom'])) { 
         for ($i = 0; $i < 10; $i++){
-            $id = $_POST["ModMPid_$i"];
+            $id = INT_post($_POST["ModMPid_$i"]);
             if (!isset($_POST["TorolMenuPlTartalom_$i"])){
                 if (isset($_POST["ModMenuPlNev_$i"])) {
-                    $MenuPlNev = $_POST["ModMenuPlNev_$i"];
+                    $MenuPlNev = test_post($_POST["ModMenuPlNev_$i"]);
                 }
                 if (isset($_POST["ModMenuPlTartalom_$i"]))  {
-                    $MenuPlTartalom  = $_POST["ModMenuPlTartalom_$i"];
+                    $MenuPlTartalom  = SQL_post($_POST["ModMenuPlTartalom_$i"]);
                 }
                 if (isset($_POST["ModMenuPlPrioritas_$i"])) {
-                    $MenuPlPrioritas = $_POST["ModMenuPlPrioritas_$i"];
+                    $MenuPlPrioritas = INT_post($_POST["ModMenuPlPrioritas_$i"]);
                 }
 
                 $UpdateStr = "UPDATE MenuPlusz SET
                                 MenuPlNev       = '$MenuPlNev',
                                 MenuPlTartalom  = '$MenuPlTartalom',
-                                MenuPlPrioritas =  '$MenuPlPrioritas'
-                                WHERE id = '$id'";
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+                                MenuPlPrioritas =  $MenuPlPrioritas
+                                WHERE id = $id"; //echo "<h1>$UpdateStr</h1>";
+                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2a"); 
             } else {
                 $UpdateStr = "UPDATE MenuPlusz SET
                                 MenuPlNev       = '',
                                 MenuPlTartalom  = '',
                                 MenuPlPrioritas =  0
-                                WHERE id = '$id'";
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2");
+                                WHERE id = $id"; echo "<h1>$UpdateStr</h1>";
+                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2b");
             }
         }
     }    
@@ -134,6 +134,8 @@ function getMenuPluszHTML() {
             }
         }
     }
+    $HTMLkod .= " <h2>Felhasznált tananyag:</h2> 
+                 <ul class='Ul1'><li class='M1'><a href='http://webfejlesztes.gtportal.eu/'>Webáruház készítés</a></li></ul>\n";
     return $HTMLkod;
 }
 

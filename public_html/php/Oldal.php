@@ -270,13 +270,22 @@
               default: $ErrorStr .= ' Err004,';
             }             
           } else {$ErrorStr .= ' Err004,';} 
+          // ============== KÖNYVTÁRKEZELÉS - ÚJ KÉPKÖNYVTÁR LÉTREHOZÁSA   =====================
+          if (($ErrorStr=='') && (($UjOTipKod == 1) || ($UjOTipKod == 2))) {
+                $KTarNev ='';
+                if ($ErrorStr=='') {
+                    $KTarNev = getTXTtoURL($UjONev);
+                    $ErrorStr= KepkonyvtarLetrehoz($KTarNev);     
+                }          
+          }
+          
           // ============== ADATKEZELÉS - ÚJ REKORD LÉTREHOZÁSA   =====================
           if ($ErrorStr=='') {
            //Az oldal mentése
            $AktOid        = $Aktoldal['id'];  
            $OLathatosag   = $Aktoldal['OLathatosag'];
            $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', '$UjONev','$UjOUrl',$OLathatosag,1,'Az oldal leírása',
-                                                          'Az oldal kulcsszavai',$AktOid,$UjOTipKod,'Az oldal tartalma','','')";
+                                                          'Az oldal kulcsszavai',$AktOid,$UjOTipKod,'Az oldal tartalma','$KTarNev','')";
            
            if (!mysqli_query($MySqliLink,$InsertIntoStr)) {
                die("Hiba UO 01 ");               
@@ -320,8 +329,8 @@
           $OImgDir      = $Aktoldal['OImgDir'];   
           $OImg         = $Aktoldal['OImg']; 
           
-          if ($OImgDir=='') {$OImgSrc= 'img/'.$OImg;}
-          else  {$OImgSrc= 'img/'.$OImgDir.'/'.$OImg;}   
+          if ($OImgDir=='') {$OImgSrc= 'img/oldalak/'.$OImg;}
+          else  {$OImgSrc= 'img/oldalak/'.$OImgDir.'/'.$OImg;}   
 
           $OTipS        = '';
           if ($OTipus==1) {$OTipS = 'Kategoria';}
@@ -338,7 +347,7 @@
             $HTMLkod .= "<input type='file' name='file' id='fileKepTolt' >";
             $HTMLkod .= "<input type='submit' name='submitKisKepTolt' id='submitKisKepTolt' value='Feltöltés'><br><br>";
             $HTMLkod .= "</form>\n";
-            $HTMLkod .= "<h2 style='float:none;'>Az oldal adatainak módosítása</h2><br> \n";
+            $HTMLkod .= "<h2 style='float:none;'>Az oldal adatainak módosítása</h2> \n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalForm'>\n";
             
             
@@ -361,7 +370,7 @@
 
         
             //Láthatóság
-            $HTMLkod .= "<div id='divOLathatosag'>Láthatóság:<br>";
+            $HTMLkod .= "<div id='divOLathatosag'><h2>Láthatóság:</h2>";
             
             if($OLathatosag==0){$checked=" checked ";}else{$checked="";}
             $HTMLkod .="<input type='radio' id='OLathatosag_0' name='OLathatosag' value='0' $checked>";
@@ -372,8 +381,8 @@
             if($OLathatosag==2){$checked=" checked ";}else{$checked="";}
             $HTMLkod .="<input type='radio' id='chOldalLathatosagForm' name='OLathatosag' value='2' $checked>";
             $HTMLkod .="<label for='chOldalLathatosagForm' class='label_1'>adott csoportba tartozók</label><br>";
+    
             
-
             $HTMLkod .=getOLathatosagForm();
             $HTMLkod .="</div>";
             
@@ -438,7 +447,7 @@
             $HTMLkod .= "<input type='number' name='OPrioritas' id='OPrioritas' min='0' max='100' step='1' value='$OPrioritas'></p>\n";  
 
  	    //Láthatóság
-            $HTMLkod .= "<div id='divOLathatosag'>Láthatóság:<br>";
+            $HTMLkod .= "<div id='divOLathatosag'><h2>Láthatóság:</h2>";
 
             if($_POST['OLathatosag']==0){$checked=" checked ";}else{$checked="";}
             $HTMLkod .="<input type='radio' id='OLathatosag_0' name='OLathatosag' value='0' $checked>";
@@ -508,12 +517,12 @@
         $OImgDir      = $Aktoldal['OImgDir'];   
         $OImg         = $Aktoldal['OImg']; 
         
-        if ($Aktoldal['OImgDir']=='') {$OImgDir= 'img/';}
-          else  {$OImgDir= 'img/'.$Aktoldal['OImgDir'].'/';}
+        if ($Aktoldal['OImgDir']=='') {$FelOImgDir= 'img/oldalak/';}
+          else  {$FelOImgDir= 'img/oldalak/'.$Aktoldal['OImgDir'].'/';}
         
         // ============== KÉP FELTÖLTÉSE HIBAKEZELÉSSEL =====================        
         if (isset($_POST['submitKisKepTolt']))  {
-          $OImgUj = setKepFeltolt($OImgDir,$Aktoldal['OUrl']); 
+          $OImgUj = setKepFeltolt($FelOImgDir,$Aktoldal['OUrl']); 
           if (strpos($OImgUj,'Err0')===false) {
              $AktOid = $Aktoldal['id'];
              $UpdateStr = "UPDATE Oldalak SET 
@@ -552,6 +561,16 @@
               default: $ErrorStr .= ' Err004,';
             }             
           } else {$ErrorStr .= ' Err004,';} 
+          // ============== OLDALNÉV VÁLTOZÁSÁNEK KEZELÉSE ===================== 
+          if (($ONev!=$Aktoldal['ONev']) && ($ErrorStr=='') && (($OTipKod == 1) || ($OTipKod == 2))) {
+                $OUrl  = getTXTtoURL($ONev);              
+                // ============== KÖNYVTÁRKEZELÉS - A KÉPKÖNYVTÁR átnevezése   =====================
+                if ($ErrorStr=='') {
+                    $KTarNev = getTXTtoURL($ONev); //echo "<h1>Régi $KTarNev !!!!!!!!!</h1>";
+                    $ErrorStr= KepkonyvtarAtnevez($OImgDir,$KTarNev);     
+                }                  
+                if ($ErrorStr=='') {$OImgDir=$KTarNev;}
+          }
           
           // ============== ADATKEZELÉS - MÓDOSÍTÁS =====================
           if ($ErrorStr=='') {
@@ -574,7 +593,8 @@
                          OPrioritas='$OPrioritas',
                          OLeiras='$OLeiras',
                          OKulcsszavak='$OKulcsszavak',
-                         OLathatosag='$OLathatosag',    
+                         OLathatosag='$OLathatosag',
+                         OImgDir='$OImgDir',
                          OTartalom='$OTartalom'    
                          WHERE id=$AktOid LIMIT 1"; 
            if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 01 ";}
@@ -633,16 +653,23 @@
            $ErrorStr = "A(z) $ONev oldal változott.";
           }            
         } 
+        
+        
+        
+        
+        
+        
         }
         //$ErrorStr='';
         return $ErrorStr;
     }
 
 
-    function setOldalTorol() {
-        global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
-        //Csak rendszergazdáknak és moderátoroknak!
-        $ErrorStr = '';
+function setOldalTorol() {
+    global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
+    //Csak rendszergazdáknak és moderátoroknak!
+    $ErrorStr = '';
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (($Aktoldal['OTipus'] == 1) || ($Aktoldal['OTipus'] == 2))) {    
         if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (isset($_POST['submitOldalTorolForm'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
             // ============== HIBAKEZELÉS =====================
             $Oid    = $Aktoldal['id'];
@@ -655,7 +682,7 @@
             if ($rowDB > 0) { $ErrorStr = 'Err001'; }   
         }
         
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>0) && (isset($_POST['submitOldalTorolVegleges'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (isset($_POST['submitOldalTorolVegleges'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
             // ============== HIBAKEZELÉS =====================
             $Oid    = $Aktoldal['id'];
             $ONev   = $Aktoldal['ONev'];
@@ -664,21 +691,31 @@
             $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$Oid LIMIT 1";        
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOT 01 ");
             $rowDB       = mysqli_num_rows($result); 
-            if ($rowDB > 0) { $ErrorStr = 'Err001'; } 
-            
-            if ($ErrorStr == '') {
-              // ============== ADATKEZELÉS - TÖRLÉS =====================  
-              //Ha gyermektelen, akkor tölőljük  
-              $DeletetStr = "Delete FROM Oldalak  WHERE id=$Oid"; 
-              if (!mysqli_query($MySqliLink,$DeletetStr)) {die("Hiba sOT 02");} 
-              //Üzenet a törlésről
-              $ErrorStr = "A $ONev oldalt törőltük!";
-              //Az aktuális oldal megszünt, így visszalépünk szlőoldalához 
-              getOldalData($SzOUrl);
+            if ($rowDB > 0) { $ErrorStr .= 'Err001'; } 
+            if ($ErrorStr == '') {          
+                //Az oldal cikkeinek törlés
+                $ErrorStr.= OldalOsszesCikkekTorol($Oid);
+               // ============== KÖNYVTÁRKEZELÉS - ÚJ KÉPKÖNYVTÁR LÉTREHOZÁSA   =====================  
+                if ($ErrorStr == '') { 
+                    $KTarNev  = '';               
+                    $KTarNev  = $Aktoldal['OImgDir']; 
+                    $ErrorStr.= KepkonyvtarTorol($KTarNev);     
+                    if ($ErrorStr=='') {          
+                        // ============== ADATKEZELÉS - TÖRLÉS ===================== 
+                        //Ha gyermektelen, akkor tölőljük  
+                        $DeletetStr = "Delete FROM Oldalak  WHERE id=$Oid"; 
+                        if (!mysqli_query($MySqliLink,$DeletetStr)) {die("Hiba sOT 02");} 
+                        //Üzenet a törlésről
+                        $ErrorStr = "A $ONev oldalt törőltük!";
+                        //Az aktuális oldal megszünt, így visszalépünk szlőoldalához 
+                        getOldalData($SzOUrl);
+                    }
+                }
             }
         }
         return $ErrorStr;
     }
+}    
 
     function getOldalTorolForm() {
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
@@ -698,7 +735,9 @@
               // ============== FORM ÖSSZEÁLLÍTÁSA =====================   
               $HTMLkod .= "<div id='divOldalTorolForm' >\n";
               $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalTorolForm'>\n"; 
-              $HTMLkod .= "<p class='FontosStr'>Valóban töli a $ONev oldalt???!!! A művelet végleges!</p>";
+              $HTMLkod .= "<p class='FontosStr'>Valóban töli a <u>$ONev</u> oldalt?</p>";
+              $HTMLkod .= "<p class='FontosStr'>A művelet végleges!</p>";  
+              $HTMLkod .= "<p class='FontosStr'>Törlődnek az oldal cikkei is.</p>";               
               $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolForm' value='Törlés'><br>\n";        
               $HTMLkod .= "</form>\n";
               $HTMLkod .= "</div>\n";
@@ -863,6 +902,10 @@
           case 21:  $HTMLkod  .= "<h1>Oldaltérkep 1</h1> \n";
                     $HTMLkod  .= getOldalterkepHTML();
                    break;        
+          case 22:  $HTMLkod  .= "<h1>Archívum</h1> \n";
+                    require_once("php/achivum.php");
+                    $HTMLkod  .= getArchivHTML(); 
+                   break;                
           case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
                           $HTMLkod  .= getAlapbeallitasForm();
