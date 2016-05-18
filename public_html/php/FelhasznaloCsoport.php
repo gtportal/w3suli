@@ -212,17 +212,10 @@ function getUjFCsoportForm() {
 // ============= Felhasználó csoport adatainak módosítása ============     
 function setFCsoport() {
     global $MySqliLink;
-    $ErrorStr = ''; 
+    $ErrorStr  = ''; 
     $ErrorStr .= setCsoportValaszt();
-
-        global $MySqliLink;
-    $ErrorStr = ''; 
-    //initFCsoport();
-	
     $CsNev     = '';
-    $CsLeiras  = '';
-
-		
+    $CsLeiras  = '';		
     if (($_SESSION['AktFelhasznalo'.'FSzint']>3) &&  (isset($_POST['submitFCsoportForm']))){ 			
         if (isset($_POST['CsNev']))   	    {$CsNev     = test_post($_POST['CsNev']);}
         if (isset($_POST['CsLeiras']))      {$CsLeiras  = test_post($_POST['CsLeiras']);}
@@ -389,19 +382,23 @@ function getFCsoportForm() {
 // ============= Felhasználó csoport törlése ============  
 function setFCsoportTorol() {
     global $MySqliLink;
-    $ErrorStr = '';
-    
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
-        if (isset($_POST['submitFCsoportTorol'])) {
+    $ErrorStr          = '';      
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && isset($_POST['submitFCsoportTorol'])) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+	$SelectStr     = "SELECT id FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
+        $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFCsT 01 ");
+        while ($row    = mysqli_fetch_array($result)) {	
+            $i         = $row[id];
             $CsTorolDB = test_post($_POST['CsTorolDB']);
-            for ($i = 0; $i < $CsTorolDB; $i++){
-                $id = test_post($_POST["CsoportTorolId_$i"]);
-                if ($_POST["CsoportTorol_$i"]){
-                    $DeleteStr = "DELETE FROM FelhasznaloCsoport WHERE id = $id"; //echo "<h1>$DeleteStr</h1>";
-                    mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 02 ");
-                }
-            }
-        }  
+            $id        = test_post($_POST["CsoportTorolId_$i"]);
+            if ($_POST["CsoportTorol_$id"]){
+            $DeleteStr = "DELETE FROM FelhasznaloCsoport WHERE id = $id"; 
+            mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 02 ");
+            $DeleteStr = "DELETE FROM FCsoportTagok WHERE CSid = $id"; //echo "<h1>$DeleteStr</h1>";
+            mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 03 ");
+            $DeleteStr = "DELETE FROM OLathatosag WHERE CSid = $id"; //echo "<h1>$DeleteStr</h1>";
+            mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 04 ");
+          }  
+       }
     }
     return $ErrorStr;  
 }

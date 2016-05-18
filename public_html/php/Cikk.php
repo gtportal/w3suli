@@ -479,15 +479,15 @@ function setCikk() {
 
 // ==================== CIKK TÖRLÉSE =================
 
-function setCikkTorol() {
+function setCikkTorol() { 
     global $MySqliLink, $Aktoldal;
-    if (isset($_POST['submitCikkTorol'])) {
+    if (isset($_POST['submitCikkTorol'])) { 
         $SelectStr  = "SELECT Cid FROM OldalCikkei WHERE Oid=".$Aktoldal['id'];
         $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba COT 01");
         while ($row = mysqli_fetch_array($result)){   
-            $i      = $row['Cid'];
-            $id     = test_post($_POST["CikkTorolId_$i"]);
-            if ($_POST["CikkTorol_$i"]){
+            $i      = $row['Cid']; 
+            $id     = $_POST["CikkTorolId_$i"]; 
+            if ($_POST["CikkTorol_$i"]){  
                 $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
                 mysqli_query($MySqliLink, $DeleteStr);
                 $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
@@ -563,12 +563,12 @@ function getCikkTorolForm() {
             $id   = $row['id'];
 
             //Törlésre jelölés
-            $HTMLkod .= "<p class='pCikkTorol'><input type='checkbox' name='CikkTorol_$i' id='CikkTorol_$i'>"
-                    . "<label for='CikkTorol_$i' class='label_1'>$CNev</label>\n ";
+            $HTMLkod .= "<p class='pCikkTorol'><input type='checkbox' name='CikkTorol_$id' id='CikkTorol_$id'>"
+                    . "<label for='CikkTorol_$id' class='label_1'>$CNev</label>\n ";
             $HTMLkod .= "</p>\n";
 
             //id
-            $HTMLkod .= "<input type='hidden' name='CikkTorolId_$i' id='CikkTorolId_$i' value='$id'>\n";
+            $HTMLkod .= "<input type='hidden' name='CikkTorolId_$id' id='CikkTorolId_$id' value='$id'>\n";
 
             $i++;
         }

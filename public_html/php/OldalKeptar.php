@@ -338,10 +338,14 @@ function setOldalKepFeltolt() {
         return $ErrorStr;    
     }
     
-    function KepkonyvtarTorol($KTarNev) {
+  function KepkonyvtarTorol($KTarNev) {
         $ErrorStr         = '';
-        $AktAlKonytart    = 'img/oldalak/'.$KTarNev;  
-        if (is_dir($AktAlKonytart)) {     
+        $AktAlKonytart    = 'img/oldalak/'.$KTarNev;     
+        if (is_dir($AktAlKonytart)) {  
+            $files = array_diff(scandir($AktAlKonytart), array('.','..')); 
+            foreach ($files as $file) {
+              unlink("$AktAlKonytart/$file");
+            }
             if (!rmdir($AktAlKonytart)) {
                 $ErrorStr .= 'Err100'; // Nem sikerült a törlés
             }
