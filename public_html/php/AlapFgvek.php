@@ -662,6 +662,19 @@ return $Sor1;
 }
 
    
-   
+function getElsoKepHTML($Cid,$KepUtvonal) {   
+    global $MySqliLink;
+    $HTMLkod     = '';
+    $SelectStr   = "SELECT KFile, KNev FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC LIMIT 1";
+    $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gEKH 1 ");
+    $rowDB       = mysqli_num_rows($result); 
+    if ($rowDB > 0) {
+        $row     = mysqli_fetch_array($result);  mysqli_free_result($result); 
+        $Src     = $KepUtvonal.$row['KFile'];
+        $Alt     = $row['KNev'];
+        $HTMLkod.= "<img src='$Src'  class = 'imgOE' alt='$KNev'>";
+    }
+    return $HTMLkod;    
+}   
    
 ?>

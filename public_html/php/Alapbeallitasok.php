@@ -25,12 +25,12 @@ function setAlapbeallitasok() {
             $Telefon=$_POST['Telefon']; 
             $Stilus =$_POST['Stilus'];
 
-            $UpdateStr = "UPDATE AlapAdatok SET 
-                                WebhelyNev='$WNev',
-                                Iskola='$Iskola',
-                                Cim='$Cim',
-                                Telefon='$Telefon',
-                                Stilus=$Stilus ";
+            $UpdateStr =   "UPDATE AlapAdatok SET 
+                            WebhelyNev='$WNev',
+                            Iskola='$Iskola',
+                            Cim='$Cim',
+                            Telefon='$Telefon',
+                            Stilus=$Stilus ";
 
             $result      = mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba sAb 01");
         }
@@ -55,10 +55,21 @@ function getAlapbeallitasForm() {
 
         $HTMLkod .= "<form action='?f0=alapbeallitasok' method='post' id='formAlapbeallitasForm'>\n";
 
+        $HTMLkod .= "<fieldset> <legend>A webhely adatai:</legend>";
         //Webhely neve
         $HTMLkod .= "<p class='pWNev'><label for='WNev' class='label_1'>A webhely neve:</label><br>\n ";
         $HTMLkod .= "<input type='text' name='WNev' id='WNev' placeholder='Webhelynév' value='$WNev' size='40'></p>\n"; 
-
+        
+        //Fejléc szovege
+        $HTMLkod .= "<p class='pIskola'><label for='OFejlecStr' class='label_1'>Az oldalfejléc szövege:</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='OFejlecStr' id='OFejlecStr' placeholder='Iskola neve' value='$OFejlecStr' size='40'></p>\n";
+        
+        //Google Követőkód
+        $HTMLkod .= "<p class='pIskola'><label for='GoogleKkod' class='label_1'>Google Követőkód:</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='GoogleKkod' id='GoogleKkod' placeholder='Iskola neve' value='$GoogleKkod' size='40'></p>\n";
+        $HTMLkod .= "</fieldset>";        
+        
+        $HTMLkod .= "<fieldset> <legend>Az intézmény adatai:</legend>";
         //Iskola neve
         $HTMLkod .= "<p class='pIskola'><label for='Iskola' class='label_1'>Az iskola neve:</label><br>\n ";
         $HTMLkod .= "<input type='text' name='Iskola' id='Iskola' placeholder='Iskola neve' value='$Iskola' size='40'></p>\n"; 
@@ -69,11 +80,14 @@ function getAlapbeallitasForm() {
 
         //Iskola telefonszám
         $HTMLkod .= "<p class='pTelefon'><label for='Telefon' class='label_1'>Az iskola telefonszáma:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='Telefon' id='Telefon' placeholder='Iskola telefonszáma' value='$Telefon' size='40'></p>\n"; 
-
+        $HTMLkod .= "<input type='text' name='Telefon' id='Telefon' placeholder='Iskola telefonszáma' value='$Telefon' size='40'></p>\n";
+        $HTMLkod .= "</fieldset>";
+       
+        $HTMLkod .= "<fieldset> <legend>Az oldal stílusa:</legend>";
         //Stíluskiválasztó
         $HTMLkod .= "<p class='pStilus'><label for='Stilus' class='label_1'>Stilus:</label>\n ";
         $HTMLkod .= "<input type='number' name='Stilus' id='Stilus' min='0' max='13' step='1' value='$Stilus'></p>\n";  
+        $HTMLkod .= "</fieldset>";
 
         //Submit
         $HTMLkod .= "<input type='submit' name='submitAlapbeallitasok' value='Módosítás'><br>\n";        

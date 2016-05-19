@@ -366,7 +366,7 @@
             
             //Prioritás
             $HTMLkod .= "<p class='pOPrioritas'><label for='OPrioritas' class='label_1'>Prioritás:</label>\n ";
-            $HTMLkod .= "<input type='number' name='OPrioritas' id='OPrioritas' min='0' max='100' step='1' value='$OPrioritas'></p>\n";  
+            $HTMLkod .= "<input type='number' name='OPrioritas' id='OPrioritas' min='0' max='127' step='1' value='$OPrioritas'></p>\n";  
 
         
             //Láthatóság
@@ -828,6 +828,7 @@ function setOldalTorol() {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap                    
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
+                        $HTMLkod  .= getKezdolapCikkelozetesekHTML();
                         $HTMLkod  .= getCikkekForm();
                         $HTMLkod  .= $Aktoldal['OTartalom'];
                         $HTMLkod  .= getCikkekHTML();
@@ -839,6 +840,7 @@ function setOldalTorol() {
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
+                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         $HTMLkod  .= getCikkekForm();
                         $HTMLkod  .= $Aktoldal['OTartalom'];
                         $HTMLkod  .= getCikkekHTML();
@@ -854,6 +856,7 @@ function setOldalTorol() {
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0) {
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
+                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         $HTMLkod  .= getCikkekForm();
                         $HTMLkod  .= $Aktoldal['OTartalom'];
                         $HTMLkod  .= getCikkekHTML();
