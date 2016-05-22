@@ -7,6 +7,11 @@ a {text-decoration:none;}
 .Error {border: 1px solid #d00; }
 .AktLink {font-weight:bold;}
 .FontosStr {font-weight:bold; font-size: 1.2em;}
+.Jobbra {float:right;}
+.ErrorStr {font-weight:bold; font-size: 1.2em;}
+
+.felkover, legend {font-weight:bold;}
+.pTorolMP, .pTorolKiegT {color:#d00;}
 
 /***************************************** Szerkezet kialakítása ********************************************/
 * { box-sizing: border-box;}		 
@@ -44,6 +49,7 @@ a#logoLink:link   {color:#fff;}
 #divFelhasznaloUdv:before{content:url('../img/ikonok/user1.png');}   
 /***************************************** Helyi menü ********************************************/
 
+#HelyiNav h2 {margin-bottom:3px; font-size:1.1em;}
 #HelyiNav {margin-bottom:40px; }
 
 #HelyiNav ul {
@@ -118,7 +124,7 @@ a#logoLink:link   {color:#fff;}
 .divOElozetesKulso a.OElink {margin-top:10px; display: block; font-style:italic; float:right;}
 .divOElozetesKulso a.OElink::before{content: " » ";}
 .divOElozetesKulso h3 {margin: 10px;}
-.divOElozetesTartalom {width:460px; height: 130px; margin: 2px 2px 5px 120px;}
+.divOElozetesTartalom {width:460px; height: 140px; margin: 2px 2px 5px 120px;}
 .divOElozetesLeir {height: 70px;}
 
 /***************************************** Cikkek ********************************************/
@@ -139,6 +145,12 @@ div.KepStyle2 { display: block; float: right; margin:10px;}
 
 .pCszerzoNev {margin-bottom: 5px; font-size:0.8em;}
 .pCModTime {margin-top:5px; font-size:0.8em;}
+
+.divOElozetesKulso {max-width: 600px;}
+.divOElozetesKulso {border-bottom: 1px solid rgba(0, 0, 0, 0.6); margin-bottom: 5px;}
+
+.divCElozetesKulso  a {color: #338833;  display: block;}
+.divOElozetesKulso p {max-width: 300px; margin-bottom: 5px;}
 
 /********************************************* Kiegészítő tartalom *******************************************************/
 .divKiegTKulso h2 {margin-bottom: 3px; font-style: italic; }
