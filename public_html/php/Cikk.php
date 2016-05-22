@@ -755,13 +755,13 @@ function getCikkTorolForm() {
 function getKezdolapCikkelozetesekHTML() {  
     global $MySqliLink, $AlapAdatok;
     $HTMLkod   = '';
-    $SelectStr =   "SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl
+    $SelectStr =   "SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas
                     FROM Cikkek AS C
                     LEFT JOIN OldalCikkei AS OC                    
                     ON OC.Cid = C.id
                     LEFT JOIN Oldalak AS O
                     ON OC.Oid = O.id
-                    WHERE C.KoElozetes>0  ORDER BY C.KoElozetes DESC, C.CModositasTime";
+                    WHERE C.KoElozetes>0  ORDER BY C.KoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";
     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMC 01 ");
     $rowDB     = mysqli_num_rows($result);
     if ($rowDB > 0) {
@@ -801,13 +801,13 @@ function getSzulooldalCikkelozetesekHTML() {
     global $MySqliLink, $Aktoldal, $AlapAdatok;
     $Oid       = $Aktoldal['id'];
     $HTMLkod   = '';
-    $SelectStr =   "SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl
+    $SelectStr =   "SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas
                     FROM Cikkek AS C
                     LEFT JOIN OldalCikkei AS OC                    
                     ON OC.Cid = C.id
                     LEFT JOIN Oldalak AS O
                     ON OC.Oid = O.id
-                    WHERE O.OSzuloId=$Oid AND C.SZoElozetes=1 ORDER BY C.SZoElozetes DESC, C.CModositasTime";
+                    WHERE O.OSzuloId=$Oid AND C.SZoElozetes>0 ORDER BY C.SZoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";
     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMC 01 ");
     $rowDB     = mysqli_num_rows($result);
     if ($rowDB > 0) {

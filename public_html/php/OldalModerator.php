@@ -158,7 +158,7 @@ function getOModeratorCsoportValasztForm(){
             if($_SESSION['SzerkMCsoport'] == $row['id']){$Select = " selected ";}else{$Select = "";}
             $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
         }	
-        $HTMLkod .= "</fieldset>";
+        $HTMLkod .= "</select></fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitOModeratorCsoportValaszt' value='Kiválaszt'><br>\n";        
         $HTMLkod .= "</form>\n";            

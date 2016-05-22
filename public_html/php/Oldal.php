@@ -861,10 +861,11 @@ function setOldalTorol() {
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";                        
                         $HTMLkod  .= getCikkekForm();
-                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
+                        
                         $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
-                        $HTMLkod  .= getCikkekHTML();
                         $HTMLkod  .= getOElozetesekHTML();
+                        $HTMLkod  .= getCikkekHTML();                        
+                       // $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         $HTMLkod  .= "</main>";
                     }
                     else
@@ -877,10 +878,11 @@ function setOldalTorol() {
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
                         $HTMLkod  .= getCikkekForm();
-                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
+                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
+                        
                         $HTMLkod  .= getCikkekHTML();
-                        $HTMLkod  .= getOElozetesekHTML();
+                       // $HTMLkod  .= getOElozetesekHTML();
                         $HTMLkod  .= "</main>";
                     }
                     else
