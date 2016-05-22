@@ -77,31 +77,39 @@ footer {background-color:#DCCBBB; }
 #HelyiNav .AktLink {font-weight:bold;}
 #HelyiNav  li a::before{content: " » ";}
 
-#HelyiNav li a { display: inline-block; background-color: 	#DCCBBB; padding:8px 5px 0px 5px;
-	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border-bottom:1px solid #888; border-top:1px solid #888;} 
+#HelyiNav li a { display: inline-block; background-color: 	#DCCBBB; padding:5px 5px 5px 5px; height: auto;
+	width:100%;  border-radius: 5px  5px 5px 5px; border-bottom:1px solid #888; border-top:1px solid #888;} 
 #HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#000;
     
     text-decoration:none; }
 
 /* A link állapotainak megkülönböztetése  */
-#HelyiNav  li a:hover  {color:#000; text-decoration:none; margin-left:10px;} 
+#HelyiNav_  li a:hover  {color:#000; text-decoration:none; margin-left:5px;} 
 #HelyiNav  li a:active {color:#000; border-bottom:2px; border-top:2px; padding-top:7px; }
   
+
   
 /*---- Második szint --*/
-#HelyiNav li li a {background-color:#DCCBBB; padding-left:10px;} 
+#HelyiNav li li a {background-color:#edc; padding-left:4px;} 
 #HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#000;}
  
 /*---- Harmadik szint --*/
-#HelyiNav li li li a {background-color:#DCCBBB; padding-left:20px} 
+#HelyiNav li li li a {background-color:#fed; padding-left:5px; margin-left: 10px; width:266px;} 
 #HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#000;}
-
+#HelyiNav_  li li li a:hover {margin-left: 15px; width:266px;}
 
 /*---- Negyedik szint --*/
-#HelyiNav li li li li a {background-color:#DCCBBB; padding-left:30px;} 
+#HelyiNav li li li li a {background-color:#fff; padding-left:5px;} 
 #HelyiNav li li li li a:link,  #HelyiNav  li a:visited {color:#000;}
   
   
+#HelyiNav  li a:hover,
+#HelyiNav  li li a:hover
+{background-color:#ccc; }
+
+#HelyiNav  li li li a:hover,
+#HelyiNav  li li li li a:hover
+{background-color:#ccc; }
        
 /* Menü ki-be*/
 #chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
