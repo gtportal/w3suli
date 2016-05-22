@@ -6,9 +6,10 @@
  */
 
 function getOElozetesekHTML() {
-    global $MySqliLink, $Aktoldal;
+    global $MySqliLink, $Aktoldal, $AlapAdatok;
     $HTMLkod  = '';
     $Oid      = $Aktoldal['id'];
+    $AlapKep  = 'img/ikonok/HeaderImg/'.$AlapAdatok['HeaderImg'];
     // Az oldalhoz kapcsolódó aloldalak neveit, kis képeit és rövíd leírásait kell itt megjeleníteni
     // Az aloldalak arról ismerhetők fel, hogy 'OSzuloId'-jükben az aktuális oldal 'id'-jét tárolják
 
@@ -34,7 +35,7 @@ function getOElozetesekHTML() {
                         $Src = $KepUtvonal.$row['OImg']; 
                         $HTMLkod .= "<div class = 'divOElozetesKep'><img src='$Src'  class = 'imgOE' alt='' ></div>\n";                    
                     } else {
-                        $HTMLkod .= "<div class = 'divOElozetesKep'> </div>\n";
+                        $HTMLkod .= "<div class = 'divOElozetesKep'><img src='$AlapKep'  class = 'imgOE' alt='' ></div>\n";
                     }
 
                     $HTMLkod .= "<div class='divOElozetesTartalom'>\n";

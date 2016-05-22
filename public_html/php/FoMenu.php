@@ -91,6 +91,7 @@ function getFoMenuForm() {
        
         $HTMLkod .= "<div id='divModFoMenuForm' >\n";
 	$HTMLkod .= "<form action='?f0=Fomenu_linkek_beallitasa' method='post' id='formModFoMenuForm'>\n";
+        $HTMLkod .= "<h2>A főmenü linkjeinek adatai</h2>\n";
         
         for ($i = 0; $i < 10; $i++){
             $id             = $FoMenuLinkTmb[$i]['id'];
@@ -99,7 +100,8 @@ function getFoMenuForm() {
             $LPrioritas = $FoMenuLinkTmb[$i]['LPrioritas'];
             
             $HTMLkod .= "<div class='divFoMenuElem'>\n ";
-            $HTMLkod .= "<p class='pFoMenuid'>".$i.". rekord</p>\n ";            
+            $j        = $i+1;
+            $HTMLkod .= "<fieldset> <legend>".$j.". link adatai</legend>";
             
             //Kiegészítő tartalom neve
             $HTMLkod .= "<p class='pModFoMenuNev'><label for='ModFoMenuNev_$i' class='label_1'>Linkfelirat:</label><br>\n ";
@@ -119,6 +121,7 @@ function getFoMenuForm() {
             
             //id
             $HTMLkod .= "<input type='hidden' name='ModFoMenuid_$i' id='ModFoMenuid_$i' value='$id'>\n";
+            $HTMLkod .= "</fieldset>";
             $HTMLkod .= "</div>\n ";
         }
         

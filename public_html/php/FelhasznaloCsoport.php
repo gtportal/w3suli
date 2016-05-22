@@ -22,9 +22,11 @@ function getCsoportValasztForm() {
         $HTMLkod .= "<div id='divCsoportValaszt' >\n";
         if ($ErrorStr!='') {
         $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
-        $HTMLkod .= "<h2>Felhasználói csoport kiválasztása</h2>\n";
+        
         $HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formCsoportValaszt'>\n";
+        $HTMLkod .= "<h2>Felhasználói csoport kiválasztása</h2>\n";
 
+        $HTMLkod .= "<fieldset> <legend>Csoportok listája:</legend>";
         //Felhasználó kiválasztása a lenyíló listából
         $HTMLkod .= "<select name='selectCsoportValaszt' size='1'>";
 
@@ -37,6 +39,7 @@ function getCsoportValasztForm() {
 
             $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
         }	
+        $HTMLkod .= "</fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br><br>\n";        
         $HTMLkod .= "</form>\n";            
@@ -190,7 +193,7 @@ function getUjFCsoportForm() {
 
 	$HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formUjFCsoportForm'>\n";
         $HTMLkod .= "<h2>Új csoport létrehozása</h2>\n";
-          	   
+        $HTMLkod .= "<fieldset> <legend>Az új csoport adatai:</legend>";  	   
         //Felhasználó neve    
         $HTMLkod .= "<p class='pCsNev'><label for='CsNev' class='label_1'>A csoport neve:</label><br>\n ";
 	$HTMLkod .= "<input type='text' name='CsNev' class='$ErrClassCsNev' id='CsNev' placeholder='Csoport neve' value='$CsNev' size='40'></p>\n"; 
@@ -200,6 +203,7 @@ function getUjFCsoportForm() {
 	$HTMLkod .= "<textarea type='text' name='CsLeiras' id='CsLeiras' class='$ErrClassCsLeiras' placeholder='Csoport leírása'";
 	$HTMLkod .= "rows='4' cols='60'>$CsLeiras</textarea></p>\n";
 
+        $HTMLkod .= "</fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitUjFCsoportForm' value='Csoport létrehozása'><br>\n";        
         $HTMLkod .= "</form>\n";            
@@ -357,7 +361,8 @@ function getFCsoportForm() {
 		    $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
 
 		$HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formFCsoportForm'>\n";
-		$HTMLkod .= "<h2>A csoport adatainak módosítása</h2>\n";  	   
+		$HTMLkod .= "<h2>A csoport adatainak módosítása</h2>\n";  
+                $HTMLkod .= "<fieldset> <legend>A csoport adatai:</legend>";
 		//Felhasználó neve    
 		$HTMLkod .= "<p class='pCsNev'><label for='CsNev' class='label_1'>A csoport új neve:</label><br>\n ";
 		$HTMLkod .= "<input type='text' name='CsNev' class='$ErrClassCsNev' id='CsNev' placeholder='Csoport új neve' value='$CsNev' size='40'></p>\n"; 
@@ -367,6 +372,7 @@ function getFCsoportForm() {
 		$HTMLkod .= "<textarea type='text' name='CsLeiras' id='CsLeiras' class='$ErrClassCsLeiras' placeholder='Csoport új leírása'";
 		$HTMLkod .= "rows='4' cols='60'>$CsLeiras</textarea></p>\n";
 
+                $HTMLkod .= "</fieldset>";
 		//Submit
 		$HTMLkod .= "<input type='submit' name='submitFCsoportForm' value='Csoport módosítása'><br>\n";        
 		$HTMLkod .= "</form>\n";            
@@ -415,7 +421,8 @@ function getFCsoportTorolForm() {
 
         $HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formFCsoportTorol'>\n";
         $HTMLkod .= "<h2>Felhasználói csoportok törlése</h2>\n";
-
+        $HTMLkod .= "<fieldset> <legend>A törlendő csoportok kiválasztása:</legend>";
+        
         $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");
         $rowDB  = mysqli_num_rows($result);
@@ -435,7 +442,7 @@ function getFCsoportTorolForm() {
         }
         $HTMLkod .= "<input type='hidden' name='CsTorolDB' id='CsTorolDB' value='$rowDB'>\n";
         
-        
+        $HTMLkod .= "</fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitFCsoportTorol' value='Töröl'><br>\n";        
         $HTMLkod .= "</form>\n";            

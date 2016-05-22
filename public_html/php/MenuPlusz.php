@@ -35,6 +35,7 @@ function getMenuPluszForm() {
         
         $HTMLkod .= "<div id='divModMenuPlForm' >\n";
 	$HTMLkod .= "<form action='?f0=MenuPlusz' method='post' id='formModMenuPlForm'>\n";
+        $HTMLkod .= "<h2>A helyi menü információs blokkjai</h2>\n";
         
         for ($i = 0; $i < 10; $i++){
             $id             = $MenuPlTomb[$i]['id'];
@@ -43,7 +44,9 @@ function getMenuPluszForm() {
             $MenuPlPrioritas = $MenuPlTomb[$i]['MenuPlPrioritas'];
             
             $HTMLkod .= "<div class='divMenuPlElem'>\n ";
-            $HTMLkod .= "<p class='pMenuPlid'>".$i.". rekord</p>\n ";            
+           // $HTMLkod .= "<p class='pMenuPlid'>".$i.". rekord</p>\n ";    
+            $j = $i+1;
+            $HTMLkod .= "<fieldset> <legend>".$j.". információs blokk adatai</legend>";
             
             //Kiegészítő tartalom neve
             $HTMLkod .= "<p class='pModMenuPlNev'><label for='ModMenuPlNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
@@ -64,6 +67,7 @@ function getMenuPluszForm() {
             
             //id
             $HTMLkod .= "<input type='hidden' name='ModMPid_$i' id='ModMPid_$i' value='$id'>\n";
+            $HTMLkod .= "</fieldset>";
             $HTMLkod .= "</div>\n ";
         }        
         //Submit
@@ -134,6 +138,8 @@ function getMenuPluszHTML() {
             }
         }
     }
+    $HTMLkod .= " <h2>Blogmotorunk:</h2> 
+                 <ul class='Ul1'><li class='M1'><a href='https://w3suli.hu/'>W3Suli blogmotor</a></li></ul>\n";
     $HTMLkod .= " <h2>Felhasznált tananyag:</h2> 
                  <ul class='Ul1'><li class='M1'><a href='http://webfejlesztes.gtportal.eu/'>Webáruház készítés</a></li></ul>\n";
     return $HTMLkod;

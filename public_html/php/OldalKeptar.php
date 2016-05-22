@@ -231,9 +231,12 @@ function setOldalKepFeltolt() {
         // ============== A KepekFeltoltForm ÖSSZEÁLLÍTÁSA =====================
         $HTMLkod0    ='';
         $HTMLkod0   .="  <div id='KepekFeltoltForm'>
-                               <h2>Képek feltöltése</h2>
+                               
                                <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data'>
+                                 <h2>Képek feltöltése</h2>
+                                 <fieldset> <legend>A képek kiválasztása:</legend>
                                  <input type='file' name='OKepFile[]' id='file_KepekFeltoltForm' multiple='multiple'>
+                                 </fieldset>
                                  <input type='submit' name='submit_KepekFeltoltForm' id='submit_KepekFeltoltForm' value='Feltöltés'>                                      
                                </form><br>
                              </div>";
@@ -244,7 +247,8 @@ function setOldalKepFeltolt() {
         $ErrClassONev='';
         for($i=0;$i<10;$i++) {
           $HTMLkod1 .= "<div class='Kepszerk'>"; 
-          
+          $j = $i+1;
+          $HTMLkod1 .= "<fieldset> <legend>$j. kép adatai:</legend>";;
           $HTMLkod1 .= "<h3>$i. kép</h3>";
           $Src       = $KepUtvonal.$OldalKepek[$i]['KFile'];
           $HTMLkod1 .= "<img src='$Src' alt='$i. kép' >"; 
@@ -280,6 +284,7 @@ function setOldalKepFeltolt() {
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KFile']."' ></p>\n";           
           
           $HTMLkod1 .= "</div>";
+          $HTMLkod1 .= "</fieldset>";;
           $HTMLkod1 .= "</div>";  
         } 
         
@@ -290,9 +295,10 @@ function setOldalKepFeltolt() {
         $HTMLkod .= $HTMLkod0;
         $HTMLkod .= "<br><div><form action='?f0=$OUrl' method='post' id='formOldalKepForm'>\n";
         $HTMLkod .= "<h2>Képek adatainak módosítása</h2>\n";
+       
         $HTMLkod .= $HTMLkod1;
-        
-        $HTMLkod .=  "<br><br><br><br><br><br><input type='submit' name='submitOldalKepForm' value='Elküld'><br><br>\n";        
+    
+        $HTMLkod .=  "<input type='submit' name='submitOldalKepForm' value='Elküld'><br><br>\n";        
         $HTMLkod .= "</form></div>\n";
         $HTMLkod .= "</div>\n";
         return $HTMLkod;

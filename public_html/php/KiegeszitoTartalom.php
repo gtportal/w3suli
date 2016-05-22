@@ -89,6 +89,7 @@ function getKiegTForm() {
         
         $HTMLkod .= "<div id='divModKiegTForm' >\n";
 	$HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formModKiegTForm'>\n";
+        $HTMLkod .= "<h2>A kiegészítő tartalom információs blokkjai</h2>\n";
         
         for ($i = 0; $i < 10; $i++){
             $id             = $KiegTTomb[$i]['id'];
@@ -97,8 +98,9 @@ function getKiegTForm() {
             $KiegTPrioritas = $KiegTTomb[$i]['KiegTPrioritas'];
             
             $HTMLkod .= "<div class='divKiegTElem'>\n ";
-            $HTMLkod .= "<p class='pKiegTid'>".$i.". rekord</p>\n ";            
-            
+     
+            $j = $i+1;
+            $HTMLkod .= "<fieldset> <legend>".$j.". információs blokk adatai</legend>";
             //Kiegészítő tartalom neve
             $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='ModKTNev_$i' id='ModKTNev_$i' placeholder='$KiegTNev' value='$KiegTNev' size='40'></p>\n"; 
@@ -118,6 +120,7 @@ function getKiegTForm() {
             
             //id
             $HTMLkod .= "<input type='hidden' name='ModKTid_$i' id='ModKTid_$i' value='$id'>\n";
+            $HTMLkod .= "</fieldset>";
             $HTMLkod .= "</div>\n ";
         }
         

@@ -168,10 +168,11 @@
             // ============== FORM ÖSSZEÁLLÍTÁSA =====================  
             $HTMLkod .= "<div id='divUjOldalForm' >\n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjOldalForm'>\n";   //echo "<h1>'. $ErrorStr</h1>";
+            $HTMLkod .= "<h2>Új oldal létrehozása</h2>\n ";
+            $HTMLkod .= "<fieldset> <legend>Az új oldal adatai:</legend>";
             //Üzenet megjelenítése
             if ($ErrorStr!='') {
             $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
-            $HTMLkod .= "<h2>Új oldal létrehozása</h2>\n ";
             //Oldalnév
             $HTMLkod .= "<p class='pUjONev'><label for='UjONev' class='label_1'>ÚJ oldal neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='UjONev' id='UjONev' placeholder='Oldalnév' 
@@ -184,6 +185,7 @@
             if ($UjOTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='HirOldal' $Sel>Híroldal</option>\n";
             $HTMLkod .=  "</select>\n";        
+            $HTMLkod .= "</fieldset>";
             //Submit
             $HTMLkod .=  "<br><input type='submit' name='submitUjOldalForm' value='Létrehozás'><br>\n";        
             $HTMLkod .= "</form>\n";
@@ -220,6 +222,8 @@
             $HTMLkod .= "<div id='divUjOldalForm' >\n";
             if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjOldalForm'>\n";
+            $HTMLkod .= "<h2>Új oldal létrehozása</h2>\n ";
+            $HTMLkod .= "<fieldset> <legend>Az új oldal adatai:</legend>";
                         
             $HTMLkod .= "<p><label for='UjONev' class='label_1'>ÚJ oldal neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='UjONev' id='UjONev' placeholder='Oldalnév' 
@@ -231,7 +235,8 @@
             $HTMLkod .=  "<option value='Kategoria' $Sel>Kategória</option>\n";            
             if ($OTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='HirOldal' $Sel>Híroldal</option>\n";
-            $HTMLkod .=  "</select>\n";        
+            $HTMLkod .=  "</select>\n";  
+            $HTMLkod .= "</fieldset>";
             //Submit
             $HTMLkod .=  "<br><input type='submit' name='submitUjOldalForm' value='Létrehozás'><br>\n";        
             $HTMLkod .= "</form>\n";
@@ -343,13 +348,16 @@
             $HTMLkod .= "<div id='divOldalForm' >\n";
             $HTMLkod .= "<h2>Kis kép feltöltése</h2>\n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' enctype='multipart/form-data' id='KisKepFelForm'>\n";
+            $HTMLkod .= "<fieldset> <legend>A kis kép kiválasztása:</legend>";
             $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='KiskepKep'>\n";
             $HTMLkod .= "<input type='file' name='file' id='fileKepTolt' >";
+            $HTMLkod .= "</fieldset>";
             $HTMLkod .= "<input type='submit' name='submitKisKepTolt' id='submitKisKepTolt' value='Feltöltés'><br><br>";
             $HTMLkod .= "</form>\n";
-            $HTMLkod .= "<h2 style='float:none;'>Az oldal adatainak módosítása</h2> \n";
-            $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalForm'>\n";
             
+            $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalForm'>\n";
+            $HTMLkod .= "<h2>Az oldal adatainak módosítása</h2> \n";
+            $HTMLkod .= "<fieldset> <legend>Az oldal adatai:</legend>";
             
             //Oldalnév
             $HTMLkod .= "<p class='pONev'><label for='ONev' class='label_1'>Az oldal neve:</label><br>\n ";
@@ -400,7 +408,7 @@
             $HTMLkod .= "<p class='pOTartalom'><label for='OTartalom' class='label_1'>Tartalom:</label><br>\n ";
             $HTMLkod .= "<textarea name='OTartalom' id='OTartalom' placeholder='Az oldal tartalma' 
               rows='8' cols='100' >".$OTartalom."</textarea></p>\n";
-            
+            $HTMLkod .= "</fieldset>";
             //Submit
             $HTMLkod .=  "<br><input type='submit' name='submitOldalForm' value='Módosítás'><br>\n";        
             $HTMLkod .= "</form>\n";
@@ -413,7 +421,7 @@
            // $ErrorStr = '';         
                         
             //Oldalnév
-            $ErrClass = '';
+            $ErrClassONev = '';
             if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
               $ErrClassONev = ' Error '; 
               $ErrorStr .= 'Hiányzik az oldal neve! ';
@@ -427,7 +435,7 @@
               $ErrorStr .= 'Az oldalnév túl hosszú! ';
             }                     
             //Oldaltípus
-            $ErrClass = '';
+            $ErrClassOTip = '';
             if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
               $ErrClassOTip = ' Error '; 
               $ErrorStr .= 'Az oldal típusa nincs megadva! ';
@@ -436,7 +444,19 @@
             // ============== FORM ÖSSZEÁLLÍTÁSA ===================== 
             $HTMLkod .= "<div id='divOldalForm' >\n";
             if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+            
+            $HTMLkod .= "<h2>Kis kép feltöltése</h2>\n";
+            $HTMLkod .= "<form action='?f0=$OUrl' method='post' enctype='multipart/form-data' id='KisKepFelForm'>\n";
+            $HTMLkod .= "<fieldset> <legend>A kis kép kiválasztása:</legend>";
+            $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='KiskepKep'>\n";
+            $HTMLkod .= "<input type='file' name='file' id='fileKepTolt' >";
+            $HTMLkod .= "</fieldset>";
+            $HTMLkod .= "<input type='submit' name='submitKisKepTolt' id='submitKisKepTolt' value='Feltöltés'><br><br>";
+            $HTMLkod .= "</form>\n";
+            
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalForm'>\n";
+            $HTMLkod .= "<h2>Az oldal adatainak módosítása</h2> \n";
+            $HTMLkod .= "<fieldset> <legend>Az oldal adatai:</legend>";
             
             $HTMLkod .= "<p class='pONev'><label for='ONev' class='label_1'>Az oldal neve:</label><br>\n ";
             $HTMLkod .= "<input type='text' name='ONev' id='ONev' placeholder='Oldalnév' 
@@ -485,7 +505,7 @@
             $HTMLkod .= "<p  class='pOTartalom'><label for='OTartalom' class='label_1'>Tartalom:</label><br>\n ";
             $HTMLkod .= "<textarea name='OTartalom' id='OTartalom' placeholder='Az oldal tartalma' 
               rows='8' cols='100' >".$OTartalom."</textarea></p>\n";
-            
+            $HTMLkod .= "</fieldset>";
             //Submit
             $HTMLkod .=  "<br><input type='submit' name='submitOldalForm' value='Módosítás'><br>\n";        
             $HTMLkod .= "</form>\n";            
@@ -738,7 +758,7 @@ function setOldalTorol() {
               $HTMLkod .= "<p class='FontosStr'>Valóban töli a <u>$ONev</u> oldalt?</p>";
               $HTMLkod .= "<p class='FontosStr'>A művelet végleges!</p>";  
               $HTMLkod .= "<p class='FontosStr'>Törlődnek az oldal cikkei is.</p>";               
-              $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolForm' value='Törlés'><br>\n";        
+              $HTMLkod .=  "<input type='submit' name='submitOldalTorolForm' value='Törlés'><br>\n";        
               $HTMLkod .= "</form>\n";
               $HTMLkod .= "</div>\n";
             }
@@ -828,9 +848,9 @@ function setOldalTorol() {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap                    
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
-                        $HTMLkod  .= getKezdolapCikkelozetesekHTML();
                         $HTMLkod  .= getCikkekForm();
-                        $HTMLkod  .= $Aktoldal['OTartalom'];
+                        $HTMLkod  .= getKezdolapCikkelozetesekHTML();
+                        $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
                         $HTMLkod  .= getCikkekHTML();
                         $HTMLkod  .= getOElozetesekHTML();
                         $HTMLkod  .= "</main>";                   
@@ -839,10 +859,10 @@ function setOldalTorol() {
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0)
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
                         $HTMLkod  .= $HTMLFormkod;
-                        $HTMLkod  .= "<main>";
-                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
+                        $HTMLkod  .= "<main>";                        
                         $HTMLkod  .= getCikkekForm();
-                        $HTMLkod  .= $Aktoldal['OTartalom'];
+                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
+                        $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
                         $HTMLkod  .= getCikkekHTML();
                         $HTMLkod  .= getOElozetesekHTML();
                         $HTMLkod  .= "</main>";
@@ -856,9 +876,9 @@ function setOldalTorol() {
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0) {
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
-                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         $HTMLkod  .= getCikkekForm();
-                        $HTMLkod  .= $Aktoldal['OTartalom'];
+                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
+                        $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
                         $HTMLkod  .= getCikkekHTML();
                         $HTMLkod  .= getOElozetesekHTML();
                         $HTMLkod  .= "</main>";

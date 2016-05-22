@@ -58,9 +58,10 @@ function getCikkekHTML() {
     $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         while ($row = mysqli_fetch_array($result)){     
+                $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
                 $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                 $CTartalom = SzintaxisCsere($CTartalom);
-                $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
+                $HTMLkod .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
                 
                 //$HTMLkod .= "<h2>".getTXTtoURL($row['CNev'])."</h2>\n";                   //!!!!!!!!!!!!!!!!!!!!!!!!!!!      
                 
@@ -75,11 +76,12 @@ function getCikkekHTML() {
         if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
+                    $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
                     $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                     $CTartalom = SzintaxisCsere($CTartalom);
-                    $HTMLkod  .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                    $HTMLkod  .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                   // $HTMLkod  .= "<div class = 'divCikkTartalom'>\n";
+                    $HTMLkod  .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
+                   // $HTMLkod  .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                    $HTMLkod  .= "<div class = 'divCikkTartalom'>\n";
                     $HTMLkod  .= $CTartalom."\n";
                     $HTMLkod  .= getCikkKepekHTML($row['id']);
                     $HTMLkod  .= "</div>\n";
@@ -90,10 +92,10 @@ function getCikkekHTML() {
         if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) { 
+                    $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
                     $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                     $CTartalom = SzintaxisCsere($CTartalom);
-                    $HTMLkod .= "<div class ='divCikkKulso'><h2>".$row['CNev']."</h2>\n";
-                 //   $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
+                    $HTMLkod .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
                     $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
                     $HTMLkod .= $CTartalom."\n";
                     $HTMLkod .= getCikkKepekHTML($row['id']);
@@ -144,7 +146,7 @@ function getCikkekForm() {
         $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk'   value='chFormkodCikk'   type='checkbox'  >\n";
         $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
     }
-    
+    $HTMLkod  .= getCikkValasztForm();
         $HTMLkod  .= "<div id='divFormkodCikk'>\n";
         if ($_POST['submitUjCikkForm']){//=====UjCikkForm megjelenítését szabályozó input elem=====
             $HTMLkod  .= "<input name='chCikkForm'  id='chUjCikkForm' value='chUjCikkForm' type='radio' checked>\n";
@@ -175,7 +177,7 @@ function getCikkekForm() {
             $HTMLkod  .= "<label for='chCikkKepForm' class='chLabel'    id='labelCikkKepForm'>Cikk képeinek módosítása</label>\n \n";
         } 
         
-        $HTMLkod  .= getCikkValasztForm();
+       // $HTMLkod  .= getCikkValasztForm();
         $HTMLkod  .= getUjCikkForm();
         $HTMLkod  .= getCikkForm();
         $HTMLkod  .= getCikkTorolForm();

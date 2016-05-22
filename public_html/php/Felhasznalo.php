@@ -357,7 +357,8 @@ function getUjFelhasznaloForm() {
         $HTMLkod .= "<div id='divUjFelhasznaloForm' >\n";
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}    
         $HTMLkod .= "<form action='?f0=regisztracio' method='post' id='formUjFelhasznaloForm'>\n";
-
+        $HTMLkod .= "<h2> Az új felhasználó adatainak beállítása:</h2>";
+        $HTMLkod .= "<fieldset> <legend>A felhasználó adatai:</legend>";
         //Felhasználó neve  
         $HTMLkod .= "<p class='pFNev'><label for='FNev' class='label_1'>A felhasználó neve:</label><br>\n ";
         $HTMLkod .= "<input type='text' name='FNev' class='$ErrClassFNev' id='FNev' placeholder='Felhasználó neve' value='$FNev' size='20'></p>\n"; 
@@ -406,7 +407,8 @@ function getUjFelhasznaloForm() {
             
         }	
         //Submit
-        
+        $HTMLkod .= "</select>";
+        $HTMLkod .= "</fieldset>";
         $HTMLkod .= "<input type='submit' name='submitUjFelhasznaloForm' value='Elküld'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";   
@@ -666,7 +668,7 @@ function getFelhasznaloForm() {
 
                 $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloForm'>\n";
                 $HTMLkod .= "<h2>A felhasználó adatainak módosítása</h2>\n";
-
+                $HTMLkod .= "<fieldset> <legend>Felhasználó adatai:</legend>";
                 //Felhasználó neve    
                 $HTMLkod .= "<p class='pFNev'><label for='FNev' class='label_1'>A felhasználó neve:</label><br>\n ";
                 $HTMLkod .= "<input type='text' name='FNev' class='$ErrClassFNev' id='FNev' placeholder='Felhasználó neve' value='$FNev' size='20'></p>\n"; 
@@ -735,7 +737,7 @@ function getFelhasznaloForm() {
                     $i++;  
                 }
                 $HTMLkod .= "<input type='hidden' name='FCsoportDB' id='FCsoportDB' value='$rowDB'>\n";	
-
+                $HTMLkod .= "</fieldset>";
                 //Submit
                 $HTMLkod .= "<input type='submit' name='submitFelhasznaloForm' value='Módosítás'><br>\n";        
                 $HTMLkod .= "</form>\n";            
@@ -791,7 +793,7 @@ function getFelhasznaloValasztForm() {
 
         $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloValaszt'>\n";
         $HTMLkod .= "<h2>Felhasználó kiválasztása</h2>\n";
-
+        $HTMLkod .= "<fieldset> <legend>Felhasználók listája:</legend>";
         //Felhasználó kiválasztása a lenyíló listából
         $HTMLkod .= "<select name='selectFelhasznaloValaszt' size='1'>";
 
@@ -810,6 +812,7 @@ function getFelhasznaloValasztForm() {
 
             $HTMLkod.="<option value='$FFNev' $select >$FNev</option>";
         }	
+        $HTMLkod .= "</fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitFelhasznaloValaszt' value='Kiválaszt'><br><br>\n";        
         $HTMLkod .= "</form>\n";            
@@ -834,6 +837,7 @@ function getFelhasznaloCsoportValasztForm()
         //Felhasználó kiválasztása a lenyíló listából
         $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formCsoportValaszt2'>\n";
         $HTMLkod .= "<h2>Felhasználói csoport kiválasztása</h2>\n";
+        $HTMLkod .= "<fieldset> <legend>Csoportok listája:</legend>";
         $HTMLkod .= "<select name='selectCsoportValaszt' size='1'>";
 
         $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
@@ -845,6 +849,7 @@ function getFelhasznaloCsoportValasztForm()
 
             $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
         }	
+        $HTMLkod .= "</fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br><br>\n";        
         $HTMLkod .= "</form>\n";            
@@ -982,25 +987,26 @@ function getUjJelszoForm() {
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
 
         $HTMLkod .= "<form action='?f0=jelszomodositas' method='post' id='formUjJelszoForm'>\n";
+        
+        $HTMLkod .= "<h2>Az új jelszó beállítása:</h2>";
+        $HTMLkod .= "<fieldset> <legend>Új és régi jelszó megadása:</legend>";
 
         //Régi jelszó
-
         $HTMLkod .= "<p class='pFRJelszo'><label for='FRJelszo' class='label_1'>Régi jelszó: </label><br>\n ";
         $HTMLkod .= "<input type='password' name='FRJelszo' class='$ErrClassFRJelszo' id='FRJelszo' placeholder='Régi jelszó' size='20'></p>\n"; 
 
         //Új jelszó
-
         $HTMLkod .= "<p class='pFUJelszo'><label for='FUJelszo' class='label_1'>Új jelszó: </label><br>\n ";
         $HTMLkod .= "<input type='password' name='FUJelszo' class='$ErrClassFUJelszo' id='FUJelszo' placeholder='Új jelszó' size='20'></p>\n"; 
 
         //Új jelszó újra
-
         $HTMLkod .= "<p class='pFUJelszo2'><label for='FUJelszo2' class='label_1'>Új jelszó újra: </label><br>\n ";
         $HTMLkod .= "<input type='password' name='FUJelszo2' class='$ErrClassFUJelszo' id='FUJelszo2' placeholder='Új jelszó újra' size='20'>";
         $HTMLkod .= "</p>\n"; 
+        $HTMLkod .= "</fieldset>";
 
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitUjJelszoForm' value='Módosít'><br>\n";        
+        $HTMLkod .= "<br><input type='submit' name='submitUjJelszoForm' value='Módosít'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";   
     }    
@@ -1042,6 +1048,7 @@ function getFelhasznaloTorolForm() {
 
         $HTMLkod .= "<form action='?f0=adatmodositas' method='post' id='formFelhasznaloTorol'>\n";
         $HTMLkod .= "<h2>Felhasználók törlése</h2>\n";
+        $HTMLkod .= "<fieldset> <legend>Felhasználók listája:</legend>";
         $CsId = $_SESSION['SzerkFCsoport'];
         
         $SelectStr ="SELECT F.id, F.FNev, F.FFNev
@@ -1067,7 +1074,7 @@ function getFelhasznaloTorolForm() {
             $i++;
         }
         $HTMLkod .= "<input type='hidden' name='FTorolDB' id='FTorolDB' value='$rowDB'>\n";
-        
+        $HTMLkod .= "</fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitFelhasznaloTorol' value='Töröl'><br>\n";        
         $HTMLkod .= "</form>\n";            

@@ -122,13 +122,15 @@ function getCikkKepFeltoltForm() {
     $Oid        = $Aktoldal['id']; 
     $OUrl       = $Aktoldal['OUrl'];
     $HTMLkod    ='';    
-    $HTMLkod   ="  <div id='CikkKepekFeltoltForm'>
-                           <h2>Képek feltöltése a cikkhez</h2>
-                           <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data' id='CikkKepTolForm'>
-                             <input type='file' name='COKepFile[]' id='file_CikkKepekFeltoltForm' multiple='multiple'>
-                             <input type='submit' name='submit_CikkKepekFeltoltForm' id='submit_CikkKepekFeltoltForm' value='Feltöltés'>   <br>   <br>                                 
-                           </form>
-                         </div>";
+    $HTMLkod    = " <div id='CikkKepekFeltoltForm'>                           
+                    <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data' id='CikkKepTolForm'>
+                    <h2>Képek feltöltése a cikkhez</h2>
+                    <fieldset> <legend>Képek kiválasztása:</legend>
+                    <input type='file' name='COKepFile[]' id='file_CikkKepekFeltoltForm' multiple='multiple'>
+                    </fieldset>     
+                    <input type='submit' name='submit_CikkKepekFeltoltForm' id='submit_CikkKepekFeltoltForm' value='Feltöltés'>   <br>   <br>                                 
+                    </form>
+                    </div>";
     return $HTMLkod;
 }
 
@@ -256,7 +258,9 @@ function getCikkKepForm() {
                 } else {$ErrClassCNev='';}
                 $HTMLkod1 .= "<div class='Kepszerk'>"; 
 
-                $HTMLkod1 .= "<h3>$i. kép</h3>";
+                $j        = $i+1;
+                $HTMLkod1.= "<fieldset> <legend>".$j.". kép adatai</legend>";
+            
                 $Src       = $KepUtvonal.$CikkKepek[$i]['KFile']; //echo "<h1>$Src</h1>";
                 $HTMLkod1 .= "<img src='$Src' alt='$i. kép' >";
                 $HTMLkod1 .= "<input type='hidden' name='CKFile_$i' value='".$CikkKepek[$i]['KFile']."'>";
@@ -284,6 +288,7 @@ function getCikkKepForm() {
                 $HTMLkod1 .= "<p class='pKTorol'><label for='CKTorol_$i' class='label_1'>TÖRLÉS:</label>\n ";
                 $HTMLkod1 .= "<input type='checkbox' name='CKTorol_$i' id='CKTorol_$i'  value='".$CikkKepek[$i]['KFile']."' $checked ></p>\n";           
                 $HTMLkod1 .= "</div>";
+                $HTMLkod1 .= "</fieldset> ";
                 $HTMLkod1 .= "</div>";  
             }
             // ============== A HTML KÓD ÖSSZEÁLLÍTÁSA =====================   
