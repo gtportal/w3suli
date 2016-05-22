@@ -27,7 +27,7 @@
 
 @media only screen and (max-width : 709px)  {
     #FoHeder {display: none;}
-    #FoNav {display:block; position:absolute; left:0px; top:0px;}
+    #Keret #FoNav {display:block; position:absolute; left:0px; top:0px; text-align: left; }
     #FoNavJobb {display: none;}
     #FoNavBal {height:40px; width:100%; display:block;}
     
@@ -108,7 +108,7 @@
     #divCikkekKulso, .divCikkKulso {width: 320px;}
 }
 
-@media only screen and (max-width : 1300px)  {  
+@media only screen and (max-width : 1400px)  {  
     div.divCikkKepN, div.divCikkKepN  img {max-width: 90% !important;} 
 }
 
