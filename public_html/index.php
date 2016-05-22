@@ -141,7 +141,7 @@
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_szerkeszt.css" />  
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_responsive.css" />
      <link href='https://fonts.googleapis.com/css?family=Istok+Web:700,400&amp;subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-     <link  rel="icon" type="image/png" href="img/ikonok/logo.png">
+     <link  rel="icon" type="image/png" href="img/ikonok/FavIcon/<?php echo $AlapAdatok['FavIcon']; ?>">
      <?php echo getHead(); ?>
      
 <script>     
@@ -170,8 +170,8 @@ function JSonLoad()
   <body onLoad='JSonLoad()'>	  
      <div id='Keret'> 
        <header id='FoHeder'>
-		   <a href="./" id="logoImgLink"><img src="img/ikonok/w3logo.png" alt="logó" title="Oldal neve" style="float:left;"></a>
-		   <a href="./" id="logoLink"><span>Nyílt forráskódú</span> <br><span>blog-motor projekt</span></a>
+		   <a href="./" id="logoImgLink"><img src="img/ikonok/HeaderImg/<?php echo $AlapAdatok['HeaderImg']; ?>" alt="logó" title="Oldal neve" style="float:left;"></a>
+		   <a href="./" id="logoLink"> <?php echo $AlapAdatok['HeaderStr']; ?></a>
 	   </header>
 	   <input name="chmenu" id="chmenu" value="chmenu" type="checkbox" style='display:none;'>
        <nav id='FoNav'> 
@@ -201,23 +201,30 @@ function JSonLoad()
      
      </div>
       
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <?php if (($AlapAdatok['GoogleKod']!='') && (strlen($AlapAdatok['GoogleKod'])>10)){
+    echo "    
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-76662941-1', 'auto');
-        ga('send', 'pageview');
+            ga('create', '".$AlapAdatok['GoogleKod']."', 'auto');
+            ga('send', 'pageview');
 
-    </script>
+        </script>";
+    //UA-76662941-1
+    } ?>
     
     
     <!-- Helyezd el ezt a címkét a head szakaszban vagy közvetlenül a záró body címke elé. -->
-    <script src="https://apis.google.com/js/platform.js" async defer>
+    <?php if ($AlapAdatok['GooglePlus']==1){ 
+    echo "       
+    <script src='https://apis.google.com/js/platform.js' async defer>
       {lang: 'hu'}
-    </script>
-
+    </script>";
+    } ?>
+    
   </body>
 
 </html>
