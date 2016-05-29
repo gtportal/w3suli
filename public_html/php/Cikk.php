@@ -80,7 +80,7 @@ function getUjCikkForm() {
         if (!isset($_POST['submitUjCikkForm']) || $_SESSION['ErrorStr'=='']){
         //Ha még nem lett elküldve vagy az új cikk már létrelött
             if (isset($_POST['UjCNev']))      {$UjCNev      = test_post($_POST['UjCNev']);}
-            if (isset($_POST['UjCTartalom'])) {$UjCTartalom = test_post($_POST['UjCTartalom']);}
+            if (isset($_POST['UjCTartalom'])) {$UjCTartalom = STR_post($_POST['UjCTartalom']);}
             if (isset($_POST['UjCLeiras']))   {$UjCLeiras   = test_post($_POST['UjCLeiras']);}
             if (isset($_POST['CLathatosag'])) {$CLathatosag = INT_post($_POST['CLathatosag']);} 
             if (isset($_POST['CPrioritas']))  {$CPrioritas  = INT_post($_POST['CPrioritas']);}
@@ -133,7 +133,7 @@ function getUjCikkForm() {
             $HTMLkod .= "</div>\n";
         } else {//Ha elküldték és hibás
             if (isset($_POST['UjCNev']))      {$UjCNev      = test_post($_POST['UjCNev']);}
-            if (isset($_POST['UjCTartalom'])) {$UjCTartalom = test_post($_POST['UjCTartalom']);}
+            if (isset($_POST['UjCTartalom'])) {$UjCTartalom = STR_post($_POST['UjCTartalom']);}
             if (isset($_POST['UjCLeiras']))   {$UjCLeiras   = test_post($_POST['UjCLeiras']);}
             if (isset($_POST['CLathatosag'])) {$CLathatosag = INT_post($_POST['CLathatosag']);} 
             if (isset($_POST['CPrioritas']))  {$CPrioritas  = INT_post($_POST['CPrioritas']);}
@@ -773,7 +773,7 @@ function getKezdolapCikkelozetesekHTML() {
            $CTartalom  = $row['CTartalom'];
            $CLeiras    = $row['CLeiras'];
            $Horgony    = "#".getTXTtoURL($row['CNev']);
-           $CikkLink   = "<a class='Jobbra' href='?f0=".$row['OUrl'].$Horgony."'>".$row['CNev']." részletesen...</a>";
+           $CikkLink   = "<a class='Jobbra CikkelozetesLink' href='?f0=".$row['OUrl'].$Horgony."'>".$row['CNev']." részletesen...</a>";
            if ($OImgDir!='') {
                $KepUtvonal = "img/oldalak/".$OImgDir."/";
            } else {
@@ -781,15 +781,19 @@ function getKezdolapCikkelozetesekHTML() {
            }
            $HTMLimg    = getElsoKepHTML($Cid,$KepUtvonal);  
            if ($HTMLimg==''){ $HTMLimg="<img src='$AlapKep'  class = 'imgOE' alt=''>";}
-           $HTMLkod   .= "<div class ='divOElozetesKulso'>\n";          
+           $HTMLkod   .= "<div class ='divCikkElozetesKulso'>\n";          
            $HTMLkod   .= "<div class = 'divOElozetesKep'>$HTMLimg</div>\n";   
            $HTMLkod   .= "<div class='divOElozetesTartalom'>\n";
            $HTMLkod   .= "<h3>".$CNev."</h3>\n";
            if ($CLeiras!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$CLeiras."</div>\n";}    
            $HTMLkod .= "</div>\n";
-           $HTMLkod .= $CikkLink;
-           $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p>\n";           
-           $HTMLkod .= "<p class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </p>\n";
+          // $HTMLkod .= $CikkLink;
+          // $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p>\n";           
+          // $HTMLkod .= "<p class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </p>\n";
+           $HTMLkod .= "<div class='divClear'></div>\n"; 
+           $HTMLkod .= "<div class='divCszerzoNev'> <span class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</span><br>\n";           
+           $HTMLkod .= "<span class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </span></div>\n";
+           $HTMLkod .= "<div class='divCikkLink'> $CikkLink </div>";
            $HTMLkod .= "</div>\n";    
         }
     }
@@ -819,7 +823,7 @@ function getSzulooldalCikkelozetesekHTML() {
            $CTartalom  = $row['CTartalom'];
            $CLeiras    = $row['CLeiras'];
            $Horgony    = "#".getTXTtoURL($row['CNev']);
-           $CikkLink   = "<a class='OElink' href='?f0=".$row['OUrl'].$Horgony."'>".$row['CNev']." részletesen...</a>";
+           $CikkLink   = "<a class='OElink CikkelozetesLink' href='?f0=".$row['OUrl'].$Horgony."'>".$row['CNev']." részletesen...</a>";
            if ($OImgDir!='') {
                $KepUtvonal = "img/oldalak/".$OImgDir."/";
            } else {

@@ -19,14 +19,14 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     $i = 0;
     while ($row = mysqli_fetch_array($result)){
         $Src      = $KepUtvonal.$row['KFile'];
-        $KNev     = $row['KNev'];
+        $KNev     = $row['KNev']; 
         $KepMeret = '';
         if ($row['KSzelesseg']>0)   {$KepMeret = "style='max-width:".$row['KSzelesseg']."px;'";} else {
            if ($row['KMagassag']>0) {$KepMeret = "style='max-height:".$row['KMagassag']."px;'";}             
         }
         $KepStilus= " KepStyle".$row['KStilus']." ";
         $imgkod   = "<div class = 'divCikkKepN $KepStilus' $KepMeret >";
-        $imgkod  .= "<img src='$Src'  class = 'imgCikkKepN $KepStilus' alt='$KNev' $KepMeret>";
+        $imgkod  .= "<img src='$Src'  class = 'imgCikkKepN $KepStilus' alt='$KNev' $KepMeret>"; //echo "<h1>KFile ".$row['KFile']."Src $Src</h1>";
         $imgkod  .= "</div>\n";
         $HTMLHirKepTMB[$i] = $imgkod;
         $i++;
@@ -59,7 +59,8 @@ function getCikkekHTML() {
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         while ($row = mysqli_fetch_array($result)){     
                 $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
-                $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
+                
+                $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére   
                 $CTartalom = SzintaxisCsere($CTartalom);
                 $HTMLkod .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
                 
@@ -77,7 +78,8 @@ function getCikkekHTML() {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
                     $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
-                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
+                   // $CTartalom = SzintaxisCsere($CTartalom);
+                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére     
                     $CTartalom = SzintaxisCsere($CTartalom);
                     $HTMLkod  .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
                    // $HTMLkod  .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
@@ -93,6 +95,7 @@ function getCikkekHTML() {
             while ($row = mysqli_fetch_array($result)){
                 if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) { 
                     $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
+                   // $CTartalom = SzintaxisCsere($CTartalom);
                     $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                     $CTartalom = SzintaxisCsere($CTartalom);
                     $HTMLkod .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";

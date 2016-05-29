@@ -1,5 +1,7 @@
 /* Author     : Tóth-Kovács Gellért */
 
+h1, h2, h3 {color:royalblue;}
+
 a#logoLink        {color:#222;}
 a#logoLink:hover  {color:#222;}
 a#logoLink:active {color:#222;}
@@ -27,7 +29,7 @@ body, html{background-color:#E9EAED; font-family: 'Istok Web', sans-serif;}
 
 #KiegeszitoInfo{background-color:#E9EAED; width:300px; margin-right:-300px; float:right;}
 
-#Tartalom
+#Tartalom_
 {background-color:#E9EAED;
     border-right:2px solid #4262A9;
     border-left:2px solid #4262A9; 
@@ -64,7 +66,7 @@ footer {background-color:#5C77B5; line-height:15px; font-weight:bold; padding-to
     font-style:normal;
     font-size:20px;
     
-    color:#222;
+    color:#000;
     font-family: "Istok Web",sans-serif;
 }
 
@@ -95,8 +97,8 @@ footer {background-color:#5C77B5; line-height:15px; font-weight:bold; padding-to
 /*---- Első szint ----*/
 
 #HelyiNav  li a::before{content: " » ";}
-#HelyiNav li a { display: inline-block; background-color:#5C77B5; padding:8px 5px 0px 5px; color:#fff;
-	width:100%; height: 40px; border-radius: 5px  5px 5px 5px; border:1px solid #000; } 
+#HelyiNav li a { display: inline-block; background-color:#5C77B5; padding:8px 5px 8px 5px; color:#fff;
+	width:100%; height: auto; border-radius: 5px  5px 5px 5px; border:1px solid #000; } 
 
 #HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#FFF; text-decoration:none; }
 #HelyiNav  li a:hover  {color:black; text-decoration:none; margin-left:5px; color:#ddd;} 
@@ -201,10 +203,9 @@ width: calc(100% - 10px);}
 
 .divCikkKulso {
     border: 1px solid black;
-    background-color:white;
-    width:700px;
+    background-color:white;    
 }
-
+.divCikkElozetesKulso a,
 #divOElozetesekKulso a,
 #divOTartalom .Ul1a a {color:royalblue;}
 
@@ -215,19 +216,6 @@ textarea{background-color:#CAD0E2;}
 button{background-color:#CAD0E2;}
 
 
-/*-----------------------------------------------------------------------------*/
-/*-----------------------------------------------------------------------------*/
-/*---------------------- FELBONTÁSHOZ KÖTÖTT FORMÁZÁSOK -----------------------*/
-/*-----------------------------------------------------------------------------*/
-/*-----------------------------------------------------------------------------*/
-
-
-@media screen and (max-width:1340px) 
-{
-    .divCikkKulso {
-        width:500px;
-    }
-}
 
 #divOTartalom #divFormkod, #divOTartalom #labelUjOldalForm, 
 #divOTartalom #labelOldalForm, #divOTartalom #labelOldalTorolForm, 
@@ -242,3 +230,21 @@ button{background-color:#CAD0E2;}
 #divOTartalom #labelchFormkodCikk,
 #divOTartalom #divFormkodCikk
 {background-color:#5C77B5;}
+
+#FoHeder #logoLink {color:#4262A9; text-shadow:1px 1px 0px #ffffff, 2px 1px 3px #5C77B5;}
+
+#logoLink span:last-of-type {
+    vertical-align: sub;
+}
+
+#logoImgLink img {box-shadow: 5px 5px 10px 0px #444444;}
+#HelyiNav .Ul1 {
+    margin: 0 0 0 1px;
+}
+
+.divCikkElozetesKulso, .divCikkKulso, .divOElozetesKulso {
+                      border: 1px solid rgba(66, 98, 169, 0.1);
+                      border-right: 1px solid rgba(66, 98, 169, 0.5);
+                      border-bottom: 1px solid rgba(66, 98, 169, 0.5);}
+
+.divOElozetesKep {border-right: 2px solid rgba(66, 98, 169, 0.8);}

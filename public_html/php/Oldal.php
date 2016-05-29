@@ -560,7 +560,7 @@
           //Az oldalnév ellenőrzése  
           if (isset($_POST['ONev'])) {
               $ONev      = test_post($_POST['ONev']);
-              $OUrl      = getTXTtoURL($ONev);
+              $OUrl      = getTXTtoURL($ONev);          
               $SelectStr   = "SELECT id FROM Oldalak WHERE OUrl='$OUrl' LIMIT 1"; 
               $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUF 01 ");
               $rowDB       = mysqli_num_rows($result); 
@@ -843,7 +843,7 @@ function setOldalTorol() {
         
         // ----------  Speciális tartalom kiíratása  ----------------------------
         $HTMLkod  .= "<div id='divOTartalom'>\n";  
-        //$HTMLkod  .= "<h1>".$Aktoldal['OTipus']."</h1>\n";
+        //$HTMLkod  .= "<h1> OTipus:".$Aktoldal['OTipus']."</h1>\n";
         switch ($Aktoldal['OTipus']) {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap                    
                         $HTMLkod  .= $HTMLFormkod;

@@ -136,26 +136,38 @@ function getFoMenuForm() {
 }
 
 function getFoMenuHTML() {
-  global $MySqliLink;
-  $FoMenuLink = array();
-  $HTMLkod   = '';
- 
-  // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
-  // Összeállítjuk a Főmenű Linkjeinek listáját
-  // <a href='LURL' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
-   $SelectStr = "SELECT * FROM FoMenuLink WHERE LPrioritas>0 ORDER BY LPrioritas DESC";
-    $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 02");
-
+    global $MySqliLink;
+    $FoMenuLink = array();
+    $HTMLkod    = ''; 
+    // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
+    // Összeállítjuk a Főmenű Linkjeinek listáját
+    // <a href='LURL' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
+    $SelectStr  = "SELECT * FROM FoMenuLink WHERE LPrioritas>0 ORDER BY LPrioritas DESC";
+    $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 02");
     while ($row = mysqli_fetch_array($result)){
         if ($row['LURL']){
-            $HTMLkod .= "<a href='".$row['LURL']."' class ='MPontLink'>".$row['LNev']."</a>\n";
-            
+            $HTMLkod .= "<a href='".$row['LURL']."' class ='MPontLink'>".$row['LNev']."</a>\n";            
         }
-    }         
-    
+    }      
   return $HTMLkod;	
 }
 
-
+function getFoMenuPLHTML() {
+    global $MySqliLink;
+    $FoMenuLink = array();
+    $HTMLkod    = ''; 
+    // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
+    // Összeállítjuk a Főmenű Linkjeinek listáját
+    // <a href='LURL' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
+    $SelectStr  = "SELECT * FROM FoMenuLink WHERE LPrioritas>0 ORDER BY LPrioritas DESC";
+    $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 02");
+    while ($row = mysqli_fetch_array($result)){
+        if ($row['LURL']){
+            $HTMLkod .= "<li class='M1'><a href='".$row['LURL']."' class ='MPontLink'>".$row['LNev']."</a></li>\n";            
+        }
+    }     
+    if ($HTMLkod!='') { $HTMLkod="<ul class='Ul1' id='FoLinkHMenu'>$HTMLkod</ul>"; }
+    return $HTMLkod;	
+}
 
 ?>

@@ -41,7 +41,7 @@
     }
 
     function getTXTtoURL($txt) {
-        $arr = array(' ' => '_', ',' => '_',  ';' => '',  '"' => '',  "'" => '',  ':' => '',  '  ' => ' ', 'á' => 'a', 'Á' => 'A', 
+        $arr = array(' ' => '_', ',' => '_',  ';' => '',  '"' => '',  "'" => '',  ':' => '',  '  ' => '__', '   ' => '___', 'á' => 'a', 'Á' => 'A', 
                'é' => 'e', 'É' => 'e', 'ó' => 'o', 'Ó' => 'O', 'í' => 'i', 'Í' => 'I', 'Ú' => 'U', 'ú' => 'u', 'Ö' => 'O', 
                'ö' => 'o', 'Ő' => 'O', 'ő' => 'o', 'Ü' => 'U', 'ü' => 'u', 'Ű' => 'U', 'ű' => 'u', '.' => '_', "\x5C" => "", 
                "/" => "", '|' => '', '?' => '', '*' => '', '\\' => '', ':' => '', '<' => '', '<' => '>');  
@@ -64,7 +64,8 @@
    function test_post($data) {
      global $MySqliLink;
      $data = trim($data);
-     $arr = array( "'" => "&apos;", '"' => "&quot;", '”' => "&quot;", ":" => "&#58;", "<" => "&lt;", ">" => "&gt;",   "=" => "&#61;", "\x5C" => "" );
+     $arr = array( "'" => "&apos;", '"' => "&quot;", '”' => "&quot;", ":" => "&#58;", "  " => " ", "   " => " ",
+                   "<" => "&lt;", ">" => "&gt;",   "=" => "&#61;", "\x5C" => "" );
      $data  = strtr($data, $arr);
      $data = mysqli_real_escape_string($MySqliLink, $data);
    return $data;
@@ -108,7 +109,6 @@
 function SzintaxisCsere($str){ 
 
  // echo $str1;
-
   $str1 = ListaCsere($str)."\n\n";
   $str1 = TablaCserePlusz($str1)."\n\n";
 
@@ -319,11 +319,15 @@ function ItalicCsere($str){
     $EloStr = $strtomb[$i-1]; $EloHossz = strlen($EloStr); if ($EloHossz>0) {$EloUtolso = $EloStr[$EloHossz-1];} else {$EloUtolso = '';}
 //Első tag
   if ($ItalicSzint == 0 ) {
-  if (($AktStr>'') && ($i > 0) && ($AktStr[0]!==' ') && 
-      (($KovStr[0]==' ') || ($KovStr[0]=='*') || ($KovStr[0]=='^') || ($KovStr[0]=='~')  || ($KovStr[0]==',') || ($KovStr[0]=='<') || ($KovStr[0]=="\x0D") ||  ($KovStr[0]=="\x0A") ||  ($KovHossz == 0)) && 
-       (($EloUtolso == ' ') || ($EloUtolso == '*') || ($EloUtolso == '^') || ($EloUtolso == '~')  || ($EloUtolso == ',')  ||  ($EloUtolso == '>')  || 
-        ($EloUtolso == "\x0D")  || ($EloUtolso == "\x0A") || ($EloHossz == 0))) 
-        {$str1.='<i>'.$AktStr; $ItalicSzint = 1;}  else { if ($AktStr>'') { if ($i > 0) {$str1.='_'.$AktStr;} else  {$str1.=$AktStr;} }}
+    if (($AktStr>'') && ($i > 0) && ($AktStr[0]!==' ') && 
+        (($KovStr[0]==' ') || ($KovStr[0]=='*') || ($KovStr[0]=='^') || ($KovStr[0]=='~')  || ($KovStr[0]==',') || ($KovStr[0]=='<') || ($KovStr[0]=="\x0D") ||  ($KovStr[0]=="\x0A") ||  ($KovHossz == 0)) && 
+         (($EloUtolso == ' ') || ($EloUtolso == '*') || ($EloUtolso == '^') || ($EloUtolso == '~')  || ($EloUtolso == ',')  ||  ($EloUtolso == '>')  || 
+          ($EloUtolso == "\x0D")  || ($EloUtolso == "\x0A") || ($EloHossz == 0))) 
+          {$str1.='<i>'.$AktStr; $ItalicSzint = 1;}  
+    else { 
+             // if ($AktStr>'') { if ($i > 0) {$str1.='_'.$AktStr;} else  {$str1.=$AktStr;} }
+               if ($i > 0) {$str1.='_'.$AktStr;} else  {$str1.=$AktStr;} 
+         }
    } else {
 //Második tag
      if ((($AktStr>'') && (($AktStr[0] ==' ') || ($AktStr[0]=='<')  || ($AktStr[0] =='*')  || ($AktStr[0] =='^') || ($AktStr[0] =='~')  || ($AktStr[0] ==',')  || ($AktStr[0] =="\x0D") || ($AktStr[0] =="\x0A") ) && 

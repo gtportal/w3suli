@@ -59,6 +59,8 @@
         }
         if ($HTMLkod2 != '') {$HTMLkod1 .= $HTMLkod2;}
         
+        $HTMLkod1 .= getFoMenuPLHTML();
+        
         // ================ KATEGÓRIÁK ÉS HÍROLDALAK TÖBBSZINTŰ LISTÁJA ============================= 
    // ================ KATEGÓRIÁK ÉS HÍROLDALAK TÖBBSZINTŰ LISTÁJA ============================= 
         $HTMLkod      = '';
