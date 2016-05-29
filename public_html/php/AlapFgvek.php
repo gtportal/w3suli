@@ -309,21 +309,23 @@ function SuperCsere($str,$compStr,$CsereTagEleje,$CsereTagVege){
 // A nyitó előtt kötelező, a záró után nem lehet szóköz 
 //=========================================================================================================================
 function ItalicCsere($str){   
-  $strtomb=explode('_',$str);  
-  $TombHossz=Count($strtomb);
+  $strtomb     = explode('_',$str);  
+  $TombHossz   = Count($strtomb);
   $ItalicSzint = 0;
-  $str1 = $strtomb[0];
+  $str1        = $strtomb[0];
   for ($i=1;$i<$TombHossz-1;$i++) {
     $AktStr = $strtomb[$i];   $AktHossz = strlen($AktStr); if ($AktHossz>0) {$AktUtolso = $AktStr[$AktHossz-1];} else {$AktUtolso = '';}  
     $KovStr = $strtomb[$i+1]; $KovHossz = strlen($KovStr); if ($KovHossz>0) {$KovUtolso = $KovStr[$KovHossz-1];} else {$KovUtolso = '';} 
     $EloStr = $strtomb[$i-1]; $EloHossz = strlen($EloStr); if ($EloHossz>0) {$EloUtolso = $EloStr[$EloHossz-1];} else {$EloUtolso = '';}
+    $Dupla_ = 0;
+    if ($i>1) {if ((strlen($EloStr)==0)&&(strlen($strtomb[$i-2]))) {$Dupla_ = 1;} }
 //Első tag
   if ($ItalicSzint == 0 ) {
-    if (($AktStr>'') && ($i > 0) && ($AktStr[0]!==' ') && 
+    if (($AktStr>'') && ($i > 0) && ($AktStr[0]!==' ') && ($Dupla_ == 0) &&
         (($KovStr[0]==' ') || ($KovStr[0]=='*') || ($KovStr[0]=='^') || ($KovStr[0]=='~')  || ($KovStr[0]==',') || ($KovStr[0]=='<') || ($KovStr[0]=="\x0D") ||  ($KovStr[0]=="\x0A") ||  ($KovHossz == 0)) && 
          (($EloUtolso == ' ') || ($EloUtolso == '*') || ($EloUtolso == '^') || ($EloUtolso == '~')  || ($EloUtolso == ',')  ||  ($EloUtolso == '>')  || 
           ($EloUtolso == "\x0D")  || ($EloUtolso == "\x0A") || ($EloHossz == 0))) 
-          {$str1.='<i>'.$AktStr; $ItalicSzint = 1;}  
+          {$str1.='<i>'.$AktStr; $ItalicSzint = 1; }  
     else { 
              // if ($AktStr>'') { if ($i > 0) {$str1.='_'.$AktStr;} else  {$str1.=$AktStr;} }
                if ($i > 0) {$str1.='_'.$AktStr;} else  {$str1.=$AktStr;} 

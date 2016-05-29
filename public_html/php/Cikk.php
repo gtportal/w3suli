@@ -613,7 +613,7 @@ function setCikk() {
 
         if ($ErrorStr=='') {
             //==========Névváltozás ellenőrzése===========        
-            $SelectStr = "SELECT CNev From Cikkek WHERE id=$id";                         echo "<h1>$SZoElozetes</h1>";
+            $SelectStr = "SELECT CNev From Cikkek WHERE id=$id";                       //  echo "<h1>$SZoElozetes</h1>";
             $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CKnv 02345");
             $row       = mysqli_fetch_array($result);  mysql_free_result($result);
             $RCNev     = $row['CNev'];
