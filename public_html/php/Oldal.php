@@ -63,7 +63,7 @@
     $NagyszuloOldal['OImg']         = '';     
     
     function getOldalData($OUrl) {
-        global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $MySqliLink;
+        global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $UkSzuloId, $MySqliLink;
         // ============== ADATKEZELÉS - ADATOK BETOLVASÁSA =====================
         
         
@@ -141,6 +141,18 @@
                 if ($row['OSzuloId']>1) {$DedSzuloId = $row['OSzuloId'];}
             }
         }
+        // Extra 5. szint kezelése
+        if ($DedSzuloId>1) {            
+            $SelectStr   = "SELECT OSzuloId FROM Oldalak WHERE id=".$DedSzuloId." LIMIT 1"; 
+            $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 01x ");
+            $rowDB       = mysqli_num_rows($result); 
+            if ($rowDB > 0) {
+                $row    = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
+                if ($row['OSzuloId']>1) {$UkSzuloId = $row['OSzuloId'];}
+            }
+        }        
+        
+        
         if($_SESSION['ElozoOldalId'] != $Aktoldal['id']){$_SESSION['SzerkCikk'.'id']=0; $_SESSION['SzerkCikk'.'Oid']=0; }
         //Ha nem szerkesztő oldal, akkor eltároljuk ez lesz az ElozoOldalId
         //Egy szerkesztés, be- vagy kijelentkezés után ide térünk vissza
@@ -797,7 +809,7 @@ function setOldalTorol() {
 
 
     function getOldalHTML() {
-      global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $AlapAdatok, $MySqliLink;  
+      global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $AlapAdatok, $MySqliLink, $UkSzuloId;  
       $HTMLkod   = ''; //style='display:none;
       $HTMLFormkod   = '';
       if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!! 
@@ -812,7 +824,7 @@ function setOldalTorol() {
         $HTMLFormkod  .= "  <label for='chFormkod'    class='chLabel'    id='labelchFormkod'>Oldal szerkesztése</label>\n";  
         $HTMLFormkod  .= "<div id='divFormkod'>\n";      
         // ================ A FORMOK MEGJELENÍTÉSÉT SZABÁLYZÓ INPUT ELEMEK =============================        
-        if ($DedSzuloId['id']==0) { //5. szintű oldal már nem hozható 
+        if ($UkSzuloId==0) { //5. szintű oldal már nem hozható 
           if(isset($_POST['submitUjOldalForm'])) {$checked = " checked ";} else {$checked = "";} 
           $HTMLFormkod  .= "  <input name='chOldalForm'   id='chUjOldalForm' value='chUjOldalForm' type='radio' $checked>\n";
           $HTMLFormkod  .= "  <label for='chUjOldalForm'  class='chLabel'    id='labelUjOldalForm'>Új oldal</label>\n";
@@ -831,7 +843,7 @@ function setOldalTorol() {
         $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalModeratorForm' value='chOldalModeratorForm'  type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalModeratorForm' class='chLabel'     id='labelOldalModeratorForm'>Oldal moderátorainak módosítása</label>\n \n";
         // ================ AZ OLDAL MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================
-        if ($DedSzuloId['id']==0) {$HTMLFormkod  .= getUjOldalForm();} //5. szintű oldal már nem hozható létre
+        if ($UkSzuloId==0) {$HTMLFormkod  .= getUjOldalForm();} //5. szintű oldal már nem hozható létre
         $HTMLFormkod  .= getOldalForm();
         $HTMLFormkod  .= getOldalTorolForm();
         $HTMLFormkod  .= getOldalKepForm();
@@ -924,7 +936,7 @@ function setOldalTorol() {
                           $HTMLkod  .= getFCsoportForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}      
                    break;  
-          case 21:  $HTMLkod  .= "<h1>Oldaltérkep 1</h1> \n";
+          case 21:  $HTMLkod  .= "<h1>Oldaltérkep</h1> \n";
                     $HTMLkod  .= getOldalterkepHTML();
                    break;        
           case 22:  $HTMLkod  .= "<h1>Archívum</h1> \n";

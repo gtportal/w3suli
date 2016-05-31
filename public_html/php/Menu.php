@@ -52,7 +52,7 @@
             $HTMLkod2 .= "<ul class='Ul1'>\n";
             $HTMLkod2 .= "<li class='M1'><div>Alapinformációk</div></li>\n";              
             $HTMLkod2 .= "<li class='M1'><a href='?f0=alapbeallitasok'>Alapbeállítások</a></li>\n";
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=oldalterkep'>Oldaltérkép</a></li>\n"; 
+             
             $HTMLkod2 .= "</ul>\n"; 
             
             $HTMLkod2 .= "<div class='divMenuInfo1'>Tartalom</div>\n";
@@ -82,6 +82,7 @@
             }
         } 
         $HTMLkod .= "<li class='M1'><a href='?f0=Archivum'>Archívum</a></li>\n";
+        $HTMLkod .= "<li class='M1'><a href='?f0=oldalterkep'>Oldaltérkép</a></li>\n"; 
         if ($HTMLkod > '') {$HTMLkod = "<ul class='Ul1'>\n $HTMLkod  </ul>\n";}
         mysqli_free_result($result);          
    
