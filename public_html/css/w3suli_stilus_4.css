@@ -96,3 +96,8 @@ footer {color:#ddd; border: 1px solid #161836; background-color:#001;}
 #formUjCikkForm, #divCikkForm, #divCikkTorolForm, #divCikkKepForm, divCikkKepForm 
 
 {background-color:#eee; color:#000;}
+
+#Tartalom .divCikkTartalom a,
+#Tartalom .divCikkTartalom a:link,
+#Tartalom .divCikkTartalom a:hover,
+#Tartalom .divCikkTartalom a:active {color:#2c2f68;}

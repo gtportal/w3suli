@@ -113,7 +113,7 @@ function getFoMenuForm() {
 
             //Kiegészítő tartalom prioritása
             $HTMLkod .= "<p class='pModFoMenuPrioritas'><label for='ModFoMenuPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
-            $HTMLkod .= "<input type='number' name='ModFoMenuPrioritas_$i' id='ModFoMenuPrioritas_$i' min='0' max='9' step='1' value='$LPrioritas'></p>\n";  
+            $HTMLkod .= "<input type='number' name='ModFoMenuPrioritas_$i' id='ModFoMenuPrioritas_$i' min='0' max='10' step='1' value='$LPrioritas'></p>\n";  
             
             //Törlésre jelölés
             $HTMLkod .= "<p class='pTorolFoMenu'><label for='pTorolFoMenu_$i' class='label_1'>TÖRLÉS:</label>\n ";

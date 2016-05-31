@@ -1,6 +1,9 @@
 /* Author     : Tóth-Kovács Gellért */
 
-h1, h2, h3 {color:royalblue;}
+h1, h2, h3,
+a {color:royalblue;}
+
+
 
 a#logoLink        {color:#222;}
 a#logoLink:hover  {color:#222;}
