@@ -6,6 +6,7 @@
   $SzuloOldal     = array();
   $NagyszuloOldal = array();
   $DedSzuloId     = 0;
+  $UkSzuloId      = 0;
 
   require_once 'php/AlapFgvek.php';
   //MUNKAMENET INDÍTÁSA
