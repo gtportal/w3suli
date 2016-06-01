@@ -870,7 +870,8 @@ function setOldalTorol() {
           case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0)
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
-                        $HTMLkod  .= $HTMLFormkod;
+                       // getKatLapinfo(4);
+                        $HTMLkod  .= $HTMLFormkod;                        
                         $HTMLkod  .= "<main>";                        
                         $HTMLkod  .= getCikkekForm();
                         

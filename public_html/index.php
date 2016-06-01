@@ -36,14 +36,18 @@
       $_SESSION['SzerkCikk'.'id']          = 0;
       $_SESSION['SzerkCikk'.'Oid']         = 0;
       
-      $_SESSION['LapCikk'.'CT']            = 0;
-      $_SESSION['LapCikk'.'Nev']           = '';
-      $_SESSION['LapKat'.'CT']             = 0;
+      $_SESSION['LapozCikk'.'CT']          = 0;
+      $_SESSION['LapozCikk'.'OUrl']        = '';
+      $_SESSION['LapozKat'.'CT']           = 0;
+      $_SESSION['LapozKat'.'OUrl']         = '';
   }  
   
   $_SESSION['ErrorStr']   = '';
   if ($_SESSION['AktFelhasznalo'.'FSzint']==3) {$_SESSION['AktFelhasznalo'.'FSzint']=2;} // A moderátor oldalanként változik  
-  if (isset($_GET['f0'])) { $oURL = $_GET['f0'];} else { $oURL = '';}  
+  //if (isset($_GET['f0']))  { $oURL = $_GET['f0'];}  else { $oURL = '';}  
+  if (isset($_GET['f0']))  { $oURL = getTXTtoURL($_GET['f0']);}  else { $oURL = '';}  
+  if (isset($_GET['lap'])) { $oLap = INT_post($_GET['lap']);}    else { $oLap = 0;} 
+  if (isset($_GET['cim'])) { $oCim = getTXTtoURL($_GET['cim']);} else { $oCim = '';} 
   
   //ADATBÁZIS MEGNYITÁSA
   require_once("init/db/start.php");
@@ -68,6 +72,7 @@
     $_SESSION['ErrorStr']   .= setFelhasznaloTorol();    
   }
   require_once("php/Oldal.php");
+  require_once("php/Lapozas.php");
   require_once("php/FelhasznaloCsoport.php");  
   require_once("php/FCsoportTagok.php");
   require_once 'php/KiegeszitoTartalom.php';
