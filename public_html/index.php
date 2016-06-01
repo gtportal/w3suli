@@ -35,6 +35,10 @@
       
       $_SESSION['SzerkCikk'.'id']          = 0;
       $_SESSION['SzerkCikk'.'Oid']         = 0;
+      
+      $_SESSION['LapCikk'.'CT']            = 0;
+      $_SESSION['LapCikk'.'Nev']           = '';
+      $_SESSION['LapKat'.'CT']             = 0;
   }  
   
   $_SESSION['ErrorStr']   = '';
@@ -42,10 +46,12 @@
   if (isset($_GET['f0'])) { $oURL = $_GET['f0'];} else { $oURL = '';}  
   
   //ADATBÁZIS MEGNYITÁSA
-  require_once("php/DB/Adatbazis.php");
-  require_once("php/Init.php");  
+  require_once("init/db/start.php");
+  //require_once("php/DB/Adatbazis.php");
+  //require_once("php/Init.php");  
   //Alapadatok lekérdezése
   require_once("php/Alapbeallitasok.php");
+  
   $_SESSION['ErrorStr']   .= setAlapbeallitasok();  
   $AlapAdatok = getAlapbeallitasok();
   
@@ -137,6 +143,7 @@
 <html lang="hu">
   <head> 
      <meta charset="UTF-8">
+     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_alap.css" />  
      <link type="text/css" rel="stylesheet" media="all"   href="css/w3suli_szerkeszt.css" />  
@@ -189,7 +196,7 @@ function JSonLoad()
        </nav>
        <div id='BelsoKeret'>
 		  <nav id='HelyiNav'>
-                     <?php echo getMenuHTML(); ?>		  
+                     <?php echo getMenuHTML()?>		  
 		  </nav>		   
 		  <div id='Tartalom'>
                         <?php echo getMorzsaHTML(); ?>

@@ -20,9 +20,9 @@
 <body>
 
   <div id='Keret'>
-    <div id='FoHeder'>
+    <div id='FoHeder' style='background-color:#fff;'>
       <img src="img/ikonok/HeaderImg/w3logo.png" alt="W3Suli logo" id='webaruhazlogo' style="float:left;" height="95" >
-      <h1> blogmotor</h1>
+      <h1> W3Suli blogmotor telepítő <br> V1.01</h1>
     </div>
     <?php 
       getTartalomHTML();   

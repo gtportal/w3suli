@@ -114,20 +114,22 @@
 #chFormkodCikk:checked ~ #divCikkValaszt   {display: block;}
 
 #formCikkKepForm {width:700px;}
-#divCikkKepForm .Kepszerk img {display:block; float:left; max-height:100px; max-width: 100px; margin:5px;}
-#divCikkKepForm .Kepszerk     {display:block; float:left;  margin:2px; width:700px; height: 200px; }
-#divCikkKepForm .Kepszerk  p  {display:block; float:left; margin:5px;}
+#divCikkKepForm .Kepszerk img {display:block; float:left; max-height:100px; max-width: 100px; margin:4px 5px 4px 1px;}
+#divCikkKepForm .Kepszerk     {display:block; float:left;  margin:2px; width:700px; height: 140px; }
+#divCikkKepForm .Kepszerk  p  {display:block; float:left; margin:1px;}
 #divCikkKepForm .Kepszerk  p.pKSzelesseg  {clear:left;}
 
 
 #divCikkKepForm .Kepszerk input[type="number"] {width:65px;}
 #divCikkKepForm .Kepszerk input[type="text"] {width:300px;}
 
+#divCikkKepForm .Kepszerk p.pKSorszam{display:none;}
+
 .Kepszerk img {display:block; float:left;}
-.Kepszerk div {display:block; float:left; width:560px;}
+.Kepszerk div {display:block; float:left; width:545px;}
 .Kepszerk h3 {display:block; }
 .pKTorol {color:#f00;}
-
+.Kepszerk fieldset {padding: 5px; font-size: 0.9em;}
 
 #labelchFormkodCikk {display:block; margin-bottom: 5px; padding:0 5px 10px 5px;}
 #labelchFormkodCikk:before{content:url('../img/ikonok/modify28.png');position:relative;top:7px;}

@@ -37,14 +37,14 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
   if (isset($_POST['FJelszo1'])  && ($_POST['FJelszo1'] > '')){$FJelszo1 = STR_post($_POST['FJelszo1']);} else {$ErrStr.='ERR07 ';}
   if ($_POST['FJelszo'] != $_POST['FJelszo1']) {$ErrStr.='ERR07 ';}  
 
-  $FJelszo = md5($FJelszo);
+  $FJelszoMD5 = md5($FJelszo);
 
   if ($ErrStr>'')  {$Err=1;} else {
     $TartalomStr   = '
-                      <?php echo "FSZINT: ".$_SESSION["AktFelhasznalo"."FSzint"];
+                      <?php 
                         if ($_SESSION["AktFelhasznalo"."FSzint"]>0) {
                           $MySqliLink'." = mysqli_connect('localhost', '$DBfNev', '$DBJelszo', '$DBNev'); 
-                          if (!".'$MySqliLink'.") { die('AB hiba 123'); \n}
+                          if (!".'$MySqliLink'.") { die('AB hiba 123'); }
                         }    
                       ?>\n";
   } 
@@ -59,7 +59,7 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
   // A fájl meghívásával megnyitjuk az adatbázist
   require_once("init/db/start.php"); 
 
-  $HTMLkod .= "<div id='Visszajelzes'>";
+  $HTMLkod .= "<div id='Visszajelzes' style='float:left; width:300px; background-color:#fff;margin-right:6px;'>";
   
   if ($Err==0) {require_once("setup/w3suli_DB_init.php"); }
     
@@ -80,7 +80,7 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
 
 
   // Az adminisztrátor adatainak felvétele
-  $InsertIntoStr = "INSERT INTO Felhasznalok VALUES ('', '$FNev','$FFNev','$FJelszo',' ',5,'Webmester','')";
+  $InsertIntoStr = "INSERT INTO Felhasznalok VALUES ('', '$FNev','$FFNev','$FJelszoMD5',' ',5,'Webmester','')";
   if (!mysqli_query($MySqliLink,$InsertIntoStr))  { 
     $Err=1;  $ErrStr .= "MySqli hiba ";    
   }
@@ -97,9 +97,11 @@ echo "<h1>$ErrStr</h1>";
 
 if ($_POST['submit1'] != 'Mehet') {$HTMLkod .= "<h1>A W3Suli telepítése</h1>";} 
 else {
-  if ($Err == 0) {$HTMLkod .= "<h1>A W3Suli Blogmotor telepítése megtörtént</h1> 
-    <strong>Ne feledkezzen meg a setup.php törléséről! </strong><br> Az adotok módosítása esetén a 'Mehet' gombra kattintva újratelepítheti a szoftvert.";} 
-  else {$HTMLkod .= "<h1>A telepítés során hiba történt</h1> ";} 
+  if ($Err == 0) {$HTMLkod .= "<h1 style='color:#080;'>A W3Suli Blogmotor telepítése megtörtént</h1> 
+	  
+	  <span style='color:#080;'>Dátum: ".date("Y.m.d.")."Idő:   ".date("H.i.s.")."</span><br><br>
+    <strong>Ne feledkezzen meg a setup.php törléséről! </strong>";} 
+  else {$HTMLkod .= "<h1 style='color:#800;'>A telepítés során hiba történt</h1> ";} 
 }
 
 $HTMLkod .= "<div id='SetupFormDiv'><form method='post' action='#'>";
@@ -120,32 +122,33 @@ $HTMLkod .= "<p><label for='DBJelszo' class='label_1'>Az adatbázis jelszava</la
 $HTMLkod .= "<p><label for='DBJelszo1' class='label_1'>Az adatbázis jelszava</label> 
        <input type='password' name='DBJelszo1' id='DBJelszo1' placeholder='Az adatbázis jelszó újra' value='$DBJelszo1' $ErrClass>
        <span>*</span></p>";
-$HTMLkod .= "<small>A W3Suli Blogmotor telepítéséhez egy MySQL adatbázisra van szükség, amelyet a tárhely adminisztrátora hozhat létre. <i>Az adatbázis alapadatai később csak a dbstart.php-ben módisíthatók.</i></small>";
+$HTMLkod .= "<small>A W3Suli Blogmotor telepítéséhez egy MySQL adatbázisra van szükség, amelyet a tárhely adminisztrátora hozhat létre. 
+             <br><i>Az adatbázis kapcsolódási datai később csak a 'init/db/start.php'-ben módisíthatók.</i></small>";
 $HTMLkod .= "</fieldset>";
 
 
-$HTMLkod .= "<fieldset class='AdAdatok'><legend> A adminisztrátor adatai: </legend>";
+$HTMLkod .= "<fieldset class='AdAdatok'><legend> A kiemelt rendszergazda adatai: </legend>";
+if (strpos($ErrStr,'ERR05')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
+$HTMLkod .= "<p><label for='FNev' class='label_1'>A kiemelt rendszergazda neve</label> 
+       <input type='text' name='FNev' id='FNev' placeholder='A kiemelt rendszergazda Neve' value='$FNev' $ErrClass>
+       <span>*</span></p>";
+if (strpos($ErrStr,'ERR06')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
+$HTMLkod .= "<p><label for='FFNev' class='label_1'>A kiemelt rendszergazda felhasználói neve</label> 
+       <input type='text' name='FFNev' id='FFNev' placeholder='A kiemelt rendszergazda felhasználói neve' value='$FFNev' $ErrClass>
+       <span>*</span></p>";
 if (strpos($ErrStr,'ERR07')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='FNev' class='label_1'>Az adminisztrátor neve</label> 
-       <input type='text' name='FNev' id='FNev' placeholder='Az adminisztrátor Neve' value='$FNev' $ErrClass>
+$HTMLkod .= "<p><label for='FJelszo' class='label_1'>A kiemelt rendszergazda jelszava</label> 
+       <input type='password' name='FJelszo' id='FJelszo' placeholder='A kiemelt rendszergazda jelszava' value='$FJelszo' $ErrClass>
        <span>*</span></p>";
-if (strpos($ErrStr,'ERR08')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='FFNev' class='label_1'>Az adminisztrátor felhasználói neve</label> 
-       <input type='text' name='FFNev' id='FFNev' placeholder='Az adminisztrátor felhasználói neve' value='$FFNev' $ErrClass>
-       <span>*</span></p>";
-if (strpos($ErrStr,'ERR09')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='FJelszo' class='label_1'>Az adminisztrátor jelszava</label> 
-       <input type='password' name='FJelszo' id='FJelszo' placeholder='Az adminisztrátor jelszava' value='$FJelszo' $ErrClass>
-       <span>*</span></p>";
-$HTMLkod .= "<p><label for='FJelszo1' class='label_1'>Az admin jelszó újra</label> 
-       <input type='password' name='FJelszo1' id='FJelszo1' placeholder='Az adminisztrátor jelszava újra' value='$FJelszo1' $ErrClass>
+$HTMLkod .= "<p><label for='FJelszo1' class='label_1'>A kiemelt rendszergazda jelszó újra</label> 
+       <input type='password' name='FJelszo1' id='FJelszo1' placeholder='A kiemelt rendszergazda jelszava újra' value='$FJelszo1' $ErrClass>
        <span>*</span></p>";
 
-$HTMLkod .= "<small>Az adminisztrátor szerkesztheti az oldalak tartalmát, a webhely valamennyi beállítását.</small>";
+$HTMLkod .= "<small>A kiemelt rendszergazda  szerkesztheti az oldalak tartalmát, a webhely valamennyi beállítását.</small>";
 $HTMLkod .= "</fieldset>";
 
 $HTMLkod .= "<input type='submit' name='submit1' value='Mehet' >";
-
+$HTMLkod .= "  Az adatok módosítása esetén a 'Mehet' gombra kattintva újratelepítheti a szoftvert.";
 $HTMLkod .= "</form> </div>";
 
   $HTMLkod = "<div id='FormDiv'>".$HTMLkod."<div>";
