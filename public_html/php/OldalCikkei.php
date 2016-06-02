@@ -10,8 +10,7 @@
  
 function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     global $MySqliLink, $Aktoldal;
-    $HTMLkod      = '';
-    
+    $HTMLkod      = '';    
     
     $SelectStr = "SELECT KNev, KFile, KSzelesseg, KMagassag, KStilus FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
     $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
@@ -37,7 +36,7 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     return $HTMLkod;            
 }
 
-function getCikkekHTML() {
+function getCikkekHTML($SelStr) {
     global $MySqliLink, $Aktoldal;
     $HTMLkod  = '';
     $Oid      = $Aktoldal['id']; 
@@ -45,17 +44,16 @@ function getCikkekHTML() {
       $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";
     } else {
       $KepUtvonal = "img/oldalak/";
-    }
-    
-    // Egyelőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk
-    
+    }    
+    // Egyelőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk    
     $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
                         FROM Cikkek AS C
                         LEFT JOIN OldalCikkei AS OC
                         ON OC.Cid= C.id
                         WHERE OC.Oid=$Oid
                         ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
-    $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+    $SelectStr = $SelStr;
+    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01a");
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         while ($row = mysqli_fetch_array($result)){     
                 $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";

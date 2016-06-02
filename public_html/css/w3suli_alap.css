@@ -130,6 +130,10 @@ a#logoLink:link   {color:#fff;}
 .divOElozetesTartalom {width:460px; height: 130px; margin: 2px 2px 5px 120px;}
 .divOElozetesLeir {height: 70px;}
 
+.divOLapozas {width:100%; text-align: center; clear: both; padding: 5px;}
+.divOLapozas li {display: inline-block; padding-left:10px; list-style-type:mone;}
+.divOLapozas a.AktLink {text-decoration:underline;}
+
 /***************************************** Cikkek ********************************************/
 .divCikkKep {max-width:100px; max-height: 100px; display: inline-block; margin:2px; vertical-align:middle; }
 .divCikkKep img {max-width:100px; max-height: 100px; display: inline-block; }

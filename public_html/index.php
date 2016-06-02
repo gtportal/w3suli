@@ -125,7 +125,7 @@
   }
 
   //A CIKKEK ADATAINAK MÓDOSÍTÁSA
-  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 2) {
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 1) {
     $_SESSION['ErrorStr']   .= setUjCikk();
     $_SESSION['ErrorStr']   .= setCikk();  
     $_SESSION['ErrorStr']   .= setCikkTorol();  

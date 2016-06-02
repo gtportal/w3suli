@@ -25,6 +25,7 @@ $Cikkek['CModositasTime']    = '';
 // ==================== ÚJ CIKK LÉTREHOZÁSA =================
 function setUjCikk() {
     global $MySqliLink, $Aktoldal;
+
     $ErrorStr = "";
     if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitUjCikkForm']))) {
         $FNev = $_SESSION['AktFelhasznalo'.'FNev'];

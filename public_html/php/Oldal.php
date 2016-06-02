@@ -858,25 +858,41 @@ function setOldalTorol() {
         //$HTMLkod  .= "<h1> OTipus:".$Aktoldal['OTipus']."</h1>\n";
         switch ($Aktoldal['OTipus']) {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap                    
+                        $arrLapozC  = getCikkLapinfo(10);
+                        $LapozHTMLC = $arrLapozC['LapozHTML'];
+                        $SelStrC    = $arrLapozC['SelectStr'];
+                        
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
                         $HTMLkod  .= getCikkekForm();
                         $HTMLkod  .= getKezdolapCikkelozetesekHTML();
                         $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
-                        $HTMLkod  .= getCikkekHTML();
-                        $HTMLkod  .= getOElozetesekHTML();
+                        
+                        $HTMLkod  .= $LapozHTMLC;
+                        $HTMLkod  .= getCikkekHTML($SelStrC);
+                        $HTMLkod  .= $LapozHTMLC;
+                        
+                        $arrLapoz  = getKatLapinfo(10);
+                        $LapozHTML = $arrLapoz['LapozHTML'];
+                        $SelStr    = $arrLapoz['SelectStr'];
+                        if ($SelStr!='') {$HTMLkod  .= getOElozetesekHTML($SelStr);}
                         $HTMLkod  .= "</main>";                   
                    break;
           case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0)
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
-                       // getKatLapinfo(4);
+                        $arrLapoz  = getKatLapinfo(10);
+                        $LapozHTML = $arrLapoz['LapozHTML'];
+                        $SelStr    = $arrLapoz['SelectStr'];
+                        
                         $HTMLkod  .= $HTMLFormkod;                        
                         $HTMLkod  .= "<main>";                        
                         $HTMLkod  .= getCikkekForm();
-                        
+
                         $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
-                        $HTMLkod  .= getOElozetesekHTML();
+                        $HTMLkod  .= $LapozHTML;
+                        if ($SelStr!='') {$HTMLkod  .= getOElozetesekHTML($SelStr);}
+                        $HTMLkod  .= $LapozHTML;
                         $HTMLkod  .= getCikkekHTML();                        
                        // $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         $HTMLkod  .= "</main>";
@@ -888,13 +904,17 @@ function setOldalTorol() {
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0) {
+                        $arrLapoz  = getCikkLapinfo(10);
+                        $LapozHTML = $arrLapoz['LapozHTML'];
+                        $SelStr    = $arrLapoz['SelectStr'];
+                        
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
                         $HTMLkod  .= getCikkekForm();
                         $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
                         $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         
-                        $HTMLkod  .= getCikkekHTML();
+                        $HTMLkod  .= getCikkekHTML($SelStr);
                        // $HTMLkod  .= getOElozetesekHTML();
                         $HTMLkod  .= "</main>";
                     }
