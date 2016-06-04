@@ -79,30 +79,11 @@ function setCsoportValaszt() {
 }
 
 
-function initFCsoport() {
-    global $MySqliLink;
-    //Az oldalak táblában létrehzzuk a "Felhasználói csoportok" nevű oldalt
-    //Késöbb átkerül az Init.php-ba !!!!
-
-    $SelectStr   = "SELECT id FROM Oldalak WHERE OTipus=20 ";  //echo "<h1>$SelectStr</h1>";
-    $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba FCSi 01aa ");
-    $rowDB       = mysqli_num_rows($result); 
-    if ($rowDB == 0) {
-        //Kezdőlap létrehozása
-        $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', 'Felhasználói csoportok','Felhasznaloi_csoportok',1,1,'Oldal leírása',
-                          'Oldal kulcsszavai',1,20,'Oldal tartalma','','')";        
-        if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba IO 01 ");} 
-    }
-}
-
-
 // ============= Új felhasználó csoport létrehozása ============  
 function setUjFCsoport() {
 
     global $MySqliLink;
-    $ErrorStr = ''; 
-    initFCsoport();
-	
+    $ErrorStr  = ''; 
     $CsNev     = '';
     $CsLeiras  = '';
 

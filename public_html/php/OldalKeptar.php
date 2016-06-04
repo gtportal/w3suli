@@ -1,18 +1,5 @@
 <?php
 
-/*
-$OldalKepek = array();
-$OldalKepek['id']         = 0;
-$OldalKepek['Oid']        = 0;
-$OldalKepek['KFile']      = '';
-$OldalKepek['KNev']       = '';
-$OldalKepek['KLeiras']    = '';
-$OldalKepek['KSzelesseg'] = 0;
-$OldalKepek['KMagassag']  = 0;
-$OldalKepek['KStilus']    = 0;
-$OldalKepek['KSorszam']   = 0;
-*/
-
     function setOldalKepek() {
           
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
@@ -47,9 +34,7 @@ $OldalKepek['KSorszam']   = 0;
             }
           }            
         } 
-        return $ErrorStr;    
-        
-        
+        return $ErrorStr;         
     }
 
 
@@ -286,8 +271,7 @@ function setOldalKepFeltolt() {
           $HTMLkod1 .= "</div>";
           $HTMLkod1 .= "</fieldset>";;
           $HTMLkod1 .= "</div>";  
-        } 
-        
+        }         
         
         // ============== A HTML KÓD ÖSSZEÁLLÍTÁSA =====================        
         $HTMLkod .= "<div id='divOldalKepForm' >\n";
@@ -305,9 +289,6 @@ function setOldalKepFeltolt() {
     }
 
 
-    function getOldalKepTorolForm() {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
     
     
 //=========================================================================================================================

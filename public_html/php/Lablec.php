@@ -1,11 +1,11 @@
 <?php
     function getLablecHTML() {
-        $HTMLkod = "";
+        $HTMLkod    = "";
         $AlapAdatok = getAlapbeallitasok();
         $WebhelyNev = $AlapAdatok['WebhelyNev'];
-        $Iskola = $AlapAdatok['Iskola'];
-        $Cim = $AlapAdatok['Cim'];
-        $Telefon = $AlapAdatok['Telefon'];
+        $Iskola     = $AlapAdatok['Iskola'];
+        $Cim        = $AlapAdatok['Cim'];
+        $Telefon    = $AlapAdatok['Telefon'];
         
         $HTMLkod .= "<ul id = 'footer_ul'>\n
                     <li class = 'footer_li'>$WebhelyNev</li>\n

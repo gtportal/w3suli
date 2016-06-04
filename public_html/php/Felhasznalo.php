@@ -9,32 +9,11 @@ $AktFelhasznalo['FSzint']  = 1;
 $AktFelhasznalo['FSzerep'] = '';
 $AktFelhasznalo['FKep']    = '';
 
-// INSERT INTO `Felhasznalok` (`id`, `FNev`, `FFNev`, `FJelszo`, `FEmail`, `FSzint`, `FSzerep`, `FKep`) VALUES
-// (6, 'tesztelek', 'tesztelek', 'bf7fd979986bf2313dca63d533cc8a7f', 'r@r.hu', 5, 'tanÃ¡r', '');
-
-function initRoot() {
-    
-  global $MySqliLink;
-  // Ha nincs, akkor létrehozzuk tesztelek rendszergazda felhasználót JESZAVA: 'tesztelek'
-  
-  $SelectStr = "SELECT id FROM Felhasznalok WHERE FNev='tesztelek' LIMIT 1";   
-  $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 01 ");
-  $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
-
-  if ($rowDB < 1) {
-        $InsertIntoStr = "INSERT INTO Felhasznalok VALUES
-                         ('', 'tesztelek', 'tesztelek', 'bf7fd979986bf2313dca63d533cc8a7f', 'r@r.hu', 5, 'tanÃ¡r', ''); "; 
-      if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba IFNev 01 ");}         
-   }     
-}           
-
+   
 // ============= Be és kijelentkezés ============
 function setBelepes() {
     global $MySqliLink, $oURL; 
     $ErrorStr = '';	
-    
-    initRoot();	
-    	
     if (($_SESSION['AktFelhasznalo'.'FSzint']>0) &&  (isset($_POST['submitBelepesForm']))){
         if (isset($_POST['FFNev']))   {$FFNev    = test_post($_POST['FFNev']);}
         if (isset($_POST['FJelszo'])) {$FJelszo  = test_post($_POST['FJelszo']);}

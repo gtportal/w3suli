@@ -753,16 +753,10 @@ function getCikkTorolForm() {
     return $HTMLkod;
 }
 
-function getKezdolapCikkelozetesekHTML() {  
+function getKezdolapCikkelozetesekHTML($SelStr) {  
     global $MySqliLink, $AlapAdatok;
     $HTMLkod   = '';
-    $SelectStr =   "SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas
-                    FROM Cikkek AS C
-                    LEFT JOIN OldalCikkei AS OC                    
-                    ON OC.Cid = C.id
-                    LEFT JOIN Oldalak AS O
-                    ON OC.Oid = O.id
-                    WHERE C.KoElozetes>0  ORDER BY C.KoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";
+    $SelectStr = $SelStr; //echo "<h1>YYY $SelectStr</h1>";
     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMC 01 ");
     $rowDB     = mysqli_num_rows($result);
     if ($rowDB > 0) {
@@ -774,7 +768,8 @@ function getKezdolapCikkelozetesekHTML() {
            $CTartalom  = $row['CTartalom'];
            $CLeiras    = $row['CLeiras'];
            $Horgony    = "#".getTXTtoURL($row['CNev']);
-           $CikkLink   = "<a class='Jobbra CikkelozetesLink' href='?f0=".$row['OUrl'].$Horgony."'>".$row['CNev']." részletesen...</a>";
+           $CCim       = "&amp;cim=".getTXTtoURL($row['CNev']);
+           $CikkLink   = "<a class='Jobbra CikkelozetesLink' href='?f0=".$row['OUrl'].$CCim.$Horgony."'>".$row['CNev']." részletesen...</a>";
            if ($OImgDir!='') {
                $KepUtvonal = "img/oldalak/".$OImgDir."/";
            } else {
@@ -788,9 +783,6 @@ function getKezdolapCikkelozetesekHTML() {
            $HTMLkod   .= "<h3>".$CNev."</h3>\n";
            if ($CLeiras!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$CLeiras."</div>\n";}    
            $HTMLkod .= "</div>\n";
-          // $HTMLkod .= $CikkLink;
-          // $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p>\n";           
-          // $HTMLkod .= "<p class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </p>\n";
            $HTMLkod .= "<div class='divClear'></div>\n"; 
            $HTMLkod .= "<div class='divCszerzoNev'> <span class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</span><br>\n";           
            $HTMLkod .= "<span class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </span></div>\n";
@@ -802,34 +794,30 @@ function getKezdolapCikkelozetesekHTML() {
     return $HTMLkod;
 }
 
-function getSzulooldalCikkelozetesekHTML() {  
-    global $MySqliLink, $Aktoldal, $AlapAdatok;
+function getSzulooldalCikkelozetesekHTML($SelStr) {  
+    global $MySqliLink, $Aktoldal, $AlapAdatok,  $CCim;
     $Oid       = $Aktoldal['id'];
     $HTMLkod   = '';
-    $SelectStr =   "SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas
-                    FROM Cikkek AS C
-                    LEFT JOIN OldalCikkei AS OC                    
-                    ON OC.Cid = C.id
-                    LEFT JOIN Oldalak AS O
-                    ON OC.Oid = O.id
-                    WHERE O.OSzuloId=$Oid AND C.SZoElozetes>0 ORDER BY C.SZoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";
+    $SelectStr = $SelStr;  
     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMC 01 ");
     $rowDB     = mysqli_num_rows($result);
     if ($rowDB > 0) {
-        $AlapKep  = 'img/ikonok/HeaderImg/'.$AlapAdatok['HeaderImg'];
-        while ($row    = mysqli_fetch_array($result)){
+        $AlapKep  = 'img/ikonok/HeaderImg/'.$AlapAdatok['HeaderImg']; 
+        while ($row    = mysqli_fetch_array($result)){ 
            $Cid        = $row['Cid']; 
-           $CNev       = $row['CNev'];
+           $CNev       = $row['CNev'];         
            $OImgDir    = $row['OImgDir'];
            $CTartalom  = $row['CTartalom'];
            $CLeiras    = $row['CLeiras'];
            $Horgony    = "#".getTXTtoURL($row['CNev']);
-           $CikkLink   = "<a class='OElink CikkelozetesLink' href='?f0=".$row['OUrl'].$Horgony."'>".$row['CNev']." részletesen...</a>";
+           $CCim       = "&amp;cim=".getTXTtoURL($row['CNev']);
+           $CikkLink   = "<a class='OElink CikkelozetesLink' href='?f0=".$row['OUrl'].$CCim.$Horgony."'>".$row['CNev']." részletesen...</a>";
            if ($OImgDir!='') {
                $KepUtvonal = "img/oldalak/".$OImgDir."/";
            } else {
                $KepUtvonal = "img/oldalak/";
            }
+           
            $HTMLimg    = getElsoKepHTML($Cid,$KepUtvonal);  
            if ($HTMLimg==''){ $HTMLimg="<img src='$AlapKep'  class = 'imgOE' alt=''>";}
            $HTMLkod   .= "<div class ='divOElozetesKulso'>\n";          
@@ -846,6 +834,7 @@ function getSzulooldalCikkelozetesekHTML() {
         }
     }
     if ($HTMLkod!='') {$HTMLkod = "<div class ='divCElozetesKulso'>\n <h2>Hírelőzetesek</h2> $HTMLkod</div>"; }
+   
     return $HTMLkod;
 }
 

@@ -1,13 +1,6 @@
 <?php
-/*
- $OldalCikk               = array();
- $OldalCikk['id']         = 0;
- $OldalCikk['Oid']        = 0; 
- $OldalCikk['Cid']        = 0; 
- $OldalCikk['CPrioritas'] = 0; 
-*/ 
- // A tartalomban lecseréli a #0, #1, #2 .... kódokat img elemekre
- 
+
+// A tartalomban lecseréli a #0, #1, #2 .... kódokat img elemekre
 function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     global $MySqliLink, $Aktoldal;
     $HTMLkod      = '';    

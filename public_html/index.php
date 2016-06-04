@@ -47,7 +47,8 @@
   //if (isset($_GET['f0']))  { $oURL = $_GET['f0'];}  else { $oURL = '';}  
   if (isset($_GET['f0']))  { $oURL = getTXTtoURL($_GET['f0']);}  else { $oURL = '';}  
   if (isset($_GET['lap'])) { $oLap = INT_post($_GET['lap']);}    else { $oLap = 0;} 
-  if (isset($_GET['cim'])) { $oCim = getTXTtoURL($_GET['cim']);} else { $oCim = '';} 
+  if (isset($_GET['cim'])) { $CCim = getTXTtoURL($_GET['cim']);} else { $CCim = '';} 
+
   
   //ADATBÁZIS MEGNYITÁSA
   require_once("init/db/start.php");
@@ -71,6 +72,7 @@
     $_SESSION['ErrorStr']   .= setUjFelhasznalo();  
     $_SESSION['ErrorStr']   .= setFelhasznaloTorol();    
   }
+  
   require_once("php/Oldal.php");
   require_once("php/Lapozas.php");
   require_once("php/FelhasznaloCsoport.php");  

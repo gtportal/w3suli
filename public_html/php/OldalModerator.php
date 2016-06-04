@@ -1,14 +1,6 @@
 <?php
-$OModeratorok         = array();
-$OModeratorok['id']   = 0;
-$OModeratorok['Oid']  = 0;
-$OModeratorok['Fid']  = -1;
-$OModeratorok['CSid'] = -1;
 
 
-function initModerator() {
-    trigger_error('Not Implemented!', E_USER_WARNING); 
-} 
 
 //-------------------------------------------------------------------------------------
 //FELHASZNÁLÓK MODERÁTORNAK VÁLASZTÁSA

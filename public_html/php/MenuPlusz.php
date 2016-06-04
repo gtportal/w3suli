@@ -4,19 +4,6 @@
  *
  * @author   Szabó Máté, Guti Patrik, Bárczi Dávid 
  */
- function InitMenuPl() {
-  global $MySqliLink;
-  /* Ha nincs, akkor létrehozzuk a FoMenuLink tábla 10 rekordját*/
-  $SelectStr = "SELECT id FROM MenuPlusz"; 
-  $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba Mpinit 01 ");
-  $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
-  if ($rowDB < 10) {
-    for ($i=$rowDB;$i<10;$i++) {
-      $InsertIntoStr = "INSERT INTO MenuPlusz VALUES ('', '', '', 0)"; 
-      if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba FoMenuLinit 01 ");}         
-    }        
-  }           
-}
 
 function getMenuPluszForm() {
     global $MySqliLink, $MenuPlTartalom;	
@@ -86,8 +73,7 @@ function setMenuPlusz() {
     $MenuPlNev       = "";
     $MenuPlTartalom  = "";
     $MenuPlPrioritas = 0;
-    InitMenuPl();
-   // echo "<h1>HŐŐŐŐŐŐŐŐŐŐ</h1>";
+
     if (isset($_POST['submitMenuPlTartalom'])) { 
         for ($i = 0; $i < 10; $i++){
             $id = INT_post($_POST["ModMPid_$i"]);

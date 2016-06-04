@@ -1,25 +1,4 @@
 <?php
-global $KiegTartalom;
-
-$KiegTartalom = array();
-$KiegTartalom['id']          = 0;
-$KiegTartalom['KiegTNev']      = '';
-$KiegTartalom['KiegTTartalom'] = '';
-$KiegTartalom['KiegTPrioritas'] = 0;
-
-function InitKiegT() {
-    global $MySqliLink;
-    // Ha nincs, akkor létrehozzuk a FoMenuLink tábla 10 rekordját
-    $SelectStr = "SELECT id FROM KiegTartalom"; 
-    $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba KTinit 01 ");
-    $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
-    if ($rowDB < 10) {
-        for ($i=$rowDB;$i<10;$i++) {
-            $InsertIntoStr = "INSERT INTO KiegTartalom VALUES ('', '', '', 0)"; //echo "<h1>$InsertIntoStr</h1>";
-            if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba FoMenuLinit 01 ");}         
-        }
-    }           
-}
 
 function setKiegT() {
     global $MySqliLink;
@@ -27,7 +6,6 @@ function setKiegT() {
     $KiegTNev       = "";
     $KiegTTartalom  = "";
     $KiegTPrioritas = 0;
-    InitKiegT();
     
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3){
         if (isset($_POST['submitKiegTartalom'])) {
@@ -67,14 +45,15 @@ function setKiegT() {
 
 
 function getKiegTForm() {
-    global $MySqliLink, $KiegTartalom;
+    global $MySqliLink;
     $HTMLkod        = '';
+
     if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
-        
-       
-       //$ErrorStr       = '';
-        
-      
+        $KiegTartalom                   = array();
+        $KiegTartalom['id']             = 0;
+        $KiegTartalom['KiegTNev']       = '';
+        $KiegTartalom['KiegTTartalom']  = '';
+        $KiegTartalom['KiegTPrioritas'] = 0;
         $SelectStr = "SELECT * FROM KiegTartalom";
         $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
 
@@ -122,14 +101,12 @@ function getKiegTForm() {
             $HTMLkod .= "<input type='hidden' name='ModKTid_$i' id='ModKTid_$i' value='$id'>\n";
             $HTMLkod .= "</fieldset>";
             $HTMLkod .= "</div>\n ";
-        }
-        
+        }        
         //Submit
         $HTMLkod .= "<br style='clear:both;float:none;'>\n";
         $HTMLkod .= "<input type='submit' name='submitKiegTartalom' id='submitKiegTartalom' value='Módosítás'>\n";
         $HTMLkod .= "</form>\n";
-        $HTMLkod .= "</div>\n";
-        
+        $HTMLkod .= "</div>\n";        
     }
     return $HTMLkod;
 }
@@ -141,7 +118,7 @@ function getKiegTHTML() {
     $HTMLkod        = '';
 
     $SelectStr = "SELECT * FROM KiegTartalom WHERE KiegTPrioritas>0  ORDER BY KiegTPrioritas DESC";
-    $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
+    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
 
     while ($row = mysqli_fetch_array($result)){
         if ($row['KiegTTartalom']){

@@ -1,7 +1,4 @@
 <?php
-    function getMenuLink($Oid) {
-        trigger_error('Not Implemented!', E_USER_WARNING);
-    }
 
     function getMenuHTML() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId, $AlapAdatok;

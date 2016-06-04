@@ -810,7 +810,7 @@ function setOldalTorol() {
 
     function getOldalHTML() {
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $AlapAdatok, $MySqliLink, $UkSzuloId;  
-      $HTMLkod   = ''; //style='display:none;
+      
       $HTMLFormkod   = '';
       if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         if(isset($_POST['submitOldalTorolForm'])           || isset($_POST['submitOldalTorolVegleges']) ||
@@ -822,13 +822,15 @@ function setOldalTorol() {
 			{$checked = " checked ";} else {$checked = "";}                                 //
         $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox' $checked>\n";
         $HTMLFormkod  .= "  <label for='chFormkod'    class='chLabel'    id='labelchFormkod'>Oldal szerkesztése</label>\n";  
-        $HTMLFormkod  .= "<div id='divFormkod'>\n";      
+        $HTMLFormkod  .= "<div id='divFormkod'>\n";    
+        $HTMLkod       = ''; 
         // ================ A FORMOK MEGJELENÍTÉSÉT SZABÁLYZÓ INPUT ELEMEK =============================        
         if ($UkSzuloId==0) { //5. szintű oldal már nem hozható 
           if(isset($_POST['submitUjOldalForm'])) {$checked = " checked ";} else {$checked = "";} 
           $HTMLFormkod  .= "  <input name='chOldalForm'   id='chUjOldalForm' value='chUjOldalForm' type='radio' $checked>\n";
           $HTMLFormkod  .= "  <label for='chUjOldalForm'  class='chLabel'    id='labelUjOldalForm'>Új oldal</label>\n";
         }
+        
         if(isset($_POST['submitOldalForm'])) {$checked = " checked ";} else {$checked = "";}
         $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalForm'   value='chOldalForm'   type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalForm'    class='chLabel'    id='labelOldalForm'>Oldal módosítása</label>\n";
@@ -843,6 +845,7 @@ function setOldalTorol() {
         $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalModeratorForm' value='chOldalModeratorForm'  type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalModeratorForm' class='chLabel'     id='labelOldalModeratorForm'>Oldal moderátorainak módosítása</label>\n \n";
         // ================ AZ OLDAL MÓDOSÍTSÁT VÉGZŐ FORMOK ====================================
+        
         if ($UkSzuloId==0) {$HTMLFormkod  .= getUjOldalForm();} //5. szintű oldal már nem hozható létre
         $HTMLFormkod  .= getOldalForm();
         $HTMLFormkod  .= getOldalTorolForm();
@@ -852,48 +855,78 @@ function setOldalTorol() {
       }
       if ($_SESSION['AktFelhasznalo'.'FSzint']>0)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!!
         // ================ AZ OLDALTARTALMÁNAK MEGJELENÍTÉSE =============================     
-        
+        $HTMLkod       = ''; 
         // ----------  Speciális tartalom kiíratása  ----------------------------
         $HTMLkod  .= "<div id='divOTartalom'>\n";  
         //$HTMLkod  .= "<h1> OTipus:".$Aktoldal['OTipus']."</h1>\n";
+        
         switch ($Aktoldal['OTipus']) {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap                    
-                        $arrLapozC  = getCikkLapinfo(10);
-                        $LapozHTMLC = $arrLapozC['LapozHTML'];
-                        $SelStrC    = $arrLapozC['SelectStr'];
+                    $arrLapozC    = getCikkLapinfo(10);
+                    $LapozHTMLC   = $arrLapozC['LapozHTML'];
+                    $SelStrC      = $arrLapozC['SelectStr'];
+                    $arrLapozO    = getKatLapinfo(10);
+                    $LapozHTMLO   = $arrLapozO['LapozHTML'];
+                    $SelStrO      = $arrLapozO['SelectStr']; 
+                    $arrLapozCE   = getCikkElozetesLapinfo(10,0);
+                    $LapozHTMLCE  = $arrLapozCE['LapozHTML'];
+                    $SelStrCE     = $arrLapozCE['SelectStr']; // echo "<h1>XXX $SelStrCE</h1>";                   
+
+                    $HTMLkod     .= $HTMLFormkod;
+                    $HTMLkod     .= "<main>";
+                    $HTMLkod     .= getCikkekForm();
+                    
+                    if ($SelStrCE!='') {
+                        $HTMLkod .= $LapozHTMLCE;
+                        $HTMLkod .= getKezdolapCikkelozetesekHTML($SelStrCE);
+                        $HTMLkod .= $LapozHTMLCE;
+                    }
+                    
+                   // $HTMLkod     .= getKezdolapCikkelozetesekHTML();
+                    $HTMLkod     .= $Aktoldal['OTartalom'].'<br>';
+                     
+                    if ($SelStrC!='') {
+                        $HTMLkod   .= $LapozHTMLC;
+                        $HTMLkod   .= getCikkekHTML($SelStrC);
+                        $HTMLkod   .= $LapozHTMLC;
+                    }    
                         
-                        $HTMLkod  .= $HTMLFormkod;
-                        $HTMLkod  .= "<main>";
-                        $HTMLkod  .= getCikkekForm();
-                        $HTMLkod  .= getKezdolapCikkelozetesekHTML();
-                        $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
+                    if ($SelStrO!='') {
+                        $HTMLkod   .= $LapozHTMLO;
+                        $HTMLkod   .= getOElozetesekHTML($SelStrO);
+                        $HTMLkod   .= $LapozHTMLO;
+                    }
                         
-                        $HTMLkod  .= $LapozHTMLC;
-                        $HTMLkod  .= getCikkekHTML($SelStrC);
-                        $HTMLkod  .= $LapozHTMLC;
-                        
-                        $arrLapoz  = getKatLapinfo(10);
-                        $LapozHTML = $arrLapoz['LapozHTML'];
-                        $SelStr    = $arrLapoz['SelectStr'];
-                        if ($SelStr!='') {$HTMLkod  .= getOElozetesekHTML($SelStr);}
-                        $HTMLkod  .= "</main>";                   
-                   break;
+                    $HTMLkod  .= "</main>";                   
+                break;
           case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0)
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
-                        $arrLapoz  = getKatLapinfo(10);
-                        $LapozHTML = $arrLapoz['LapozHTML'];
-                        $SelStr    = $arrLapoz['SelectStr'];
+                        $arrLapozC    = getCikkLapinfo(10);
+                        $LapozHTMLC   = $arrLapozC['LapozHTML'];
+                        $SelStrC      = $arrLapozC['SelectStr'];
+                        $arrLapozO    = getKatLapinfo(10);
+                        $LapozHTMLO   = $arrLapozO['LapozHTML'];
+                        $SelStrO      = $arrLapozO['SelectStr'];    
                         
                         $HTMLkod  .= $HTMLFormkod;                        
                         $HTMLkod  .= "<main>";                        
                         $HTMLkod  .= getCikkekForm();
 
                         $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
-                        $HTMLkod  .= $LapozHTML;
-                        if ($SelStr!='') {$HTMLkod  .= getOElozetesekHTML($SelStr);}
-                        $HTMLkod  .= $LapozHTML;
-                        $HTMLkod  .= getCikkekHTML();                        
+                        
+                        if ($SelStrC!='') {
+                            $HTMLkod   .= $LapozHTMLC;
+                            $HTMLkod   .= getCikkekHTML($SelStrC);
+                            $HTMLkod   .= $LapozHTMLC;
+                        }    
+
+                        if ($SelStrO!='') {
+                            $HTMLkod   .= $LapozHTMLO;
+                            $HTMLkod   .= getOElozetesekHTML($SelStrO);
+                            $HTMLkod   .= $LapozHTMLO;
+                        }
+                                             
                        // $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         $HTMLkod  .= "</main>";
                     }
@@ -903,19 +936,35 @@ function setOldalTorol() {
                     }
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
+              
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0) {
-                        $arrLapoz  = getCikkLapinfo(10);
-                        $LapozHTML = $arrLapoz['LapozHTML'];
-                        $SelStr    = $arrLapoz['SelectStr'];
+                        $arrLapozC    = getCikkLapinfo(10);
+                        $LapozHTMLC   = $arrLapozC['LapozHTML'];
+                        $SelStrC      = $arrLapozC['SelectStr'];
+                        $arrLapozOE   = getKatLapinfo(10);
+                        $LapozHTMLOE  = $arrLapozOE['LapozHTML'];
+                        $SelStrOE     = $arrLapozOE['SelectStr'];  
+                        $arrLapozCE   = getCikkElozetesLapinfo(10,1);
+                        $LapozHTMLCE  = $arrLapozCE['LapozHTML'];
+                        $SelStrCE     = $arrLapozCE['SelectStr'];  
                         
                         $HTMLkod  .= $HTMLFormkod;
                         $HTMLkod  .= "<main>";
                         $HTMLkod  .= getCikkekForm();
                         $HTMLkod  .= $Aktoldal['OTartalom'].'<br>';
-                        $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
                         
-                        $HTMLkod  .= getCikkekHTML($SelStr);
-                       // $HTMLkod  .= getOElozetesekHTML();
+                        if ($SelStrCE!='') {
+                            $HTMLkod   .= $LapozHTMLCE;
+                            $HTMLkod  .= getSzulooldalCikkelozetesekHTML($SelStrCE);
+                            $HTMLkod   .= $LapozHTMLCE;
+                        }
+                        
+                        if ($SelStrC!='') {
+                            $HTMLkod   .= $LapozHTMLC;
+                            $HTMLkod   .= getCikkekHTML($SelStrC);
+                            $HTMLkod   .= $LapozHTMLC;
+                        }  
+                       
                         $HTMLkod  .= "</main>";
                     }
                     else
