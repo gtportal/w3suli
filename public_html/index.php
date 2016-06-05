@@ -49,7 +49,6 @@
   if (isset($_GET['lap'])) { $oLap = INT_post($_GET['lap']);}    else { $oLap = 0;} 
   if (isset($_GET['cim'])) { $CCim = getTXTtoURL($_GET['cim']);} else { $CCim = '';} 
 
-  
   //ADATBÁZIS MEGNYITÁSA
   require_once("init/db/start.php");
   //require_once("php/DB/Adatbazis.php");

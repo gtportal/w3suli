@@ -98,10 +98,8 @@ function getCikkekHTML($SelStr) {
                 }
             }
         }
-    }
-    
-    if ($HTMLkod!='') {$HTMLkod = "<div id='divCikkekKulso'>\n$HTMLkod </div>\n";} // Az összes cikkek becsomagoljuk
-    
+    }    
+    if ($HTMLkod!='') {$HTMLkod = "<div id='divCikkekKulso'>\n$HTMLkod </div>\n";} // Az összes cikkek becsomagoljuk    
     
     return $HTMLkod;
 }
@@ -142,7 +140,7 @@ function getCikkekForm() {
     }
     $HTMLkod  .= getCikkValasztForm();
         $HTMLkod  .= "<div id='divFormkodCikk'>\n";
-        if ($_POST['submitUjCikkForm']){//=====UjCikkForm megjelenítését szabályozó input elem=====
+        if (isset($_POST['submitUjCikkForm'])){//=====UjCikkForm megjelenítését szabályozó input elem=====
             $HTMLkod  .= "<input name='chCikkForm'  id='chUjCikkForm' value='chUjCikkForm' type='radio' checked>\n";
             $HTMLkod  .= "<label for='chUjCikkForm' class='chLabel'   id='labelUjCikkForm'>Új cikk</label>\n";
         } else {

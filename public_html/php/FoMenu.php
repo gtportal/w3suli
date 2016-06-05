@@ -13,7 +13,7 @@ function setFoMenu() {
     if (isset($_POST['submitFoMenu'])) {
           for ($i = 0; $i < 10; $i++){
               $id = INT_post($_POST["ModFoMenuid_$i"]);
-              if (!$_POST["TorolFoMenu_$i"]){
+              if (!isset($_POST["TorolFoMenu_$i"])){
                   if (isset($_POST["ModFoMenuNev_$i"])) {
                       $LNev = test_post($_POST["ModFoMenuNev_$i"]);
                   }
@@ -23,7 +23,6 @@ function setFoMenu() {
                   if (isset($_POST["ModFoMenuPrioritas_$i"])) {
                       $LPrioritas = INT_post($_POST["ModFoMenuPrioritas_$i"]);
                   }
-
                   $UpdateStr = "UPDATE FoMenuLink SET
                                   LNev       = '$LNev',
                                   LURL       = '$LURL',
@@ -73,9 +72,9 @@ function getFoMenuForm() {
         $HTMLkod .= "<h2>A főmenü linkjeinek adatai</h2>\n";
         
         for ($i = 0; $i < 10; $i++){
-            $id             = $FoMenuLinkTmb[$i]['id'];
-            $LNev      = $FoMenuLinkTmb[$i]['LNev'];
-            $LURL  = $FoMenuLinkTmb[$i]['LURL'];
+            $id         = $FoMenuLinkTmb[$i]['id'];
+            $LNev       = $FoMenuLinkTmb[$i]['LNev'];
+            $LURL       = $FoMenuLinkTmb[$i]['LURL'];
             $LPrioritas = $FoMenuLinkTmb[$i]['LPrioritas'];
             
             $HTMLkod .= "<div class='divFoMenuElem'>\n ";
@@ -120,7 +119,6 @@ function getFoMenuHTML() {
     $HTMLkod    = ''; 
     // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
     // Összeállítjuk a Főmenű Linkjeinek listáját
-    // <a href='LURL' class='MPontLink'>Menüpont1</a>  <a href='./' class='MPontLink'>Menüpont1</a>  ... formában
     $SelectStr  = "SELECT * FROM FoMenuLink WHERE LPrioritas>0 ORDER BY LPrioritas DESC";
     $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 02");
     while ($row = mysqli_fetch_array($result)){

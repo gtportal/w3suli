@@ -36,7 +36,7 @@
             $HTMLkod2 .= "<li class='M1'><a href='?f0=regisztracio'>Regisztráció</a></li>\n"; 
             $HTMLkod2 .= "<li class='M1'><a href='?f0=adatmodositas'>Felhasználók szerkesztése</a></li>\n";
             $HTMLkod2 .= "<li class='M1'><a href='?f0=Felhasznaloi_csoportok'>Felhasználói csoportok</a></li>\n";
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>Felhasználó lista</a></li>\n";
+            //$HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>Felhasználó lista</a></li>\n";
             $HTMLkod2 .= "</ul>\n";     
             
             $HTMLkod2 .= "<ul class='Ul1'>\n";

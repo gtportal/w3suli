@@ -44,7 +44,7 @@ function setAlapbeallitasok() {
         }
         
          // ============== KÉP FELTÖLTÉSE HIBAKEZELÉSSEL =====================        
-        if (isset($_POST['submitHeaderImgTolt']))  {
+        if (isset($_POST['submitHeaderImgTolt'])  && isset($_FILES['file']))  {
             $HeaderImg     = test_post($_POST['file']);
             $KepUtvonal    = "img/ikonok/HeaderImg/"; 
             $HeaderImg     = setAlapKepFeltolt($KepUtvonal); 
@@ -55,14 +55,14 @@ function setAlapbeallitasok() {
                 if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setHI 01 ";} 
             }  
         } 
-        if (isset($_POST['submitFavIconTolt']))  {
+        if (isset($_POST['submitFavIconTolt']) && isset($_FILES['file']))  {
             $FavIconImg     = test_post($_POST['file']);
-            $KepUtvonal    = "img/ikonok/FavIcon/"; 
+            $KepUtvonal     = "img/ikonok/FavIcon/"; 
             $FavIconImg     = setAlapKepFeltolt($KepUtvonal); 
             if ((strpos($HeaderImg,'Err')===false) && ($FavIconImg!='')) { 
-                $UpdateStr = "UPDATE AlapAdatok SET 
-                              FavIcon='$FavIconImg'
-                              WHERE id>0 LIMIT 1"; 
+                $UpdateStr  = "UPDATE AlapAdatok SET 
+                               FavIcon='$FavIconImg'
+                               WHERE id>0 LIMIT 1"; 
                 if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setfII 01 ";} 
             }  
         } 

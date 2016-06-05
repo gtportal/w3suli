@@ -606,12 +606,12 @@
           
           // ============== ADATKEZELÉS - MÓDOSÍTÁS =====================
           if ($ErrorStr=='') {
-            if (isset($_POST['OLeiras']))      {$OLeiras=test_post($_POST['OLeiras']);}  
+            if (isset($_POST['OLeiras']))      {$OLeiras      = test_post($_POST['OLeiras']);}  
            // if (isset($_POST['OTartalom']))    {$OTartalom=test_post($_POST['OTartalom']);} 
-            if (isset($_POST['OTartalom']))    {$OTartalom=SQL_post($_POST['OTartalom']);} 
-            if (isset($_POST['OPrioritas']))   {$OPrioritas=test_post($_POST['OPrioritas']);}  
-	    if (isset($_POST['OLathatosag']))  {$OLathatosag=test_post($_POST['OLathatosag']);}
-	    if (isset($_POST['OKulcsszavak'])) {$OKulcsszavak=test_post($_POST['OKulcsszavak']);}
+            if (isset($_POST['OTartalom']))    {$OTartalom    = SQL_post($_POST['OTartalom']);} 
+            if (isset($_POST['OPrioritas']))   {$OPrioritas   = INT_post($_POST['OPrioritas']);}  
+	    if (isset($_POST['OLathatosag']))  {$OLathatosag  = INT_post($_POST['OLathatosag']);}
+	    if (isset($_POST['OKulcsszavak'])) {$OKulcsszavak = test_post($_POST['OKulcsszavak']);}
            //Az oldal mentése
            $AktOid = $Aktoldal['id'];
                       
@@ -631,7 +631,8 @@
                          WHERE id=$AktOid LIMIT 1"; 
            if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 01 ";}
            
-            $OLathatosag = $_POST['OLathatosag'];
+            
+           if (isset($_POST['OLathatosag']))  {$OLathatosag=INT_post($_POST['OLathatosag']);}
            
 //-------------------------------------------------------------------------------------
 //OLDALLÁTHATÓSÁG BEÁLLÍTÁSA AZ ALOLDALAKRA IS
@@ -927,7 +928,8 @@ function setOldalTorol() {
                             $HTMLkod   .= $LapozHTMLO;
                         }
                                              
-                       // $HTMLkod  .= getSzulooldalCikkelozetesekHTML();
+                       // $HTMLkod  .= getSzulooldalCikkelozetesekHTML(); 
+                  
                         $HTMLkod  .= "</main>";
                     }
                     else
@@ -936,7 +938,6 @@ function setOldalTorol() {
                     }
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
-              
                     if (getOLathatosagTeszt($Aktoldal['id']) > 0) {
                         $arrLapozC    = getCikkLapinfo(10);
                         $LapozHTMLC   = $arrLapozC['LapozHTML'];
@@ -980,22 +981,22 @@ function setOldalTorol() {
                    break;
           case 12:  $HTMLkod  .= "<h1>Regisztráció</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                        $HTMLkod  .= getUjFelhasznaloForm();
+                        $HTMLkod      .= getUjFelhasznaloForm();
                     } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}
                    break;
           case 13:  $HTMLkod  .= "<h1>Felhasználó törlése</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                          $HTMLkod  .= getFelhasznaloTorol();
+                          $HTMLkod    .= getFelhasznaloTorol();
                     } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}      
                    break;
           case 14:  $HTMLkod  .= "<h1>Felhasználó lista</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                          $HTMLkod  .= getFelhasznaloLista();
+                          $HTMLkod    .= getFelhasznaloLista();
                     } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}
                    break;               
           case 15:  $HTMLkod  .= "<h1>Adatmódosítás</h1> \n"; 
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                          $HTMLkod  .= getFelhasznaloForm();                            
+                          $HTMLkod     .= getFelhasznaloForm();                            
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}    
                     break; 
           case 16:  $HTMLkod  .= "<h1>Jelszómódosítás</h1> \n";              
@@ -1003,7 +1004,7 @@ function setOldalTorol() {
                    break;               
           case 20:  $HTMLkod  .= "<h1>Felhasználói csoport kezelése</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                          $HTMLkod  .= getFCsoportForm();
+                          $HTMLkod     .= getFCsoportForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}      
                    break;  
           case 21:  $HTMLkod  .= "<h1>Oldaltérkep</h1> \n";
@@ -1015,7 +1016,7 @@ function setOldalTorol() {
                    break;                
           case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                          $HTMLkod  .= getAlapbeallitasForm();
+                          $HTMLkod     .= getAlapbeallitasForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
                    break;    
           case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
@@ -1023,12 +1024,12 @@ function setOldalTorol() {
                    break;   
           case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                          $HTMLkod  .= getFoMenuForm();
+                          $HTMLkod     .= getFoMenuForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
                    break;       
           case 54:  $HTMLkod  .= "<h1>Helyi menü plusz</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
-                          $HTMLkod  .= getMenuPluszForm();
+                          $HTMLkod     .= getMenuPluszForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
                    break;     
           default:  $HTMLkod  .= "<h1>Nem létező oldal</h1> \n";

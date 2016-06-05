@@ -231,17 +231,27 @@ function getCikkKepForm() {
                 $CikkKepek[]           = $CikkKep;
             }
         } else {
-            for($i = 0; $i < $_POST['rowDB']; $i++) {
-                $CikkKep               = array();
-                $CikkKep['KFile']      = $_POST["CKFile_$i"];
-                $CikkKep['KNev']       = $_POST["CKNev_$i"];
-                $CikkKep['KLeiras']    = $_POST["CKLeiras_$i"];
-                $CikkKep['KSzelesseg'] = $_POST["CKSzelesseg_$i"];
-                $CikkKep['KMagassag']  = $_POST["CKMagassag_$i"];
-                $CikkKep['KStilus']    = $_POST["CKStilus_$i"];
-                $CikkKep['KSorszam']   = $_POST["CKSorszam_$i"];
-                $CikkKep['KTorol']     = $_POST["CKTorol_$i"];
-                $CikkKepek[]           = $CikkKep;
+            if (isset($_POST['rowDB'])) {
+                for($i = 0; $i < $_POST['rowDB']; $i++) {
+                    $CikkKep               = array();
+                    if (isset($_POST["CKFile_$i"]))      {$CikkKep['KFile']      = test_post1($_POST["CKFile_$i"]);} 
+                      else {$CikkKep['KFile']     ='';}
+                    if (isset($_POST["CKNev_$i"]))       {$CikkKep['KNev']       = test_post1($_POST["CKNev_$i"]);}
+                      else {$CikkKep['KNev']      ='';}
+                    if (isset($_POST["CKLeiras_$i"]))    {$CikkKep['KLeiras']    = test_post1($_POST["CKLeiras_$i"]);}
+                      else {$CikkKep['KLeiras']   ='';}
+                    if (isset($_POST["CKSzelesseg_$i"])) {$CikkKep['KSzelesseg'] = INT_post($_POST["CKSzelesseg_$i"]);}
+                      else {$CikkKep['KSzelesseg'] =0;}
+                    if (isset($_POST["CKMagassag_$i"]))  {$CikkKep['KMagassag']  = INT_post($_POST["CKMagassag_$i"]);}
+                      else {$CikkKep['KMagassag']  =0;}
+                    if (isset($_POST["CKStilus_$i"]))    {$CikkKep['KStilus']    = INT_post($_POST["CKStilus_$i"]);}
+                      else {$CikkKep['KStilus']    =0;}
+                    if (isset($_POST["CKSorszam_$i"]))   {$CikkKep['KSorszam']   = INT_post($_POST["CKSorszam_$i"]);}
+                      else {$CikkKep['KSorszam']   =0;}
+                    if (isset($_POST["CKTorol_$i"]))     {$CikkKep['KTorol']     = INT_post($_POST["CKTorol_$i"]);}
+                      else {$CikkKep['KTorol']     =0;}
+                    $CikkKepek[]           = $CikkKep;
+                }
             }
         }
         if ($rowDB != 0){
@@ -250,7 +260,7 @@ function getCikkKepForm() {
             for($i = 0; $i < $rowDB; $i++) {
                 $checked = "";
                 if (strpos($_SESSION['ErrorStr'],'Err_')!=false) {
-                    if ($_POST["CKTorol_$i"]) {$checked = " checked ";}
+                    if (isset($_POST["CKTorol_$i"])) {$checked = " checked ";}
                 }
                 
                 if (strpos($_SESSION['ErrorStr'],"Err_$i")!=false) {

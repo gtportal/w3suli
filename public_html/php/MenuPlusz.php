@@ -99,7 +99,7 @@ function setMenuPlusz() {
                                 MenuPlNev       = '',
                                 MenuPlTartalom  = '',
                                 MenuPlPrioritas =  0
-                                WHERE id = $id"; echo "<h1>$UpdateStr</h1>";
+                                WHERE id = $id"; 
                 mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uUKT 2b");
             }
         }

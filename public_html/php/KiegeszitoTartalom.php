@@ -11,7 +11,7 @@ function setKiegT() {
         if (isset($_POST['submitKiegTartalom'])) {
             for ($i = 0; $i < 10; $i++){
                 $id = INT_post($_POST["ModKTid_$i"]);
-                if (!$_POST["TorolKiegT_$i"]){
+                if (!isset($_POST["TorolKiegT_$i"])){
                     if (isset($_POST["ModKTNev_$i"])) {
                         $KiegTNev = test_post($_POST["ModKTNev_$i"]);
                     }

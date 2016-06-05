@@ -16,12 +16,12 @@
                 $KMagassag  = 0;
                 $KStilus    = 0;
                 $KSorszam   = 0;   
-                if (isset($_POST["KNev_$i"]))       {$KNev=test_post($_POST["KNev_$i"]);}  
-                if (isset($_POST["KLeiras_$i"]))    {$KLeiras=test_post($_POST["KLeiras_$i"]);}
-                if (isset($_POST["KSzelesseg_$i"])) {$KSzelesseg=test_post($_POST["KSzelesseg_$i"]);}  
-                if (isset($_POST["KMagassag_$i"]))  {$KMagassag=test_post($_POST["KMagassag_$i"]);} 
-                if (isset($_POST["KStilus_$i"]))    {$KStilus=test_post($_POST["KStilus_$i"]);}  
-                if (isset($_POST["KSorszam_$i"]))   {$KSorszam=test_post($_POST["KSorszam_$i"]);} 
+                if (isset($_POST["KNev_$i"]))       {$KNev       = test_post($_POST["KNev_$i"]);}  
+                if (isset($_POST["KLeiras_$i"]))    {$KLeiras    = test_post($_POST["KLeiras_$i"]);}
+                if (isset($_POST["KSzelesseg_$i"])) {$KSzelesseg = test_post($_POST["KSzelesseg_$i"]);}  
+                if (isset($_POST["KMagassag_$i"]))  {$KMagassag  = test_post($_POST["KMagassag_$i"]);} 
+                if (isset($_POST["KStilus_$i"]))    {$KStilus    = test_post($_POST["KStilus_$i"]);}  
+                if (isset($_POST["KSorszam_$i"]))   {$KSorszam   = test_post($_POST["KSorszam_$i"]);} 
                 $UpdateStr = "UPDATE OldalKepek SET
                    KNev='$KNev', 
                    KLeiras='$KLeiras', 
@@ -84,10 +84,8 @@ function setOldalKepFeltolt() {
           $allowedExts = array("gif", "jpeg", "jpg", "png");
           $temp        = explode(".", $_FILES["OKepFile"]["name"][$i]);          
           $extension   = end($temp);  
-            
-         // print_r($OkKFile);
-          $AktFileNev = $OkKFile[$OkKFileCt-1].'.'.$extension;    
-          
+          $FNev        = $_FILES["OKepFile"]["name"][$i];
+          $AktFileNev = $OkKFile[$OkKFileCt-1].'.'.$extension;              
           if (( ($_FILES["OKepFile"]["type"][$i] == "image/gif")
              || ($_FILES["OKepFile"]["type"][$i] == "image/jpeg")
              || ($_FILES["OKepFile"]["type"][$i] == "image/jpg")
@@ -103,13 +101,13 @@ function setOldalKepFeltolt() {
               if (file_exists($KepUtvonal.$AktFileNev)) { 
                 //Meglévő kép felülírása
                 move_uploaded_file($_FILES["OKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev);
-                $UploadErr .=  "Felülírva: " .$KepUtvonal.$AktFileNev."<br>"; $KepOK=true;
+                $UploadErr .=  "Felülírva: " .$FNev."<br>"; $KepOK=true;
                 $InsertIntoStr = "INSERT INTO OldalKepek VALUES ('', $Oid,'$AktFileNev','','',0,0,0,0)";
                 if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba sKF 02");}
               } else {
                 //Új kép feltöltése
                 move_uploaded_file($_FILES["OKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev); 
-                $UploadErr .=  "Feltöltve: ". $KepUtvonal.$AktFileNev."<br>"; $KepOK=true;        
+                $UploadErr .=  "Feltöltve: ". $FNev."<br>"; $KepOK=true;        
                 $InsertIntoStr = "INSERT INTO OldalKepek VALUES ('', $Oid,'$AktFileNev','','',0,0,0,0)";
                 if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba sKF 03");}
               }
@@ -120,10 +118,8 @@ function setOldalKepFeltolt() {
           $i++; $OkKFileCt--;
         }
         if ($i<$KFileDb) { $UploadErr .= "<h1> Csak 10 kép tölthető fel!</h1>";}
-      }
-         
-      return $UploadErr; 
-      
+      }         
+      return $UploadErr;       
     }
 }
 

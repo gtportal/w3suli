@@ -64,11 +64,20 @@
    function test_post($data) {
      global $MySqliLink;
      $data = trim($data);
-     $arr = array( "'" => "&apos;", '"' => "&quot;", '”' => "&quot;", ":" => "&#58;", "  " => " ", "   " => " ",
-                   "<" => "&lt;", ">" => "&gt;",   "=" => "&#61;", "\x5C" => "" );
-     $data  = strtr($data, $arr);
+     $arr  = array( "'" => "&apos;", '"' => "&quot;", '”' => "&quot;", ":" => "&#58;", "  " => " ", "   " => " ",
+                    "<" => "&lt;", ">" => "&gt;",   "=" => "&#61;", "\x5C" => "" );
+     $data = strtr($data, $arr);
      $data = mysqli_real_escape_string($MySqliLink, $data);
    return $data;
+   }
+   
+   function test_post1($data) {
+     global $MySqliLink;
+     $data = trim($data);
+     $arr  = array( "'" => "&apos;", '"' => "&quot;", '”' => "&quot;", ":" => "&#58;", "  " => " ", "   " => " ",
+                    "<" => "&lt;", ">" => "&gt;",   "=" => "&#61;", "\x5C" => "" );
+     $data  = strtr($data, $arr);
+   return;
    }
    
    function SQL_post($data) {
