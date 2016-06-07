@@ -13,8 +13,6 @@ function getOElozetesekHTML($SelStr) {
     // Az oldalhoz kapcsolódó aloldalak neveit, kis képeit és rövíd leírásait kell itt megjeleníteni
     // Az aloldalak arról ismerhetők fel, hogy 'OSzuloId'-jükben az aktuális oldal 'id'-jét tárolják
 
-   // $SelectStr = "SELECT * FROM Oldalak WHERE OSzuloId=$Oid AND OTipus<3 
-   //               ORDER BY OPrioritas DESC, ONev";     
     $SelectStr = $SelStr; 
     $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba Oe 01");
     $rowDB     = mysqli_num_rows($result); 

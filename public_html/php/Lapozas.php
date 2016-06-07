@@ -12,12 +12,12 @@ function getKatLapinfo($MaxDBperOldal) {
     $arrLapinfo['OsszDB']    = '';
     $arrLapinfo['LapozHTML'] = '';
   
-    $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=".$Aktoldal['id']."
-                    AND OTipus<10 order by OPrioritas DESC, ONev"; 
-    $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba LInf 01 ");
-    $MaxOldal    = mysqli_num_rows($result);
-    if ($MaxOldal > 0) {        
-        while($row   = mysqli_fetch_array($result)) {
+    $SelectStr     = "SELECT * FROM Oldalak WHERE OSzuloId=".$Aktoldal['id']."
+                     AND OTipus<10 order by OPrioritas DESC, ONev"; 
+    $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba LInf 01 ");
+    $MaxOldal      = mysqli_num_rows($result);
+    if ($MaxOldal  > 0) {        
+        while($row = mysqli_fetch_array($result)) {
             if(getOMenuLathatosagTeszt($row['id'])>0){
                 $arrGyermekek[] = $row['id'];
             }
@@ -96,53 +96,73 @@ function getCikkLapinfo($MaxDBperOldal) {
     $arrLapinfo['LapozHTML'] = '';
     $AktCCimURL              = trim(getTXTtoURL($CCim));
   
-    //A rendszergazdák minden cikket látnak
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3) {
-    $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
-                        FROM Cikkek AS C
-                        LEFT JOIN OldalCikkei AS OC
-                        ON OC.Cid= C.id
-                        WHERE OC.Oid=".$Aktoldal['id']."
-                        ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
-      $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
-                        FROM Cikkek AS C
-                        LEFT JOIN OldalCikkei AS OC
-                        ON OC.Cid= C.id
-                        WHERE OC.Oid=".$Aktoldal['id']."
-                        ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
-    }
-    //A regisztrált felhasználók 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
-    $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
-                        FROM Cikkek AS C
-                        LEFT JOIN OldalCikkei AS OC
-                        ON OC.Cid= C.id
-                        WHERE 
-                           OC.Oid=".$Aktoldal['id']." AND
-                           (C.CSzerzo=".$_SESSION['AktFelhasznalo'.'id']."  OR  
-                           C.CLathatosag>1 )    
-                        ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
+    if ($_SESSION['SzerkCikk'.'id'] == 0) {
+        //A rendszergazdák és moderátorok minden cikket látnak
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>3) {
+              $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id
+                            WHERE OC.Oid=".$Aktoldal['id']."
+                            ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
+              $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id
+                            WHERE OC.Oid=".$Aktoldal['id']."
+                            ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
+        }
+        //A regisztrált felhasználók 
+        if ($_SESSION['AktFelhasznalo'.'FSzint']==3) {
+              $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id
+                            WHERE 
+                               OC.Oid=".$Aktoldal['id']." AND
+                               (C.CSzerzo=".$_SESSION['AktFelhasznalo'.'id']."  OR  
+                               C.CLathatosag>0 )    
+                            ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
+        }    
+        if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
+              $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id
+                            WHERE 
+                               OC.Oid=".$Aktoldal['id']." AND
+                               C.CLathatosag>0     
+                            ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
+        }
+        //Az egyszerű felhasználók csak azt látják, ami mindenki számára hozzáférhető
+        if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
+              $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+                            FROM Cikkek AS C
+                            LEFT JOIN OldalCikkei AS OC
+                            ON OC.Cid= C.id
+                            WHERE 
+                               OC.Oid=".$Aktoldal['id']." AND
+                               C.CLathatosag>2     
+                            ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
+        }    
+    } else {
+        $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
+                      FROM Cikkek AS C
+                      LEFT JOIN OldalCikkei AS OC
+                      ON OC.Cid= C.id
+                      WHERE 
+                         OC.Oid=".$Aktoldal['id']." AND
+                         C.id=".$_SESSION['SzerkCikk'.'id'];  
     }    
-    //Az egyszerű felhasználók csak azt látják, ami mindenki számára hozzáférhető
-    if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
-    $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
-                        FROM Cikkek AS C
-                        LEFT JOIN OldalCikkei AS OC
-                        ON OC.Cid= C.id
-                        WHERE 
-                           OC.Oid=".$Aktoldal['id']." AND
-                           C.CLathatosag>2     
-                        ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
-    }    
-    
-    $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CLInf 01 ");
-    $MaxCikk       = mysqli_num_rows($result); echo "<h1>ZZZZ $MaxCikk</h1>";
+
+    $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CLInf 01 xa ");
+    $MaxCikk       = mysqli_num_rows($result); 
     if ($MaxCikk > 0) {    
         $CikkCT    = 0;
         $AktCikkCT = -1;
         //$AktLap    = 1;
         $LapozHTML = '';
-        while($row = mysqli_fetch_array($result)) { //echo "<h1>ZZZZ</h1>";
+        while($row = mysqli_fetch_array($result)) { 
             if (($_SESSION['AktFelhasznalo'.'FSzint']>3) || (getOMenuLathatosagTeszt($Aktoldal['id'])>0)) { 
                 $arrGyermekek[] = $row['id'];            
                 // Az aktuális cikk sorszámának meghatározása !!!!!!!!!!!!!!!!!!!!!!                
@@ -151,12 +171,10 @@ function getCikkLapinfo($MaxDBperOldal) {
                 $CikkCT++;  
             }    
         }        
-        print_r($arrGyermekek);   
-        $MaxCikk = count($arrGyermekek); echo "<h1>ZZZZ $MaxCikk</h1>";
+        $MaxCikk = count($arrGyermekek); 
         if ($MaxCikk > 0) {            
             if ($MaxCikk > $MaxDBperOldal) {
                 if ($AktCikkCT > -1) {
-                //  $AktCikkCT++;
                     if ($AktCikkCT == 0) {
                         $AktLap = 1;                    
                     } else {
@@ -167,8 +185,8 @@ function getCikkLapinfo($MaxDBperOldal) {
                 $MaxLap         = ($MaxCikk-1) / $MaxDBperOldal;      
                 settype($MaxLap, "integer"); $MaxLap++;          
                 if ($AktLap>$MaxLap) {$AktLap=$MaxLap;} if ($AktLap<1) {$AktLap=1;}
-                $AktElsoCikk   = (($AktLap-1) * $MaxDBperOldal);
-                $AktUtolsoCikk = ($AktLap * $MaxDBperOldal);    
+                $AktElsoCikk    = (($AktLap-1) * $MaxDBperOldal);
+                $AktUtolsoCikk  = ($AktLap * $MaxDBperOldal);    
                 if ($AktUtolsoCikk>$MaxCikk) {$AktUtolsoCikk=$MaxCikk;}
                 $CikkAktDBSzam  = $AktUtolsoCikk-$AktElsoCikk;
                 $arrIdLista     = array_slice($arrGyermekek, $AktElsoCikk,$CikkAktDBSzam);
@@ -223,7 +241,6 @@ function getCikkLapinfo($MaxDBperOldal) {
         }       
     }
     if ($MaxCikk > 0) {mysqli_free_result($result);}
- //   echo "<h1>".$arrLapinfo['SelectStr']." </h1>";
     $arrLapinfo['LapozHTML']= $LapozHTML;
     return $arrLapinfo;
 }
@@ -242,8 +259,9 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
     $arrLapinfo['LapozHTML'] = '';
     $arrLapinfo['OImgDir']   = '';
     $AktCCimURL              = trim(getTXTtoURL($CCim));
+    $FSzint                  = $_SESSION['AktFelhasznalo'.'FSzint'];
   
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
+    if ($FSzint>3) {
         if ($Tipus==0){
             $SelectStr="SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas, OC.Oid
                     FROM Cikkek AS C
@@ -266,7 +284,7 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
         }   
     }
  
-    if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
+    if ($FSzint==3) {
         if ($Tipus==0){
             $SelectStr="SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas, OC.Oid
                     FROM Cikkek AS C
@@ -276,7 +294,7 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
                     ON OC.Oid = O.id
                     WHERE C.KoElozetes>0  AND
                           (C.CSzerzo=".$_SESSION['AktFelhasznalo'.'id']."  OR  
-                           C.CLathatosag>1 )
+                           C.CLathatosag>0 )
                     ORDER BY C.KoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";
         }
         if ($Tipus==1){
@@ -288,12 +306,35 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
                     ON OC.Oid = O.id
                     WHERE O.OSzuloId=".$Aktoldal['id']." AND C.SZoElozetes>0 AND
                           (C.CSzerzo=".$_SESSION['AktFelhasznalo'.'id']."  OR  
-                           C.CLathatosag>1 )
+                           C.CLathatosag>0 )
                     ORDER BY C.SZoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";    
         }     
     }    
-    
-   if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
+      if ($FSzint==2) {
+        if ($Tipus==0){
+            $SelectStr="SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas, OC.Oid
+                    FROM Cikkek AS C
+                    LEFT JOIN OldalCikkei AS OC                    
+                    ON OC.Cid = C.id
+                    LEFT JOIN Oldalak AS O
+                    ON OC.Oid = O.id
+                    WHERE C.KoElozetes>0  AND
+                          C.CLathatosag>0  
+                    ORDER BY C.KoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";
+        }
+        if ($Tipus==1){
+            $SelectStr ="SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas, OC.Oid
+                    FROM Cikkek AS C
+                    LEFT JOIN OldalCikkei AS OC                    
+                    ON OC.Cid = C.id
+                    LEFT JOIN Oldalak AS O
+                    ON OC.Oid = O.id
+                    WHERE O.OSzuloId=".$Aktoldal['id']." AND C.SZoElozetes>0 AND
+                          C.CLathatosag>0 
+                    ORDER BY C.SZoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";    
+        }  
+    }   
+   if ($FSzint==1) {
         if ($Tipus==0){
             $SelectStr="SELECT C.id, C.CNev, O.OImgDir, C.CTartalom, C.CLeiras, OC.Cid, C.CSzerzoNev, C.CModositasTime, O.OUrl, OC.CPrioritas, OC.Oid
                     FROM Cikkek AS C
@@ -317,7 +358,7 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
                     ORDER BY C.SZoElozetes DESC, OC.CPrioritas DESC, C.CModositasTime DESC";    
         }  
     }    
-    //echo "<h1>".$SelectStr." </h1>";
+
     $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CLInf 01a ");
     $MaxCikk       = mysqli_num_rows($result);
     if ($MaxCikk > 0) {    
@@ -325,7 +366,7 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
         $AktCikkCT = 0;
         $AktCikkCT = -1;
         while($row = mysqli_fetch_array($result)) { 
-            if (($_SESSION['AktFelhasznalo'.'FSzint']>3) || (getOMenuLathatosagTeszt($row['Oid'])>0)) { 
+            if (($FSzint>4) || (getOMenuLathatosagTeszt($row['Oid'])>0)) { 
                 $arrGyermekek[] = $row['id'];            
                 // Az aktuális cikk sorszámának meghatározása                
                 $AktCikkURL     = trim(getTXTtoURL($row['CNev']));                
@@ -334,7 +375,6 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
             }    
         }   
         
-       // print_r($arrGyermekek);   
         $MaxCikk = count($arrGyermekek);
         if ($MaxCikk > 0) {
             $strIdLista = '';

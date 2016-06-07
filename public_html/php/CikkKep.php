@@ -22,7 +22,7 @@ function setCikkKepFeltolt() {
     $ErrorStr = '';
     $Cid      = $_SESSION['SzerkCikk'.'id'];
     //Csak rendszergazdáknak, moderátoroknak és regisztrált felhasználóknak!
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submit_CikkKepekFeltoltForm'])) && ($Cid>0))   {          
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>2) && (isset($_POST['submit_CikkKepekFeltoltForm'])) && ($Cid>0))   {          
         $Oid          = $Aktoldal['id'];
         $UploadErr    = '';
         if ($Aktoldal['OImgDir']!='') {
@@ -143,7 +143,7 @@ function setCikkKepek() {
     $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 02");
     $row = mysqli_fetch_array($result);    mysql_free_result($result);
     $Oid = $row['Oid'];
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submitCikkKepForm'])))   {
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>2) && (isset($_POST['submitCikkKepForm'])))   {
         if (isset($_POST["rowDB"])) {$rowDB=test_post($_POST["rowDB"]);}
         
         //=============================HIBAKEZELÉS==============================
@@ -193,7 +193,7 @@ function getCikkKepForm() {
     $Cid        = $_SESSION['SzerkCikk'.'id']; 
     $OUrl = $Aktoldal['OUrl'];
     $HTMLkod    ='';
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>1){      
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>2){      
         $HTMLkod .= "<div id='divCikkKepForm' >\n";
         $HTMLkod   .=getCikkKepFeltoltForm();   
         $HTMLkod .= "<h2>A képek adatainak módosítása</h2>\n";

@@ -6,7 +6,7 @@
         //Csak rendszergazdáknak és moderátoroknak!
         $ErrorStr = '';
         $Oid      = $Aktoldal['id'];
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>0) && (isset($_POST['submitOldalKepForm'])))   { 
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitOldalKepForm'])))   { 
           for($i=9; $i>=0; $i--) {              
             if  ((isset($_POST["KFile_$i"]))&&($_POST["KFile_$i"]!='')) { 
                 $KFile      = $_POST["KFile_$i"];               
@@ -42,7 +42,7 @@ function setOldalKepFeltolt() {
     global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
     //Csak rendszergazdáknak és moderátoroknak!
     $ErrorStr = '';
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>1) && (isset($_POST['submit_KepekFeltoltForm'])))   {          
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submit_KepekFeltoltForm'])))   {          
       $Oid          = $Aktoldal['id'];
       $UploadErr    = '';
       if ($Aktoldal['OImgDir']!='') {
@@ -129,7 +129,7 @@ function setOldalKepFeltolt() {
         //Csak rendszergazdáknak és moderátoroknak!
         $ErrorStr = '';
         $Oid      = $Aktoldal['id'];
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>0) && (isset($_POST['submitOldalKepForm'])))   { 
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitOldalKepForm'])))   { 
           for($i=9; $i>=0; $i--) {
             if  (isset($_POST["KTorol_$i"])) {
                 $KFile = $_POST["KTorol_$i"];
@@ -160,8 +160,10 @@ function setOldalKepFeltolt() {
     }
 
 
-    function getOldalKepForm() {
-        global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
+function getOldalKepForm() {
+    global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
+    $HTMLkod          = '';
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4) {
         $Oid          = $Aktoldal['id'];
         if ($Aktoldal['OImgDir']!='') {
           $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";            
@@ -170,7 +172,7 @@ function setOldalKepFeltolt() {
         }
         $KepCT        = 0;
         $OUrl         = $Aktoldal['OUrl'];
-        $HTMLkod      = '';
+        
         $OldalKepek   = array();
         $OldalKepInit = array();
         $OldalKepInit['Oid']        = $Oid;
@@ -281,8 +283,9 @@ function setOldalKepFeltolt() {
         $HTMLkod .=  "<input type='submit' name='submitOldalKepForm' value='Elküld'><br><br>\n";        
         $HTMLkod .= "</form></div>\n";
         $HTMLkod .= "</div>\n";
-        return $HTMLkod;
-    }
+    }    
+    return $HTMLkod;
+}
 
 
     

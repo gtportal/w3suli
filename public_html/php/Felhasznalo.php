@@ -167,7 +167,7 @@ function setUjFelhasznalo() {
     $FKep     = '';
     $FCsoport = '';
 		
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) &&  (isset($_POST['submitUjFelhasznaloForm']))){ 			
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) &&  (isset($_POST['submitUjFelhasznaloForm']))){ 			
         if (isset($_POST['FNev']))   	    {$FNev     = test_post($_POST['FNev']);}
         if (isset($_POST['FFNev']))         {$FFNev    = test_post($_POST['FFNev']);}
         if (isset($_POST['FJelszo']))       {$FJelszo  = test_post($_POST['FJelszo']);}
@@ -228,7 +228,7 @@ function getUjFelhasznaloForm() {
     $HTMLkod  = '';
     $ErrorStr = ''; 
 	
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $FNev     = '';
         $FFNev    = '';
         $FJelszo  = '';
@@ -413,7 +413,7 @@ function setFelhasznalo() {
     $ErrorStr .= setFelhasznaloCsoportValaszt();
     $ErrorStr .= setFelhasznaloValaszt();
 
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) &&  (isset($_POST['submitFelhasznaloForm']))){ 			
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) &&  (isset($_POST['submitFelhasznaloForm']))){ 			
         if (isset($_POST['FNev']))   {$FNev    = test_post($_POST['FNev']);}  
         if (isset($_POST['FFNev']))  {$FFNev   = test_post($_POST['FFNev']);} 
         if (isset($_POST['FEmail'])) {$FEmail  = test_post($_POST['FEmail']);} 
@@ -532,7 +532,7 @@ function getFelhasznaloForm() {
     $HTMLkod  = '';
     $ErrorStr = ''; 
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $FNev     = '';
         $FFNev    = '';
         $FEmail   = '';
@@ -746,7 +746,7 @@ function setFelhasznaloValaszt() {
     global $MySqliLink;
     $ErrorStr = '';
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $FFNev     = '';
 
         // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
@@ -773,7 +773,7 @@ function getFelhasznaloValasztForm() {
     $HTMLkod  = '';
     $ErrorStr = ''; 
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
         $FFNev    = '';
 	$CsId = $_SESSION['SzerkFCsoport'];
@@ -817,7 +817,7 @@ function getFelhasznaloCsoportValasztForm()
     $HTMLkod  = '';
     $ErrorStr = ''; 
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $CsNev    = '';
 
         $HTMLkod .= "<div id='divCsoportValaszt2' >\n";
@@ -852,7 +852,7 @@ function setFelhasznaloCsoportValaszt()
     global $MySqliLink;
     $ErrorStr = '';
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $CsNev     = '';
 
         // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
@@ -1008,7 +1008,7 @@ function getUjJelszoForm() {
 function setFelhasznaloTorol() {
     global $MySqliLink;
     $ErrorStr = '';
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {
         if (isset($_POST['submitFelhasznaloTorol'])) {
             if (isset($_POST['FTorolDB'])){ $FTorolDB = INT_post($_POST['FTorolDB']);} else {$FTorolDB = 0; }
             for ($i = 0; $i < $FTorolDB; $i++){
@@ -1030,7 +1030,7 @@ function getFelhasznaloTorolForm() {
     $HTMLkod  = '';
     $ErrorStr = ''; 
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
         $HTMLkod .= "<div id='divFelhasznaloTorol' >\n";
         if ($ErrorStr!='') {

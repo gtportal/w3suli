@@ -16,7 +16,7 @@ function getCsoportValasztForm() {
     $ErrorStr = ''; 
     $CsNev    = '';
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 
         //Jelszó ellenőrzése
         $HTMLkod .= "<div id='divCsoportValaszt' >\n";
@@ -57,7 +57,7 @@ function setCsoportValaszt() {
     global $MySqliLink;
     $ErrorStr = '';
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $CsNev     = '';
 
         // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
@@ -86,7 +86,7 @@ function setUjFCsoport() {
     $ErrorStr  = ''; 
     $CsNev     = '';
     $CsLeiras  = '';		
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) &&  (isset($_POST['submitUjFCsoportForm']))){ 			
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) &&  (isset($_POST['submitUjFCsoportForm']))){ 			
         if (isset($_POST['CsNev']))   	    {$CsNev     = test_post($_POST['CsNev']);}
         if (isset($_POST['CsLeiras']))      {$CsLeiras  = test_post($_POST['CsLeiras']);}
 
@@ -121,7 +121,7 @@ function getUjFCsoportForm() {
     global $MySqliLink;
     $HTMLkod   = '';
 	
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $CsNev     = '';
         $CsLeiras  = '';
 
@@ -199,7 +199,7 @@ function setFCsoport() {
     $ErrorStr .= setCsoportValaszt();
     $CsNev     = '';
     $CsLeiras  = '';		
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) &&  (isset($_POST['submitFCsoportForm']))){ 			
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) &&  (isset($_POST['submitFCsoportForm']))){ 			
         if (isset($_POST['CsNev']))   	    {$CsNev     = test_post($_POST['CsNev']);}
         if (isset($_POST['CsLeiras']))      {$CsLeiras  = test_post($_POST['CsLeiras']);}
 
@@ -241,7 +241,7 @@ function getFCsoportForm() {
 	global $MySqliLink;
 	$HTMLkod   = '';
 
-	if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+	if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
 		     
 		$HTMLkod .= getCsoportValasztForm();
 
@@ -351,7 +351,7 @@ function getFCsoportForm() {
 function setFCsoportTorol() {
     global $MySqliLink;
     $ErrorStr          = '';      
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && isset($_POST['submitFCsoportTorol'])) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && isset($_POST['submitFCsoportTorol'])) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 	$SelectStr     = "SELECT id FROM FelhasznaloCsoport";  
         $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFCsT 01 ");
         while ($row    = mysqli_fetch_array($result)) {	
@@ -376,7 +376,7 @@ function getFCsoportTorolForm() {
     global $MySqliLink;
     $HTMLkod   = '';
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $HTMLkod .= "<div id='divFCsoportTorol' >\n";
         if ($ErrorStr!='') {
         $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}

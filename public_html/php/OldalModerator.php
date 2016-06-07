@@ -11,16 +11,14 @@ function setOModerator() {
     $Oid = $Aktoldal['id'];
     $ErrorStr = '';
     
-    //Csoport(ok) kiválasztása
-    
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    //Csoport(ok) kiválasztása    
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {
         $ErrorStr .= setOModeratorCsoportValaszt();
         $ErrorStr .= setOModeratorCsoport();
     }
     
-    //Felhasználók kiválasztása
-    
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    //Felhasználók kiválasztása    
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {
         if (isset($_POST['submitOModeratorValaszt'])) {
             if (isset($_POST['MValasztDB'])) {$MValasztDB = INT_post($_POST['MValasztDB']);} else {$MValasztDB = 0;}
             for ($i = 0; $i < $MValasztDB; $i++){
@@ -61,7 +59,7 @@ function getOModeratorForm() {
     
     $HTMLkod .= "<div id='divOldalModeratorForm' >\n";
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $HTMLkod .= "<div id='divOModeratorForm' >\n";
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
         
@@ -127,7 +125,7 @@ function getOModeratorCsoportValasztForm(){
     global $MySqliLink, $Aktoldal;
     $OUrl = $Aktoldal['OUrl'];
     $HTMLkod  = '';
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $CsNev    = '';
         
         $HTMLkod .= "<div id='divOModeratorCsoportValaszt' >\n";
@@ -158,7 +156,7 @@ function getOModeratorCsoportValasztForm(){
 function setOModeratorCsoportValaszt(){
     global $MySqliLink;
     $ErrorStr = '';
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         
         $CsNev     = '';
         // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
@@ -190,7 +188,7 @@ function getOModeratorCsoportForm(){
     $Oid  = $Aktoldal['id'];
     $HTMLkod = '';
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
 
         $HTMLkod .= "<div id='divOModeratorCsoportForm' >\n";
         
@@ -239,7 +237,7 @@ function setOModeratorCsoport(){
     
     $Oid = $Aktoldal['id'];
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {
         if (isset($_POST['submitOModeratorCsoport'])) {
             if (isset($_POST['MCsoportDB'])) {$MCsoportDB = test_post($_POST['MCsoportDB']);}    else {$MCsoportDB = 0;}
             for ($i = 0; $i < $MCsoportDB; $i++){
@@ -277,12 +275,13 @@ function setOModeratorCsoport(){
 //-------------------------------------------------------------------------------------
 //MODERÁTOR-JOGOSULTSÁG VIZSGÁLATA
 //-------------------------------------------------------------------------------------
-function getOModeratorTeszt($Oid) {
+function getOModeratorTeszt() {
     $ModeratorOK = 0;
     if ($_SESSION['AktFelhasznalo'.'FSzint']>1){  
         global $MySqliLink, $Aktoldal, $SzuloOldal, $NagyszuloOldal;
 
         $Fid           = $_SESSION['AktFelhasznalo'.'id'];
+        $Oid           = $Aktoldal['id'];
         $Szulo_Oid     = $SzuloOldal['id']; 
         $Nagyszulo_Oid = $NagyszuloOldal['id'];
         $Dedszulo_Oid  = $NagyszuloOldal['OSzuloId'];

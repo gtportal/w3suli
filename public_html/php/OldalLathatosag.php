@@ -16,7 +16,7 @@ function getOLathatosagForm(){
     $Nagyszulo_Oid    = $NagyszuloOldal['id'];
     $Dedszulo_Oid     = $NagyszuloOldal['OSzuloId'];
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {
 
         $HTMLkod     .= "<div id='divOLathatosagCsoportValaszt' >\n";
         
@@ -55,7 +55,7 @@ function setOLathatosag(){
     $OUrl        = $Aktoldal['OUrl'];
     $OLathatosag = $Aktoldal['OLathatosag']; 
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {
         if (isset($_POST['submitOldalForm'])) {                       
             if (isset($_POST['OLathatosagDB'])) {$OLathatosagDB = INT_post($_POST['OLathatosagDB']);} else {$OLathatosagDB = 0;}
             for ($i = 0; $i < $OLathatosagDB; $i++){
@@ -107,7 +107,7 @@ function setOLathatosag(){
 //OLDAL LÁTHATÓSÁGÁNAK VIZSGÁLATA
 //-------------------------------------------------------------------------------------
 
-function getOLathatosagTeszt($Oid) {    
+function getOLathatosagTeszt() {    
     global $MySqliLink, $Aktoldal, $SzuloOldal, $NagyszuloOldal;
     $LathatosagOK  = 0;    
     $Fid           = $_SESSION['AktFelhasznalo'.'id'];
@@ -118,7 +118,7 @@ function getOLathatosagTeszt($Oid) {
     $Dedszulo_Oid  = $NagyszuloOldal['OSzuloId'];
 
     if($_SESSION['AktFelhasznalo'.'FSzint']>3) {
-        //A rendszergazdák láthatják az összes oldalt
+        //A rendszergazdák és moderátorok láthatják 
         $LathatosagOK=1;        
     } else {
         if($_SESSION['AktFelhasznalo'.'FSzint']>0)
@@ -140,11 +140,11 @@ function getOLathatosagTeszt($Oid) {
                               AND (OL.Oid=$Oid OR OL.Oid=$Szulo_Oid OR OL.Oid=$Nagyszulo_Oid OR OL.Oid=$Dedszulo_Oid)";
                 $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gLT 01 ");
                 $rowDB      = mysqli_num_rows($result);  mysql_free_result($result);  
-                if($rowDB>0){$LathatosagOK=1;}
+                if($rowDB>0){$LathatosagOK=2;}
             }
         }
         //Moderátorstátusz vizsgálata
-        if(getOModeratorMenuTeszt($Oid)>0){$LathatosagOK=1;} 
+        //if(getOModeratorMenuTeszt($Oid)>0){$LathatosagOK=1;} 
     }    
     return $LathatosagOK;
 }
@@ -204,7 +204,7 @@ function getOMenuLathatosagTeszt($Oid) {
     if(getOModeratorMenuTeszt($Oid)>0){$LathatosagOK=1;}
 //  echo "<h1>$Oid -- OLathatosag: $OLathatosag  LathatosagOK: $LathatosagOK</h1>";   
     //A rendszergazdák láthatják az összes oldalt
-    if($_SESSION['AktFelhasznalo'.'FSzint']>3){$LathatosagOK=1;}
+    if($_SESSION['AktFelhasznalo'.'FSzint']>4){$LathatosagOK=1;}
     
     return $LathatosagOK;
 }

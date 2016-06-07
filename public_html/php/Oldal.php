@@ -167,7 +167,7 @@
         $ErrorStr = $_SESSION['ErrorStr']; 
 
         //Csak rendszergazdáknak és moderátoroknak!
-        if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
           $UjONev   = '';
           $UjOTipS  = '';            
           $Oid      = $Aktoldal['id'];    
@@ -263,7 +263,7 @@
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $oURL;
         //Csak rendszergazdáknak és moderátoroknak!
         $ErrorStr = '';
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (isset($_POST['submitUjOldalForm'])))   { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitUjOldalForm'])))   { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
           // ============== HIBAKEZELÉS =====================
           //A beérkező adatok ellenőrzése  
           //Az oldalnév ellenőrzése  
@@ -331,7 +331,7 @@
         $HTMLkod  = '';
         $ErrorStr = $_SESSION['ErrorStr']; 
         //Csak rendszergazdáknak és moderátoroknak!
-        if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
       
           $Oid          = $Aktoldal['id'];  
           $ONev         = $Aktoldal['ONev'];
@@ -534,7 +534,7 @@
       $ErrorStr = '';  
      // $ErrorStr = $_SESSION['ErrorStr'];
         
-      if ($_SESSION['AktFelhasznalo'.'FSzint']>3) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+      if ($_SESSION['AktFelhasznalo'.'FSzint']>4) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
           
         $Oid          = $Aktoldal['id'];  
         $ONev         = $Aktoldal['ONev'];
@@ -702,8 +702,8 @@ function setOldalTorol() {
     global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
     //Csak rendszergazdáknak és moderátoroknak!
     $ErrorStr = '';
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (($Aktoldal['OTipus'] == 1) || ($Aktoldal['OTipus'] == 2))) {    
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (isset($_POST['submitOldalTorolForm'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (($Aktoldal['OTipus'] == 1) || ($Aktoldal['OTipus'] == 2))) {    
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitOldalTorolForm'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
             // ============== HIBAKEZELÉS =====================
             $Oid    = $Aktoldal['id'];
             $ONev   = $Aktoldal['ONev'];
@@ -715,7 +715,7 @@ function setOldalTorol() {
             if ($rowDB > 0) { $ErrorStr = 'Err001'; }   
         }
         
-        if (($_SESSION['AktFelhasznalo'.'FSzint']>3) && (isset($_POST['submitOldalTorolVegleges'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitOldalTorolVegleges'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
             // ============== HIBAKEZELÉS =====================
             $Oid    = $Aktoldal['id'];
             $ONev   = $Aktoldal['ONev'];
@@ -754,7 +754,7 @@ function setOldalTorol() {
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
         $HTMLkod  = '';
         //Csak rendszergazdáknak és moderátoroknak!
-        if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+        if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
           $OUrl       = $Aktoldal['OUrl'];
           $Oid        = $Aktoldal['id'];  
           $ONev       = $Aktoldal['ONev'];
@@ -813,7 +813,7 @@ function setOldalTorol() {
       global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $DedSzuloId, $AlapAdatok, $MySqliLink, $UkSzuloId;  
       
       $HTMLFormkod   = '';
-      if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!! 
+      if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {  // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         if(isset($_POST['submitOldalTorolForm'])           || isset($_POST['submitOldalTorolVegleges']) ||
            isset($_POST['submitOModeratorCsoportValaszt']) || isset($_POST['submitOModeratorValaszt']) ||         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
            isset($_POST['submitOldalForm'])                || isset($_POST['submitUjOldalForm']) ||   
@@ -901,7 +901,7 @@ function setOldalTorol() {
                     $HTMLkod  .= "</main>";                   
                 break;
           case 1:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Kategória
-                    if (getOLathatosagTeszt($Aktoldal['id']) > 0)
+                    if (getOLathatosagTeszt() > 0)
                     { // Csak akkor érdekes, ha látogató, vagy bejelentkezett felhasználó     
                         $arrLapozC    = getCikkLapinfo(10);
                         $LapozHTMLC   = $arrLapozC['LapozHTML'];
@@ -938,7 +938,7 @@ function setOldalTorol() {
                     }
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
-                    if (getOLathatosagTeszt($Aktoldal['id']) > 0) {
+                    if (getOLathatosagTeszt() > 0) {
                         $arrLapozC    = getCikkLapinfo(10);
                         $LapozHTMLC   = $arrLapozC['LapozHTML'];
                         $SelStrC      = $arrLapozC['SelectStr'];
@@ -980,22 +980,22 @@ function setOldalTorol() {
                     $HTMLkod  .= getKilepesForm();
                    break;
           case 12:  $HTMLkod  .= "<h1>Regisztráció</h1> \n";
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                         $HTMLkod      .= getUjFelhasznaloForm();
                     } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}
                    break;
           case 13:  $HTMLkod  .= "<h1>Felhasználó törlése</h1> \n";
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod    .= getFelhasznaloTorol();
                     } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}      
                    break;
           case 14:  $HTMLkod  .= "<h1>Felhasználó lista</h1> \n";
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod    .= getFelhasznaloLista();
                     } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}
                    break;               
           case 15:  $HTMLkod  .= "<h1>Adatmódosítás</h1> \n"; 
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod     .= getFelhasznaloForm();                            
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}    
                     break; 
@@ -1003,7 +1003,7 @@ function setOldalTorol() {
                     $HTMLkod  .= getUjJelszoForm();
                    break;               
           case 20:  $HTMLkod  .= "<h1>Felhasználói csoport kezelése</h1> \n";
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod     .= getFCsoportForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}      
                    break;  
@@ -1015,20 +1015,22 @@ function setOldalTorol() {
                     $HTMLkod  .= getArchivHTML(); 
                    break;                
           case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 6) {
                           $HTMLkod     .= getAlapbeallitasForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
                    break;    
           case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
-                    $HTMLkod  .= getKiegTForm();
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
+                           $HTMLkod    .= getKiegTForm();
+                    }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";} 
                    break;   
           case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                           $HTMLkod     .= getFoMenuForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
                    break;       
           case 54:  $HTMLkod  .= "<h1>Helyi menü plusz</h1> \n";
-                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+                    if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                           $HTMLkod     .= getMenuPluszForm();
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
                    break;     

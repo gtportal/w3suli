@@ -31,23 +31,16 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
 
 function getCikkekHTML($SelStr) {
     global $MySqliLink, $Aktoldal;
-    $HTMLkod  = '';
-    $Oid      = $Aktoldal['id']; 
+    $HTMLkod      = '';
+    $Oid          = $Aktoldal['id']; 
     if ($Aktoldal['OImgDir']!='') {
       $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";
     } else {
       $KepUtvonal = "img/oldalak/";
     }    
-    // Egyelőre az összes, az oldalhoz tartozó cikket megjelenítjük, később lapozunk    
-    $SelectStr = "SELECT C.id, C.CNev, C.CLeiras, C.CTartalom, C.CLathatosag, C.CSzerzo, C.CSzerzoNev, C.CModositasTime
-                        FROM Cikkek AS C
-                        LEFT JOIN OldalCikkei AS OC
-                        ON OC.Cid= C.id
-                        WHERE OC.Oid=$Oid
-                        ORDER BY  OC.CPrioritas DESC, C.CModositasTime DESC";
-    $SelectStr = $SelStr;
-    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01a");
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
+    $SelectStr    = $SelStr;
+    $result       = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01a");
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>0) {
         while ($row = mysqli_fetch_array($result)){     
                 $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
                 
@@ -64,41 +57,7 @@ function getCikkekHTML($SelStr) {
                 $HTMLkod .= "</div>\n";
                 $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
         }
-    } else {
-        if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
-            while ($row = mysqli_fetch_array($result)){
-                if ($row['CLathatosag'] > 1 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) {
-                    $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
-                   // $CTartalom = SzintaxisCsere($CTartalom);
-                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére     
-                    $CTartalom = SzintaxisCsere($CTartalom);
-                    $HTMLkod  .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
-                   // $HTMLkod  .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                    $HTMLkod  .= "<div class = 'divCikkTartalom'>\n";
-                    $HTMLkod  .= $CTartalom."\n";
-                    $HTMLkod  .= getCikkKepekHTML($row['id']);
-                    $HTMLkod  .= "</div>\n";
-                    $HTMLkod  .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
-                }
-            }
-        }
-        if ($_SESSION['AktFelhasznalo'.'FSzint']==1) {
-            while ($row = mysqli_fetch_array($result)){
-                if ($row['CLathatosag'] > 2 || $row['CSzerzo'] == $_SESSION['AktFelhasznalo'.'id']) { 
-                    $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
-                   // $CTartalom = SzintaxisCsere($CTartalom);
-                    $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
-                    $CTartalom = SzintaxisCsere($CTartalom);
-                    $HTMLkod .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
-                    $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
-                    $HTMLkod .= $CTartalom."\n";
-                    $HTMLkod .= getCikkKepekHTML($row['id']);
-                    $HTMLkod .= "</div>\n";
-                    $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
-                }
-            }
-        }
-    }    
+    }   
     if ($HTMLkod!='') {$HTMLkod = "<div id='divCikkekKulso'>\n$HTMLkod </div>\n";} // Az összes cikkek becsomagoljuk    
     
     return $HTMLkod;
@@ -108,13 +67,16 @@ function getCikkekHTML($SelStr) {
 function getCikkekForm() {
     $HTMLkod  = '';
     // Új cikk és
-    // a $_SESSION['SzerkCik'][id] és a $_SESSION['SzerkCik'][Oid] által meghatározott cikk kezelése
+     
+    if ($_SESSION['AktFelhasznalo'.'FSzint']==2) {
+        if (2==getOLathatosagTeszt()) { $_SESSION['AktFelhasznalo'.'FSzint'] = 3;}            
+    }
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>1) {  // Meg. A FSzint vizsgálata FONTOS!!! Később még a tulajdonossal bővűl.
-            $UjCikk = true;
-            $Cikk = true;
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {  // Meg. A FSzint vizsgálata FONTOS!!! Később még a tulajdonossal bővűl.
+        /*    $UjCikk    = true;
+            $Cikk      = true;
             $TorolCikk = true;
-            $CikkKep = true;
+            $CikkKep   = true;
             if (isset($_POST['submitUjCikkForm']) && $_SESSION['ErrorStr']!=''){
                     $UjCikk    = false;
             } else {$UjCikk    = true;}
@@ -127,18 +89,20 @@ function getCikkekForm() {
             if ((isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])) && $_SESSION['ErrorStr']!=''){
                     $CikkKep   = false;
             } else {$CikkKep   = true;}
-    $HTMLkod .= "<div id='divCikkek'>";
-    
-    if (isset($_POST['submitCikkValaszt']) || isset($_POST['submitUjCikkForm']) || isset($_POST['submitCikkForm']) ||
-        isset($_POST['submitCikkTorol']) || isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])                 
-       ){    
-        $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk'   value='chFormkodCikk'   type='checkbox' checked >\n";
-        $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
-    } else {
-        $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk'   value='chFormkodCikk'   type='checkbox'  >\n";
-        $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
-    }
-    $HTMLkod  .= getCikkValasztForm();
+            */
+        
+
+        $HTMLkod .= "<div id='divCikkek'>";
+        if (isset($_POST['submitCikkValaszt']) || isset($_POST['submitUjCikkForm']) || isset($_POST['submitCikkForm']) ||
+            isset($_POST['submitCikkTorol']) || isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])                 
+           ){    
+            $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk' value='chFormkodCikk'   type='checkbox' checked >\n";
+            $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
+        } else {
+            $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk' value='chFormkodCikk'   type='checkbox'  >\n";
+            $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
+        }
+        $HTMLkod  .= getCikkValasztForm();
         $HTMLkod  .= "<div id='divFormkodCikk'>\n";
         if (isset($_POST['submitUjCikkForm'])){//=====UjCikkForm megjelenítését szabályozó input elem=====
             $HTMLkod  .= "<input name='chCikkForm'  id='chUjCikkForm' value='chUjCikkForm' type='radio' checked>\n";
@@ -168,16 +132,13 @@ function getCikkekForm() {
             $HTMLkod  .= "<input name='chCikkForm'   id='chCikkKepForm' value='chCikkKepForm'  type='radio'  >\n";
             $HTMLkod  .= "<label for='chCikkKepForm' class='chLabel'    id='labelCikkKepForm'>Cikk képeinek módosítása</label>\n \n";
         } 
-        
-       // $HTMLkod  .= getCikkValasztForm();
+
         $HTMLkod  .= getUjCikkForm();
         $HTMLkod  .= getCikkForm();
         $HTMLkod  .= getCikkTorolForm();
         $HTMLkod  .= getCikkKepForm();
         $HTMLkod  .= "</div>\n";
-    $HTMLkod  .= "</div>\n";
-    //...
-  
+        $HTMLkod  .= "</div>\n"; 
     }
     return $HTMLkod;
 }

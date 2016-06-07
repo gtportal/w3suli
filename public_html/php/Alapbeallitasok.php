@@ -9,7 +9,7 @@ $AlapAdatok['Stilus']     =  0;
 function setAlapbeallitasok() {  
     global $MySqliLink, $AlapAdatok;
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3) 
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>6) 
     { // FSzint-et növelni, ha működik a felhasználókezelés!!!
         $WNev        = $AlapAdatok['WebhelyNev'];
         $Iskola      = $AlapAdatok['Iskola'];
@@ -75,7 +75,7 @@ function getAlapbeallitasForm() {
     $HTMLkod  = '';
     $ErrorStr = '';         
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>6)  {
         $WNev        = $AlapAdatok['WebhelyNev'];
         $Iskola      = $AlapAdatok['Iskola'];
         $Cim         = $AlapAdatok['Cim'];

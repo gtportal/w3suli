@@ -7,7 +7,7 @@ function setKiegT() {
     $KiegTTartalom  = "";
     $KiegTPrioritas = 0;
     
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3){
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>5){
         if (isset($_POST['submitKiegTartalom'])) {
             for ($i = 0; $i < 10; $i++){
                 $id = INT_post($_POST["ModKTid_$i"]);
@@ -48,7 +48,7 @@ function getKiegTForm() {
     global $MySqliLink;
     $HTMLkod        = '';
 
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>5)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $KiegTartalom                   = array();
         $KiegTartalom['id']             = 0;
         $KiegTartalom['KiegTNev']       = '';

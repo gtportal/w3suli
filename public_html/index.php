@@ -43,7 +43,7 @@
   }  
   
   $_SESSION['ErrorStr']   = '';
-  if ($_SESSION['AktFelhasznalo'.'FSzint']==3) {$_SESSION['AktFelhasznalo'.'FSzint']=2;} // A moderátor oldalanként változik  
+  if ($_SESSION['AktFelhasznalo'.'FSzint']==4) {$_SESSION['AktFelhasznalo'.'FSzint']=3;} // A moderátor oldalanként változik  
   //if (isset($_GET['f0']))  { $oURL = $_GET['f0'];}  else { $oURL = '';}  
   if (isset($_GET['f0']))  { $oURL = getTXTtoURL($_GET['f0']);}  else { $oURL = '';}  
   if (isset($_GET['lap'])) { $oLap = INT_post($_GET['lap']);}    else { $oLap = 0;} 
@@ -66,7 +66,7 @@
     $_SESSION['ErrorStr']   .= setKilepes(); 
     $_SESSION['ErrorStr']   .= SetUjJelszo();
   }
-  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
     $_SESSION['ErrorStr']   .= setFelhasznalo();
     $_SESSION['ErrorStr']   .= setUjFelhasznalo();  
     $_SESSION['ErrorStr']   .= setFelhasznaloTorol();    
@@ -99,14 +99,14 @@
   //A MODERÁTOR STÁTUSZ ELLENŐRZÉSE
   if ($_SESSION['AktFelhasznalo'.'FSzint'] == 2) 
   {
-    if (getOModeratorTeszt($Aktoldal['id']) > 0)    // Csak akkor érdekes, ha bejelentkezett, de nem rendszergazda     
+    if (getOModeratorTeszt() > 0)    // Csak akkor érdekes, ha bejelentkezett, de nem rendszergazda     
     {
-        $_SESSION['AktFelhasznalo'.'FSzint'] =  3;
+        $_SESSION['AktFelhasznalo'.'FSzint'] =  4;
     }
   } 
   
   //FELHASZNÁLÓI CSOPORTADATOK MÓDOSÍTÁSA
-  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
     $_SESSION['ErrorStr']   .= setUjFCsoport();  
     $_SESSION['ErrorStr']   .= setFCsoport(); 
     $_SESSION['ErrorStr']   .= setFCsoportTorol(); 
@@ -114,7 +114,7 @@
   }
     
   //AZ OLDAL ADATAINAK MÓDOSÍTÁSA
-  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {  
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {  
     $_SESSION['ErrorStr']   .= setUjOldal();
     $_SESSION['ErrorStr']   .= setOldal();
     $_SESSION['ErrorStr']   .= setOldalTorol();  
@@ -135,7 +135,7 @@
   }
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA
-  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 3) {   
+  if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {   
     $_SESSION['ErrorStr']   .= setKiegT(); 
     $_SESSION['ErrorStr']   .= setFoMenu();
     $_SESSION['ErrorStr']   .= setMenuPlusz();

@@ -9,7 +9,7 @@ function setFoMenu() {
   $FoMenuLink = array();
   
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
-  if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+  if ($_SESSION['AktFelhasznalo'.'FSzint']>5)  {
     if (isset($_POST['submitFoMenu'])) {
           for ($i = 0; $i < 10; $i++){
               $id = INT_post($_POST["ModFoMenuid_$i"]);
@@ -52,7 +52,7 @@ function getFoMenuForm() {
  //echo '<h1>Tesztzzzzzzzzzzzzzz</h1>';
   // Adatbázisból feltöltjük a $FoMenuLink tömböt pl.>> $FoMenuLink[$i]['Linknév']
  // $HTMLkod .= getFoMenuHTML();
-  if ($_SESSION['AktFelhasznalo'.'FSzint']>3)  {
+  if ($_SESSION['AktFelhasznalo'.'FSzint']>5)  {
         $SelectStr = "SELECT * FROM FoMenuLink";
         $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba fml 01");
 
