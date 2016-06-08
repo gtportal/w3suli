@@ -4,7 +4,11 @@ $AlapAdatok['Iskola']     = '';
 $AlapAdatok['Cim']        = '';
 $AlapAdatok['Telefon']    = '';
 $AlapAdatok['Stilus']     =  0;
-
+$AlapAdatok['HeaderStr']  = '';
+$AlapAdatok['GoogleKod']  = ''; 
+$AlapAdatok['GooglePlus'] =  0;
+$AlapAdatok['HeaderImg']  = '';
+$AlapAdatok['FavIcon']  = ''; 
 
 function setAlapbeallitasok() {  
     global $MySqliLink, $AlapAdatok;
@@ -166,11 +170,12 @@ function getAlapbeallitasForm() {
 
 function getAlapbeallitasok() {
     global $MySqliLink;
-
     $SelectStr   = "SELECT * FROM AlapAdatok LIMIT 1";     
     $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gAb 1"); 
-    $row         = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
-
+    $rowDB       = mysqli_num_rows($result);                    
+    if($rowDB>0){
+       $row      = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
+    }
     return $row;
 }
 

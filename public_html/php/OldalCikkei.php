@@ -3,26 +3,30 @@
 // A tartalomban lecseréli a #0, #1, #2 .... kódokat img elemekre
 function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     global $MySqliLink, $Aktoldal;
-    $HTMLkod      = '';    
+    $HTMLkod       = '';    
     
-    $SelectStr = "SELECT KNev, KFile, KSzelesseg, KMagassag, KStilus FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
-    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
-    $HTMLHirKepTMB = array();
-    $i = 0;
-    while ($row = mysqli_fetch_array($result)){
-        $Src      = $KepUtvonal.$row['KFile'];
-        $KNev     = $row['KNev']; 
-        $KepMeret = '';
-        if ($row['KSzelesseg']>0)   {$KepMeret = "style='max-width:".$row['KSzelesseg']."px;'";} else {
-           if ($row['KMagassag']>0) {$KepMeret = "style='max-height:".$row['KMagassag']."px;'";}             
+    $SelectStr     = "SELECT KNev, KFile, KSzelesseg, KMagassag, KStilus FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
+    $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+    $HTMLHirKepTMB = array('','','','','');
+    $i             = 0;
+    $rowDB         = mysqli_num_rows($result); 
+    if ($rowDB > 0) {
+        while ($row   = mysqli_fetch_array($result)){
+            $Src      = $KepUtvonal.$row['KFile'];
+            $KNev     = $row['KNev']; 
+            $KepMeret = '';
+            if ($row['KSzelesseg']>0)   {$KepMeret = "style='max-width:".$row['KSzelesseg']."px;'";} else {
+               if ($row['KMagassag']>0) {$KepMeret = "style='max-height:".$row['KMagassag']."px;'";}             
+            }
+            $KepStilus= " KepStyle".$row['KStilus']." ";
+            $imgkod   = "<div class = 'divCikkKepN $KepStilus' $KepMeret >";
+            $imgkod  .= "<img src='$Src'  class = 'imgCikkKepN $KepStilus' alt='$KNev' $KepMeret>"; //echo "<h1>KFile ".$row['KFile']."Src $Src</h1>";
+            $imgkod  .= "</div>\n";
+            $HTMLHirKepTMB[$i] = $imgkod;
+            $i++;
         }
-        $KepStilus= " KepStyle".$row['KStilus']." ";
-        $imgkod   = "<div class = 'divCikkKepN $KepStilus' $KepMeret >";
-        $imgkod  .= "<img src='$Src'  class = 'imgCikkKepN $KepStilus' alt='$KNev' $KepMeret>"; //echo "<h1>KFile ".$row['KFile']."Src $Src</h1>";
-        $imgkod  .= "</div>\n";
-        $HTMLHirKepTMB[$i] = $imgkod;
-        $i++;
-    }  
+        mysqli_free_result($result);
+    }
     $arr          = array( "#1" => "$HTMLHirKepTMB[0]", "#2" => "$HTMLHirKepTMB[1]", "#3" => "$HTMLHirKepTMB[2]", 
                            "#4" => "$HTMLHirKepTMB[3]", "#5" => "$HTMLHirKepTMB[4]", "##" => "");  
     $HTMLkod      = strtr($CTartalom ,$arr);
@@ -40,7 +44,8 @@ function getCikkekHTML($SelStr) {
     }    
     $SelectStr    = $SelStr;
     $result       = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01a");
-    if ($_SESSION['AktFelhasznalo'.'FSzint']>0) {
+    $rowDB        = mysqli_num_rows($result);
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>0) && ($rowDB>0)) {
         while ($row = mysqli_fetch_array($result)){     
                 $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
                 
@@ -57,6 +62,7 @@ function getCikkekHTML($SelStr) {
                 $HTMLkod .= "</div>\n";
                 $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
         }
+        mysqli_free_result($result);
     }   
     if ($HTMLkod!='') {$HTMLkod = "<div id='divCikkekKulso'>\n$HTMLkod </div>\n";} // Az összes cikkek becsomagoljuk    
     
@@ -73,24 +79,6 @@ function getCikkekForm() {
     }
     
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {  // Meg. A FSzint vizsgálata FONTOS!!! Később még a tulajdonossal bővűl.
-        /*    $UjCikk    = true;
-            $Cikk      = true;
-            $TorolCikk = true;
-            $CikkKep   = true;
-            if (isset($_POST['submitUjCikkForm']) && $_SESSION['ErrorStr']!=''){
-                    $UjCikk    = false;
-            } else {$UjCikk    = true;}
-            if (isset($_POST['submitCikkForm']) && $_SESSION['ErrorStr']!=''){
-                    $Cikk      = false;
-            } else {$Cikk      = true;}
-            if (isset($_POST['submitCikkTorol']) && $_SESSION['ErrorStr']!=''){
-                    $TorolCikk = false;
-            } else {$TorolCikk = true;}
-            if ((isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])) && $_SESSION['ErrorStr']!=''){
-                    $CikkKep   = false;
-            } else {$CikkKep   = true;}
-            */
-        
 
         $HTMLkod .= "<div id='divCikkek'>";
         if (isset($_POST['submitCikkValaszt']) || isset($_POST['submitUjCikkForm']) || isset($_POST['submitCikkForm']) ||

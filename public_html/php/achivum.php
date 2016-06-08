@@ -44,6 +44,7 @@ function getArchivHTML() {
                     $HTMLkod .= "</div>\n";
                     $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
         }
+        mysqli_free_result($result);
     } else {
         $HTMLkod   = 'Az archívum még üres';        
     }

@@ -27,20 +27,19 @@ function setOModerator() {
                     $SelectStr = "SELECT * FROM OModeratorok WHERE Fid=$id AND OId=$Oid "; //echo $SelectStr."<br>";
                     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMod 01 ");
                     $rowDB     = mysqli_num_rows($result);
-                    mysql_free_result($result);                    
+                                        
                     if($rowDB<1){
                         $InsertIntoStr = "INSERT INTO OModeratorok VALUES ('','$Oid','$id','0')";
-                        $result     = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sMod 02 ");
-                    }     
+                        $result        = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sMod 02 ");
+                    } else {mysqli_free_result($result);}    
                 }
                 else
                 {
-                    $SelectStr = "SELECT * FROM OModeratorok WHERE Fid=$id AND OId=$Oid "; //echo $SelectStr."<br>";
-                    $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMod 03 ");
-                    $rowDB  = mysqli_num_rows($result);
-                    mysql_free_result($result);
-                    
+                    $SelectStr     = "SELECT * FROM OModeratorok WHERE Fid=$id AND OId=$Oid "; //echo $SelectStr."<br>";
+                    $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMod 03 ");
+                    $rowDB         = mysqli_num_rows($result);                    
                     if($rowDB>0){
+                        mysqli_free_result($result);
                         $DeleteStr = "DELETE FROM OModeratorok WHERE Fid = $id AND Oid = $Oid";
                         $result    = mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sMod 04 ");
                     }  
@@ -52,58 +51,61 @@ function setOModerator() {
 }
 function getOModeratorForm() {
     global $MySqliLink, $Aktoldal;
-    $OUrl = $Aktoldal['OUrl'];
-    $Oid  = $Aktoldal['id'];
+    $OUrl     = $Aktoldal['OUrl'];
+    $Oid      = $Aktoldal['id'];
     $HTMLkod  = '';
     $ErrorStr = ''; 
     
     $HTMLkod .= "<div id='divOldalModeratorForm' >\n";
     
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
-        $HTMLkod .= "<div id='divOModeratorForm' >\n";
+        $HTMLkod     .= "<div id='divOModeratorForm' >\n";
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
         
-        //Csoport kiválasztása
-        
+        //Csoport kiválasztása        
         $HTMLkod .= getOModeratorCsoportValasztForm();
         
-        //Felhasználó kiválasztása
-        
+        //Felhasználó kiválasztása        
         if($_SESSION['SzerkMCsoport']>0)
-        {
-            
-            $CsId = $_SESSION['SzerkMCsoport'];
-            $SelectStr ="SELECT F.id, F.FNev, F.FFNev
-                        FROM Felhasznalok AS F
-                        LEFT JOIN FCsoportTagok AS FCsT
-                        ON FCsT.Fid= F.id 
-                        WHERE FCsT.Csid=$CsId";
-            $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gMod 01 ");
-            $rowDB  = mysqli_num_rows($result);
+        {            
+            $CsId        = $_SESSION['SzerkMCsoport'];
+            $SelectStr   = "SELECT F.id, F.FNev, F.FFNev
+                            FROM Felhasznalok AS F
+                            LEFT JOIN FCsoportTagok AS FCsT
+                            ON FCsT.Fid= F.id 
+                            WHERE FCsT.Csid=$CsId";
+            $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gMod 01 ");
+            $rowDB        = mysqli_num_rows($result);
             if ($rowDB>0) {
                 $HTMLkod .= "<div id='divOModeratorValasztForm' >\n";
                 $HTMLkod .= "<h3>Válasszon moderátort!</h3>\n";            
                 $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOModeratorValaszt'>\n";
                 $HTMLkod .= "<fieldset> <legend>Felhasználók listája</legend>";
                 $i = 0;
-                while ($row = mysqli_fetch_array($result)) {
-                    $FNev = $row['FNev'];
-                    $id = $row['id'];
+                while ($row       = mysqli_fetch_array($result)) {
+                    $FNev         = $row['FNev'];
+                    $id           = $row['id'];
                     //Lekérdezzük, van-e már az oldalon moderátor a csoporton belül
-                    $SelectStr ="SELECT * FROM OModeratorok AS OM
-                                JOIN Oldalak AS O
-                                ON OM.Oid=O.id 
-                                WHERE OM.Fid=$id AND OM.Oid=$Oid";
+                    $SelectStr    = "SELECT * FROM OModeratorok AS OM
+                                     JOIN Oldalak AS O
+                                     ON OM.Oid=O.id 
+                                     WHERE OM.Fid=$id AND OM.Oid=$Oid";
                     $result2      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gMod 02 ");
-                    mysqli_free_result(result2);
-                    $rowDB_2  = mysqli_num_rows($result2);
-                    if($rowDB_2>0){$checked="checked";}else{$checked="";}
+                    $rowDB_2      = mysqli_num_rows($result2);                 
+                    
+                    if($rowDB_2>0){
+                        $checked  = "checked";
+                        mysqli_free_result($result2);
+                    }else{
+                        $checked  = "";                        
+                    }
                     $HTMLkod .= "<input type='checkbox' name='MValaszt_$i' id='MValaszt_$i' $checked>\n";
                     $HTMLkod .= "<label for='MValaszt_$i' class='label_1'>$FNev</label>\n ";
                     //id
                     $HTMLkod .= "<input type='hidden' name='MValasztId_$i' id='MValasztId_$i' value='$id'><br>\n";
                     $i++;
                 }
+                mysqli_free_result($result); 
                 $HTMLkod .= "<input type='hidden' name='MValasztDB' id='MValasztDB' value='$rowDB'>\n";
                 //Submit
                  $HTMLkod .= "</fieldset>";
@@ -123,7 +125,8 @@ function getOModeratorForm() {
 }
 function getOModeratorCsoportValasztForm(){
     global $MySqliLink, $Aktoldal;
-    $OUrl = $Aktoldal['OUrl'];
+    $OUrl     = $Aktoldal['OUrl'];
+    $ErrorStr = $_SESSION['ErrorStr'];
     $HTMLkod  = '';
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $CsNev    = '';
@@ -133,18 +136,20 @@ function getOModeratorCsoportValasztForm(){
         
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOModeratorCsoportValaszt'>\n";
         //Felhasználó(k) kiválasztása
-        $HTMLkod .= "<h2>Moderátor kiválasztása</h2>";
-        $HTMLkod .= "<h3>A moderátor csoportjának kiválasztása</h3>";
-        $HTMLkod .= "<fieldset> <legend>Felhasználói csoportok listája</legend>";
-        $HTMLkod .= "<select name='selectOModeratorCsoportValaszt' size='1'>";
+        $HTMLkod    .= "<h2>Moderátor kiválasztása</h2>";
+        $HTMLkod    .= "<h3>A moderátor csoportjának kiválasztása</h3>";
+        $HTMLkod    .= "<fieldset> <legend>Felhasználói csoportok listája</legend>";
+        $HTMLkod    .= "<select name='selectOModeratorCsoportValaszt' size='1'>";
         $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMCsV 01 ");
-        while($row = mysqli_fetch_array($result))
+        $rowDB       = mysqli_num_rows($result);        
+        while($row   = mysqli_fetch_array($result))
         {
-            $CsNev = $row['CsNev'];
+            $CsNev   = $row['CsNev'];
             if($_SESSION['SzerkMCsoport'] == $row['id']){$Select = " selected ";}else{$Select = "";}
             $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
         }	
+        if($rowDB>0){mysqli_free_result($result);}
         $HTMLkod .= "</select></fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitOModeratorCsoportValaszt' value='Kiválaszt'><br>\n";        
@@ -167,7 +172,11 @@ function setOModeratorCsoportValaszt(){
             {
                 $SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev' LIMIT 1";  //echo "<h1>$SelectStr</h1>";
                 $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMCsV 02 ");
-                $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
+                $rowDB       = mysqli_num_rows($result);                    
+                if($rowDB>0){
+                    $row     = mysqli_fetch_array($result);  
+                    mysqli_free_result($result);
+                }
                 //Ha kiválasztottunk egy másik csoportot, akkor újratöltjük a felhasználókat
                 
                 if($_SESSION['SzerkMCsoport'] != $row['id']){$_SESSION['SzerkModerator']=0;}
@@ -184,37 +193,38 @@ function setOModeratorCsoportValaszt(){
 
 function getOModeratorCsoportForm(){
     global $MySqliLink, $Aktoldal;
-    $OUrl = $Aktoldal['OUrl'];
-    $Oid  = $Aktoldal['id'];
-    $HTMLkod = '';
-    
+    $OUrl     = $Aktoldal['OUrl'];
+    $Oid      = $Aktoldal['id'];
+    $HTMLkod  = '';
+    $ErrorStr = $_SESSION['ErrorStr']; 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
 
-        $HTMLkod .= "<div id='divOModeratorCsoportForm' >\n";
-        
+        $HTMLkod  .= "<div id='divOModeratorCsoportForm' >\n";        
         
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
-        $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOModeratorCsoport'>\n";
-        $HTMLkod .= "<h2>Moderátor-csoport kiválasztás</h2>\n";
+        $HTMLkod  .= "<form action='?f0=$OUrl' method='post' id='formOModeratorCsoport'>\n";
+        $HTMLkod  .= "<h2>Moderátor-csoport kiválasztás</h2>\n";
         
-        $HTMLkod .= "<fieldset> <legend>Felhasználói csoportok listája</legend>";
-        $SelectStr ="SELECT * FROM FelhasznaloCsoport";
+        $HTMLkod  .= "<fieldset> <legend>Felhasználói csoportok listája</legend>";
+        $SelectStr = "SELECT * FROM FelhasznaloCsoport";
         $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gModCs 01 ");
         $rowDB     = mysqli_num_rows($result);
         
         $i = 0;
         while ($row = mysqli_fetch_array($result)) {
-            $id = $row['id'];
-            $CsNev = $row['CsNev'];
+            $id     = $row['id'];
+            $CsNev  = $row['CsNev'];
             
-            //Lekérdezzük, hogy mely csoportok vannak már beállítva moderátornak
-            
+            //Lekérdezzük, hogy mely csoportok vannak már beállítva moderátornak            
             $SelectStr = "SELECT * FROM OModeratorok WHERE CSid=$id AND Oid=$Oid";
-            $result2   = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gModCs 02 ");
-            mysqli_free_result(result2);
-            $rowDB_2  = mysqli_num_rows($result2);
-            
-            if($rowDB_2>0){$checked="checked";}else{$checked="";}
+            $result2   = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gModCs 02 ");            
+            $rowDB_2   = mysqli_num_rows($result2);
+            if($rowDB_2>0){
+                $checked="checked";
+                mysqli_free_result($result2);
+            }else{
+                $checked="";                
+            }
             
             $HTMLkod .= "<input type='checkbox' name='MCsoport_$i' id='MCsoport_$i' $checked>\n";
             $HTMLkod .= "<label for='MCsoport_$i' class='label_1'>$CsNev</label>\n ";
@@ -222,6 +232,7 @@ function getOModeratorCsoportForm(){
             $HTMLkod .= "<input type='hidden' name='MCsoportId_$i' id='MCsoportId_$i' value='$id'><br>\n";
             $i++;
         }
+        if($rowDB>0){mysqli_free_result($result2);            }
         $HTMLkod .= "<input type='hidden' name='MCsoportDB' id='MCsoportDB' value='$rowDB'>\n";
         $HTMLkod .= "</fieldset>";
         //Submit
@@ -245,22 +256,19 @@ function setOModeratorCsoport(){
                 if (isset($_POST["MCsoport_$i"])){
                     $SelectStr = "SELECT * FROM OModeratorok WHERE CSid=$id AND OId=$Oid"; //echo $SelectStr."<br>";
                     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sModCs 01 ");
-                    $rowDB     = mysqli_num_rows($result);
-                    mysql_free_result($result);
-                    
-                    if($rowDB<1){
+                    $rowDB     = mysqli_num_rows($result);               
+                    if($rowDB<1){                        
                         $InsertIntoStr = "INSERT INTO OModeratorok VALUES ('','$Oid','0','$id')";
                         $result        = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sModCs 02 ");
-                    }     
+                    } else {mysqli_free_result($result);}    
                 }
                 else
                 {
                     $SelectStr = "SELECT * FROM OModeratorok WHERE CSid=$id AND OId=$Oid "; //echo $SelectStr."<br>";
                     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sModCs 03 ");
-                    $rowDB     = mysqli_num_rows($result);
-                    mysql_free_result($result);
-                    
+                    $rowDB     = mysqli_num_rows($result);                    
                     if($rowDB>0){
+                        mysqli_free_result($result);
                         $DeleteStr = "DELETE FROM OModeratorok WHERE CSid = $id AND Oid = $Oid";
                         $result    = mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sModCs 04 ");
                     }  
@@ -294,13 +302,13 @@ function getOModeratorTeszt() {
                 ON FCsT.CSid=OM.CSid WHERE FCsT.Fid=$Fid 
                 AND (OM.Oid=$Oid OR OM.Oid=$Szulo_Oid OR OM.Oid=$Nagyszulo_Oid OR OM.Oid=$Dedszulo_Oid OR OM.Oid=$Ukszulo_Oid)";
         $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMT 01 ");
-        $rowDB     = mysqli_num_rows($result); mysql_free_result($result);
+        $rowDB     = mysqli_num_rows($result); mysqli_free_result($result);
         if($rowDB>0){$ModeratorOK=1;}
 
         //Felhasználó moderátorságának vizsgálata
         $SelectStr  = "SELECT * FROM OModeratorok WHERE Fid=$Fid AND (Oid=$Oid OR Oid=$Szulo_Oid OR Oid=$Nagyszulo_Oid OR Oid=$Dedszulo_Oid OR Oid=$Ukszulo_Oid)";
         $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMT 02 ");
-        $rowDB      = mysqli_num_rows($result);  mysql_free_result($result);                    
+        $rowDB      = mysqli_num_rows($result);  mysqli_free_result($result);                    
         if($rowDB>0){$ModeratorOK=1;}
     }
     return $ModeratorOK;
@@ -313,23 +321,36 @@ function getOModeratorMenuTeszt($Oid) {
         $Nagyszulo_Oid = 1;
         $Dedszulo_Oid  = 1;
         $Ukszulo_Oid   = 1; 
+        $rowDB         = 0;
 
-        $SelectStr = "SELECT OSzuloId FROM Oldalak WHERE id=$Oid";
-        $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMMT 01 ");
-        $row       = mysqli_fetch_array($result);    
-        $Szulo_Oid = $row['OSzuloId'];
+        $SelectStr     = "SELECT OSzuloId FROM Oldalak WHERE id=$Oid";
+        $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMMT 01 ");
+        $rowDB1        = mysqli_num_rows($result);
+        if($rowDB1>0){
+            $row       = mysqli_fetch_array($result);    
+            $Szulo_Oid = $row['OSzuloId'];
+            mysqli_free_result($result);
+        }    
 
         if($Szulo_Oid>1){ //Kezdőlap esetén $Szulo_Oid = 0;
             $SelectStr     = "SELECT * FROM Oldalak WHERE id=$Szulo_Oid";
             $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMMT 02 ");
-            $row           = mysqli_fetch_array($result); mysql_free_result($result); 
-            $Nagyszulo_Oid = $row['OSzuloId'];
+            $rowDB         = mysqli_num_rows($result);
+            if($rowDB>0){
+                $row           = mysqli_fetch_array($result);             
+                $Nagyszulo_Oid = $row['OSzuloId'];
+                mysqli_free_result($result); 
+            }
 
             if($Nagyszulo_Oid!=1){
                 $SelectStr    ="SELECT * FROM Oldalak WHERE id=$Nagyszulo_Oid";
                 $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMMT 03 ");
-                $row          = mysqli_fetch_array($result); mysql_free_result($result); 
-                $Dedszulo_Oid = $row['OSzuloId'];
+                $rowDB        = mysqli_num_rows($result);
+                if($rowDB>0){
+                    $row          = mysqli_fetch_array($result);     
+                    $Dedszulo_Oid = $row['OSzuloId'];
+                    mysqli_free_result($result);
+                }
             }
         }
 
@@ -341,19 +362,26 @@ function getOModeratorMenuTeszt($Oid) {
                 WHERE FCsT.Fid=$Fid 
                 AND (OM.Oid=$Oid OR OM.Oid=$Szulo_Oid OR OM.Oid=$Nagyszulo_Oid OR OM.Oid=$Dedszulo_Oid OR OM.Oid=$Ukszulo_Oid)";
         $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMMT 04 ");
-        $rowDB     = mysqli_num_rows($result);
-        mysql_free_result($result);        
-
-        if($rowDB>0){$ModeratorOK=1;}else{$ModeratorOK=0;}
+        $rowDB     = mysqli_num_rows($result);         
+        if($rowDB>0){
+            $ModeratorOK=1;
+            mysqli_free_result($result); 
+        }else{
+            $ModeratorOK=0;            
+        }
 
         //Felhasználó moderátorságának vizsgálata    
         $SelectStr = "SELECT * FROM OModeratorok 
                       WHERE Fid=$Fid  
                       AND (Oid=$Oid OR Oid=$Szulo_Oid OR Oid=$Nagyszulo_Oid OR Oid=$Dedszulo_Oid OR Oid=$Ukszulo_Oid)";
         $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMMT 05 ");
-        $rowDB     = mysqli_num_rows($result);
-        mysql_free_result($result);                    
-        if($rowDB>0){$ModeratorOK=1;}else{$ModeratorOK=0;}
+        $rowDB     = mysqli_num_rows($result);                           
+        if($rowDB>0){
+            $ModeratorOK=1;
+            mysqli_free_result($result); 
+        }else{
+            $ModeratorOK=0;            
+        }
     }
     return $ModeratorOK;
 }

@@ -68,6 +68,7 @@ function setOldalKepFeltolt() {
           $temp       = explode(".", $row['KFile']);
           $vanKFile[] = $temp[0];
         }
+        mysqli_free_result($result);
       }     
       //=============== Használható Fájlnevek ==================
       $OkKFile     = array();
@@ -171,8 +172,7 @@ function getOldalKepForm() {
           $KepUtvonal = "img/oldalak/";    
         }
         $KepCT        = 0;
-        $OUrl         = $Aktoldal['OUrl'];
-        
+        $OUrl         = $Aktoldal['OUrl'];        
         $OldalKepek   = array();
         $OldalKepInit = array();
         $OldalKepInit['Oid']        = $Oid;
@@ -188,28 +188,26 @@ function getOldalKepForm() {
           //Az aktuális oldalhoz kapcsolódó képek beolvasása adatbázisból
           $SelectStr   = "SELECT * FROM OldalKepek WHERE Oid=$Oid order by KSorszam "; 
           $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OKepF 01 ");
-          while($row   = mysqli_fetch_array($result)) {
-            $OldalKep               = array();
-            $OldalKep['id']         = $row['id'];
-            $OldalKep['Oid']        = $row['Oid'];
-            $OldalKep['KFile']      = $row['KFile'];
-            $OldalKep['KNev']       = $row['KNev'];
-            $OldalKep['KLeiras']    = $row['KLeiras'];
-            $OldalKep['KSzelesseg'] = $row['KSzelesseg'];
-            $OldalKep['KMagassag']  = $row['KMagassag'];
-            $OldalKep['KStilus']    = $row['KStilus'];
-            $OldalKep['KSorszam']   = $row['KSorszam'];
-            $OldalKepek[]           = $OldalKep;
-            $KepCT++;
+          $rowDB       = mysqli_num_rows($result); 
+          if ($rowDB > 0) {
+            while($row   = mysqli_fetch_array($result)) {
+              $OldalKep               = array();
+              $OldalKep['id']         = $row['id'];
+              $OldalKep['Oid']        = $row['Oid'];
+              $OldalKep['KFile']      = $row['KFile'];
+              $OldalKep['KNev']       = $row['KNev'];
+              $OldalKep['KLeiras']    = $row['KLeiras'];
+              $OldalKep['KSzelesseg'] = $row['KSzelesseg'];
+              $OldalKep['KMagassag']  = $row['KMagassag'];
+              $OldalKep['KStilus']    = $row['KStilus'];
+              $OldalKep['KSorszam']   = $row['KSorszam'];
+              $OldalKepek[]           = $OldalKep;
+              $KepCT++;
+            }
+            mysqli_free_result($result);
           }
           //Ha az adatbázisban tárol képek száma kisebb mint 10, akkor a hiányzó képek adatait inicializáljuk                       
           for($i=$KepCT;$i<10;$i++) { $OldalKepek[] = $OldalKepInit; }          
-        } else {
-          //Ha a formot már elküldték, de hibás adatokkal 
-          for($i=0;$i<10;$i++) {
-              
-          }  
-            
         }
         // ============== A KepekFeltoltForm ÖSSZEÁLLÍTÁSA =====================
         $HTMLkod0    ='';

@@ -169,7 +169,8 @@
         //Csak rendszergazdáknak és moderátoroknak!
         if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
           $UjONev   = '';
-          $UjOTipS  = '';            
+          $UjOTipS  = '';   
+          $ErrClassOTip = '';
           $Oid      = $Aktoldal['id'];    
           $OUrl     = $Aktoldal['OUrl'];    
         
@@ -243,9 +244,9 @@
             
             $HTMLkod .=  "<label for='UjOTipValszt'>Típus: </label>\n
                           <select name='UjOTipValszt' id='UjOTipValszt' size='1' class='$ErrClassOTip'>\n"; 
-            if ($OTipS=='Kategoria') {$Sel=' selected ';} else {$Sel='';}
+            if ($UjOTipS=='Kategoria') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='Kategoria' $Sel>Kategória</option>\n";            
-            if ($OTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
+            if ($UjOTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='HirOldal' $Sel>Híroldal</option>\n";
             $HTMLkod .=  "</select>\n";  
             $HTMLkod .= "</fieldset>";
@@ -272,8 +273,8 @@
               $UjOUrl      = getTXTtoURL($UjONev);
               $SelectStr   = "SELECT id FROM Oldalak WHERE OUrl='$UjOUrl' LIMIT 1"; // echo "<h1>$SelectStr</h1>";
               $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUO 01 ");
-              $rowDB       = mysqli_num_rows($result); mysqli_free_result($result);
-              if ($rowDB > 0) { $ErrorStr .= ' Err002,';}
+              $rowDB       = mysqli_num_rows($result); 
+              if ($rowDB > 0) { $ErrorStr .= ' Err002,'; mysqli_free_result($result);}
               if (strlen($UjONev)>40) { $ErrorStr .= ' Err003,';}
               if (strlen($UjONev)<1)  { $ErrorStr .= ' Err001,';}
           } else {$ErrorStr = ' Err001,';}
@@ -528,13 +529,12 @@
    
     }
 
-    function setOldal() {
-      global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
-      //Csak rendszergazdáknak és moderátoroknak!
-      $ErrorStr = '';  
-     // $ErrorStr = $_SESSION['ErrorStr'];
-        
-      if ($_SESSION['AktFelhasznalo'.'FSzint']>4) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
+function setOldal() {
+    global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
+    
+    $ErrorStr = '';  
+    //Csak rendszergazdáknak és moderátoroknak!   
+    if ($_SESSION['AktFelhasznalo'.'FSzint']>4) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
           
         $Oid          = $Aktoldal['id'];  
         $ONev         = $Aktoldal['ONev'];
@@ -629,73 +629,73 @@
                          OImgDir='$OImgDir',
                          OTartalom='$OTartalom'    
                          WHERE id=$AktOid LIMIT 1"; 
-           if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 01 ";}
-           
+           if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 01 ";}           
             
            if (isset($_POST['OLathatosag']))  {$OLathatosag=INT_post($_POST['OLathatosag']);}
            
 //-------------------------------------------------------------------------------------
 //OLDALLÁTHATÓSÁG BEÁLLÍTÁSA AZ ALOLDALAKRA IS
 //-------------------------------------------------------------------------------------
-
-                //ELSŐ SZINT
-
-                $SelectStr   = "SELECT id FROM Oldalak WHERE OSzuloId=$AktOid";
-                $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 02");
+            //ELSŐ SZINT
+            $SelectStr     = "SELECT id FROM Oldalak WHERE OSzuloId=$AktOid";
+            $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 02");
+            $rowDB         = mysqli_num_rows($result); 
+            if ($rowDB > 0) {
                 while ($row = mysqli_fetch_array($result)){
                     $AktOGyermekId = $row['id'];
-                    $UpdateStr = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktOGyermekId LIMIT 1"; 
-
+                    $UpdateStr     = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktOGyermekId LIMIT 1"; 
                     if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 03 ";}
 
                     //MÁSODIK SZINT
-
                     $SelectStr   = "SELECT id FROM Oldalak WHERE OSzuloId=$AktOGyermekId";
-                    $result_2 = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 04");
-                    while ($row_2 = mysqli_fetch_array($result_2)){
-                        $AktOUnokaId = $row_2['id'];
-                        $UpdateStr = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktOUnokaId LIMIT 1"; 
+                    $result_2    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 04");
+                    $rowDB       = mysqli_num_rows($result_2); 
+                    if ($rowDB > 0) {
+                        while ($row_2 = mysqli_fetch_array($result_2)){
+                            $AktOUnokaId = $row_2['id'];
+                            $UpdateStr   = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktOUnokaId LIMIT 1"; 
+                            if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 05 ";}
 
-                        if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 05 ";}
+                            //HARMADIK SZINT
+                            $SelectStr   = "SELECT id FROM Oldalak WHERE OSzuloId=$AktOUnokaId";
+                            $result_3    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 06");
+                            $rowDB       = mysqli_num_rows($result_3); 
+                            if ($rowDB > 0) {
+                                while ($row_3 = mysqli_fetch_array($result_3)){
+                                    $AktODedunokaId = $row_3['id'];
+                                    $UpdateStr      = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktODedunokaId LIMIT 1"; 
+                                    if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 07 ";}
 
-                        //HARMADIK SZINT
-
-                        $SelectStr   = "SELECT id FROM Oldalak WHERE OSzuloId=$AktOUnokaId";
-                        $result_3 = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 06");
-                        while ($row_3 = mysqli_fetch_array($result_3)){
-                            $AktODedunokaId = $row_3['id'];
-                            $UpdateStr = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktODedunokaId LIMIT 1"; 
-
-                            if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 07 ";}
-                            
-                            //NEGYEDIK SZINT
-                            
-                            $SelectStr   = "SELECT id FROM Oldalak WHERE OSzuloId=$AktODedunokaId";
-                            $result_4 = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 08");
-                            while ($row_4 = mysqli_fetch_array($result_4)){
-                                $AktOUkdunokaId = $row_4['id'];
-                                $UpdateStr = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktOUkdunokaId LIMIT 1"; 
-
-                                if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 09 ";}
-                            } 
-                        }  
-                    } 
+                                    //NEGYEDIK SZINT
+                                    $SelectStr   = "SELECT id FROM Oldalak WHERE OSzuloId=$AktODedunokaId";
+                                    $result_4 = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba setO 08");
+                                    $rowDB       = mysqli_num_rows($result_3); 
+                                    if ($rowDB > 0) {
+                                        while ($row_4 = mysqli_fetch_array($result_4)){
+                                            $AktOUkdunokaId = $row_4['id'];
+                                            $UpdateStr      = "UPDATE Oldalak SET OLathatosag='$OLathatosag' WHERE id=$AktOUkdunokaId LIMIT 1"; 
+                                            if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setO 09 ";}
+                                        }
+                                        mysqli_free_result($result_4);
+                                    }    
+                                }
+                                mysqli_free_result($result_3);
+                            }  
+                        }
+                        mysqli_free_result($result_2);
+                    }
+                    
                 }
-               
-           getOldalData($OUrl);
-           $ErrorStr = "A(z) $ONev oldal változott.";
-          }            
+                mysqli_free_result($result);
+            }
+            getOldalData($OUrl);
+            $ErrorStr = "A(z) $ONev oldal változott.";
+           
+          }
         } 
-        
-        
-        
-        
-        
-        
-        }
-        //$ErrorStr='';
-        return $ErrorStr;
     }
+    return $ErrorStr;
+}
 
 
 function setOldalTorol() {
@@ -712,7 +712,7 @@ function setOldalTorol() {
             $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$Oid LIMIT 1";        
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOT 01 ");
             $rowDB       = mysqli_num_rows($result); 
-            if ($rowDB > 0) { $ErrorStr = 'Err001'; }   
+            if ($rowDB > 0) { $ErrorStr = 'Err001';  mysqli_free_result($result); }   
         }
         
         if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitOldalTorolVegleges'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
@@ -724,7 +724,7 @@ function setOldalTorol() {
             $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=$Oid LIMIT 1";        
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOT 01 ");
             $rowDB       = mysqli_num_rows($result); 
-            if ($rowDB > 0) { $ErrorStr .= 'Err001'; } 
+            if ($rowDB > 0) { $ErrorStr .= 'Err001'; mysqli_free_result($result);  } 
             if ($ErrorStr == '') {          
                 //Az oldal cikkeinek törlés
                 $ErrorStr.= OldalOsszesCikkekTorol($Oid);
@@ -1044,7 +1044,7 @@ function setOldalTorol() {
 
     function getHead() {
         global $Aktoldal, $AlapAdatok;
-        $HTMLkod   = '';
+        $HTMLkod      = '';
         //Az oldal neve
         if ($Aktoldal['OTipus']!=0) {
            $HTMLkod   = "<title>".$Aktoldal['ONev']." - ".$AlapAdatok['WebhelyNev']."</title>\n";
@@ -1052,12 +1052,12 @@ function setOldalTorol() {
            $HTMLkod   = "<title>".$AlapAdatok['WebhelyNev']." </title>\n";  
         }
         //Az aktuális stíluslap linkje 
-        $HTMLkod .= "<link type='text/css' rel='stylesheet' media='all'   href='css/w3suli_stilus_".$AlapAdatok['Stilus'].".css' />\n";
+        $HTMLkod    .= "<link type='text/css' rel='stylesheet' media='all'   href='css/w3suli_stilus_".$AlapAdatok['Stilus'].".css' />\n";
         $description = $Aktoldal['OLeiras'];
-        $HTMLkod .= "  <meta name='description' content='$description'> \n";
+        $HTMLkod    .= "  <meta name='description' content='$description'> \n";
         
-        $description = $Aktoldal['OKulcsszavak'];
-        $HTMLkod .= "  <meta name='keywords' content='$keywords'> \n";
+        $keywords    = $Aktoldal['OKulcsszavak'];
+        $HTMLkod    .= "  <meta name='keywords' content='$keywords'> \n";
         return $HTMLkod;
     }
 

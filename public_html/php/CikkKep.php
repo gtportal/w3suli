@@ -37,9 +37,9 @@ function setCikkKepFeltolt() {
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CKx 01aa ");
         $rowDB       = mysqli_num_rows($result); 
         if ($rowDB > 0) {
-                    $row  = mysqli_fetch_array($result);
-                    mysqli_free_result($result);
+                    $row   = mysqli_fetch_array($result);                    
                     $CKNev = $row['CNev'];
+                    mysqli_free_result($result);
         }
         if (strlen($CKNev)>50) {$CKNev=substr($CKNev,0,50);} //echo "<h1>CNev: $CKNev</h1>";
         $CKNev = getTXTtoURL($CKNev);
@@ -59,6 +59,7 @@ function setCikkKepFeltolt() {
             $temp       = explode(".", $row['KFile']);
             $vanKFile[] = $temp[0];
           }
+          mysqli_free_result($result);
         }
       //=============== Használható Fájlnevek ==================
         $OkKFile     = array();
@@ -137,50 +138,53 @@ function getCikkKepFeltoltForm() {
 function setCikkKepek() {
     global $Aktoldal, $MySqliLink;
     $ErrorStr   = '';
-    $Oid = 0;
+    $Oid        = 0;
     $Cid        = $_SESSION['SzerkCikk'.'id'];
-    $SelectStr = "SELECT Oid From OldalCikkei WHERE Cid='$Cid'";
-    $result = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 02");
-    $row = mysqli_fetch_array($result);    mysql_free_result($result);
-    $Oid = $row['Oid'];
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>2) && (isset($_POST['submitCikkKepForm'])))   {
-        if (isset($_POST["rowDB"])) {$rowDB=test_post($_POST["rowDB"]);}
-        
-        //=============================HIBAKEZELÉS==============================
-        for($i=0; $i<$rowDB; $i++) {
-            if (isset($_POST["CKNev_$i"]))       {$KNev=test_post($_POST["CKNev_$i"]);
-                if(strlen($KNev)>40) { $ErrorStr .= "<p class='Error'> Err_$i - A kép neve maximum 40 karakter lehet. </p><br>\n";}
-            }
-        }
-        //====================POST beillesztése adatbázisba=====================
-        if ($Oid == $Aktoldal['id'] && $ErrorStr=='') {
+    $SelectStr  = "SELECT Oid From OldalCikkei WHERE Cid='$Cid'";
+    $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 02");
+    $rowDB      = mysqli_num_rows($result); 
+    if ($rowDB > 0) {
+        $row    = mysqli_fetch_array($result);    mysqli_free_result($result);
+        $Oid    = $row['Oid'];
+        if (($_SESSION['AktFelhasznalo'.'FSzint']>2) && (isset($_POST['submitCikkKepForm'])))   {
+            if (isset($_POST["rowDB"])) {$rowDB=test_post($_POST["rowDB"]);}
+
+            //=============================HIBAKEZELÉS==============================
             for($i=0; $i<$rowDB; $i++) {
-                if  ((isset($_POST["CKFile_$i"]))&&($_POST["CKFile_$i"]!='')) {
-                    $KFile      = FileNevTisztit($_POST["CKFile_$i"]);
-                    $KNev       = '';
-                    $KLeiras    = '';
-                    $KSzelesseg = 0;
-                    $KMagassag  = 0;
-                    $KStilus    = 0;
-                    $KSorszam   = 0;
-                    if (isset($_POST["CKNev_$i"]))       {$KNev      =test_post($_POST["CKNev_$i"]);}
-                    if (isset($_POST["CKLeiras_$i"]))    {$KLeiras   =test_post($_POST["CKLeiras_$i"]);}
-                    if (isset($_POST["CKSzelesseg_$i"])) {$KSzelesseg=test_post($_POST["CKSzelesseg_$i"]);}
-                    if (isset($_POST["CKMagassag_$i"]))  {$KMagassag =test_post($_POST["CKMagassag_$i"]);}
-                    if (isset($_POST["CKStilus_$i"]))    {$KStilus   =test_post($_POST["CKStilus_$i"]);}
-                    if (isset($_POST["CKSorszam_$i"]))   {$KSorszam  =test_post($_POST["CKSorszam_$i"]);}
+                if (isset($_POST["CKNev_$i"]))       {$KNev=test_post($_POST["CKNev_$i"]);
+                    if(strlen($KNev)>40) { $ErrorStr .= "<p class='Error'> Err_$i - A kép neve maximum 40 karakter lehet. </p><br>\n";}
                 }
-                $UpdateStr = "UPDATE CikkKepek SET 
-                            KNev='$KNev', 
-                            KLeiras='$KLeiras', 
-                            KSzelesseg='$KSzelesseg', 
-                            KMagassag='$KMagassag', 
-                            KStilus='$KStilus', 
-                            KSorszam='$KSorszam' 
-                            WHERE KFile='$KFile' 
-                            AND Cid=$Cid";
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uCK 01");
-                setCikkKepTorol($i);
+            }
+            //====================POST beillesztése adatbázisba=====================
+            if ($Oid == $Aktoldal['id'] && $ErrorStr=='') {
+                for($i=0; $i<$rowDB; $i++) {
+                    if  ((isset($_POST["CKFile_$i"]))&&($_POST["CKFile_$i"]!='')) {
+                        $KFile      = FileNevTisztit($_POST["CKFile_$i"]);
+                        $KNev       = '';
+                        $KLeiras    = '';
+                        $KSzelesseg = 0;
+                        $KMagassag  = 0;
+                        $KStilus    = 0;
+                        $KSorszam   = 0;
+                        if (isset($_POST["CKNev_$i"]))       {$KNev      =test_post($_POST["CKNev_$i"]);}
+                        if (isset($_POST["CKLeiras_$i"]))    {$KLeiras   =test_post($_POST["CKLeiras_$i"]);}
+                        if (isset($_POST["CKSzelesseg_$i"])) {$KSzelesseg=test_post($_POST["CKSzelesseg_$i"]);}
+                        if (isset($_POST["CKMagassag_$i"]))  {$KMagassag =test_post($_POST["CKMagassag_$i"]);}
+                        if (isset($_POST["CKStilus_$i"]))    {$KStilus   =test_post($_POST["CKStilus_$i"]);}
+                        if (isset($_POST["CKSorszam_$i"]))   {$KSorszam  =test_post($_POST["CKSorszam_$i"]);}
+                    }
+                    $UpdateStr = "UPDATE CikkKepek SET 
+                                KNev='$KNev', 
+                                KLeiras='$KLeiras', 
+                                KSzelesseg='$KSzelesseg', 
+                                KMagassag='$KMagassag', 
+                                KStilus='$KStilus', 
+                                KSorszam='$KSorszam' 
+                                WHERE KFile='$KFile' 
+                                AND Cid=$Cid";
+                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uCK 01");
+                    setCikkKepTorol($i);
+                }
             }
         }
     }
@@ -207,15 +211,15 @@ function getCikkKepForm() {
           $KepUtvonal = "img/oldalak/";    
         }
         //Az aktuális cikkhez kapcsolódó képek beolvasása adatbázisból 
-          $SelectStr   = "SELECT * FROM CikkKepek WHERE Cid=$Cid order by KSorszam ";
-          $SelectStr   = "SELECT *
-                          FROM CikkKepek AS CK
-                          LEFT JOIN OldalCikkei AS OC
-                          ON OC.Cid= CK.Cid 
-                          WHERE OC.Oid=$Oid
-                          AND CK.Cid=$Cid";
-          $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 01 ");
-          $rowDB       = mysqli_num_rows($result);
+        $SelectStr   = "SELECT * FROM CikkKepek WHERE Cid=$Cid order by KSorszam ";
+        $SelectStr   = "SELECT *
+                        FROM CikkKepek AS CK
+                        LEFT JOIN OldalCikkei AS OC
+                        ON OC.Cid= CK.Cid 
+                        WHERE OC.Oid=$Oid
+                        AND CK.Cid=$Cid";
+        $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCK 01 ");
+        $rowDB       = mysqli_num_rows($result);
         if (strpos($_SESSION['ErrorStr'],'Err_')==false)  {
             while($row   = mysqli_fetch_array($result)) {
                 $CikkKep               = array();
@@ -255,6 +259,7 @@ function getCikkKepForm() {
             }
         }
         if ($rowDB != 0){
+            mysqli_free_result($result); 
             $HTMLkod1    ='';
             $ErrClassCNev='';
             for($i = 0; $i < $rowDB; $i++) {
@@ -333,7 +338,7 @@ function setCikkKepTorol($i) {
 }
 
 function CikkOsszesKepTorol($Cid,$OImgDir) {
-    global $Aktoldal, $MySqliLink;
+    global $MySqliLink;
     $ErrorStr   = '';   
     if ($OImgDir!='') {
       $KepUtvonal = "img/oldalak/".$OImgDir."/";
@@ -342,11 +347,15 @@ function CikkOsszesKepTorol($Cid,$OImgDir) {
     }
     $SelectStr  = "SELECT KFile FROM CikkKepek WHERE Cid=$Cid";  
     $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba COT 01");
-    while ($row = mysqli_fetch_array($result)){        
-        $Src = $KepUtvonal.$row['KFile'];
-        if (!unlink($Src)) {$ErrorStr .= 'Err200'.$row['KFile'].' '; }
-        $DeletetStr = "Delete FROM CikkKepek  WHERE Cid=$Cid";
-        mysqli_query($MySqliLink,$DeletetStr) OR die("Hiba ddCK 01");
+    $rowDB       = mysqli_num_rows($result); 
+    if ($rowDB > 0) {
+        while ($row = mysqli_fetch_array($result)){        
+            $Src = $KepUtvonal.$row['KFile'];
+            if (!unlink($Src)) {$ErrorStr .= 'Err200'.$row['KFile'].' '; }
+            $DeletetStr = "Delete FROM CikkKepek  WHERE Cid=$Cid";
+            mysqli_query($MySqliLink,$DeletetStr) OR die("Hiba ddCK 01");
+        }
+        mysqli_free_result($result); 
     }
     return $ErrorStr; 
 }
@@ -359,24 +368,28 @@ function getCikkKepTorolForm() {
 
 function getCikkKepekHTML($Cid) {
     global $MySqliLink, $Aktoldal;
-    $HTMLkod  = '';
+    $HTMLkod      = '';
     
     if ($Aktoldal['OImgDir']!='') {
       $KepUtvonal = "img/oldalak/".$Aktoldal['OImgDir']."/";
     } else {
       $KepUtvonal = "img/oldalak/";
     }
-    $SelectStr = "SELECT KNev, KFile FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
-    $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
-    $HTMLkod .= "<div class = 'divCikkKepek'>\n";
     
-    while ($row = mysqli_fetch_array($result)){
-        $Src = $KepUtvonal.$row['KFile'];
-        $KNev = $row['KNev'];
-        $HTMLkod .= "<div class = 'divCikkKep'>";
+    $HTMLkod  .= "<div class = 'divCikkKepek'>\n";
+    $SelectStr = "SELECT KNev, KFile FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
+    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+    $rowDB     = mysqli_num_rows($result); 
+    if ($rowDB > 0) {    
+        while ($row   = mysqli_fetch_array($result)){
+            $Src      = $KepUtvonal.$row['KFile'];
+            $KNev     = $row['KNev'];
+            $HTMLkod .= "<div class = 'divCikkKep'>";
             $HTMLkod .= "<img src='$Src'  class = 'imgCikkKep' alt='$KNev'>";
-            //$HTMLkod .= $row['KFile'];
-        $HTMLkod .= "</div>\n";
+                //$HTMLkod .= $row['KFile'];
+            $HTMLkod .= "</div>\n";
+        }
+        mysqli_free_result($result); 
     }
     $HTMLkod .= "</div>\n";
     return $HTMLkod;
@@ -389,31 +402,35 @@ global $Aktoldal, $MySqliLink;
     $Konytar    = 'img/oldalak/'.$Aktoldal['OImgDir']."/";     
     $SelectStr  = "SELECT * FROM CikkKepek WHERE Cid=$Cid";
     $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01ab");
-    while ($row = mysqli_fetch_array($result)){
-        $KFile  = $row['KFile'];
-        $UFNev  = getTXTtoURL($UFNev);
-        if (strlen($CKNev)>50) {$CKNev=substr($CKNev,0,50);}
-        $RFNev  = getTXTtoURL($RFNev);
-        if (strlen($RFNev)>50) {$RFNev=substr($RFNev,0,50);}
-        
-        $arr    = array($RFNev => $UFNev);
-        $UKFile = strtr($KFile ,$arr);
+    $rowDB      = mysqli_num_rows($result); 
+    if ($rowDB > 0) {  
+        while ($row  = mysqli_fetch_array($result)){
+            $KFile   = $row['KFile'];
+            $UFNev   = getTXTtoURL($UFNev);
+            if (strlen($CKNev)>50) {$CKNev=substr($CKNev,0,50);}
+            $RFNev   = getTXTtoURL($RFNev);
+            if (strlen($RFNev)>50) {$RFNev=substr($RFNev,0,50);}
 
-        $KFileM  = $Konytar.$KFile;
-        $UKFileM = $Konytar.$UKFile;
-       
-        if (file_exists($KFileM)) {
-            if (!rename($KFileM, $UKFileM)) {
-                    $ErrorStr = 'Err100'; // Nem sikerült átnevezni
-            }       
-        } else {$ErrorStr = 'Err101';} // A fájl nem létezik
-        
-        if ($ErrorStr=='') {
-           $UpdateStr = "UPDATE CikkKepek SET 
-                           KFile='$UKFile'
-                           WHERE Cid=$Cid AND KFile='$KFile' LIMIT 1";          
-           if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setOK 01 ";}  
+            $arr     = array($RFNev => $UFNev);
+            $UKFile  = strtr($KFile ,$arr);
+
+            $KFileM  = $Konytar.$KFile;
+            $UKFileM = $Konytar.$UKFile;
+
+            if (file_exists($KFileM)) {
+                if (!rename($KFileM, $UKFileM)) {
+                        $ErrorStr = 'Err100'; // Nem sikerült átnevezni
+                }       
+            } else {$ErrorStr = 'Err101';} // A fájl nem létezik
+
+            if ($ErrorStr=='') {
+               $UpdateStr = "UPDATE CikkKepek SET 
+                               KFile='$UKFile'
+                               WHERE Cid=$Cid AND KFile='$KFile' LIMIT 1";          
+               if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setOK 01 ";}  
+            }
         }
+        mysqli_free_result($result); 
     }
     return $ErrorStr;    
 }

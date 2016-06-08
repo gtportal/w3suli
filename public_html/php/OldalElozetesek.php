@@ -42,6 +42,7 @@ function getOElozetesekHTML($SelStr) {
                 $HTMLkod .= "</div>\n";
             }                
         }
+        mysqli_free_result($result);
     }   
     if ($HTMLkod!='') {$HTMLkod = "<div id='divOElozetesekKulso'>\n$HTMLkod </div>\n";} // Az összes előzetest becsomagoljuk
     return $HTMLkod;

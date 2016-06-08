@@ -8,40 +8,43 @@
 //-------------------------------------------------------------------------------------
 
 function getOLathatosagForm(){
-    global $MySqliLink, $Aktoldal;
+    global $MySqliLink, $Aktoldal, $SzuloOldal, $NagyszuloOldal;
     $HTMLkod          = '';    
     $OUrl             = $Aktoldal['OUrl'];
-    $Oid              = $Aktoldal['id'];    
+    $Oid              = $Aktoldal['id'];  
+    
     $Szulo_Oid        = $SzuloOldal['id']; 
     $Nagyszulo_Oid    = $NagyszuloOldal['id'];
     $Dedszulo_Oid     = $NagyszuloOldal['OSzuloId'];
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  {
-
-        $HTMLkod     .= "<div id='divOLathatosagCsoportValaszt' >\n";
-        
+        $HTMLkod     .= "<div id='divOLathatosagCsoportValaszt' >\n";        
         $SelectStr    = "SELECT * FROM FelhasznaloCsoport";
         $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOL 01 ");
         $rowDB        = mysqli_num_rows($result);
-        
-        $i = 0;
-        while ($row   = mysqli_fetch_array($result)) {
-            $id       = $row['id'];
-            $CsNev    = $row['CsNev'];
-            
-            //Lekérdezzük, hogy mely csoportok láthatják az oldalt és aloldalait            
-            $SelectStr = "SELECT * FROM OLathatosag WHERE CSid=$id AND Oid=$Oid";
-            $result2   = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOL 02 ");
-            mysqli_free_result(result2);
-            $rowDB_2   = mysqli_num_rows($result2);
-            
-            if($rowDB_2>0){$checked="checked";}else{$checked="";}
-            
-            $HTMLkod .= "<input type='checkbox' name='OLathatosag_$i' id='OLathatosag_$i' $checked>\n";
-            $HTMLkod .= "<label for='OLathatosag_$i' class='label_1'>$CsNev</label>\n ";
-            //id
-            $HTMLkod .= "<input type='hidden' name='OLathatosagId_$i' id='OLathatosagId_$i' value='$id'><br>\n";
-            $i++;
+        if ($rowDB > 0) {
+            $i = 0;
+            while ($row   = mysqli_fetch_array($result)) {
+                $id       = $row['id'];
+                $CsNev    = $row['CsNev'];
+
+                //Lekérdezzük, hogy mely csoportok láthatják az oldalt és aloldalait            
+                $SelectStr = "SELECT * FROM OLathatosag WHERE CSid=$id AND Oid=$Oid";
+                $result2   = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOL 02 ");                
+                $rowDB_2   = mysqli_num_rows($result2);
+                if($rowDB_2>0){
+                    $checked="checked";
+                    mysqli_free_result($result2);                    
+                }else{
+                    $checked="";                    
+                }
+                $HTMLkod .= "<input type='checkbox' name='OLathatosag_$i' id='OLathatosag_$i' $checked>\n";
+                $HTMLkod .= "<label for='OLathatosag_$i' class='label_1'>$CsNev</label>\n ";
+                //id
+                $HTMLkod .= "<input type='hidden' name='OLathatosagId_$i' id='OLathatosagId_$i' value='$id'><br>\n";
+                $i++;
+            }
+            mysqli_free_result($result);
         }
         $HTMLkod     .= "<input type='hidden' name='OLathatosagDB' id='OLathatosagDB' value='$rowDB'>\n";    
         $HTMLkod     .= "</div>\n";
@@ -66,7 +69,7 @@ function setOLathatosag(){
                     if (isset($_POST["OLathatosag_$i"])){
                         $SelectStr  = "SELECT * FROM OLathatosag WHERE CSid=$id AND OId=$Oid"; 
                         $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOL 01 ");
-                        $rowDB      = mysqli_num_rows($result);  mysql_free_result($result);
+                        $rowDB      = mysqli_num_rows($result);  mysqli_free_result($result);
                         if ($rowDB == 0 ) {
                             $InsertIntoStr = "INSERT INTO OLathatosag VALUES ('',$Oid,$id)";
                             $result        = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sOL 02 ");
@@ -90,7 +93,7 @@ function setOLathatosag(){
                     $SelectStr  = "SELECT * FROM OLathatosag"; 
                     $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOL 07 ");
                     $rowDB      = mysqli_num_rows($result);
-                    mysql_free_result($result);
+                    mysqli_free_result($result);
 
                     if($rowDB>0){
                         $DeleteStr = "DELETE FROM OLathatosag";
@@ -130,7 +133,7 @@ function getOLathatosagTeszt() {
                               AND (id=$Szulo_Oid OR id=$Nagyszulo_Oid OR id=$Dedszulo_Oid)";
                 $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOLT 02 ");
                 $rowDB       = mysqli_num_rows($result); 
-                if ($rowDB  == 0){$LathatosagOK=1;}
+                if ($rowDB  == 0){$LathatosagOK=1;} else {mysqli_free_result($result);}
             } 
             if($OLathatosag==2) //Az oldalt meghatározott csoportok láthatják
             { 
@@ -139,8 +142,8 @@ function getOLathatosagTeszt() {
                               ON FCsT.CSid=OL.CSid WHERE FCsT.Fid=$Fid 
                               AND (OL.Oid=$Oid OR OL.Oid=$Szulo_Oid OR OL.Oid=$Nagyszulo_Oid OR OL.Oid=$Dedszulo_Oid)";
                 $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gLT 01 ");
-                $rowDB      = mysqli_num_rows($result);  mysql_free_result($result);  
-                if($rowDB>0){$LathatosagOK=2;}
+                $rowDB      = mysqli_num_rows($result);  mysqli_free_result($result);  
+                if($rowDB>0){$LathatosagOK=2; mysqli_free_result($result);}
             }
         }
         //Moderátorstátusz vizsgálata
@@ -158,46 +161,46 @@ function getOMenuLathatosagTeszt($Oid) {
     //Csak a látogató és bejelentkezett felhasználó esetén vizsgáljuk a láthatóságot    
     $SelectStr   = "SELECT OSzuloId, OLathatosag FROM Oldalak WHERE id=$Oid";
     $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMLT 01 ");
-    $row         = mysqli_fetch_array($result);
+    $rowDB       = mysqli_num_rows($result); 
+    if ($rowDB > 0) {
+        $row     = mysqli_fetch_array($result); mysqli_free_result($result); 
 
-    $OLathatosag = $row['OLathatosag']; // echo "<h1>$Oid -- OLathatosag: $OLathatosag  LathatosagOK: $LathatosagOK</h1>";
-    $Szulo_Oid   = $row['OSzuloId'];
+        $OLathatosag = $row['OLathatosag']; // echo "<h1>$Oid -- OLathatosag: $OLathatosag  LathatosagOK: $LathatosagOK</h1>";
+        $Szulo_Oid   = $row['OSzuloId'];
+        if($OLathatosag==0){$LathatosagOK=0;} //Az oldalt senki sem láthatja (kivéve, ha moderátor)
+        if($OLathatosag==1){$LathatosagOK=1;} //Az oldalt mindenki láthatja
+        if($OLathatosag==2) //Az oldalt valamennyi felhasználó láthatja (csoporttagság alapján)
+        {
+            $Nagyszulo_Oid = 1;
+            $Dedszulo_Oid  = 1;
+            if($Szulo_Oid>1){ //Kezdőlap esetén $Szulo_Oid = 0;
+                $SelectStr ="SELECT * FROM Oldalak WHERE id=$Szulo_Oid";
+                $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMLT 02 ");
+                $rowDB     = mysqli_num_rows($result); 
+                if ($rowDB > 0) {
+                    $row           = mysqli_fetch_array($result); mysqli_free_result($result);
+                    $Nagyszulo_Oid = $row['OSzuloId'];
 
-    if($OLathatosag==0){$LathatosagOK=0;} //Az oldalt senki sem láthatja (kivéve, ha moderátor)
-    if($OLathatosag==1){$LathatosagOK=1;} //Az oldalt mindenki láthatja
-    if($OLathatosag==2) //Az oldalt valamennyi felhasználó láthatja (csoporttagság alapján)
-    {
-        $Nagyszulo_Oid = 1;
-        $Dedszulo_Oid  = 1;
-
-        if($Szulo_Oid>1){ //Kezdőlap esetén $Szulo_Oid = 0;
-            $SelectStr ="SELECT * FROM Oldalak WHERE id=$Szulo_Oid";
-            $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMLT 02 ");
-            $row       = mysqli_fetch_array($result);
-            mysql_free_result($result); 
-
-            $Nagyszulo_Oid = $row['OSzuloId'];
-
-            if($Nagyszulo_Oid!=1){
-                $SelectStr ="SELECT * FROM Oldalak WHERE id=$Nagyszulo_Oid";
-                $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMLT 03 ");
-                $row       = mysqli_fetch_array($result);
-                mysql_free_result($result); 
-
-                $Dedszulo_Oid = $row['OSzuloId'];
+                    if($Nagyszulo_Oid!=1){
+                        $SelectStr ="SELECT * FROM Oldalak WHERE id=$Nagyszulo_Oid";
+                        $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMLT 03 ");
+                        $rowDB     = mysqli_num_rows($result); 
+                        if ($rowDB > 0) {
+                            $row          = mysqli_fetch_array($result); mysqli_free_result($result); 
+                            $Dedszulo_Oid = $row['OSzuloId'];
+                        }
+                    }
+                }
             }
+            $SelectStr ="SELECT * FROM OLathatosag AS OL
+                        LEFT JOIN FCsoportTagok AS FCsT
+                        ON FCsT.CSid=OL.CSid WHERE FCsT.Fid=$Fid 
+                        AND (OL.Oid=$Oid OR OL.Oid=$Szulo_Oid OR OL.Oid=$Nagyszulo_Oid OR OL.Oid=$Dedszulo_Oid)";
+            $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMLT 04 ");
+            $rowDB     = mysqli_num_rows($result);     
+            if($rowDB>0){$LathatosagOK=1; mysqli_free_result($result); }else{$LathatosagOK=0;}
         }
-        $SelectStr ="SELECT * FROM OLathatosag AS OL
-                    LEFT JOIN FCsoportTagok AS FCsT
-                    ON FCsT.CSid=OL.CSid WHERE FCsT.Fid=$Fid 
-                    AND (OL.Oid=$Oid OR OL.Oid=$Szulo_Oid OR OL.Oid=$Nagyszulo_Oid OR OL.Oid=$Dedszulo_Oid)";
-        $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOMLT 04 ");
-        $rowDB     = mysqli_num_rows($result);
-        mysql_free_result($result);  
-
-        if($rowDB>0){$LathatosagOK=1;}else{$LathatosagOK=0;}
     }
-
     
 //   echo "<h1>$Oid -- OLathatosag: $OLathatosag  LathatosagOK: $LathatosagOK</h1>";
     //Moderátorstátusz vizsgálata

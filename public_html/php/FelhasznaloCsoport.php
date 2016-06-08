@@ -30,15 +30,23 @@ function getCsoportValasztForm() {
         //Felhasználó kiválasztása a lenyíló listából
         $HTMLkod .= "<select name='selectCsoportValaszt' size='1'>";
 
-        $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  
-        $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 01 ");
-        while($row = mysqli_fetch_array($result))
-        {
-            $CsNev = $row['CsNev'];
-            if($_SESSION['SzerkFCsoport'] == $row['id']){$Select = " selected ";}else{$Select = "";}
+        $SelectStr     = "SELECT id, CsNev FROM FelhasznaloCsoport";  
+        $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 01 ");
+        $rowDB         = mysqli_num_rows($result);
+        if ($rowDB > 0) {
+            while($row = mysqli_fetch_array($result))
+            {
+                $CsNev      = $row['CsNev'];
+                if($_SESSION['SzerkFCsoport'] == $row['id']){
+                    $Select = " selected ";                    
+                }else{
+                    $Select = "";                    
+                }
 
-            $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
-        }	
+                $HTMLkod.="<option value='$CsNev' $Select >$CsNev</option>";
+            }
+            mysqli_free_result($result);
+        }
         $HTMLkod .= "</fieldset>";
         //Submit
         $HTMLkod .= "<input type='submit' name='submitCsoportValaszt' value='Kiválaszt'><br><br>\n";        
@@ -62,16 +70,18 @@ function setCsoportValaszt() {
 
         // ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
         if (isset($_POST['submitCsoportValaszt'])) {
-
-            if (isset($_POST['selectCsoportValaszt'])) {$CsNev = test_post($_POST['selectCsoportValaszt']);}      
-
-            if($CsNev!='')
-            {
-                $SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev' LIMIT 1";  
+            if (isset($_POST['selectCsoportValaszt'])) {
+                $CsNev       = test_post($_POST['selectCsoportValaszt']);                
+            }      
+            if($CsNev!='') {
+                $SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev' LIMIT 1"; 
                 $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 02 ");
-                $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
-
-                $_SESSION['SzerkFCsoport'] = $row['id'];
+                $rowDB       = mysqli_num_rows($result); 
+                if ($rowDB > 0) {                    
+                    $row     = mysqli_fetch_array($result);  
+                    $_SESSION['SzerkFCsoport'] = $row['id'];
+                    mysqli_free_result($result); 
+                }
             }
         }
     }
@@ -81,7 +91,6 @@ function setCsoportValaszt() {
 
 // ============= Új felhasználó csoport létrehozása ============  
 function setUjFCsoport() {
-
     global $MySqliLink;
     $ErrorStr  = ''; 
     $CsNev     = '';
@@ -100,12 +109,13 @@ function setUjFCsoport() {
         if ($ErrorStr=='') {                                   // Megj. az $CsNev-et csak akkor használjuk legérdezésben, ha nincs vele gond
             $SelectStr   = "SELECT * FROM FelhasznaloCsoport WHERE CsNev='$CsNev'"; 
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUCs 01 ");
-            $rowDB       = mysqli_num_rows($result); mysqli_free_result($result);
-            if ($rowDB > 0) { $ErrorStr .= ' Err004,';}          //van ilyen néven már csoport   
-        }
-                        
-        if ($CsLeiras=='') {$ErrorStr  .= ' Err005 '; }            //nincs leírás
-       
+            $rowDB       = mysqli_num_rows($result);
+            if ($rowDB > 0) { 
+                $ErrorStr .= ' Err004,'; mysqli_free_result($result); // ilyen néven már van csoport  
+                
+            }  
+        }                        
+        if ($CsLeiras=='') {$ErrorStr  .= ' Err005 '; }            //nincs leírás       
 			
         // ---------------- ADATOK TÁROLÁSA ---------------------
         if($ErrorStr ==''){
@@ -117,35 +127,36 @@ function setUjFCsoport() {
 }
 
 function getUjFCsoportForm() {
-
     global $MySqliLink;
-    $HTMLkod   = '';
+    $HTMLkod    = '';
+          
 	
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
-        $CsNev     = '';
-        $CsLeiras  = '';
-
-
+        $CsNev            = '';
+        $CsLeiras         = '';
+        $ErrClassCsNev    = '';
+        $ErrClassCsLeiras = '';  
+        $ErrorStr         = '';
 	// ============== FORM ELKÜLDÖTT ADATAINAK VIZSGÁLATA ===================== 
         if (isset($_POST['submitUjFCsoportForm'])) {
             if (isset($_POST['CsNev']))    {$CsNev        = test_post($_POST['CsNev']);}      
             if (isset($_POST['CsLeiras'])) {$CsLeiras     = test_post($_POST['CsLeiras']);}
 	   	  
-            $ErrClassCsNev = '';	   
+            $ErrClassCsNev     = '';	   
             if (strpos($_SESSION['ErrorStr'],'Err001')!==false) 
             {
                 $ErrClassCsNev = ' Error '; 
-                $ErrorStr    .= 'Hiányzik a csoport neve! ';
+                $ErrorStr     .= 'Hiányzik a csoport neve! ';
             }
             else 
             {
                 if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
                     $ErrClassCsNev = ' Error '; 
-                    $ErrorStr .= 'Túl hosszú a csoport neve! ';
+                    $ErrorStr     .= 'Túl hosszú a csoport neve! ';
                 }
                 if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
                     $ErrClassCsNev = ' Error '; 
-                    $ErrorStr .= 'Túl rövid a csoport neve! ';
+                    $ErrorStr     .= 'Túl rövid a csoport neve! ';
                 }
             } 
             
@@ -154,12 +165,12 @@ function getUjFCsoportForm() {
 	    if (strpos($_SESSION['ErrorStr'],'Err004')!==false) 
 	    {
                 $ErrClassCsNev = ' Error '; 
-                $ErrorStr .= 'Létezik már ilyen csoport! ';
+                $ErrorStr     .= 'Létezik már ilyen csoport! ';
             }
             if (strpos($_SESSION['ErrorStr'],'Err005')!==false) 
 	    {
                 $ErrClassCsLeiras = ' Error '; 
-                $ErrorStr .= 'Hiányzik a csoport leírása! ';
+                $ErrorStr        .= 'Hiányzik a csoport leírása! ';
             }
             
             if($_SESSION['ErrorStr']==''){$ErrorStr='Sikeresen létrehozta a csoportot!';} 
@@ -198,7 +209,8 @@ function setFCsoport() {
     $ErrorStr  = ''; 
     $ErrorStr .= setCsoportValaszt();
     $CsNev     = '';
-    $CsLeiras  = '';		
+    $CsLeiras  = '';	
+    $FId       = 0;
     if (($_SESSION['AktFelhasznalo'.'FSzint']>4) &&  (isset($_POST['submitFCsoportForm']))){ 			
         if (isset($_POST['CsNev']))   	    {$CsNev     = test_post($_POST['CsNev']);}
         if (isset($_POST['CsLeiras']))      {$CsLeiras  = test_post($_POST['CsLeiras']);}
@@ -214,13 +226,15 @@ function setFCsoport() {
             $SelectStr   = "SELECT id FROM FelhasznaloCsoport WHERE CsNev='$CsNev'"; 
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 05 ");
             $rowDB       = mysqli_num_rows($result);
-            if ($rowDB > 0) { 	
-		$row = mysqli_fetch_array($result);	
-
+            if ($rowDB   > 0) { 	
+		$row     = mysqli_fetch_array($result);
 		if($_SESSION['SzerkFCsoport']!=$row['id'])
 		{
 		    $ErrorStr .= ' Err004 ';  //van ilyen néven már csoport   
-		}
+		} else {
+                    $FId = $row['id'];
+                    
+                }
 		mysqli_free_result($result);
 	    } 
         }
@@ -232,14 +246,14 @@ function setFCsoport() {
             $UpdateStr = "UPDATE FelhasznaloCsoport SET CsNev='$CsNev', CsLeiras='$CsLeiras' WHERE id='$FId'";    
             if (!mysqli_query($MySqliLink,$UpdateStr)) {die("Hiba sCsV 04 "); }               
         } 
-		}
-		//echo "<h1>ErrorStr: $ErrorStr</h1>";
+    }		
     return $ErrorStr;
 }
 
 function getFCsoportForm() {
 	global $MySqliLink;
-	$HTMLkod   = '';
+	$HTMLkod          = '';
+        $ErrorStr         = $_SESSION['ErrorStr'];
 
 	if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
 		     
@@ -270,12 +284,15 @@ function getFCsoportForm() {
 		}	      			  
 		if($_SESSION['SzerkFCsoport']>0)
 		{
-			$FId = $_SESSION['SzerkFCsoport']; 
-			$SelectStr = "SELECT * FROM FelhasznaloCsoport WHERE id='$FId' LIMIT 1"; 
-			$result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 03 ");
-			$row       = mysqli_fetch_array($result);  mysqli_free_result($result);
-			$CsNev     = $row['CsNev'];
-			$CsLeiras  = $row['CsLeiras'];
+			$FId              = $_SESSION['SzerkFCsoport']; 
+			$SelectStr        = "SELECT * FROM FelhasznaloCsoport WHERE id='$FId' LIMIT 1"; 
+			$result           = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCsV 03 ");
+                        $rowDB            = mysqli_num_rows($result); 
+                        if ($rowDB > 0) {
+                            $row          = mysqli_fetch_array($result);  mysqli_free_result($result);
+                            $CsNev        = $row['CsNev'];
+                            $CsLeiras     = $row['CsLeiras'];                            
+                        }    
 			$ErrClassCsNev    = '';
 			$ErrClassCsLeiras = '';
 
@@ -287,30 +304,30 @@ function getFCsoportForm() {
 				if (strpos($_SESSION['ErrorStr'],'Err001')!==false) 
 				{
 					$ErrClassCsNev = ' Error '; 
-					$ErrorStr    .= 'Hiányzik a csoport neve! ';
+					$ErrorStr     .= 'Hiányzik a csoport neve! ';
 				}
 				else 
 				{
 					if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
 						$ErrClassCsNev = ' Error '; 
-						$ErrorStr .= 'Túl hosszú a csoport neve! ';
+						$ErrorStr     .= 'Túl hosszú a csoport neve! ';
 					}
 					if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
 						$ErrClassCsNev = ' Error '; 
-						$ErrorStr .= 'Túl rövid a csoport neve! ';
+						$ErrorStr     .= 'Túl rövid a csoport neve! ';
 					}
 			    	} 
 			    
 				$ErrClassCsLeiras = '';
 				if (strpos($_SESSION['ErrorStr'],'Err004')!==false) 
 				{
-					$ErrClassCsNev = ' Error '; 
-					$ErrorStr .= 'Létezik már ilyen csoport! ';
+					$ErrClassCsNev   = ' Error '; 
+					$ErrorStr       .= 'Létezik már ilyen csoport! ';
 				}
 				if (strpos($_SESSION['ErrorStr'],'Err005')!==false) 
 				{
 					$ErrClassCsLeiras = ' Error '; 
-					$ErrorStr .= 'Hiányzik a csoport leírása! ';
+					$ErrorStr        .= 'Hiányzik a csoport leírása! ';
 				}
 			    
 				if($_SESSION['ErrorStr']==''){$ErrorStr='Sikeresen módosította a csoportot!';} 
@@ -354,28 +371,34 @@ function setFCsoportTorol() {
     if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && isset($_POST['submitFCsoportTorol'])) { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
 	$SelectStr     = "SELECT id FROM FelhasznaloCsoport";  
         $result        = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFCsT 01 ");
-        while ($row    = mysqli_fetch_array($result)) {	
-            $i         = $row[id];            
-            if ($i>1) {
-                if (isset($_POST["CsoportTorolId_$i"])){$id = test_post($_POST["CsoportTorolId_$i"]);} else {$id = 0;}
-                if (isset($_POST["CsoportTorol_$i"]) && ($_POST["CsoportTorol_$i"]==$id )) {echo "<h1>$i  - $id </h1>";
-                    $DeleteStr = "DELETE FROM FelhasznaloCsoport WHERE id = $id"; 
-                    mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 02 ");
-                    $DeleteStr = "DELETE FROM FCsoportTagok WHERE CSid = $id"; 
-                    mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 03 ");
-                    $DeleteStr = "DELETE FROM OLathatosag WHERE CSid = $id"; 
-                    mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 04 ");
-                }  
-            }
-       }
+        $rowDB         = mysqli_num_rows($result); 
+        if ($rowDB > 0) {
+            while ($row    = mysqli_fetch_array($result)) {	
+                $i         = $row['id'];            
+                if ($i>1) { 
+                    if (isset($_POST["CsoportTorolId_$i"])){
+                        $id     = test_post($_POST["CsoportTorolId_$i"]);
+                    } else {$id = 0;}
+                    if (isset($_POST["CsoportTorol_$i"]) && ($_POST["CsoportTorol_$i"]==$id )) {
+                        $DeleteStr = "DELETE FROM FelhasznaloCsoport WHERE id = $id"; 
+                        mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 02 ");
+                        $DeleteStr = "DELETE FROM FCsoportTagok WHERE CSid = $id"; 
+                        mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 03 ");
+                        $DeleteStr = "DELETE FROM OLathatosag WHERE CSid = $id"; 
+                        mysqli_query($MySqliLink, $DeleteStr) OR die("Hiba sCsT 04 ");
+                    }  
+                }
+           }
+           mysqli_free_result($result);
+        }
     }
     return $ErrorStr;  
 }
 	
 function getFCsoportTorolForm() {
     global $MySqliLink;
-    $HTMLkod   = '';
-
+    $ErrorStr     = $_SESSION['ErrorStr'];
+    $HTMLkod      = '';
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $HTMLkod .= "<div id='divFCsoportTorol' >\n";
         if ($ErrorStr!='') {
@@ -387,15 +410,17 @@ function getFCsoportTorolForm() {
         $SelectStr    = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
         $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sFT 01 ");
         $rowDB        = mysqli_num_rows($result);
-        while ($row   = mysqli_fetch_array($result)) {
-            $CsNev    = $row['CsNev'];
-            $id       = $row['id'];            
-            //Törlésre jelölés
-            $HTMLkod .= "<input type='checkbox' name='CsoportTorol_$i' id='CsoportTorol_$i' value='$id'>\n";
-            $HTMLkod .= "<label for='CsoportTorol_$i' class='label_1'>$CsNev</label><br>\n";
-            //id
-            $HTMLkod .= "<input type='hidden' name='CsoportTorolId_$i' id='CsoportTorolId_$i' value='$id'>\n";
-            $i++;
+        if ($rowDB > 0) {
+            while ($row   = mysqli_fetch_array($result)) {
+                $CsNev    = $row['CsNev'];
+                $id       = $row['id'];            
+                //Törlésre jelölés
+                $HTMLkod .= "<input type='checkbox' name='CsoportTorol_$id' id='CsoportTorol_$id' value='$id'>\n";
+                $HTMLkod .= "<label for='CsoportTorol_$id' class='label_1'>$CsNev</label><br>\n";
+                //id
+                $HTMLkod .= "<input type='hidden' name='CsoportTorolId_$id' id='CsoportTorolId_$id' value='$id'>\n";
+             }
+            mysqli_free_result($result);
         }
         $HTMLkod .= "<input type='hidden' name='CsTorolDB' id='CsTorolDB' value='$rowDB'>\n";        
         $HTMLkod .= "</fieldset>";
@@ -404,7 +429,6 @@ function getFCsoportTorolForm() {
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
 	}
-
     return $HTMLkod;
 }      
     

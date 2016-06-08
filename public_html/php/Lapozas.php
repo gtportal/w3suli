@@ -11,6 +11,7 @@ function getKatLapinfo($MaxDBperOldal) {
     $arrLapinfo['SelectStr'] = '';
     $arrLapinfo['OsszDB']    = '';
     $arrLapinfo['LapozHTML'] = '';
+    $LapozHTML               = '';
   
     $SelectStr     = "SELECT * FROM Oldalak WHERE OSzuloId=".$Aktoldal['id']."
                      AND OTipus<10 order by OPrioritas DESC, ONev"; 
@@ -85,7 +86,9 @@ function getKatLapinfo($MaxDBperOldal) {
 
 function getCikkLapinfo($MaxDBperOldal) {
    global $MySqliLink, $Aktoldal, $oURL, $oLap, $CCim;
-    $AktLap = 1;
+    $AktLap    = 1;
+    $MaxLap    = 1;
+    $LapozHTML = '';
     if ($_SESSION['LapozCikk'.'OUrl']  == $Aktoldal['OUrl']) 
                    {$AktLap  = $_SESSION['LapozCikk'.'CT'];}
     if ($AktLap>0) {$AktLap  = $oLap; }
@@ -248,7 +251,8 @@ function getCikkLapinfo($MaxDBperOldal) {
 
 function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
    global $MySqliLink, $Aktoldal, $oURL, $oLap, $CCim;
-    $AktLap = 1;
+    $AktLap    = 1;
+    $LapozHTML = '';
     if ($_SESSION['LapozCikk'.'OUrl']  == $Aktoldal['OUrl']) 
                    {$AktLap  = $_SESSION['LapozCikk'.'CT'];}
     if ($AktLap>0) {$AktLap  = $oLap; }

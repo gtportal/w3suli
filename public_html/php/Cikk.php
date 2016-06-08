@@ -78,14 +78,15 @@ function getUjCikkForm() {
     $CLathatosag = 0;
     $CPrioritas  = 0;
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
-        if (!isset($_POST['submitUjCikkForm']) || $_SESSION['ErrorStr'=='']){
+        if (!isset($_POST['submitUjCikkForm']) || $_SESSION['ErrorStr']==''){
         //Ha még nem lett elküldve vagy az új cikk már létrelött
             if (isset($_POST['UjCNev']))      {$UjCNev      = test_post($_POST['UjCNev']);}
             if (isset($_POST['UjCTartalom'])) {$UjCTartalom = STR_post($_POST['UjCTartalom']);}
             if (isset($_POST['UjCLeiras']))   {$UjCLeiras   = test_post($_POST['UjCLeiras']);}
             if (isset($_POST['CLathatosag'])) {$CLathatosag = INT_post($_POST['CLathatosag']);} 
             if (isset($_POST['CPrioritas']))  {$CPrioritas  = INT_post($_POST['CPrioritas']);}
-            
+            $OKstr    = '';
+            if (isset($_POST['submitUjCikkForm'])){$OKstr ="A cikk elkészült. Címe: $UjCNev";} 
             //============FORM ÖSSZEÁLLÍTÁSA===================
             $HTMLkod .= "<div id='divUjCikkForm' >\n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjCikkForm'>\n";
@@ -140,23 +141,26 @@ function getUjCikkForm() {
             if (isset($_POST['CPrioritas']))  {$CPrioritas  = INT_post($_POST['CPrioritas']);}
             
             // ============== HIBAKEZELÉS ===================== 
-            $ErrorStr = '';
+            $ErrorStr          = '';
+            $ErrClassCNev      = ''; 
+            $ErrClassCTartalom = ''; 
+
              //Cikknév
             if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Hiányzik a cikk neve! ';
+              $ErrorStr    .= 'Hiányzik a cikk neve! ';
             }
             if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Ilyen nevű cikk már létezik! ';
+              $ErrorStr    .= 'Ilyen nevű cikk már létezik! ';
             }
             if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Az cikk neve túl hosszú! ';
+              $ErrorStr    .= 'Az cikk neve túl hosszú! ';
             }
             if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Az cikk neve legalább 3 karakter hosszú kell legyen! ';
+              $ErrorStr    .= 'Az cikk neve legalább 3 karakter hosszú kell legyen! ';
             }         
             //Cikk tartalom
             if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
@@ -168,8 +172,8 @@ function getUjCikkForm() {
             $HTMLkod .= "<div id='divUjCikkForm' >\n";
             if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";} 
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjCikkForm'>\n";
-            $OKstr ='';
-            if (isset($_POST['submitUjCikkForm'])&&($ErrorStr=='')){$OKstr ='A cikk elkészült.';} 
+            $OKstr    = '';
+            
             $HTMLkod .= "<p class='ErrorStr'>$OKstr</p>";
             $HTMLkod .= "<h2>Új cikk létrehozása</h2>\n ";
 
@@ -271,14 +275,21 @@ function getCikkValasztForm() {
                             ON OC.Cid= C.id 
                             WHERE OC.Oid=$Oid";
         }
-        $HTMLkod.="<option value='Nincs' $Select >Nincs kiválasztva</option>";
+        $HTMLkod  .= "<option value='Nincs' >Nincs kiválasztva</option>";
         $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCV 01 ");
-        while($row = mysqli_fetch_array($result))
-        {
-            $CNev = $row['CNev'];
-            if($_SESSION['SzerkCikk'.'id'] == $row['id']){$Select = " selected ";}else{$Select = "";}
-
-            $HTMLkod.="<option value='$CNev' $Select >$CNev</option>";
+        $rowDB     = mysqli_num_rows($result); 
+        if ($rowDB > 0) {
+            while($row    = mysqli_fetch_array($result))
+            {
+                $CNev     = $row['CNev'];
+                if($_SESSION['SzerkCikk'.'id'] == $row['id']){
+                    $Select = " selected ";                    
+                }else{
+                    $Select = "";                    
+                }
+                $HTMLkod .= "<option value='$CNev' $Select >$CNev</option>";
+            }
+            mysqli_free_result($result); 
         }
         $HTMLkod .= "</select>";
         //Submit
@@ -291,32 +302,44 @@ function getCikkValasztForm() {
 }
 
 function getCikkForm() {
-    global $Aktoldal, $MySqliLink;
-    $CPrioritas = 1;
+    global $Aktoldal, $MySqliLink;    
     $HTMLkod    = '';
     $OUrl       = $Aktoldal['OUrl'];
     $Oid        = $Aktoldal['id'];
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
-        if (!isset($_POST['submitCikkForm']) || $_SESSION['ErrorStr'=='']){
+        $CNev        = '';
+        $CTartalom   = '';
+        $CLeiras     = '';
+        $CLathatosag = 0;
+        $CPrioritas  = 0;
+        $KoElozetes  = 0;
+        $SZoElozetes = 0;
+        $CPrioritas  = 1;
+        if (!isset($_POST['submitCikkForm']) || $_SESSION['ErrorStr']==''){
         //Ha még nem lett elküldve vagy a cikk már módosítva lett
             $id = 0;
             if (isset($_SESSION['SzerkCikk'.'id'])) {$id = $_SESSION['SzerkCikk'.'id'];}
             $SelectStr   = "SELECT * FROM Cikkek WHERE id=$id LIMIT 1"; 
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sC 02a ");
-            $row         = mysqli_fetch_array($result);  mysqli_free_result($result);            
-            $CNev        = $row['CNev'];
-            $CLeiras     = $row['CLeiras'];
-            $CTartalom   = $row['CTartalom'];
-            $CLathatosag = $row['CLathatosag'];
-            
-            $KoElozetes  = $row['KoElozetes'];
-            $SZoElozetes = $row['SZoElozetes'];
-            
+            $rowDB       = mysqli_num_rows($result); 
+            if ($rowDB > 0) {
+                $row         = mysqli_fetch_array($result);  mysqli_free_result($result);            
+                $CNev        = $row['CNev'];
+                $CLeiras     = $row['CLeiras'];
+                $CTartalom   = $row['CTartalom'];
+                $CLathatosag = $row['CLathatosag'];
+                $KoElozetes  = $row['KoElozetes'];
+                $SZoElozetes = $row['SZoElozetes'];
+            }
             $SelectStr   = "SELECT * FROM OldalCikkei WHERE Cid=$id AND Oid=$Oid LIMIT 1"; 
             $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sC 02axc ");
-            $row         = mysqli_fetch_array($result);  mysqli_free_result($result);            
-            $CPrioritas  = $row['CPrioritas'];            
-            
+            $rowDB       = mysqli_num_rows($result); 
+            if ($rowDB > 0) {
+                $row         = mysqli_fetch_array($result);              
+                $CPrioritas  = $row['CPrioritas'];   
+                mysqli_free_result($result);
+            }
+
             if ($_SESSION['SzerkCikk'.'id']>0)
             {   //============FORM ÖSSZEÁLLÍTÁSA===================
                 $HTMLkod .= "<div id='divCikkForm' >\n";
@@ -338,27 +361,27 @@ function getCikkForm() {
                 if ($_SESSION['AktFelhasznalo'.'FSzint']>3) {
                     //Láthatóság                    
                     $HTMLkod .= "<fieldset> <legend>A cikk láthatósága:</legend>";        
-                        
+
                     if($CLathatosag==0){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_0a' name='CLathatosag' value='0' $checked>";
                     $HTMLkod .="<label for='CLathatosag_0a' class='label_1'>Moderátor és tulajdonos</label><br>";
-                    
+
                     if($CLathatosag==1){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_1a' name='CLathatosag' value='1' $checked>";
                     $HTMLkod .="<label for='CLathatosag_1a' class='label_1'>Bejelentkezett felhasználók</label><br>";     
-                    
+
                     if($CLathatosag==2){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_2a' name='CLathatosag' value='2' $checked>";
                     $HTMLkod .="<label for='CLathatosag_2a' class='label_1'>Csoport számára látható</label><br>";
-                    
+
                     if($CLathatosag==3){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_3a' name='CLathatosag' value='3' $checked>";
                     $HTMLkod .="<label for='CLathatosag_3a' class='label_1'>Nyilvános <b>(mindenki látja)</b></label><br>";  
-                    
+
                     if($CLathatosag==-1){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_Aa' name='CLathatosag' value='-1' $checked>";
                     $HTMLkod .="<label for='CLathatosag_Aa' class='label_1'>Archívumban olvasható <b>(mindenki látja)</b></label><br>";  
-                    
+
                     //Előzetes kezdőlapra
                     //$HTMLkod .= "<h2>Cikkelőzetesek megjelenítése kezdőlapon</h2>"; 
                     $HTMLkod .= "</fieldset>";
@@ -372,7 +395,7 @@ function getCikkForm() {
                     if($KoElozetes==2){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='KoElozetes2' name='KoElozetes' value='2' $checked>";
                     $HTMLkod .="<label for='KoElozetes2' class='label_1'>Előzetese <b>kiemelten</b> látszik kezdőlapon</b></label>";
-                    
+
                     //Előzetes szülőoldalra
                     //$HTMLkod .= "<h2>Cikkelőzetesek megjelenítése szülőoldalon</h2>";
                     $HTMLkod .= "</fieldset>";
@@ -386,7 +409,7 @@ function getCikkForm() {
                     if($SZoElozetes==2){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='SZoElozetes2' name='SZoElozetes' value='2' $checked>";
                     $HTMLkod .="<label for='SZoElozetes2' class='label_1'>Előzetese <b>kiemelten</b> látszik szülőoldalon</b></label><br>";                     
-                
+
                     //Prioritas
                     $HTMLkod .= "</fieldset>";
                     $HTMLkod .= "<fieldset> <legend>A cikk pozíciója:</legend>";
@@ -400,14 +423,7 @@ function getCikkForm() {
                 $HTMLkod .= "</div>\n";
             }
         } else {//Ha elküldték és hibás 
-            $CNev        ='';
-            $CTartalom   ='';
-            $CLeiras     ='';
-            $CLathatosag =0;
-            $CPrioritas  =0;
-            $KoElozetes  =0;
-            $SZoElozetes =0;
-            
+                      
             if (isset($_POST['CNev']))        {$CNev        = test_post($_POST['CNev']);}
             if (isset($_POST['CTartalom']))   {$CTartalom   = STR_post($_POST['CTartalom']);}
             if (isset($_POST['CLeiras']))     {$CLeiras     = test_post($_POST['CLeiras']);}
@@ -418,7 +434,9 @@ function getCikkForm() {
             if (isset($_POST['SZoElozetes'])) {$SZoElozetes = INT_post($_POST['SZoElozetes']);}
             
             // ============== HIBAKEZELÉS ===================== 
-            $ErrorStr = '';
+            $ErrorStr          = '';
+            $ErrClassCTartalom = '';
+            $ErrClassCNev      = '';
              //Cikknév
             if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
               $ErrClassCNev = ' Error '; 
@@ -550,8 +568,14 @@ function setCikkValaszt() {
                 if($CNev!='Nincs') {
                     $SelectStr   = "SELECT id FROM Cikkek WHERE CNev='$CNev' LIMIT 1";
                     $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCV 02 ");
-                    $row         = mysqli_fetch_array($result);  mysqli_free_result($result);
-                    $_SESSION['SzerkCikk'.'id'] = $row['id'];
+                    $rowDB       = mysqli_num_rows($result); 
+                    if ($rowDB > 0) {                    
+                        $row     = mysqli_fetch_array($result);  
+                        $_SESSION['SzerkCikk'.'id'] = $row['id'];
+                        mysqli_free_result($result);
+                    } else {
+                        $_SESSION['SzerkCikk'.'id'] = 0;                        
+                    }
                 } else {
                     $_SESSION['SzerkCikk'.'id'] = 0;
                 }
@@ -591,8 +615,8 @@ function setCikk() {
             if ($rowDB > 0) {
 		$row   = mysqli_fetch_array($result);
 		if($id!=$row['id']) {$ErrorStr .= ' Err002,';}
-            }
-            mysqli_free_result($result);            
+                mysqli_free_result($result);
+            }                        
             if (strlen($CNev)>60) { $ErrorStr .= ' Err003,';}
             if (strlen($CNev)<3)  { $ErrorStr .= ' Err004,';}
         } else {$ErrorStr = ' Err001,';}
@@ -611,30 +635,33 @@ function setCikk() {
         if (isset($_POST['KoElozetes']))  {$KoElozetes  = INT_post($_POST['KoElozetes']);}
         if (isset($_POST['SZoElozetes'])) {$SZoElozetes = INT_post($_POST['SZoElozetes']);}
 
-        if ($ErrorStr=='') {
+        if ($ErrorStr =='') {
             //==========Névváltozás ellenőrzése===========        
             $SelectStr = "SELECT CNev From Cikkek WHERE id=$id";                       
             $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba CKnv 02345");
-            $row       = mysqli_fetch_array($result);  mysql_free_result($result);
-            $RCNev     = $row['CNev'];
-            if ($RCNev!=$CNev) {$ErrorStr=KepekAtnevez($RCNev,$CNev,$id);}
+            $rowDB     = mysqli_num_rows($result);
+            if ($rowDB > 0) {
+                $row   = mysqli_fetch_array($result);  mysqli_free_result($result);
+                $RCNev = $row['CNev'];
+                if ($RCNev!=$CNev) {$ErrorStr=KepekAtnevez($RCNev,$CNev,$id);}
 
-            if ($ErrorStr=='') {
-                //=========REKORDOK MÓDOSÍTÁSA =============        
-                $UpdateStr = "UPDATE Cikkek SET
-                            CNev           = '$CNev',
-                            CTartalom      = '$CTartalom',
-                            Cleiras        =  '$CLeiras',
-                            CLathatosag    =  '$CLathatosag', 
-                            KoElozetes     =  '$KoElozetes',
-                            SZoElozetes    =  '$SZoElozetes',     
-                            CModositasTime = NOW()
-                            WHERE       id = $id";
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 01 ");
-                $UpdateStr   = "UPDATE OldalCikkei SET
-                                CPrioritas = $CPrioritas
-                                WHERE   Cid=$id AND Oid=$Oid LIMIT 1"; 
-                mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 02 ");
+                if ($ErrorStr == '') {
+                    //=========REKORDOK MÓDOSÍTÁSA =============        
+                    $UpdateStr = "UPDATE Cikkek SET
+                                CNev           = '$CNev',
+                                CTartalom      = '$CTartalom',
+                                Cleiras        =  '$CLeiras',
+                                CLathatosag    =  '$CLathatosag', 
+                                KoElozetes     =  '$KoElozetes',
+                                SZoElozetes    =  '$SZoElozetes',     
+                                CModositasTime = NOW()
+                                WHERE       id = $id";
+                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 01 ");
+                    $UpdateStr   = "UPDATE OldalCikkei SET
+                                    CPrioritas = $CPrioritas
+                                    WHERE   Cid=$id AND Oid=$Oid LIMIT 1"; 
+                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 02 ");
+                }
             }
             
         }
@@ -650,19 +677,23 @@ function setCikk() {
 function setCikkTorol() { 
     global $MySqliLink, $Aktoldal;
     if (isset($_POST['submitCikkTorol'])) { 
-        $SelectStr  = "SELECT Cid FROM OldalCikkei WHERE Oid=".$Aktoldal['id'];
-        $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba COT 01");
-        while ($row = mysqli_fetch_array($result)){   
-            $i      = $row['Cid']; 
-            if (isset($_POST["CikkTorolId_$i"])) {$id = $_POST["CikkTorolId_$i"];} 
-            if (isset($_POST["CikkTorol_$i"])){  
-                $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
-                mysqli_query($MySqliLink, $DeleteStr);
-                $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
-                mysqli_query($MySqliLink, $DeleteStr);
-                CikkOsszesKepTorol($id,$Aktoldal['OImgDir']);
+        $SelectStr      = "SELECT Cid FROM OldalCikkei WHERE Oid=".$Aktoldal['id'];
+        $result         = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba COT 01");
+        $rowDB          = mysqli_num_rows($result); 
+        if ($rowDB > 0) {
+            while ($row = mysqli_fetch_array($result)){   
+                $i      = $row['Cid']; 
+                if (isset($_POST["CikkTorolId_$i"])) {$id = $_POST["CikkTorolId_$i"];} 
+                if (isset($_POST["CikkTorol_$i"])){  
+                    $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
+                    mysqli_query($MySqliLink, $DeleteStr);
+                    $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
+                    mysqli_query($MySqliLink, $DeleteStr);
+                    CikkOsszesKepTorol($id,$Aktoldal['OImgDir']);
+                }
             }
-        }    
+            mysqli_num_rows($result);
+        }
     }
 }
 
@@ -680,21 +711,26 @@ function OldalOsszesCikkekTorol($Oid) {
     $ErrorStr   = ""; 
     $SelectStr  = "SELECT OImgDir FROM Oldalak WHERE id = $Oid";     
     $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OOCT1 1"); 
-    $row        = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
-    $OImgDir    = $row['OImgDir'];
-    $SelectStr  = "SELECT Cid FROM OldalCikkei WHERE Oid=$Oid";  
-    $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba OOCT2 01");
-    while ($row = mysqli_fetch_array($result)){   
-        $id     = $row['Cid'];
+    $rowDB      = mysqli_num_rows($result); 
+    if ($rowDB > 0) {
+        $row        = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
+        $OImgDir    = $row['OImgDir'];
         
-            $ErrorStr .= CikkOsszesKepTorol($id,$OImgDir);
-            $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
-            mysqli_query($MySqliLink, $DeleteStr);
-            $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
-            mysqli_query($MySqliLink, $DeleteStr);
-            
-        
-    }   
+        $SelectStr  = "SELECT Cid FROM OldalCikkei WHERE Oid=$Oid";  
+        $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba OOCT2 01");
+        $rowDB      = mysqli_num_rows($result); 
+        if ($rowDB > 0) {
+            while ($row = mysqli_fetch_array($result)){   
+                $id     = $row['Cid'];
+                $ErrorStr .= CikkOsszesKepTorol($id,$OImgDir);
+                $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
+                mysqli_query($MySqliLink, $DeleteStr);
+                $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
+                mysqli_query($MySqliLink, $DeleteStr);
+            } 
+            mysqli_free_result($result);
+        }
+    }
     return $ErrorStr;
 }
 
@@ -728,16 +764,20 @@ function getCikkTorolForm() {
         
         $HTMLkod .= "<fieldset> <legend>Az oldal cikkei:</legend>";
         $i = 0;
-        while ($row   = mysqli_fetch_array($result)) {
-            $CNev     = $row['CNev'];
-            $id       = $row['id'];
-            //Törlésre jelölés
-            $HTMLkod .= "<p class='pCikkTorol'><input type='checkbox' name='CikkTorol_$id' id='CikkTorol_$id'>"
-                    . "<label for='CikkTorol_$id' class='label_1'>$CNev</label>\n ";
-            $HTMLkod .= "</p>\n";
-            //id
-            $HTMLkod .= "<input type='hidden' name='CikkTorolId_$id' id='CikkTorolId_$id' value='$id'>\n";
-            $i++;
+        $rowDB       = mysqli_num_rows($result); 
+        if ($rowDB > 0) {
+            while ($row   = mysqli_fetch_array($result)) {
+                $CNev     = $row['CNev'];
+                $id       = $row['id'];
+                //Törlésre jelölés
+                $HTMLkod .= "<p class='pCikkTorol'><input type='checkbox' name='CikkTorol_$id' id='CikkTorol_$id'>"
+                        . "<label for='CikkTorol_$id' class='label_1'>$CNev</label>\n ";
+                $HTMLkod .= "</p>\n";
+                //id
+                $HTMLkod .= "<input type='hidden' name='CikkTorolId_$id' id='CikkTorolId_$id' value='$id'>\n";
+                $i++;
+            }
+            mysqli_free_result($result);
         }
         $HTMLkod .= "<input type='hidden' name='TorolDB' id='TorolDB' value='$i'>\n";
         $HTMLkod .= "</fieldset>";
@@ -785,6 +825,7 @@ function getKezdolapCikkelozetesekHTML($SelStr) {
            $HTMLkod .= "<div class='divCikkLink'> $CikkLink </div>";
            $HTMLkod .= "</div>\n";    
         }
+        mysqli_free_result($result);
     }
     if ($HTMLkod!='') {$HTMLkod = "<div class ='divCElozetesKulso'>\n <h2>Hírelőzetesek</h2> $HTMLkod</div>"; }
     return $HTMLkod;
@@ -826,6 +867,7 @@ function getSzulooldalCikkelozetesekHTML($SelStr) {
            $HTMLkod .= "<p class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </p>\n";
            $HTMLkod .= "</div>\n";           
         }
+        mysqli_free_result($result);
     }
     if ($HTMLkod!='') {$HTMLkod = "<div class ='divCElozetesKulso'>\n <h2>Hírelőzetesek</h2> $HTMLkod</div>"; }   
     return $HTMLkod;

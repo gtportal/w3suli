@@ -55,58 +55,60 @@ function getKiegTForm() {
         $KiegTartalom['KiegTTartalom']  = '';
         $KiegTartalom['KiegTPrioritas'] = 0;
         $SelectStr = "SELECT * FROM KiegTartalom";
-        $result = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
+        $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
+        $rowDB     = mysqli_num_rows($result); 
+        if ($rowDB > 0) { 
+            for ($i = 0; $i < 10; $i++){
+                $row = mysqli_fetch_array($result);
+                $KiegTartalom['id']            = $row['id'];
+                $KiegTartalom['KiegTNev']      = $row['KiegTNev'];
+                $KiegTartalom['KiegTTartalom'] = $row['KiegTTartalom'];
+                $KiegTartalom['KiegTPrioritas']= $row['KiegTPrioritas'];
+                $KiegTTomb[]   = $KiegTartalom;
+            }
+            mysqli_free_result($result);
+            $HTMLkod .= "<div id='divModKiegTForm' >\n";
+            $HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formModKiegTForm'>\n";
+            $HTMLkod .= "<h2>A kiegészítő tartalom információs blokkjai</h2>\n";
 
-        for ($i = 0; $i < 10; $i++){
-            $row = mysqli_fetch_array($result);
-            $KiegTartalom['id']            = $row['id'];
-            $KiegTartalom['KiegTNev']      = $row['KiegTNev'];
-            $KiegTartalom['KiegTTartalom'] = $row['KiegTTartalom'];
-            $KiegTartalom['KiegTPrioritas']= $row['KiegTPrioritas'];
-            $KiegTTomb[]   = $KiegTartalom;
+            for ($i = 0; $i < 10; $i++){
+                $id             = $KiegTTomb[$i]['id'];
+                $KiegTNev       = $KiegTTomb[$i]['KiegTNev'];
+                $KiegTTartalom  = $KiegTTomb[$i]['KiegTTartalom'];
+                $KiegTPrioritas = $KiegTTomb[$i]['KiegTPrioritas'];
+
+                $HTMLkod .= "<div class='divKiegTElem'>\n ";
+
+                $j = $i+1;
+                $HTMLkod .= "<fieldset> <legend>".$j.". információs blokk adatai</legend>";
+                //Kiegészítő tartalom neve
+                $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='ModKTNev_$i' id='ModKTNev_$i' placeholder='$KiegTNev' value='$KiegTNev' size='40'></p>\n"; 
+
+                //Kiegészítő tartalom tartalma
+                $HTMLkod .= "<p class='pModKTTartalom'><label for='ModKTTartalom_$i' class='label_1'>Módosított kiegészítő tartalom tartalma:</label><br>\n ";
+                $HTMLkod .= "<textarea type='text' name='ModKTTartalom_$i' id='ModKTTartalom_$i' placeholder='$KiegTTartalom' 
+                             rows='4' cols='60'>$KiegTTartalom</textarea></p>\n"; 
+
+                //Kiegészítő tartalom prioritása
+                $HTMLkod .= "<p class='pModKTPrioritas'><label for='ModKTPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
+                $HTMLkod .= "<input type='number' name='ModKTPrioritas_$i' id='ModKTPrioritas_$i' min='0' max='9' step='1' value='$KiegTPrioritas'></p>\n";  
+
+                //Törlésre jelölés
+                $HTMLkod .= "<p class='pTorolKiegT'><label for='pTorolKiegT_$i' class='label_1'>TÖRLÉS:</label>\n ";
+                $HTMLkod .= "<input type='checkbox' name='TorolKiegT_$i' id='TorolKiegT_$i'></p>\n";
+
+                //id
+                $HTMLkod .= "<input type='hidden' name='ModKTid_$i' id='ModKTid_$i' value='$id'>\n";
+                $HTMLkod .= "</fieldset>";
+                $HTMLkod .= "</div>\n ";
+            }        
+            //Submit
+            $HTMLkod .= "<br style='clear:both;float:none;'>\n";
+            $HTMLkod .= "<input type='submit' name='submitKiegTartalom' id='submitKiegTartalom' value='Módosítás'>\n";
+            $HTMLkod .= "</form>\n";
+            $HTMLkod .= "</div>\n";        
         }
-        
-        $HTMLkod .= "<div id='divModKiegTForm' >\n";
-	$HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formModKiegTForm'>\n";
-        $HTMLkod .= "<h2>A kiegészítő tartalom információs blokkjai</h2>\n";
-        
-        for ($i = 0; $i < 10; $i++){
-            $id             = $KiegTTomb[$i]['id'];
-            $KiegTNev       = $KiegTTomb[$i]['KiegTNev'];
-            $KiegTTartalom  = $KiegTTomb[$i]['KiegTTartalom'];
-            $KiegTPrioritas = $KiegTTomb[$i]['KiegTPrioritas'];
-            
-            $HTMLkod .= "<div class='divKiegTElem'>\n ";
-     
-            $j = $i+1;
-            $HTMLkod .= "<fieldset> <legend>".$j.". információs blokk adatai</legend>";
-            //Kiegészítő tartalom neve
-            $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
-            $HTMLkod .= "<input type='text' name='ModKTNev_$i' id='ModKTNev_$i' placeholder='$KiegTNev' value='$KiegTNev' size='40'></p>\n"; 
-
-            //Kiegészítő tartalom tartalma
-            $HTMLkod .= "<p class='pModKTTartalom'><label for='ModKTTartalom_$i' class='label_1'>Módosított kiegészítő tartalom tartalma:</label><br>\n ";
-            $HTMLkod .= "<textarea type='text' name='ModKTTartalom_$i' id='ModKTTartalom_$i' placeholder='$KiegTTartalom' 
-                         rows='4' cols='60'>$KiegTTartalom</textarea></p>\n"; 
-
-            //Kiegészítő tartalom prioritása
-            $HTMLkod .= "<p class='pModKTPrioritas'><label for='ModKTPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
-            $HTMLkod .= "<input type='number' name='ModKTPrioritas_$i' id='ModKTPrioritas_$i' min='0' max='9' step='1' value='$KiegTPrioritas'></p>\n";  
-            
-            //Törlésre jelölés
-            $HTMLkod .= "<p class='pTorolKiegT'><label for='pTorolKiegT_$i' class='label_1'>TÖRLÉS:</label>\n ";
-            $HTMLkod .= "<input type='checkbox' name='TorolKiegT_$i' id='TorolKiegT_$i'></p>\n";
-            
-            //id
-            $HTMLkod .= "<input type='hidden' name='ModKTid_$i' id='ModKTid_$i' value='$id'>\n";
-            $HTMLkod .= "</fieldset>";
-            $HTMLkod .= "</div>\n ";
-        }        
-        //Submit
-        $HTMLkod .= "<br style='clear:both;float:none;'>\n";
-        $HTMLkod .= "<input type='submit' name='submitKiegTartalom' id='submitKiegTartalom' value='Módosítás'>\n";
-        $HTMLkod .= "</form>\n";
-        $HTMLkod .= "</div>\n";        
     }
     return $HTMLkod;
 }
@@ -115,18 +117,21 @@ function getKiegTForm() {
 
 function getKiegTHTML() {
     global $MySqliLink;
-    $HTMLkod        = '';
-
+    
+    $HTMLkod   = '';
     $SelectStr = "SELECT * FROM KiegTartalom WHERE KiegTPrioritas>0  ORDER BY KiegTPrioritas DESC";
     $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
-
-    while ($row = mysqli_fetch_array($result)){
-        if ($row['KiegTTartalom']){
-            $HTMLkod .= "<div class ='divKiegTKulso'>\n";
-            if ($row['KiegTNev']!='') {$HTMLkod .= "<h2>".$row['KiegTNev']."</h2>\n";}
-            $HTMLkod .= "<div class = 'divKiegT'>".$row['KiegTTartalom']."\n";
-            $HTMLkod .= "</div></div>\n";
+    $rowDB     = mysqli_num_rows($result); 
+    if ($rowDB > 0) { 
+        while ($row = mysqli_fetch_array($result)){
+            if ($row['KiegTTartalom']){
+                $HTMLkod .= "<div class ='divKiegTKulso'>\n";
+                if ($row['KiegTNev']!='') {$HTMLkod .= "<h2>".$row['KiegTNev']."</h2>\n";}
+                $HTMLkod .= "<div class = 'divKiegT'>".$row['KiegTTartalom']."\n";
+                $HTMLkod .= "</div></div>\n";
+            }
         }
+        mysqli_free_result($result);
     }
     return $HTMLkod;
 }

@@ -686,7 +686,7 @@ function getElsoKepHTML($Cid,$KepUtvonal) {
     if ($rowDB > 0) {
         $row     = mysqli_fetch_array($result);  mysqli_free_result($result); 
         $Src     = $KepUtvonal.$row['KFile'];
-        $Alt     = $row['KNev'];
+        $KNev    = $row['KNev'];
         $HTMLkod.= "<img src='$Src'  class = 'imgOE' alt='$KNev'>";
     }
     return $HTMLkod;    
