@@ -113,9 +113,10 @@
 #divCikkValaszt  {display: none;}
 #chFormkodCikk:checked ~ #divCikkValaszt   {display: block;}
 
-#formCikkKepForm {width:700px;}
+#formCikkKepForm1 {width:700px;}
+#CikkKepekFeltoltForm, #KisKepFelForm {background-color:#fff;padding-left:5px; }
 #divCikkKepForm .Kepszerk img {display:block; float:left; max-height:100px; max-width: 100px; margin:4px 5px 4px 1px;}
-#divCikkKepForm .Kepszerk     {display:block; float:left;  margin:2px; width:700px; height: 140px; }
+#divCikkKepForm .Kepszerk     {display:block; float:left;  margin:2px;  height: 140px; }
 #divCikkKepForm .Kepszerk  p  {display:block; float:left; margin:1px;}
 #divCikkKepForm .Kepszerk  p.pKSzelesseg  {clear:left;}
 

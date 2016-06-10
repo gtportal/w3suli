@@ -46,7 +46,9 @@ function setKiegT() {
 
 function getKiegTForm() {
     global $MySqliLink;
-    $HTMLkod        = '';
+    $HTMLkod   = '';
+    $ErrorStr  = '';
+    $InfoClass = '';
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>5)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $KiegTartalom                   = array();
@@ -57,19 +59,29 @@ function getKiegTForm() {
         $SelectStr = "SELECT * FROM KiegTartalom";
         $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
         $rowDB     = mysqli_num_rows($result); 
-        if ($rowDB > 0) { 
+        if ($rowDB > 0) {        
+            if (isset($_POST['submitKiegTartalom']))    {
+                if ($_SESSION['ErrorStr'] == '' ){
+                    $ErrorStr        = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr; 
+                } else {
+                    $ErrorStr        = "<p class='time'>".U_ELKULDVE.":".date("H.i.s.")."<p>".$ErrorStr;
+                }
+                if (strpos($_SESSION['ErrorStr'],'Err')!==false)
+                        {$InfoClass  = ' ErrorInfo ';} else {$InfoClass  = ' OKInfo ';}   
+            }            
             for ($i = 0; $i < 10; $i++){
                 $row = mysqli_fetch_array($result);
                 $KiegTartalom['id']            = $row['id'];
                 $KiegTartalom['KiegTNev']      = $row['KiegTNev'];
                 $KiegTartalom['KiegTTartalom'] = $row['KiegTTartalom'];
                 $KiegTartalom['KiegTPrioritas']= $row['KiegTPrioritas'];
-                $KiegTTomb[]   = $KiegTartalom;
+                $KiegTTomb[]                   = $KiegTartalom;
             }
             mysqli_free_result($result);
             $HTMLkod .= "<div id='divModKiegTForm' >\n";
             $HTMLkod .= "<form action='?f0=kiegeszito_tartalom' method='post' id='formModKiegTForm'>\n";
-            $HTMLkod .= "<h2>A kiegészítő tartalom információs blokkjai</h2>\n";
+            $HTMLkod .= "<h2>".U_KIEGT_INFO_BLOKK."</h2>\n";
+            if ($ErrorStr!='') {$HTMLkod .= "<div class='$InfoClass'>$ErrorStr</div>";};
 
             for ($i = 0; $i < 10; $i++){
                 $id             = $KiegTTomb[$i]['id'];
@@ -79,23 +91,23 @@ function getKiegTForm() {
 
                 $HTMLkod .= "<div class='divKiegTElem'>\n ";
 
-                $j = $i+1;
-                $HTMLkod .= "<fieldset> <legend>".$j.". információs blokk adatai</legend>";
+                $j        = $i+1;
+                $HTMLkod .= "<fieldset> <legend>".$j.". ".U_KIEGT_BLOKK_ADATOK."</legend>";
                 //Kiegészítő tartalom neve
-                $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
-                $HTMLkod .= "<input type='text' name='ModKTNev_$i' id='ModKTNev_$i' placeholder='$KiegTNev' value='$KiegTNev' size='40'></p>\n"; 
+                $HTMLkod .= "<p class='pModKTNev'><label for='ModKTNev_$i' class='label_1'>".U_NEV.":</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='ModKTNev_$i' id='ModKTNev_$i' placeholder='".U_NEV."' value='$KiegTNev' size='40'></p>\n"; 
 
                 //Kiegészítő tartalom tartalma
-                $HTMLkod .= "<p class='pModKTTartalom'><label for='ModKTTartalom_$i' class='label_1'>Módosított kiegészítő tartalom tartalma:</label><br>\n ";
-                $HTMLkod .= "<textarea type='text' name='ModKTTartalom_$i' id='ModKTTartalom_$i' placeholder='$KiegTTartalom' 
+                $HTMLkod .= "<p class='pModKTTartalom'><label for='ModKTTartalom_$i' class='label_1'>".U_TARTALOM.":</label><br>\n ";
+                $HTMLkod .= "<textarea type='text' name='ModKTTartalom_$i' id='ModKTTartalom_$i' placeholder='".U_TARTALOM."' 
                              rows='4' cols='60'>$KiegTTartalom</textarea></p>\n"; 
 
                 //Kiegészítő tartalom prioritása
-                $HTMLkod .= "<p class='pModKTPrioritas'><label for='ModKTPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
+                $HTMLkod .= "<p class='pModKTPrioritas'><label for='ModKTPrioritas_$i' class='label_1'>".U_PRIORITAS.":</label>\n ";
                 $HTMLkod .= "<input type='number' name='ModKTPrioritas_$i' id='ModKTPrioritas_$i' min='0' max='9' step='1' value='$KiegTPrioritas'></p>\n";  
 
                 //Törlésre jelölés
-                $HTMLkod .= "<p class='pTorolKiegT'><label for='pTorolKiegT_$i' class='label_1'>TÖRLÉS:</label>\n ";
+                $HTMLkod .= "<p class='pTorolKiegT'><label for='pTorolKiegT_$i' class='label_1'>".U_TORTLES.":</label>\n ";
                 $HTMLkod .= "<input type='checkbox' name='TorolKiegT_$i' id='TorolKiegT_$i'></p>\n";
 
                 //id
@@ -105,7 +117,7 @@ function getKiegTForm() {
             }        
             //Submit
             $HTMLkod .= "<br style='clear:both;float:none;'>\n";
-            $HTMLkod .= "<input type='submit' name='submitKiegTartalom' id='submitKiegTartalom' value='Módosítás'>\n";
+            $HTMLkod .= "<input type='submit' name='submitKiegTartalom' id='submitKiegTartalom' value='".U_BTN_MODOSITAS."'>\n";
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";        
         }

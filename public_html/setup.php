@@ -26,7 +26,6 @@
     </div>
     <?php 
       getTartalomHTML();   
-      mysqli_close($MySqliLink); 
     ?>
   </div>   
 </body>

@@ -39,7 +39,7 @@ global $MySqliLink, $Err;
    $InsertIntoStr = "INSERT INTO AlapAdatok 
        (id, WebhelyNev, Iskola, Cim, Telefon, Stilus, HeaderImg, FavIcon, HeaderStr, GoogleKod, GooglePlus) 
        VALUES
-       (1, 'W3Suli', 'Iskola', 'Cim', 'Telefon', 2, 'w3logo.png', 'logo.png', '<span>W3Suli</span>', '', 1)" ;
+       (1, 'W3Suli', 'Iskola', 'Cim', 'Telefon', 2, 'w3logo.png', 'logo.png', '<span>W3Suli</span><br><span>blogmotor</span>', '', 1)" ;
     if (!mysqli_query($MySqliLink,$InsertIntoStr))  {
        $HTMLkod .=  " MySqli hiba (" .mysqli_errno($MySqliLink). "): " . mysqli_error($MySqliLink);   $Err=1; 
     }  

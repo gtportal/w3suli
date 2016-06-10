@@ -1,12 +1,129 @@
 <?php
 
+//Nyomógombok
+define("U_BTN_ELKULD",          "Elküld",TRUE);
+define("U_BTN_KIVALASZT",       "Kiválaszt",TRUE);
+define("U_BTN_MODOSITAS",       "Módosítás",TRUE);
+define("U_BTN_LETRHOZAS",       "Létrehozás",TRUE);
+define("U_BTN_TOROL",           "Törlés",TRUE);
 
-    function setKepFeltolt($AktKonytart,$KFileName) {
+//Általános
+define("U_NEV",                 "Név",TRUE);
+define("U_CIM",                 "Cím",TRUE);
+define("U_LEIRAS",              "Leírás",TRUE);
+define("U_PRIORITAS",           "Prioritás",TRUE);
+define("U_TARTALOM",            "Tartalom",TRUE);
+define("U_TORTLES",             "TÖRLÉS",TRUE);
+
+//Fájlművelet hibák
+define("U_FETOLT_ER000",       "<b>Nincs fájl kijelölve! </b>",TRUE);
+define("U_FETOLT_ER001",       "<b>Érvénytelen fájl: </b>",TRUE);
+define("U_FETOLT_ER002",       "<b>Sikertelen feltöltés: </b>",TRUE);
+define("U_FETOLT_ER003",       "<b>Sikertelen tárolás: </b>",TRUE);
+//Adatbeviteli hibák
+define("U_HOSSZ_ER001",        "<b>Túl hosszú név: </b>",TRUE);
+define("U_HOSSZ_ER002",        "<b>Túl hosszú leírás: </b>",TRUE);
+
+//Általános üzenetek
+define("U_FETOLT_OK",          "Feltöltve",TRUE);
+define("U_IDO",                "Idő",TRUE);
+define("U_MODOSITVA",          "Módosítva",TRUE);
+define("U_ELKULDVE",           "Elküldve",TRUE);
+define("U_FELTOLTVE",          "Feltöltve",TRUE);
+define("U_BELEPES",            "Bejelentkezés",TRUE);
+
+//Felhasználókezelés
+define("U_FSET",               "A felhasználó adatainak beállítása",TRUE);
+define("U_UFSET",              "Az új felhasználó adatainak beállítása",TRUE);
+define("U_FADATOK",            "Felhasználói adatok",TRUE);
+
+
+
+define("U_FNEV",               "Név",TRUE);
+define("U_FFNEV",              "Felhasználónév",TRUE);
+define("U_JELSZO",             "Jelszó",TRUE);
+define("U_JELSZO_ISMET",       "Jelszó újra",TRUE);
+define("U_EMAIL",              "Email",TRUE);
+define("U_EMAIL_ISMET",        "Email újra",TRUE);
+
+define("U_FSZINT",             "Felhasználói szint",TRUE);
+define("U_FSZ_FELH",           "Felhasználó",TRUE);
+define("U_FSZ_SZERK",          "Szerkesztő",TRUE);
+define("U_FSZ_MOD",            "Moderátor",TRUE);
+define("U_FSZ_RG",             "Rendszergazda",TRUE);
+define("U_FSZ_RGHTML",         "HTML rendszergazda",TRUE);
+define("U_FSZ_WMESTER",        "Webmester",TRUE);
+define("U_FSZEREP",            "Felhasználói szerep",TRUE);
+define("U_FCSOPORTHOZ",        "Felhasználói csoport",TRUE);
+
+define("U_FCSOP_VALASZT",      "Felhasználói csoport kiválasztása",TRUE);
+define("U_FCSOPOK_VALASZT",    "Felhasználói csoportok kiválasztása",TRUE);
+define("U_FCSOP_LISTA",        "Csoportok listája",TRUE);
+define("U_FCSOP_LETREHOZ",     "Csoport létrehozása",TRUE);
+define("U_FCSOP_MODOSIT",      "Csoport módosítása",TRUE);
+define("U_FCSOP_TORLES",       "Csoport törlése",TRUE);
+define("U_FCSOP_ADATMODOSIT",  "A csoport adatainak módosítása",TRUE);
+define("U_FCSOP_ADATAI",       "A csoport adatai",TRUE);
+define("U_FCSOP_TORLESE",      "Felhasználói csoportok törlése",TRUE);
+define("U_FCSOP_MARVAN",       "Foglalt csoportnév",TRUE);
+define("U_FCSOP_LETREHOZVA",   "A csoport elkészült",TRUE);
+
+
+define("U_FELH_VALASZT",       "Felhasználó kiválasztása",TRUE);
+define("U_FELH_LISTA",         "Felhasználók listája",TRUE);
+define("U_FELH_TOROL",         "Felhasználók törlése",TRUE);
+define("U_FELH_SZERK",         "Felhasználó szerkesztése",TRUE);
+
+define("U_ADKEZ_NINCSJOG",     "Nincs jogosúltsága az adatok kezelésére!",TRUE);
+define("U_FNEV_ROVID",         "Túl rövíd név",TRUE);
+define("U_FNEV_HOSSZU",        "Túl hosszú név",TRUE);
+define("U_FNEV_NINCS",         "Nincs név",TRUE);
+define("U_FFNEV_ROVID",        "Túl rövíd felhasználónév",TRUE);
+define("U_FFNEV_HOSSZU",       "Túl hosszú felhasználónév",TRUE);
+define("U_FFNEV_NINCS",        "Nincs felhasználónév",TRUE);
+define("U_FFNEV_MARVAN",       "Foglalt felhasználónév",TRUE);
+
+define("U_JELSZO_ROVID",       "Túl rövíd jelszó",TRUE);
+define("U_JELSZO_HOSSZU",      "Túl hosszú jelszó",TRUE);
+define("U_JELSZO_KULONBOZO",   "A jelszavak nem egyeznek",TRUE);
+define("U_JELSZO_NINCS",       "Nincs jelszó",TRUE);
+define("U_JELSZO_HIBAS",       "Hibás felhasználónév vagy jelszó",TRUE);
+define("U_RJELSZO_NINCS",      "Nem adta meg a régi jelszót",TRUE);
+define("U_JELSZO_HIBA",        "Hibás jelszó",TRUE);
+define("U_UJELSZO_NINCS",      "Nem adta meg az új jelszót",TRUE);
+define("U_JELSZAVAK_BEKER",    "Új és régi jelszó megadása",TRUE);
+define("U_UJELSZO_BEALL",      "Új jelszó beállítása",TRUE);
+
+define("U_UJELSZO",            "Új jelszó",TRUE);
+define("U_UJELSZO_ISMET",      "Új jelszó ismét",TRUE);
+define("U_RJELSZO",            "Régi jelszó",TRUE);
+
+define("U_EMAIL_HOSSZU",       "Túl hosszú email cím",TRUE);
+define("U_EMAIL_NINCS",        "Nincs e-mail címet",TRUE);
+define("U_EMAIL_KULONBOZO",    "Az e-mail címek nem egyeznek",TRUE);
+
+define("U_LEIRAS_NINCS",       "Nincs leírás",TRUE);
+
+define("U_REG_OK",             "Sikeres regisztráció",TRUE);
+
+define("U_MOD_OK",             "Sikeres módosítás",TRUE);
+define("U_ALAPCSOK_NEMT",      "Az alapcsoporthoz való tagság nem törölhető",TRUE);
+
+// Kiegészítő tartalom
+define("U_KIEGT_INFO_BLOKK",   "A kiegészítő tartalom információs blokkjai",TRUE);
+define("U_KIEGT_BLOKK_ADATOK", "információs blokk adatai",TRUE);
+
+define("U_CSAK_10_KEP",        "Maximum 10 kép tölthető fel",TRUE);
+
+
+
+function setKepFeltolt($AktKonytart,$KFileName) {    
+    if (isset($_FILES["file"]) && $_FILES["file"]["name"]!='') { 
       $UploadErr   = '';
       $allowedExts = array("gif", "jpeg", "jpg", "png", "JPG", "JPEG");
       $temp        = explode(".", $_FILES["file"]["name"]); 
       $extension   = end($temp);
-      if ((($_FILES["file"]["type"] == "image/gif")
+      if ((($_FILES["file"]["type"]   == "image/gif")
         || ($_FILES["file"]["type"]   == "image/jpeg")
         || ($_FILES["file"]["type"]   == "image/jpg")
         || ($_FILES["file"]["type"]   == "image/pjpeg")
@@ -16,24 +133,37 @@
         && in_array($extension, $allowedExts))
       {
         if ($_FILES["file"]["error"] > 0) {
-          $UploadErr = "Err01: " . $_FILES["file"]["error"] . "<br>"; 
+          $UploadErr = "ErrK02 " . $_FILES["file"]["name"]; 
         } else {
-          $CelFilename =   $AktKonytart.$KFileName.'.'.$extension;
+          $CelFilename =   $AktKonytart.$KFileName.'.'.$extension; echo "GGGGFFFFF";
           if (file_exists($CelFilename)) {
-            //Meglévő kép felülírása
-            move_uploaded_file($_FILES["file"]["tmp_name"],$CelFilename);
-            $UploadErr =  $KFileName.'.'.$extension; 
-          } else {
+            if (!@unlink($CelFilename)) {
+                $UploadErr = 'ErrK02'.$_FILES["file"]["name"]."<br>"; // Nem sikerült a törlés
+            } else {  
+                //Meglévő kép felülírása
+                if (move_uploaded_file($_FILES["file"]["tmp_name"],$CelFilename)) {
+                    $UploadErr =  $KFileName.'.'.$extension; 
+                } else {
+                    $UploadErr .= "ErrK05".$_FILES["file"]["name"]."<br>";                     
+                }
+            }
+          } else { 
             //Új kép feltöltése
-            move_uploaded_file($_FILES["file"]["tmp_name"],$CelFilename);
-            $UploadErr =  $KFileName.'.'.$extension; 
+            if (move_uploaded_file($_FILES["file"]["tmp_name"],$CelFilename)) {
+              $UploadErr =  $KFileName.'.'.$extension; 
+            } else {
+              $UploadErr .= "ErrK05".$_FILES["file"]["name"]."<br>";                     
+            }
           }
         }
       } else {
-        if ($_FILES["file"]["name"] >'') {$UploadErr = "Err02";}
+        if ($_FILES["file"]["name"] >'') {$UploadErr = "ErrK01 ".$KFileName.'.'.$extension;}
       }
-      return $UploadErr;;
-    }
+    } else {
+        $UploadErr = "ErrK00 ";       
+    }  
+    return $UploadErr;;
+}
 
 
     function setKepekFeltolt() {       

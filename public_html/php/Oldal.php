@@ -164,7 +164,7 @@
     function getUjOldalForm() {
         global $Aktoldal;
         $HTMLkod  = '';
-        $ErrorStr = $_SESSION['ErrorStr']; 
+        $ErrorStr = ''; 
 
         //Csak rendszergazdáknak és moderátoroknak!
         if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
@@ -330,7 +330,8 @@
     function getOldalForm() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
         $HTMLkod  = '';
-        $ErrorStr = $_SESSION['ErrorStr']; 
+        $ErrorStr = ''; 
+       // echo $_SESSION['ErrorStr'];
         //Csak rendszergazdáknak és moderátoroknak!
         if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!            
       
@@ -347,8 +348,8 @@
           $OImgDir      = $Aktoldal['OImgDir'];   
           $OImg         = $Aktoldal['OImg']; 
           
-          if ($OImgDir=='') {$OImgSrc= 'img/oldalak/'.$OImg;}
-          else  {$OImgSrc= 'img/oldalak/'.$OImgDir.'/'.$OImg;}   
+          if ($OImgDir == '') {$OImgSrc= 'img/oldalak/'.$OImg;}
+          else  {$OImgSrc= 'img/oldalak/'.$OImgDir.'/'.$OImg;}   //echo "OImgSrc: $OImgSrc";
 
           $OTipS        = '';
           if ($OTipus==1) {$OTipS = 'Kategoria';}
@@ -357,10 +358,57 @@
           if (!isset($_POST['submitOldalForm']) || ($_SESSION['ErrorStr']==''))  { 
             if (isset($_POST['ONev']))       {$ONev  = test_post($_POST['ONev']);}
             if (isset($_POST['OTipValszt'])) {$OTipS = test_post($_POST['OTipValszt']);}  
+            
+            
+            //Kis kép feltöltése            
+            $ErrClassKep    = '';
+            if (isset($_POST['submitKisKepTolt'])) {
+                $ErrorStr        = $_SESSION['ErrorStr'];
+                if (strpos($ErrorStr,'Err')!==false) {
+                    if (strpos($ErrorStr,'ErrK00')!==false) {
+                        $ErrArr      = array('ErrK00' => U_FETOLT_ER000);  
+                        $ErrorStr    = strtr($ErrorStr ,$ErrArr); 
+                        $ErrClassKep = 'ErrorStr1';
+                    }  
+                    if (strpos($ErrorStr,'ErrK01')!==false) {
+                       $ErrArr      = array('ErrK01' => U_FETOLT_ER001);  
+                       $ErrorStr    = strtr($ErrorStr ,$ErrArr); 
+                       $ErrClassKep = 'ErrorStr1';
+                    }
+                    if (strpos($ErrorStr,'ErrK02')!==false) {
+                       $ErrArr       = array('ErrK02' => U_FETOLT_ER002);  
+                       $ErrorStr     = strtr($ErrorStr ,$ErrArr); 
+                       $ErrClassKep  = 'ErrorStr1';
+                    }
+                    if (strpos($ErrorStr,'ErrK03')!==false) {
+                       $ErrArr       = array('ErrK03' => U_FETOLT_ER003);  
+                       $ErrorStr     = strtr($ErrorStr ,$ErrArr);
+                       $ErrClassKep  = 'ErrorStr1';
+                    }    
+                    if (strpos($ErrorStr,'ErrK05')!==false) {
+                       $ErrArr       = array('ErrK05' => U_FETOLT_ER002);  
+                       $ErrorStr     = strtr($ErrorStr ,$ErrArr); 
+                       $ErrClassKep  = 'ErrorStr1';
+                    }
+                } 
+                if ($ErrClassKep == '' ){
+                    $ErrorStr        = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr; 
+                } else {
+                    $ErrorStr        = "<p class='time'>".U_ELKULDVE.":".date("H.i.s.")."<p>".$ErrorStr;
+                }
+            } 
+            if (isset($_POST['submitOldalKepForm'])) {
+              $ErrorStr          = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>";  
+
+            }
+            
             // ============== FORM ÖSSZEÁLLÍTÁSA =====================         
             $HTMLkod .= "<div id='divOldalForm' >\n";
-            $HTMLkod .= "<h2>Kis kép feltöltése</h2>\n";
+            
+            
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' enctype='multipart/form-data' id='KisKepFelForm'>\n";
+            $HTMLkod .= "<h2>Kis kép feltöltése</h2>\n";
+            if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
             $HTMLkod .= "<fieldset> <legend>A kis kép kiválasztása:</legend>";
             $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='KiskepKep'>\n";
             $HTMLkod .= "<input type='file' name='file' id='fileKepTolt' >";
@@ -427,8 +475,8 @@
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";
           } 
-          //Ha elküldték és hibás 
-          if (isset($_POST['submitOldalForm']) && ($_SESSION['ErrorStr']!=''))  {             
+          //Ha elküldték és hibás, vagy a kis kép feltöltésénél történt hiba 
+          if (isset($_POST['submitOldalForm'])  && ($_SESSION['ErrorStr']!='')){             
             if (isset($_POST['ONev']))       {$ONev  = test_post($_POST['ONev']);}
             if (isset($_POST['OTipValszt'])) {$OTipS = test_post($_POST['OTipValszt']);}
            // $ErrorStr = '';         
@@ -445,15 +493,16 @@
             }            
             if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
               $ErrClassONev = ' Error '; 
-              $ErrorStr .= 'Az oldalnév túl hosszú! ';
+              $ErrorStr .= "Az oldalnév túl hosszú: <span>$ONev</span>! ";
             }                     
             //Oldaltípus
             $ErrClassOTip = '';
             if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
               $ErrClassOTip = ' Error '; 
-              $ErrorStr .= 'Az oldal típusa nincs megadva! ';
+              $ErrorStr .= 'Az oldal típusa nincs megadva: <span>$ONev</span>!';
             }
             
+       
             // ============== FORM ÖSSZEÁLLÍTÁSA ===================== 
             $HTMLkod .= "<div id='divOldalForm' >\n";
             if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
@@ -482,16 +531,15 @@
  	    //Láthatóság
             $HTMLkod .= "<div id='divOLathatosag'><h2>Láthatóság:</h2>";
 
-            if($_POST['OLathatosag']==0){$checked=" checked ";}else{$checked="";}
+            if(isset($_POST['OLathatosag']) && $_POST['OLathatosag']==0){$checked=" checked ";}else{$checked="";}
             $HTMLkod .="<input type='radio' id='OLathatosag_0' name='OLathatosag' value='0' $checked>";
             $HTMLkod .="<label for='OLathatosag_0' class='label_1'>senki</label><br>";
-            if($_POST['OLathatosag']==1){$checked=" checked ";}else{$checked="";}
+            if(isset($_POST['OLathatosag']) && $_POST['OLathatosag']==1){$checked=" checked ";}else{$checked="";}
             $HTMLkod .="<input type='radio' id='OLathatosag_1' name='OLathatosag' value='1' $checked>";
             $HTMLkod .="<label for='OLathatosag_1' class='label_1'>mindenki</label><br>";
-            if($_POST['OLathatosag']==2){$checked=" checked ";}else{$checked="";}
+            if(isset($_POST['OLathatosag']) && $_POST['OLathatosag']==2){$checked=" checked ";}else{$checked="";}
             $HTMLkod .="<input type='radio' id='chOldalLathatosagForm' name='OLathatosag' value='2' $checked>";
             $HTMLkod .="<label for='chOldalLathatosagForm' class='label_1'>adott csoportba tartozók</label><br>";
-            
             
             $HTMLkod .=getOLathatosagForm();
             $HTMLkod .="</div>";  
@@ -554,17 +602,18 @@ function setOldal() {
         
         // ============== KÉP FELTÖLTÉSE HIBAKEZELÉSSEL =====================        
         if (isset($_POST['submitKisKepTolt']))  {
-          $OImgUj = setKepFeltolt($FelOImgDir,$Aktoldal['OUrl']); 
-          if (strpos($OImgUj,'Err0')===false) {
-             $AktOid = $Aktoldal['id'];
+          $OImgUj       = setKepFeltolt($FelOImgDir,$Aktoldal['OUrl']); 
+          if (strpos($OImgUj,'ErrK')===false) {
+             $AktOid    = $Aktoldal['id'];
              $UpdateStr = "UPDATE Oldalak SET 
                            OImg='$OImgUj'
                            WHERE id=$AktOid LIMIT 1"; 
-             if (!mysqli_query($MySqliLink,$UpdateStr))  {echo "Hiba setOK 01 ";}    
-             $OImg=$Aktoldal['OImg']=$OImgUj;
+             if (!mysqli_query($MySqliLink,$UpdateStr))  {$ErrorStr .= ' ErrK03 '.$OImgUj; }    
+             $OImg      = $Aktoldal['OImg']=$OImgUj;
              
-          }  
-        }            
+          } 
+          if ($ErrorStr==''){ $ErrorStr .= $OImgUj; } 
+        }           
           
         if (isset($_POST['submitOldalForm'])) { 
           // ============== HIBAKEZELÉS =====================          
@@ -818,7 +867,7 @@ function setOldalTorol() {
            isset($_POST['submitOModeratorCsoportValaszt']) || isset($_POST['submitOModeratorValaszt']) ||         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
            isset($_POST['submitOldalForm'])                || isset($_POST['submitUjOldalForm']) ||   
 +          isset($_POST['submitOModeratorCsoportValaszt']) || isset($_POST['submitOModeratorValaszt']) ||
-+          isset($_POST['submitOModeratorCsoport'])        ||     
++          isset($_POST['submitOModeratorCsoport'])        || isset($_POST['submitKisKepTolt']) ||    
            isset($_POST['submit_KepekFeltoltForm'])        || isset($_POST['submitOldalKepForm']))
 			{$checked = " checked ";} else {$checked = "";}                                 //
         $HTMLFormkod  .= "  <input name='chFormkod'   id='chFormkod'   value='chFormkod'   type='checkbox' $checked>\n";
@@ -832,7 +881,7 @@ function setOldalTorol() {
           $HTMLFormkod  .= "  <label for='chUjOldalForm'  class='chLabel'    id='labelUjOldalForm'>Új oldal</label>\n";
         }
         
-        if(isset($_POST['submitOldalForm'])) {$checked = " checked ";} else {$checked = "";}
+        if(isset($_POST['submitOldalForm'])  || isset($_POST['submitKisKepTolt'])) {$checked = " checked ";} else {$checked = "";}
         $HTMLFormkod  .= "  <input name='chOldalForm'   id='chOldalForm'   value='chOldalForm'   type='radio' $checked>\n";
         $HTMLFormkod  .= "  <label for='chOldalForm'    class='chLabel'    id='labelOldalForm'>Oldal módosítása</label>\n";
         if(isset($_POST['submitOldalTorolForm']) || isset($_POST['submitOldalTorolVegleges'])) {$checked = " checked ";} else {$checked = "";}

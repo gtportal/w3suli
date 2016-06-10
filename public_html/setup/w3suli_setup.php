@@ -11,7 +11,7 @@ $ErrStr='';  $Err=0;
 function getTartalomHTML()
 {
   echo  "\n\n<div id='tartalom'>\n ";
-  if ($_POST['submit1'] == 'Mehet') { setSetupData(); } 
+  if (isset($_POST['submit1']) &&  ($_POST['submit1'] == 'Mehet')) { setSetupData(); } 
   getSetupForm();
   echo  "\n\n</div>";
 }
@@ -80,7 +80,7 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
 
 
   // Az adminisztrátor adatainak felvétele
-  $InsertIntoStr = "INSERT INTO Felhasznalok VALUES ('', '$FNev','$FFNev','$FJelszoMD5',' ',5,'Webmester','')";
+  $InsertIntoStr = "INSERT INTO Felhasznalok VALUES ('', '$FNev','$FFNev','$FJelszoMD5',' ',7,'Webmester','')";
   if (!mysqli_query($MySqliLink,$InsertIntoStr))  { 
     $Err=1;  $ErrStr .= "MySqli hiba ";    
   }
@@ -92,10 +92,10 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
 function getSetupForm()
 {
 global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FFNev, $FNev, $FJelszo, $FJelszo1, $ErrStr, $Err;
-
+$HTMLkod = '';
 echo "<h1>$ErrStr</h1>";
 
-if ($_POST['submit1'] != 'Mehet') {$HTMLkod .= "<h1>A W3Suli telepítése</h1>";} 
+if (isset($_POST['submit1']) && ($_POST['submit1'] != 'Mehet')) {$HTMLkod .= "<h1>A W3Suli telepítése</h1>";} 
 else {
   if ($Err == 0) {$HTMLkod .= "<h1 style='color:#080;'>A W3Suli Blogmotor telepítése megtörtént</h1> 
 	  
