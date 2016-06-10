@@ -99,7 +99,7 @@ function setOldalKepFeltolt() {
               if ($_FILES["OKepFile"]["error"][$i] > 0) {
                 $UploadErr .= "ErrK02".$_FILES["OKepFile"]["name"][$i]."<br>"; 
               } else {
-                  echo $KepUtvonal.$AktFileNev."RRRR";
+                  //echo $KepUtvonal.$AktFileNev."RRRR";
                 if (file_exists($KepUtvonal.$AktFileNev)) { 
                   //Meglévő kép felülírása
                   if (!@unlink($KepUtvonal.$AktFileNev)) {
