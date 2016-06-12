@@ -4,7 +4,7 @@
 function getKatLapinfo($MaxDBperOldal) {
     global $MySqliLink, $Aktoldal, $oURL, $oLap;
     $AktLap = 1;
-    if ($_SESSION['LapozKat'.'OUrl']  == $Aktoldal['OUrl']) {$AktLap = $_SESSION['LapKat'.'CT'];}
+    if ($_SESSION['LapozKat'.'OUrl']  == $Aktoldal['OUrl']) {$AktLap = $_SESSION['LapozKat'.'CT'];}
     if ($AktLap>0) {$AktLap  = $oLap; }
     $arrGyermekek            = array(); 
     $arrLapinfo              = array();
@@ -34,46 +34,45 @@ function getKatLapinfo($MaxDBperOldal) {
             $OldalSzam      = $AktUtolsoOldal-$AktElsoOldal;
             $arrIdLista     = array_slice($arrGyermekek, $AktElsoOldal,$OldalSzam);
             $strIdLista     = implode(",", $arrIdLista);
-            $arrLapinfo['SelectStr'] = "SELECT * FROM Oldalak WHERE id IN ($strIdLista)";        
-
-            $EllsoLap       = $AktLap - 5;     if ($EllsoLap<1) {$EllsoLap=1;}
-            $UtolsoLap      = $EllsoLap - 10;  if ($UtolsoLap<$MaxLap) {$UtolsoLap=$MaxLap;}
-            $_SESSION['LapozKat'.'OUrl']  == $Aktoldal['OUrl'];
-            $_SESSION['LapozKat'.'CT']    == $AktLap;
+            $arrLapinfo['SelectStr'] = "SELECT * FROM Oldalak WHERE id IN ($strIdLista)"; 
+            $EllsoLap       = $AktLap - 5;  if ($EllsoLap<1) {$EllsoLap=1;}            
+            $UtolsoLap      = $EllsoLap + 10;  if ($UtolsoLap>$MaxLap) {$UtolsoLap=$MaxLap;}
+            $_SESSION['LapozKat'.'OUrl']  = $Aktoldal['OUrl'];
+            $_SESSION['LapozKat'.'CT']    = $AktLap;
 
             // Gyors vissza
-            $LapozHTML = '';
+            $LapozHTML       = '';
             if ($AktLap > 5)   {$AktLap1 = $AktLap-5;
                  if ($AktLap1>1) {$LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &lt;&lt; </a></li>";} else
                                  {$LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."'> &lt;&lt; </a></li>";}
             }     
             // Vissza
             if ($AktLap   > 2) {
-                $AktLap1 = $AktLap-1; 
+                $AktLap1     = $AktLap-1; 
                 $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &lt; </a></li>";            
             } 
             if ($AktLap  == 2) {
-                $AktLap1 = $AktLap-1; 
+                $AktLap1     = $AktLap-1; 
                 $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."'> &lt; </a></li>";            
             } 
             // Számozott
-            if ($AktLap  ==1) {$AktLink=" class='AktLink' ";} else {$AktLink="";}
-            $LapozHTML   .= "<li><a href='?f0=".$Aktoldal['OUrl']."' $AktLink> 1 </a></li>";
+            if ($AktLap     == 1) {$AktLink    = " class='AktLink' ";} else {$AktLink="";}
+            if ($EllsoLap<2)  {$LapozHTML .= "<li><a href='?f0=".$Aktoldal['OUrl']."' $AktLink> 1 </a></li>";}
             for ($i=$EllsoLap+1;$i<=$UtolsoLap;$i++) {
-                if ($AktLap==$i) {$AktLink=" class='AktLink' ";} else {$AktLink="";}
-                $LapozHTML .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$i' $AktLink> $i </a></li>";            
+                if ($AktLap == $i) {$AktLink = " class='AktLink' ";} else {$AktLink="";}
+                $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$i' $AktLink> $i </a></li>";            
             }
             // Előre
             if ($AktLap   < $MaxLap) {
-                $AktLap1 = $AktLap+1; 
+                $AktLap1     = $AktLap+1; 
                 $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &gt; </a></li>";            
             }
             // Gyors előre
             if ($AktLap+5 <= $MaxLap) {
-                $AktLap1 = $AktLap+5; 
+                $AktLap1     = $AktLap+5; 
                 $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &gt;&gt; </a></li>";            
             }        
-            $LapozHTML = "<div class='divOLapozas'>$LapozHTML </div>";
+            $LapozHTML       = "<div class='divOLapozas'>$LapozHTML </div>";
         } else {
             $arrLapinfo['SelectStr'] = $SelectStr;            
         }
@@ -163,7 +162,6 @@ function getCikkLapinfo($MaxDBperOldal) {
     if ($MaxCikk > 0) {    
         $CikkCT    = 0;
         $AktCikkCT = -1;
-        //$AktLap    = 1;
         $LapozHTML = '';
         while($row = mysqli_fetch_array($result)) { 
             if (($_SESSION['AktFelhasznalo'.'FSzint']>3) || (getOMenuLathatosagTeszt($Aktoldal['id'])>0)) { 
@@ -196,14 +194,13 @@ function getCikkLapinfo($MaxDBperOldal) {
                 $strIdLista     = implode(",", $arrIdLista);
             } else {
                 $strIdLista     = implode(",", $arrGyermekek);
-            }           
-                        
-            $arrLapinfo['SelectStr'] = "SELECT * FROM Cikkek WHERE id IN ($strIdLista)";        
+            }                                   
+            $arrLapinfo['SelectStr']       = "SELECT * FROM Cikkek WHERE id IN ($strIdLista)";        
 
-            $EllsoLap       = $AktLap - 5;     if ($EllsoLap<1) {$EllsoLap=1;}
-            $UtolsoLap      = $EllsoLap - 10;  if ($UtolsoLap<$MaxLap) {$UtolsoLap=$MaxLap;}
-            $_SESSION['LapozCikk'.'OUrl']  == $Aktoldal['OUrl'];
-            $_SESSION['LapozCikk'.'CT']    == $AktLap;
+            $EllsoLap                      = $AktLap - 5;     if ($EllsoLap<1) {$EllsoLap=1;}
+            $UtolsoLap                     = $EllsoLap + 10;  if ($UtolsoLap>$MaxLap) {$UtolsoLap=$MaxLap;}
+            $_SESSION['LapozCikk'.'OUrl']  = $Aktoldal['OUrl'];
+            $_SESSION['LapozCikk'.'CT']    = $AktLap;
 
             if ($MaxCikk > $MaxDBperOldal) {
                 // Gyors vissza                
@@ -213,31 +210,31 @@ function getCikkLapinfo($MaxDBperOldal) {
                 }     
                 // Vissza
                 if ($AktLap   > 2) {
-                    $AktLap1 = $AktLap-1; 
+                    $AktLap1     = $AktLap-1; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &lt; </a></li>";            
                 } 
-                if ($AktLap  == 2) {
-                    $AktLap1 = $AktLap-1; 
+                if ($AktLap     == 2) {
+                    $AktLap1     = $AktLap-1; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."'> &lt; </a></li>";            
                 } 
                 // Számozott
                 if ($AktLap  ==1) {$AktLink=" class='AktLink' ";} else {$AktLink="";}
-                $LapozHTML   .= "<li><a href='?f0=".$Aktoldal['OUrl']."' $AktLink> 1 </a></li>";
+                if ($EllsoLap<2)  {$LapozHTML   .= "<li><a href='?f0=".$Aktoldal['OUrl']."' $AktLink> 1 </a></li>";}
                 for ($i=$EllsoLap+1;$i<=$UtolsoLap;$i++) {
                     if ($AktLap==$i) {$AktLink=" class='AktLink' ";} else {$AktLink="";}
-                    $LapozHTML .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$i' $AktLink> $i </a></li>";            
+                    $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$i' $AktLink> $i </a></li>";            
                 }
                 // Előre
                 if ($AktLap   < $MaxLap) {
-                    $AktLap1 = $AktLap+1; 
+                    $AktLap1     = $AktLap+1; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &gt; </a></li>";            
                 }
                 // Gyors előre
                 if ($AktLap+5 < $MaxLap) {
-                    $AktLap1 = $AktLap+5; 
+                    $AktLap1     = $AktLap+5; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &gt;&gt; </a></li>";            
                 }        
-                $LapozHTML = "<div class='divOLapozas'>$LapozHTML </div>";
+                $LapozHTML       = "<div class='divOLapozas'>$LapozHTML </div>";
             }
         } else {
             $arrLapinfo['SelectStr'] = ''; 
@@ -251,8 +248,8 @@ function getCikkLapinfo($MaxDBperOldal) {
 
 function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
    global $MySqliLink, $Aktoldal, $oURL, $oLap, $CCim;
-    $AktLap    = 1;
-    $LapozHTML = '';
+    $AktLap                  = 1;
+    $LapozHTML               = '';
     if ($_SESSION['LapozCikk'.'OUrl']  == $Aktoldal['OUrl']) 
                    {$AktLap  = $_SESSION['LapozCikk'.'CT'];}
     if ($AktLap>0) {$AktLap  = $oLap; }
@@ -381,7 +378,7 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
         
         $MaxCikk = count($arrGyermekek);
         if ($MaxCikk > 0) {
-            $strIdLista = '';
+            $strIdLista         = '';
             if ($MaxCikk > $MaxDBperOldal) {
                 $MaxLap         = ($MaxCikk-1) / $MaxDBperOldal;      
                 settype($MaxLap, "integer"); $MaxLap++;          
@@ -412,40 +409,40 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
             //Lapozó sávok összeállítása
             if (count($arrGyermekek) > $MaxDBperOldal) {
                 $EllsoLap       = $AktLap - 5;     if ($EllsoLap<1) {$EllsoLap=1;}
-                $UtolsoLap      = $EllsoLap - 10;  if ($UtolsoLap<$MaxLap) {$UtolsoLap=$MaxLap;}
-                $_SESSION['LapozCikk'.'OUrl']  == $Aktoldal['OUrl'];
-                $_SESSION['LapozCikk'.'CT']    == $AktLap;
+                $UtolsoLap      = $EllsoLap + 10;  if ($UtolsoLap>$MaxLap) {$UtolsoLap=$MaxLap;}
+                $_SESSION['LapozCikk'.'OUrl']  = $Aktoldal['OUrl'];
+                $_SESSION['LapozCikk'.'CT']    = $AktLap;
 
                 // Gyors vissza
                 $LapozHTML = '';
-                if ($AktLap > 5)   {$AktLap1 = $AktLap-5;
+                if ($AktLap > 5)   {$AktLap1       = $AktLap-5;
                      if ($AktLap1>1) {$LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &lt;&lt; </a></li>";} else
                                      {$LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."'> &lt;&lt; </a></li>";}
                 }     
                 // Vissza
                 if ($AktLap   > 2) {
-                    $AktLap1 = $AktLap-1; 
+                    $AktLap1     = $AktLap-1; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &lt; </a></li>";            
                 } 
                 if ($AktLap  == 2) {
-                    $AktLap1 = $AktLap-1; 
+                    $AktLap1     = $AktLap-1; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."'> &lt; </a></li>";            
                 } 
                 // Számozott
                 if ($AktLap  ==1) {$AktLink=" class='AktLink' ";} else {$AktLink="";}
-                $LapozHTML   .= "<li><a href='?f0=".$Aktoldal['OUrl']."' $AktLink> 1 </a></li>";
+                if ($EllsoLap<2)  {$LapozHTML   .= "<li><a href='?f0=".$Aktoldal['OUrl']."' $AktLink> 1 </a></li>";}
                 for ($i=$EllsoLap+1;$i<=$UtolsoLap;$i++) {
                     if ($AktLap==$i) {$AktLink=" class='AktLink' ";} else {$AktLink="";}
                     $LapozHTML .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$i' $AktLink> $i </a></li>";            
                 }
                 // Előre
                 if ($AktLap   < $MaxLap) {
-                    $AktLap1 = $AktLap+1; 
+                    $AktLap1     = $AktLap+1; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &gt; </a></li>";            
                 }
                 // Gyors előre
                 if ($AktLap+5 < $MaxLap) {
-                    $AktLap1 = $AktLap+5; 
+                    $AktLap1     = $AktLap+5; 
                     $LapozHTML  .= "<li><a href='?f0=".$Aktoldal['OUrl']."&amp;lap=$AktLap1'> &gt;&gt; </a></li>";            
                 }        
                 $LapozHTML = "<div class='divOLapozas'>$LapozHTML </div>";
