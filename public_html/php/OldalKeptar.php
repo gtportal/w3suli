@@ -275,11 +275,11 @@ function getOldalKepForm() {
         $HTMLkod0   .="  <div id='KepekFeltoltForm'>
                                
                                <form action='?f0=$OUrl'  method='post' enctype='multipart/form-data'>
-                                 <h2>Képek feltöltése</h2>
-                                 <fieldset> <legend>A képek kiválasztása:</legend>
+                                 <h2>".U_KEPEK_FELTOLTESE."</h2>
+                                 <fieldset> <legend>".U_KEPEK_VALASZT.":</legend>
                                  <input type='file' name='OKepFile[]' id='file_KepekFeltoltForm' multiple='multiple'>
                                  </fieldset>
-                                 <input type='submit' name='submit_KepekFeltoltForm' id='submit_KepekFeltoltForm' value='Feltöltés'>                                      
+                                 <input type='submit' name='submit_KepekFeltoltForm' id='submit_KepekFeltoltForm' value='".U_BTN_FELTOLT."'>                                      
                                </form><br>
                              </div>";
         
@@ -291,38 +291,38 @@ function getOldalKepForm() {
         for($i=0;$i<$KepCT;$i++) {
           $HTMLkod1 .= "<div class='Kepszerk'>"; 
           $j = $i+1;
-          $HTMLkod1 .= "<fieldset> <legend>$j. kép adatai:</legend>";;
-          $HTMLkod1 .= "<h3>$j. kép</h3>";
+          $HTMLkod1 .= "<fieldset> <legend>$j. ".U_KEPEK_ADAT.":</legend>";;
+          $HTMLkod1 .= "<h3>$j. ".U_KEPEK_KEP."</h3>";
           $Src       = $KepUtvonal.$OldalKepek[$i]['KFile'];
           $HTMLkod1 .= "<img src='$Src' alt='$i. kép' >"; 
           $HTMLkod1 .= "<input type='hidden' name='KFile_$i' value='".$OldalKepek[$i]['KFile']."'>";
           
           $HTMLkod1 .= "<div style='float:left;'>";
-          $HTMLkod1 .= "<p class='pKSorszam'><label for='KSorszam_$i' class='label_1'>Sorszám:</label>\n ";
+          $HTMLkod1 .= "<p class='pKSorszam'><label for='KSorszam_$i' class='label_1'>".U_SORSZAM.":</label>\n ";
           $HTMLkod1 .= "<input type='number' name='KSorszam_$i' id='KSorszam_$i' min='0' max='20' step='1'
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KSorszam']."' ></p>\n"; 
           
-          $HTMLkod1 .= "<p class='pKNev'><label for='KNev_$i' class='label_1'>A kép neve:</label>\n ";
-          $HTMLkod1 .= "<input type='text' name='KNev_$i' id='KNev_$i' placeholder='Képnév' 
+          $HTMLkod1 .= "<p class='pKNev'><label for='KNev_$i' class='label_1'>".U_CIM.":</label>\n ";
+          $HTMLkod1 .= "<input type='text' name='KNev_$i' id='KNev_$i' placeholder='".U_CIM."' 
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KNev']."' size='20'></p>\n"; 
           
-          $HTMLkod1 .= "<p class='pKLeiras'><label for='KLeiras_$i' class='label_1'>Leírás:</label>\n ";
-          $HTMLkod1 .= "<input type='text' name='KLeiras_$i' id='KLeiras_$i' placeholder='Leírás' 
+          $HTMLkod1 .= "<p class='pKLeiras'><label for='KLeiras_$i' class='label_1'>".U_LEIRAS.":</label>\n ";
+          $HTMLkod1 .= "<input type='text' name='KLeiras_$i' id='KLeiras_$i' placeholder='".U_LEIRAS."' 
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KLeiras']."' size='60'></p>\n"; 
           
-          $HTMLkod1 .= "<p class='pKSzelesseg'><label for='KSzelesseg_$i' class='label_1'>Szélesség:</label>\n ";
+          $HTMLkod1 .= "<p class='pKSzelesseg'><label for='KSzelesseg_$i' class='label_1'>".U_SZELESSEG.":</label>\n ";
           $HTMLkod1 .= "<input type='number' name='KSzelesseg_$i' id='KSzelesseg_$i' min='0' max='20' step='1'
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KSzelesseg']."' ></p>\n"; 
           
-          $HTMLkod1 .= "<p class='pKMagassag'><label for='KMagassag_$i' class='label_1'>Magasság:</label>\n ";
+          $HTMLkod1 .= "<p class='pKMagassag'><label for='KMagassag_$i' class='label_1'>".U_MAGASSAG.":</label>\n ";
           $HTMLkod1 .= "<input type='number' name='KMagassag_$i' id='KMagassag_$i' min='0' max='20' step='1'
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KMagassag']."' ></p>\n"; 
           
-          $HTMLkod1 .= "<p class='pKStilus'><label for='KStilus_$i' class='label_1'>Stílus:</label>\n ";
+          $HTMLkod1 .= "<p class='pKStilus'><label for='KStilus_$i' class='label_1'>".U_STILUS.":</label>\n ";
           $HTMLkod1 .= "<input type='number' name='KStilus_$i' id='KStilus_$i' min='0' max='20' step='1'
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KStilus']."' ></p>\n";           
           
-          $HTMLkod1 .= "<p class='pKTorol'><label for='KTorol_$i' class='label_1'>TÖRLÉS:</label>\n ";
+          $HTMLkod1 .= "<p class='pKTorol'><label for='KTorol_$i' class='label_1'>".U_TORTLES.":</label>\n ";
           $HTMLkod1 .= "<input type='checkbox' name='KTorol_$i' id='KTorol_$i' 
                          class='$ErrClassONev' value='".$OldalKepek[$i]['KFile']."' ></p>\n";           
           
@@ -336,11 +336,11 @@ function getOldalKepForm() {
         $HTMLkod .= "<div class='$InfoClass'>$ErrorStr </div>";
         $HTMLkod .= $HTMLkod0;
         $HTMLkod .= "<br><div><form action='?f0=$OUrl' method='post' id='formOldalKepForm'>\n";
-        $HTMLkod .= "<h2>Képek adatainak módosítása</h2>\n";
+        $HTMLkod .= "<h2>".U_KEPEK_MODOSIT."</h2>\n";
        
         $HTMLkod .= $HTMLkod1;
     
-        $HTMLkod .=  "<input type='submit' name='submitOldalKepForm' value='Elküld'><br><br>\n";        
+        $HTMLkod .=  "<input type='submit' name='submitOldalKepForm' value='".U_BTN_MODOSITAS."'><br><br>\n";        
         $HTMLkod .= "</form></div>\n";
         $HTMLkod .= "</div>\n";
     }    

@@ -60,11 +60,10 @@ function getOModeratorForm() {
     
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $HTMLkod     .= "<div id='divOModeratorForm' >\n";
-        if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
-        
+        if (isset($_POST['submitOModeratorValaszt']) && ($ErrorStr!='')) 
+            {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
         //Csoport kiválasztása        
         $HTMLkod .= getOModeratorCsoportValasztForm();
-        
         //Felhasználó kiválasztása        
         if($_SESSION['SzerkMCsoport']>0)
         {            
@@ -78,9 +77,9 @@ function getOModeratorForm() {
             $rowDB        = mysqli_num_rows($result);
             if ($rowDB>0) {
                 $HTMLkod .= "<div id='divOModeratorValasztForm' >\n";
-                $HTMLkod .= "<h3>Válasszon moderátort!</h3>\n";            
+                $HTMLkod .= "<h3>".U_OMOD_MVALASZT."!</h3>\n";            
                 $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOModeratorValaszt'>\n";
-                $HTMLkod .= "<fieldset> <legend>Felhasználók listája</legend>";
+                $HTMLkod .= "<fieldset> <legend>".U_OMOD_FLISTA."</legend>";
                 $i = 0;
                 while ($row       = mysqli_fetch_array($result)) {
                     $FNev         = $row['FNev'];
@@ -109,7 +108,7 @@ function getOModeratorForm() {
                 $HTMLkod .= "<input type='hidden' name='MValasztDB' id='MValasztDB' value='$rowDB'>\n";
                 //Submit
                  $HTMLkod .= "</fieldset>";
-                $HTMLkod .= "<input type='submit' name='submitOModeratorValaszt' value='Kiválaszt'><br>\n";        
+                $HTMLkod .= "<input type='submit' name='submitOModeratorValaszt' value='".U_BTN_KIVALASZT."'><br>\n";        
                 $HTMLkod .= "</form>\n";    
                 $HTMLkod .= "</div>\n";
             }
@@ -130,15 +129,13 @@ function getOModeratorCsoportValasztForm(){
     $HTMLkod  = '';
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
         $CsNev    = '';
-        
         $HTMLkod .= "<div id='divOModeratorCsoportValaszt' >\n";
-        if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
         
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOModeratorCsoportValaszt'>\n";
         //Felhasználó(k) kiválasztása
-        $HTMLkod    .= "<h2>Moderátor kiválasztása</h2>";
-        $HTMLkod    .= "<h3>A moderátor csoportjának kiválasztása</h3>";
-        $HTMLkod    .= "<fieldset> <legend>Felhasználói csoportok listája</legend>";
+        $HTMLkod    .= "<h2>".U_OMOD_VALASZT."</h2>";
+        $HTMLkod    .= "<h3>".U_OMOD_CSVALASZT."</h3>";
+        $HTMLkod    .= "<fieldset> <legend>".U_OMOD_FCSLISTA."</legend>";
         $HTMLkod    .= "<select name='selectOModeratorCsoportValaszt' size='1'>";
         $SelectStr   = "SELECT id, CsNev FROM FelhasznaloCsoport";  //echo "<h1>$SelectStr</h1>";
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sMCsV 01 ");
@@ -152,7 +149,7 @@ function getOModeratorCsoportValasztForm(){
         if($rowDB>0){mysqli_free_result($result);}
         $HTMLkod .= "</select></fieldset>";
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitOModeratorCsoportValaszt' value='Kiválaszt'><br>\n";        
+        $HTMLkod .= "<input type='submit' name='submitOModeratorCsoportValaszt' value='".U_BTN_KIVALASZT."'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
     }     
@@ -201,11 +198,12 @@ function getOModeratorCsoportForm(){
 
         $HTMLkod  .= "<div id='divOModeratorCsoportForm' >\n";        
         
-        if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+        if (isset($_POST['submitOModeratorCsoport']) && ($ErrorStr!=''))
+            {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
         $HTMLkod  .= "<form action='?f0=$OUrl' method='post' id='formOModeratorCsoport'>\n";
-        $HTMLkod  .= "<h2>Moderátor-csoport kiválasztás</h2>\n";
+        $HTMLkod  .= "<h2>".U_OMOD_MCSVALASZT."</h2>\n";
         
-        $HTMLkod  .= "<fieldset> <legend>Felhasználói csoportok listája</legend>";
+        $HTMLkod  .= "<fieldset> <legend>".U_OMOD_FCSLISTA."</legend>";
         $SelectStr = "SELECT * FROM FelhasznaloCsoport";
         $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gModCs 01 ");
         $rowDB     = mysqli_num_rows($result);
@@ -236,7 +234,7 @@ function getOModeratorCsoportForm(){
         $HTMLkod .= "<input type='hidden' name='MCsoportDB' id='MCsoportDB' value='$rowDB'>\n";
         $HTMLkod .= "</fieldset>";
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitOModeratorCsoport' value='Kiválaszt'><br>\n";        
+        $HTMLkod .= "<input type='submit' name='submitOModeratorCsoport' value='".U_BTN_KIVALASZT."'><br>\n";        
         $HTMLkod .= "</form>\n";    
         $HTMLkod .= "</div>\n";
     } 

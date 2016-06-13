@@ -68,7 +68,7 @@ function getFoMenuForm() {
 
             $HTMLkod .= "<div id='divModFoMenuForm' >\n";
             $HTMLkod .= "<form action='?f0=Fomenu_linkek_beallitasa' method='post' id='formModFoMenuForm'>\n";
-            $HTMLkod .= "<h2>A főmenü linkjeinek adatai</h2>\n";
+            $HTMLkod .= "<h2>".U_FOMENU_TITLE."</h2>\n";
 
             for ($i = 0; $i < 10; $i++){
                 $id         = $FoMenuLinkTmb[$i]['id'];
@@ -78,22 +78,22 @@ function getFoMenuForm() {
 
                 $HTMLkod .= "<div class='divFoMenuElem'>\n ";
                 $j        = $i+1;
-                $HTMLkod .= "<fieldset> <legend>".$j.". link adatai</legend>";
+                $HTMLkod .= "<fieldset> <legend>".$j.". ".U_FOMENU_LINK_ADATOK."</legend>";
 
                 //Kiegészítő tartalom neve
-                $HTMLkod .= "<p class='pModFoMenuNev'><label for='ModFoMenuNev_$i' class='label_1'>Linkfelirat:</label><br>\n ";
-                $HTMLkod .= "<input type='text' name='ModFoMenuNev_$i' id='ModFoMenuNev_$i' placeholder='$LNev' value='$LNev' size='40'></p>\n"; 
+                $HTMLkod .= "<p class='pModFoMenuNev'><label for='ModFoMenuNev_$i' class='label_1'>".U_FOMENU_LINK_FELIRAT.":</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='ModFoMenuNev_$i' id='ModFoMenuNev_$i' placeholder='".U_FOMENU_LINK_FELIRAT."' value='$LNev' size='40'></p>\n"; 
 
                 //Kiegészítő tartalom tartalma
-                $HTMLkod .= "<p class='pModFoMenuTartalom'><label for='ModFoMenuTartalom_$i' class='label_1'>URL:</label><br>\n ";
-                $HTMLkod .= "<input type='text' name='ModFoMenuTartalom_$i' id='ModFoMenuTartalom_$i' placeholder='$LURL' value='$LURL' size='40'></p>\n";
+                $HTMLkod .= "<p class='pModFoMenuTartalom'><label for='ModFoMenuTartalom_$i' class='label_1'>".U_FOMENU_LINK_URL.":</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='ModFoMenuTartalom_$i' id='ModFoMenuTartalom_$i' placeholder='".U_FOMENU_LINK_URL_pl."' value='$LURL' size='40'></p>\n";
 
                 //Kiegészítő tartalom prioritása
-                $HTMLkod .= "<p class='pModFoMenuPrioritas'><label for='ModFoMenuPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
+                $HTMLkod .= "<p class='pModFoMenuPrioritas'><label for='ModFoMenuPrioritas_$i' class='label_1'>".U_PRIORITAS.":</label>\n ";
                 $HTMLkod .= "<input type='number' name='ModFoMenuPrioritas_$i' id='ModFoMenuPrioritas_$i' min='0' max='10' step='1' value='$LPrioritas'></p>\n";  
 
                 //Törlésre jelölés
-                $HTMLkod .= "<p class='pTorolFoMenu'><label for='pTorolFoMenu_$i' class='label_1'>TÖRLÉS:</label>\n ";
+                $HTMLkod .= "<p class='pTorolFoMenu'><label for='pTorolFoMenu_$i' class='label_1'>".U_TORTLES.":</label>\n ";
                 $HTMLkod .= "<input type='checkbox' name='TorolFoMenu_$i' id='TorolFoMenu_$i'></p>\n";
 
                 //id
@@ -104,7 +104,7 @@ function getFoMenuForm() {
 
             //Submit
             $HTMLkod .= "<br style='clear:both;float:none;'>\n";
-            $HTMLkod .= "<input type='submit' name='submitFoMenu' id='submitFoMenu' value='Módosítás'>\n";
+            $HTMLkod .= "<input type='submit' name='submitFoMenu' id='submitFoMenu' value='".U_BTN_MODOSITAS."'>\n";
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";
             return $HTMLkod;

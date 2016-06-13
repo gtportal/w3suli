@@ -85,40 +85,40 @@ function getCikkekForm() {
             isset($_POST['submitCikkTorol']) || isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])                 
            ){    
             $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk' value='chFormkodCikk'   type='checkbox' checked >\n";
-            $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
+            $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>".U_CIKK_SZERK."</label>\n";
         } else {
             $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk' value='chFormkodCikk'   type='checkbox'  >\n";
-            $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>Cikk szerkesztése</label>\n";
+            $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>".U_CIKK_SZERK."</label>\n";
         }
         $HTMLkod  .= getCikkValasztForm();
         $HTMLkod  .= "<div id='divFormkodCikk'>\n";
         if (isset($_POST['submitUjCikkForm'])){//=====UjCikkForm megjelenítését szabályozó input elem=====
             $HTMLkod  .= "<input name='chCikkForm'  id='chUjCikkForm' value='chUjCikkForm' type='radio' checked>\n";
-            $HTMLkod  .= "<label for='chUjCikkForm' class='chLabel'   id='labelUjCikkForm'>Új cikk</label>\n";
+            $HTMLkod  .= "<label for='chUjCikkForm' class='chLabel'   id='labelUjCikkForm'>".U_CIKK_UJ."</label>\n";
         } else {
             $HTMLkod  .= "<input name='chCikkForm'  id='chUjCikkForm' value='chUjCikkForm' type='radio'  >\n";
-            $HTMLkod  .= "<label for='chUjCikkForm' class='chLabel'   id='labelUjCikkForm'>Új cikk</label>\n";
+            $HTMLkod  .= "<label for='chUjCikkForm' class='chLabel'   id='labelUjCikkForm'>".U_CIKK_UJ."</label>\n";
         }
         if (isset($_POST['submitCikkForm'])){//=======CikkForm megjelenítését szabályozó input elem=======
             $HTMLkod  .= "<input name='chCikkForm'  id='chCikkForm'  value='chCikkForm'   type='radio' checked>\n";
-            $HTMLkod  .= "<label for='chCikkForm'   class='chLabel'  id='labelCikkForm'>Cikk módosítása</label>\n";
+            $HTMLkod  .= "<label for='chCikkForm'   class='chLabel'  id='labelCikkForm'>".U_CIKK_MOD."</label>\n";
         } else {
             $HTMLkod  .= "<input name='chCikkForm'  id='chCikkForm'  value='chCikkForm'   type='radio'  >\n";
-            $HTMLkod  .= "<label for='chCikkForm'   class='chLabel'  id='labelCikkForm'>Cikk módosítása</label>\n";
+            $HTMLkod  .= "<label for='chCikkForm'   class='chLabel'  id='labelCikkForm'>".U_CIKK_MOD."</label>\n";
         }
         if (isset($_POST['submitCikkTorol'])){//==CikkTorolForm megjelenítését szabályozó input elem==
             $HTMLkod  .= "<input name='chCikkForm'     id='chCikkTorolForm' value='chCikkTorolForm'  type='radio' checked>\n";
-            $HTMLkod  .= "<label for='chCikkTorolForm' class='chLabel'      id='labelCikkTorolForm'>Cikk törlése</label>\n \n";
+            $HTMLkod  .= "<label for='chCikkTorolForm' class='chLabel'      id='labelCikkTorolForm'>".U_CIKK_TOR."</label>\n \n";
         } else {
             $HTMLkod  .= "<input name='chCikkForm'     id='chCikkTorolForm' value='chCikkTorolForm'  type='radio'  >\n";
-            $HTMLkod  .= "<label for='chCikkTorolForm' class='chLabel'      id='labelCikkTorolForm'>Cikk törlése</label>\n \n";
+            $HTMLkod  .= "<label for='chCikkTorolForm' class='chLabel'      id='labelCikkTorolForm'>".U_CIKK_TOR."</label>\n \n";
         }
         if (isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])) {//====CikkKepForm megjelenítését szabályozó input elem====
             $HTMLkod  .= "<input name='chCikkForm'   id='chCikkKepForm' value='chCikkKepForm'  type='radio' checked>\n";
-            $HTMLkod  .= "<label for='chCikkKepForm' class='chLabel'    id='labelCikkKepForm'>Cikk képeinek módosítása</label>\n \n";
+            $HTMLkod  .= "<label for='chCikkKepForm' class='chLabel'    id='labelCikkKepForm'>".U_CIKK_KEP."</label>\n \n";
         } else {
             $HTMLkod  .= "<input name='chCikkForm'   id='chCikkKepForm' value='chCikkKepForm'  type='radio'  >\n";
-            $HTMLkod  .= "<label for='chCikkKepForm' class='chLabel'    id='labelCikkKepForm'>Cikk képeinek módosítása</label>\n \n";
+            $HTMLkod  .= "<label for='chCikkKepForm' class='chLabel'    id='labelCikkKepForm'>".U_CIKK_KEP."</label>\n \n";
         } 
 
         $HTMLkod  .= getUjCikkForm();

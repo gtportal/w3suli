@@ -76,8 +76,12 @@ function setAlapbeallitasok() {
 
 function getAlapbeallitasForm() {
     global $AlapAdatok;
-    $HTMLkod  = '';
-    $ErrorStr = '';         
+    $HTMLkod     = '';
+    $ErrorStr    = ''; 
+    // MÉG NINCSENEK ILLESZTVE
+    $HEADextra   = '';
+    $FacebookOK  = 0;
+    $FacebookURL = '';
 
     if ($_SESSION['AktFelhasznalo'.'FSzint']>6)  {
         $WNev        = $AlapAdatok['WebhelyNev'];
@@ -96,70 +100,82 @@ function getAlapbeallitasForm() {
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
 
         $HTMLkod .= "<form action='?f0=alapbeallitasok' method='post' id='formAlapbeallitasForm'>\n";
-        $HTMLkod .= "<h2>A webhely alapadatainak beállítása:</h2>";
-        $HTMLkod .= "<fieldset> <legend>A webhely adatai:</legend>";
+        $HTMLkod .= "<h2>".U_ALAPBE_WBEALL.":</h2>";
+        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_WADATOK.":</legend>";
         //Webhely neve
-        $HTMLkod .= "<p class='pWNev'><label for='WNev' class='label_1'>A webhely neve:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='WNev' id='WNev' placeholder='Webhelynév' value='$WNev' size='40'></p>\n"; 
+        $HTMLkod .= "<p class='pWNev'><label for='WNev' class='label_1'>".U_ALAPBE_WNEV.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='WNev' id='WNev' placeholder='".U_ALAPBE_WNEV."' value='$WNev' size='40'></p>\n"; 
         
         //Fejléc szovege
-        $HTMLkod .= "<p class='pIskola'><label for='HeaderStr' class='label_1'>Az oldalfejléc szövege:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='HeaderStr' id='HeaderStr' placeholder='Fejléc szöveg' value='$HeaderStr' size='40'></p>\n";
+        $HTMLkod .= "<p class='pIskola'><label for='HeaderStr' class='label_1'>".U_ALAPBE_HSZOVEG.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='HeaderStr' id='HeaderStr' placeholder='".U_ALAPBE_HSZOVEGPL."' value='$HeaderStr' size='40'></p>\n";
+        $HTMLkod .= "</fieldset>";                   
         
-        //Google Követőkód
-        $HTMLkod .= "<p class='pIskola'><label for='GoogleKod' class='label_1'>Google Követőkód:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='GoogleKod' id='GoogleKod' placeholder='Iskola neve' value='$GoogleKod' size='40'></p>\n";
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // Google+ gomb
-        if($GooglePlus==1){$checked=" checked ";}else{$checked="";}
-        $HTMLkod .="<input type='checkbox' id='GooglePlus' name='GooglePlus' value='0' $checked>";
-        $HTMLkod .="<label for='GooglePlus' class='label_1'>Google+ gomb</label><br>";
-        $HTMLkod .= "</fieldset>";             
-        
-        $HTMLkod .= "<fieldset> <legend>Az intézmény adatai:</legend>";
+        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_CEGADATOK.":</legend>";
         //Iskola neve
-        $HTMLkod .= "<p class='pIskola'><label for='Iskola' class='label_1'>Az iskola neve:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='Iskola' id='Iskola' placeholder='Iskola neve' value='$Iskola' size='40'></p>\n"; 
+        $HTMLkod .= "<p class='pIskola'><label for='Iskola' class='label_1'>".U_ALAPBE_CEGNEV.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='Iskola' id='Iskola' placeholder='".U_ALAPBE_CEGNEV."' value='$Iskola' size='40'></p>\n"; 
 
         //Iskola címe
-        $HTMLkod .= "<p class='pCim'><label for='Cim' class='label_1'>Az iskola címe:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='Cim' id='Cim' placeholder='Iskola címe' value='$Cim' size='40'></p>\n"; 
+        $HTMLkod .= "<p class='pCim'><label for='Cim' class='label_1'>".U_ALAPBE_CEGCIM.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='Cim' id='Cim' placeholder='".U_ALAPBE_CEGCIM."' value='$Cim' size='40'></p>\n"; 
 
         //Iskola telefonszám
-        $HTMLkod .= "<p class='pTelefon'><label for='Telefon' class='label_1'>Az iskola telefonszáma:</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='Telefon' id='Telefon' placeholder='Iskola telefonszáma' value='$Telefon' size='40'></p>\n";
+        $HTMLkod .= "<p class='pTelefon'><label for='Telefon' class='label_1'>".U_ALAPBE_CEGTEL.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='Telefon' id='Telefon' placeholder='".U_ALAPBE_CEGTEL."' value='$Telefon' size='40'></p>\n";
         $HTMLkod .= "</fieldset>";
        
-        $HTMLkod .= "<fieldset> <legend>Az oldal stílusa:</legend>";
+        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_WSITLUS.":</legend>";
         //Stíluskiválasztó
-        $HTMLkod .= "<p class='pStilus'><label for='Stilus' class='label_1'>Stilus:</label>\n ";
+        $HTMLkod .= "<p class='pStilus'><label for='Stilus' class='label_1'>".U_ALAPBE_SITLUS.":</label>\n ";
         $HTMLkod .= "<input type='number' name='Stilus' id='Stilus' min='0' max='13' step='1' value='$Stilus'></p>\n";  
         $HTMLkod .= "</fieldset>";
 
+        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_KOZOSSEGI.":</legend>";
+        // Google+ gomb
+        if($GooglePlus==1){$checked=" checked ";}else{$checked="";}
+        $HTMLkod .="<input type='checkbox' id='GooglePlus' name='GooglePlus' value='0' $checked>";
+        $HTMLkod .="<label for='GooglePlus' class='label_1'>".U_ALAPBE_GOOGLEPL."</label><br>";
+        // Facebook
+        if($FacebookOK==1){$checked=" checked ";}else{$checked="";}
+        $HTMLkod .="<input type='checkbox' id='FacebookOK' name='FacebookOK' value='0' $checked>";
+        $HTMLkod .="<label for='FacebookOK' class='label_1'>".U_ALAPBE_FACEBOOKOK."</label><br>";
+        $HTMLkod .= "<p class='pTelefon'><label for='FacebookURL' class='label_1'>".U_ALAPBE_FACEBOOKURL.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='FacebookURL' id='FacebookURL' placeholder='".U_ALAPBE_FACEBOOKURL."' value='$FacebookURL' size='40'></p>\n";
+        $HTMLkod .= "</fieldset>";  
+
+        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_EXTRAK.":</legend>";
+        //Google Követőkód
+        $HTMLkod .= "<p class='pIskola'><label for='GoogleKod' class='label_1'>".U_ALAPBE_ANALYTICS.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='GoogleKod' id='GoogleKod' placeholder='".U_ALAPBE_ANALYTICS."' value='$GoogleKod' size='40'></p>\n";
+        $HTMLkod .= "<p class='pIskola'><label for='HEADextra' class='label_1'>".U_ALAPBE_HEADEXTRA.":</label><br>\n ";
+        $HTMLkod .= "<input type='text' name='HEADextra' id='HEADextra' placeholder='".U_ALAPBE_HEADEXTRA."' value='$HEADextra' size='40'></p>\n";
+        $HTMLkod .= "</fieldset>";
+        
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitAlapbeallitasok' value='Módosítás'><br>\n";        
+        $HTMLkod .= "<input type='submit' name='submitAlapbeallitasok' value='".U_BTN_MODOSITAS."'><br>\n";        
         $HTMLkod .= "</form>\n";            
           
         $HTMLkod .= "<br><hr><br>\n"; 
         $HeaderImgSrc= 'img/ikonok/HeaderImg/'.$HeaderImg;          
             $HTMLkod .= "<form action='?f0=alapbeallitasok' method='post' enctype='multipart/form-data' id='HeaderImgForm'>\n";
-            $HTMLkod .= "<h2>Fejléc kis képének feltöltése</h2>\n";
-            $HTMLkod .= "<fieldset> <legend>A kis kép kiválasztása:</legend>";
+            $HTMLkod .= "<h2>".U_ALAPBE_KISKEP."</h2>\n";
+            $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_KISKEPVAL.":</legend>";
             $HTMLkod .= "<img src='$HeaderImgSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='HeaderImgKep'>\n";
             $HTMLkod .= "<input type='file' name='file' id='fileHeaderImgTolt' >";
             $HTMLkod .= "</fieldset>";
-            $HTMLkod .= "<input type='submit' name='submitHeaderImgTolt' id='submitHeaderImgTolt' value='Feltöltés'><br><br>";
+            $HTMLkod .= "<input type='submit' name='submitHeaderImgTolt' id='submitHeaderImgTolt' value='".U_BTN_FELTOLT."'><br><br>";
             $HTMLkod .= "</form>\n";
         $HTMLkod .= "<br><hr><br>\n";     
             
         $FavIconSrc= 'img/ikonok/FavIcon/'.$FavIconImg;          
             $HTMLkod .= "<form action='?f0=alapbeallitasok' method='post' enctype='multipart/form-data' id='FavIconForm'>\n";
-            $HTMLkod .= "<h2>Favicon feltöltése</h2>\n";
-            $HTMLkod .= "<fieldset> <legend>A kis kép kiválasztása:</legend>";
+            $HTMLkod .= "<h2>".U_ALAPBE_IKON."</h2>\n";
+            $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_IKONV.":</legend>";
             $HTMLkod .= "<img src='$FavIconSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='FavIconKep'>\n";
             $HTMLkod .= "<input type='file' name='file' id='fileFavIconTolt' >";
             $HTMLkod .= "</fieldset>";
-            $HTMLkod .= "<input type='submit' name='submitFavIconTolt' id='submitFavIconTolt' value='Feltöltés'><br><br>";
+            $HTMLkod .= "<input type='submit' name='submitFavIconTolt' id='submitFavIconTolt' value='".U_BTN_FELTOLT."'><br><br>";
             $HTMLkod .= "</form>\n";    
 
         $HTMLkod .= "</div>\n"; 

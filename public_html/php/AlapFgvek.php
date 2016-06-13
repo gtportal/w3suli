@@ -6,6 +6,7 @@ define("U_BTN_KIVALASZT",       "Kiválaszt",TRUE);
 define("U_BTN_MODOSITAS",       "Módosítás",TRUE);
 define("U_BTN_LETRHOZAS",       "Létrehozás",TRUE);
 define("U_BTN_TOROL",           "Törlés",TRUE);
+define("U_BTN_FELTOLT",         "Feltöltés",TRUE);
 
 //Általános
 define("U_NEV",                 "Név",TRUE);
@@ -14,6 +15,11 @@ define("U_LEIRAS",              "Leírás",TRUE);
 define("U_PRIORITAS",           "Prioritás",TRUE);
 define("U_TARTALOM",            "Tartalom",TRUE);
 define("U_TORTLES",             "TÖRLÉS",TRUE);
+define("U_SORSZAM",             "Sorszám",TRUE);
+define("U_SZELESSEG",           "Szélesség",TRUE);
+define("U_MAGASSAG",            "Magasság",TRUE);
+define("U_STILUS",              "Stílus",TRUE);
+
 
 //Fájlművelet hibák
 define("U_FETOLT_ER000",       "<b>Nincs fájl kijelölve! </b>",TRUE);
@@ -32,13 +38,11 @@ define("U_ELKULDVE",           "Elküldve",TRUE);
 define("U_FELTOLTVE",          "Feltöltve",TRUE);
 define("U_BELEPES",            "Bejelentkezés",TRUE);
 
+
 //Felhasználókezelés
 define("U_FSET",               "A felhasználó adatainak beállítása",TRUE);
 define("U_UFSET",              "Az új felhasználó adatainak beállítása",TRUE);
 define("U_FADATOK",            "Felhasználói adatok",TRUE);
-
-
-
 define("U_FNEV",               "Név",TRUE);
 define("U_FFNEV",              "Felhasználónév",TRUE);
 define("U_JELSZO",             "Jelszó",TRUE);
@@ -67,7 +71,6 @@ define("U_FCSOP_ADATAI",       "A csoport adatai",TRUE);
 define("U_FCSOP_TORLESE",      "Felhasználói csoportok törlése",TRUE);
 define("U_FCSOP_MARVAN",       "Foglalt csoportnév",TRUE);
 define("U_FCSOP_LETREHOZVA",   "A csoport elkészült",TRUE);
-
 
 define("U_FELH_VALASZT",       "Felhasználó kiválasztása",TRUE);
 define("U_FELH_LISTA",         "Felhasználók listája",TRUE);
@@ -111,11 +114,115 @@ define("U_ALAPCSOK_NEMT",      "Az alapcsoporthoz való tagság nem törölhető
 
 // Kiegészítő tartalom
 define("U_KIEGT_INFO_BLOKK",   "A kiegészítő tartalom információs blokkjai",TRUE);
+define("U_MENUKIEG_INFO_BLOKK","A helyi menü információs blokkjai",TRUE);
 define("U_KIEGT_BLOKK_ADATOK", "információs blokk adatai",TRUE);
+
+// Főmenü
+define("U_FOMENU_TITLE",       "A főmenü linkjeinek adatai",TRUE);
+define("U_FOMENU_LINK_ADATOK", "link adatai",TRUE);
+define("U_FOMENU_LINK_FELIRAT","Linkfelirat",TRUE);
+define("U_FOMENU_LINK_URL",    "URL",TRUE);
+define("U_FOMENU_LINK_URL_pl", "http://... vagy https://...  vagy ?f0=..." ,TRUE);
 
 define("U_CSAK_10_KEP",        "Maximum 10 kép tölthető fel",TRUE);
 
+// Alapbeállítások
+define("U_ALAPBE_WBEALL",     "A webhely alapadatainak beállítása",TRUE);
+define("U_ALAPBE_WADATOK",    "A webhely adatai",TRUE);
+define("U_ALAPBE_WNEV",       "A webhely neve",TRUE);
+define("U_ALAPBE_HSZOVEG",    "Az oldalfejléc szövege",TRUE);
+define("U_ALAPBE_HSZOVEGPL",  "Minden oldalon látható",TRUE);
+define("U_ALAPBE_CEGADATOK",  "Az intézmény adatai",TRUE);
+define("U_ALAPBE_CEGNEV",     "Az intézmény neve",TRUE);
+define("U_ALAPBE_CEGCIM",     "Az intézmény címe",TRUE);
+define("U_ALAPBE_CEGTEL",     "Az intézmény telefonszáma",TRUE);
+define("U_ALAPBE_WSITLUS",    "A webhely stílusa",TRUE);
+define("U_ALAPBE_SITLUS",     "Sílus",TRUE);
+define("U_ALAPBE_KOZOSSEGI",  "Közösségi oldalak",TRUE);
+define("U_ALAPBE_GOOGLEPL",   "Google+ gomb megjelenítése",TRUE);
+define("U_ALAPBE_FACEBOOKOK", "Facebook gomb megjelenítése",TRUE);
+define("U_ALAPBE_FACEBOOKURL","Facebook URL",TRUE);
+define("U_ALAPBE_EXTRAK",     "Extrák",TRUE);
+define("U_ALAPBE_ANALYTICS",  "Google Analytics azonosító",TRUE);
+define("U_ALAPBE_HEADEXTRA",  "HEAD extra tartalom",TRUE);
+define("U_ALAPBE_KISKEP",     "Fejléc kis képének feltöltése",TRUE);
+define("U_ALAPBE_KISKEPVAL",  "A kis kép kiválasztása",TRUE);
+define("U_ALAPBE_IKON",       "Favicon feltöltése",TRUE);
+define("U_ALAPBE_IKONV",      "Az ikon kiválasztása",TRUE);
 
+// OLDAL
+define("U_OLDAL_KISKEP",      "Kis kép feltöltése",TRUE);
+define("U_OLDAL_KISKEPVAL",   "A kis kép kiválasztása",TRUE);
+define("U_OLDAL_MODOSIT",     "Az oldal adatainak módosítása",TRUE);
+define("U_OLDAL_ADATAI",      "Az oldal adatai",TRUE);
+define("U_OLDAL_CIM",         "Az oldal címe",TRUE);
+
+define("U_OLDAL_TIPUS",       "Típus",TRUE);
+define("U_OTIPUS_KEZDO",      "Kezdőlap",TRUE);
+define("U_OTIPUS_HIR",        "Híroldal",TRUE);
+define("U_OTIPUS_KAT",        "Kategória",TRUE);
+define("U_OTIPUS_ALKAT",      "Alkategória",TRUE);
+define("U_OTIPUS_HIRKAT",     "Hírkategória",TRUE);
+define("U_OTIPUS_VEGYES",     "Vegyes",TRUE);
+define("U_OTIPUS_TERMEK",     "Termék",TRUE);
+
+define("U_OLDAL_SZ",          "Oldal szerkesztése",TRUE);
+define("U_OLDAL_UJ",          "Új oldal",TRUE);
+define("U_OLDAL_MOD",         "Oldal módosítása",TRUE);
+define("U_OLDAL_TOR",         "Oldal törlése",TRUE);
+define("U_OLDAL_KEP",         "Képkezelés",TRUE);
+define("U_OLDAL_MODE",        "Oldal moderátorai",TRUE);
+
+define("U_OLDAL_LATHATO",     "Láthatóság",TRUE);
+define("U_OLATHAT_MINDEN",    "Mindnki",TRUE);
+define("U_OLATHAT_SENKI",     "Senki",TRUE);
+define("U_OLATHAT_CSOP",      "Csoport",TRUE);
+
+define("U_OLDAL_KULCSSZAVAK", "Kulcsszavak",TRUE);
+define("U_OLDAL_KULCSSZO",    "Kulcsszó, Kulcsszó",TRUE);
+
+define("U_OERR_CIMNINCS",     "Nincs megadva cím",TRUE);
+define("U_OERR_CIMHOSSZU",    "Túl hosszú cím",TRUE);
+define("U_OERR_CIMROVID",     "Túl rövíd cím",TRUE);
+define("U_OERR_CIMVANMAR",    "A cím már foglalt",TRUE);
+define("U_OERR_TIPUSNINCS",   "Nincs megadva típus",TRUE);
+
+define("U_OLDAL_UJLETREHOZ",  "Új oldal létrehozása",TRUE);
+define("U_OLDAL_UJADAT",      "Az új oldal adatai",TRUE);
+
+define("U_OLDAL_TOROL",      "Oldal törlése",TRUE);
+define("U_OLDAL_TOROL1_1",   "Valóban töli a ",TRUE); //Az 1_1 és 1_2 közé kerül az oldal neve
+define("U_OLDAL_TOROL1_2",   " oldalt",TRUE);
+define("U_OLDAL_TOROL2",     "A művelet végleges",TRUE);
+define("U_OLDAL_TOROL3",     "Törlődnek az oldal cikkei is",TRUE);
+define("U_OLDAL_TOROL4",     "Az oldal törlése előtt aloldalait kell törőlni",TRUE);
+define("U_OLDAL_TOROL5",     "Biztos, hogy törőljűk",TRUE);
+define("U_OLDAL_TOROLVE",    "Az oldal törőltük",TRUE);
+
+
+define("U_KEPEK_FELTOLTESE", "Képek feltöltése",TRUE);
+define("U_KEPEK_VALASZT",    "A képek kiválasztása",TRUE);
+define("U_KEPEK_MODOSIT",    "Képek adatainak módosítása",TRUE);
+define("U_KEPEK_ADAT",       "Kép adatai",TRUE);
+define("U_KEPEK_KEP",        "Kép",TRUE);
+
+define("U_OMOD_VALASZT",     "Moderátor kiválasztása",TRUE);
+define("U_OMOD_CSVALASZT",   "A moderátor csoportjának kiválasztása",TRUE);
+define("U_OMOD_FCSLISTA",    "Felhasználói csoportok listája",TRUE);
+define("U_OMOD_MVALASZT",    "Válasszon moderátort",TRUE);
+define("U_OMOD_FLISTA",      "Felhasználók listája",TRUE);
+define("U_OMOD_MCSVALASZT",  "Moderátor-csoport kiválasztás",TRUE);
+
+//Cikkek
+define("U_CIKK_SZERK",       "Cikk szerkesztése",TRUE);
+define("U_CIKK_UJ",          "Új cikk",TRUE);
+define("U_CIKK_MOD",         "Cikk módosítása",TRUE);
+define("U_CIKK_TOR",         "Cikk törlése",TRUE);
+define("U_CIKK_KEP",         "Cikk képei",TRUE);
+define("U_CIKK_VAL",         "Cikk kiválasztása",TRUE);
+define("U_CIKK_VALI1",       "Az itt kiválasztott cikk jellemzőit tudja módosítani. Új cikk létrehozásához és régi törléséhez nincs szükség itt cikk kiválasztására.",TRUE);
+define("U_CIKK_MCIM",        "Módosítandó cikk címe",TRUE);
+define("U_CIKK_VALNINCS",    "Nincs kiválasztva",TRUE);
 
 function setKepFeltolt($AktKonytart,$KFileName) {    
     if (isset($_FILES["file"]) && $_FILES["file"]["name"]!='') { 

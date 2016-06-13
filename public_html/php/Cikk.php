@@ -254,10 +254,10 @@ function getCikkValasztForm() {
             $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";
         }
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkValaszt'>\n";
-        $HTMLkod .= "<h2>Cikk kiválasztása</h2>\n";
-        $HTMLkod .= "<i>Az itt kiválasztott jellemzőit tudja módosítani. Új cikk létrehozásához és régi törléséhez nincs szükség itt cikk kiválasztására.</i><br>\n";
+        $HTMLkod .= "<h2>".U_CIKK_VAL."</h2>\n";
+        $HTMLkod .= "<i>".U_CIKK_VALI1."</i><br>\n";
         //Cikk kiválasztása a lenyíló listából
-        $HTMLkod .= "<label for='selectCikkValaszt' class='label_1' id='labelCikkValaszt'>Módosítandó cikk neve:</label>\n ";
+        $HTMLkod .= "<label for='selectCikkValaszt' class='label_1' id='labelCikkValaszt'>".U_CIKK_MCIM.":</label>\n ";
         $Felkover = '';
         if(($_SESSION['SzerkCikk'.'id']) && (($_SESSION['SzerkCikk'.'id'])>0)) {$Felkover = "class='felkover'";}
         $HTMLkod .= "<select id='selectCikkValaszt' name='selectCikkValaszt' size='1' $Felkover>";
@@ -275,7 +275,7 @@ function getCikkValasztForm() {
                             ON OC.Cid= C.id 
                             WHERE OC.Oid=$Oid";
         }
-        $HTMLkod  .= "<option value='Nincs' >Nincs kiválasztva</option>";
+        $HTMLkod  .= "<option value='Nincs' >".U_CIKK_VALNINCS."</option>";
         $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sCV 01 ");
         $rowDB     = mysqli_num_rows($result); 
         if ($rowDB > 0) {
@@ -293,7 +293,7 @@ function getCikkValasztForm() {
         }
         $HTMLkod .= "</select>";
         //Submit
-        $HTMLkod .= "<input type='submit' name='submitCikkValaszt' value='Kiválaszt'><br>\n";        
+        $HTMLkod .= "<input type='submit' name='submitCikkValaszt' value='".U_BTN_KIVALASZT."'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";    
     }

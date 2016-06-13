@@ -24,7 +24,7 @@ function getMenuPluszForm() {
             mysqli_free_result($result);
             $HTMLkod .= "<div id='divModMenuPlForm' >\n";
             $HTMLkod .= "<form action='?f0=MenuPlusz' method='post' id='formModMenuPlForm'>\n";
-            $HTMLkod .= "<h2>A helyi menü információs blokkjai</h2>\n";
+            $HTMLkod .= "<h2>".U_MENUKIEG_INFO_BLOKK."</h2>\n";
 
             for ($i = 0; $i < 10; $i++){
                 $id             = $MenuPlTomb[$i]['id'];
@@ -35,23 +35,23 @@ function getMenuPluszForm() {
                 $HTMLkod .= "<div class='divMenuPlElem'>\n ";
                // $HTMLkod .= "<p class='pMenuPlid'>".$i.". rekord</p>\n ";    
                 $j = $i+1;
-                $HTMLkod .= "<fieldset> <legend>".$j.". információs blokk adatai</legend>";
+                $HTMLkod .= "<fieldset> <legend>".$j.". ".U_KIEGT_BLOKK_ADATOK."</legend>";
 
                 //Kiegészítő tartalom neve
-                $HTMLkod .= "<p class='pModMenuPlNev'><label for='ModMenuPlNev_$i' class='label_1'>Módosított kiegészítő tartalom neve:</label><br>\n ";
-                $HTMLkod .= "<input type='text' name='ModMenuPlNev_$i' id='ModMenuPlNev_$i' placeholder='MenuPlNev' value='$MenuPlNev' size='40'></p>\n"; 
+                $HTMLkod .= "<p class='pModMenuPlNev'><label for='ModMenuPlNev_$i' class='label_1'>".U_NEV.":</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='ModMenuPlNev_$i' id='ModMenuPlNev_$i' placeholder='".U_NEV."' value='$MenuPlNev' size='40'></p>\n"; 
 
                 //Kiegészítő tartalom tartalma
-                $HTMLkod .= "<p class='pModMenuPlTartalom'><label for='ModMenuPlTartalom_$i' class='label_1'>Módosított kiegészítő tartalom tartalma:</label><br>\n ";
-                $HTMLkod .= "<textarea type='text' name='ModMenuPlTartalom_$i' id='ModMenuPlTartalom_$i' placeholder='$MenuPlTartalom' 
+                $HTMLkod .= "<p class='pModMenuPlTartalom'><label for='ModMenuPlTartalom_$i' class='label_1'>".U_TARTALOM.":</label><br>\n ";
+                $HTMLkod .= "<textarea type='text' name='ModMenuPlTartalom_$i' id='ModMenuPlTartalom_$i' placeholder='".U_TARTALOM."' 
                              rows='4' cols='60'>$MenuPlTartalom</textarea></p>\n"; 
 
                 //Kiegészítő tartalom prioritása
-                $HTMLkod .= "<p class='pModMenuPlPrioritas'><label for='ModMenuPlPrioritas_$i' class='label_1'>Prioritás:</label>\n ";
+                $HTMLkod .= "<p class='pModMenuPlPrioritas'><label for='ModMenuPlPrioritas_$i' class='label_1'>".U_PRIORITAS.":</label>\n ";
                 $HTMLkod .= "<input type='number' name='ModMenuPlPrioritas_$i' id='ModMenuPlPrioritas_$i' min='0' max='9' step='1' value='$MenuPlPrioritas'></p>\n";  
 
                 //Törlésre jelölés
-                $HTMLkod .= "<p class='pTorolMP'><label for='TorolMenuPl_$i' class='label_1'>TÖRLÉS:</label>\n ";
+                $HTMLkod .= "<p class='pTorolMP'><label for='TorolMenuPl_$i' class='label_1'>".U_TORTLES.":</label>\n ";
                 $HTMLkod .= "<input type='checkbox' name='TorolMenuPlTartalom_$i' id='TorolMenuPl_$i'></p>\n";
 
                 //id
@@ -61,7 +61,7 @@ function getMenuPluszForm() {
             }        
             //Submit
             $HTMLkod .= "<br style='clear:both;float:none;'>\n";
-            $HTMLkod .= "<input type='submit' name='submitMenuPlTartalom' id='submitMenuPlTartalom' value='Módosítás'>\n";
+            $HTMLkod .= "<input type='submit' name='submitMenuPlTartalom' id='submitMenuPlTartalom' value='".U_BTN_MODOSITAS."'>\n";
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";      
         }
