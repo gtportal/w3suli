@@ -193,7 +193,7 @@ function JSonLoad()
 		   <label for="chmenu" class="MenusorElem" id="MenuLabel">
              <img src="img/ikonok/menu128.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon1">
              <img src="img/ikonok/menu228.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon2">     
-             <span id="MENUGombDiv">Menü </span>
+             <span id="MENUGombDiv"><?php echo U_INDEX_MENU; ?> </span>
            </label>
          </div>
          <div id='FoNavJobb'>  

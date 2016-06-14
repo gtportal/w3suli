@@ -86,50 +86,53 @@ function getUjCikkForm() {
             if (isset($_POST['CLathatosag'])) {$CLathatosag = INT_post($_POST['CLathatosag']);} 
             if (isset($_POST['CPrioritas']))  {$CPrioritas  = INT_post($_POST['CPrioritas']);}
             $OKstr    = '';
-            if (isset($_POST['submitUjCikkForm'])){$OKstr ="A cikk elkészült. Címe: $UjCNev";} 
+            if (isset($_POST['submitUjCikkForm'])){
+              $OKstr  = "<div class='OKInfo'>".U_CIKK_OK.". ".U_CIKK_CIM.": ".$UjCNev."</div>";
+              $OKstr .= "<p class='time'>".U_LETREHOZVA.":".date("H.i.s.")."<p>";
+            } 
             //============FORM ÖSSZEÁLLÍTÁSA===================
             $HTMLkod .= "<div id='divUjCikkForm' >\n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjCikkForm'>\n";
             $HTMLkod .= "<p class='ErrorStr'>$OKstr</p>";
-            $HTMLkod .= "<h2>Új cikk létrehozása</h2>\n ";
-            $HTMLkod .= "<fieldset> <legend>Az új cikk adatai:</legend>";
+            $HTMLkod .= "<h2>".U_CIKK_LETREHOZ."</h2>\n ";
+            $HTMLkod .= "<fieldset> <legend>".U_CIKK_ADAT.":</legend>";
             //Cikk neve
-            $HTMLkod .= "<p class='pUjCNev'><label for='CUjNev' class='label_1'>Cikk neve:</label><br>\n ";
-            $HTMLkod .= "<input type='text' name='UjCNev' id='UjCNev' placeholder='Cikk név' value='$UjCNev' size='60'></p>\n";
+            $HTMLkod .= "<p class='pUjCNev'><label for='CUjNev' class='label_1'>".U_CIM.":</label><br>\n ";
+            $HTMLkod .= "<input type='text' name='UjCNev' id='UjCNev' placeholder='".U_CIM."' value='$UjCNev' size='60'></p>\n";
             //Cikk rövid leírása
-            $HTMLkod .= "<p class='pUjCLeiras'><label for=UjCLeiras class='label_1'>Cikk rövid leírása:</label><br>\n ";
-            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='Cikk leíráss' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
+            $HTMLkod .= "<p class='pUjCLeiras'><label for=UjCLeiras class='label_1'>".U_LEIRAS.":</label><br>\n ";
+            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='".U_LEIRAS."' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
             //Cikk tartalma
-            $HTMLkod .= "<p class='pUjCTartalom'><label for='UjCTartalom' class='label_1'>Cikk tartalma:</label><br>\n ";
-            $HTMLkod .= "<textarea name='UjCTartalom' id='UjCTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$UjCTartalom."</textarea></p>\n";
+            $HTMLkod .= "<p class='pUjCTartalom'><label for='UjCTartalom' class='label_1'>".U_TARTALOM.":</label><br>\n ";
+            $HTMLkod .= "<textarea name='UjCTartalom' id='UjCTartalom' placeholder='".U_TARTALOM."' rows='8' cols='88'>".$UjCTartalom."</textarea></p>\n";
             $HTMLkod .= "</fieldset>";
-            $HTMLkod .= "<fieldset> <legend>Az új cikk láthatósága:</legend>";
+            $HTMLkod .= "<fieldset> <legend>".U_CIKK_LATHATOSAG.":</legend>";
             if ($_SESSION['AktFelhasznalo'.'FSzint']>3) {
                 //Láthatóság
                 $HTMLkod .="<input type='radio' id='CLathatosag_0' name='CLathatosag' value='0' checked>";
-                $HTMLkod .="<label for='CLathatosag_0' class='label_1'>Moderátor és tulajdonos</label><br>";
+                $HTMLkod .="<label for='CLathatosag_0' class='label_1'>".U_CLA_MODTUL."</label><br>";
 
                 $HTMLkod .="<input type='radio' id='CLathatosag_1' name='CLathatosag' value='1'>";
-                $HTMLkod .="<label for='CLathatosag_1' class='label_1'>Bejelentkezett felhasználók</label><br>";     
+                $HTMLkod .="<label for='CLathatosag_1' class='label_1'>".U_CLA_FELH."</label><br>";     
 
                 $HTMLkod .="<input type='radio' id='CLathatosag_2' name='CLathatosag' value='2' >";
-                $HTMLkod .="<label for='CLathatosag_2' class='label_1'>Csoport számára látható</label><br>";
+                $HTMLkod .="<label for='CLathatosag_2' class='label_1'>".U_CLA_CSOP."</label><br>";
 
                 $HTMLkod .="<input type='radio' id='CLathatosag_3' name='CLathatosag' value='3' >";
-                $HTMLkod .="<label for='CLathatosag_3' class='label_1'>Nyilvános <b>(mindenki látja)</b></label><br>";  
+                $HTMLkod .="<label for='CLathatosag_3' class='label_1'>".U_CLA_MINDENKI."</b></label><br>";  
 
                 $HTMLkod .="<input type='radio' id='CLathatosag_A' name='CLathatosag' value='-1' >";
-                $HTMLkod .="<label for='CLathatosag_A' class='label_1'>Archívumban olvasható <b>(mindenki látja)</b></label><br>";                 
+                $HTMLkod .="<label for='CLathatosag_A' class='label_1'>".U_CLA_ARCHIV."</label><br>";                 
             }
             $HTMLkod .= "</fieldset>";
-            $HTMLkod .= "<fieldset> <legend>Az új cikk pozíciója:</legend>";
+            $HTMLkod .= "<fieldset> <legend>".U_CIKK_POZ.":</legend>";
             //Prioritas
-            $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>Prioritás:</label>\n ";
+            $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>".U_PRIORITAS.":</label>\n ";
             $HTMLkod .= "<input type='number' name='CPrioritas' id='CPrioritas' min='0' max='100' step='1' value='$CPrioritas'></p>\n";
             
             $HTMLkod .= "</fieldset>";
             //Submit
-            $HTMLkod .= "<input type='submit' name='submitUjCikkForm' value='Létrehozás'><br>\n";
+            $HTMLkod .= "<input type='submit' name='submitUjCikkForm' value='".U_BTN_LETRHOZAS."'><br>\n";
 
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";
@@ -148,80 +151,82 @@ function getUjCikkForm() {
              //Cikknév
             if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr    .= 'Hiányzik a cikk neve! ';
+              $ErrorStr    .= U_CERR_CIMNINCS.'!<br>';
             }
             if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr    .= 'Ilyen nevű cikk már létezik! ';
+              $ErrorStr    .= U_CERR_CIMVANMAR.'!<br>';
             }
             if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr    .= 'Az cikk neve túl hosszú! ';
+              $ErrorStr    .= U_CERR_CIMHOSSZU.'!<br>';
             }
             if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
               $ErrClassCNev = ' Error '; 
-              $ErrorStr    .= 'Az cikk neve legalább 3 karakter hosszú kell legyen! ';
+              $ErrorStr    .= U_CERR_CIMROVID.'!<br>';
             }         
             //Cikk tartalom
             if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
               $ErrClassCTartalom = ' Error '; 
-              $ErrorStr .= 'A tartalom nem lehet üres! ';
+              $ErrorStr         .= U_CERR_TARTNINCS.'!<br>';
             }
+            
+            $ErrorStr           .= "<p class='time'>".U_ELKULDVE.":".date("H.i.s.")."<p>";  
+            $InfoClass           = ' ErrorInfo ';  
             
             //============FORM ÖSSZEÁLLÍTÁSA===================
             $HTMLkod .= "<div id='divUjCikkForm' >\n";
-            if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";} 
+            if ($ErrorStr!='') {$HTMLkod .= "<p class='$InfoClass'>$ErrorStr</p>";} 
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formUjCikkForm'>\n";
             $OKstr    = '';
-            
-            $HTMLkod .= "<p class='ErrorStr'>$OKstr</p>";
-            $HTMLkod .= "<h2>Új cikk létrehozása</h2>\n ";
 
-            $HTMLkod .= "<fieldset> <legend>Az új cikk adatai:</legend>";
+            $HTMLkod .= "<h2>".U_CIKK_LETREHOZ."</h2>\n ";
+
+            $HTMLkod .= "<fieldset> <legend>".U_CIKK_ADAT.":</legend>";
             //Cikk neve
-            $HTMLkod .= "<p class='pUjCNev'><label for='CUjNev' class='label_1'>Cikk neve:</label><br>\n ";
-            $HTMLkod .= "<input type='text' name='UjCNev' id='UjCNev' class='$ErrClassCNev' placeholder='Cikk név' value='$UjCNev' size='60'></p>\n";
+            $HTMLkod .= "<p class='pUjCNev'><label for='CUjNev' class='label_1'>".U_CIKK_CIM.":</label><br>\n ";
+            $HTMLkod .= "<input type='text' name='UjCNev' id='UjCNev' class='$ErrClassCNev' placeholder='".U_CIKK_CIM."' value='$UjCNev' size='60'></p>\n";
             //Cikk rövid leírása
-            $HTMLkod .= "<p class='pUjCLeiras'><label for=UjCLeiras class='label_1'>Cikk rövid leírása:</label><br>\n ";
-            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='Cikk leírás' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
+            $HTMLkod .= "<p class='pUjCLeiras'><label for=UjCLeiras class='label_1'>".U_LEIRAS.":</label><br>\n ";
+            $HTMLkod .= "<textarea name='UjCLeiras' id='UjCLeiras' placeholder='".U_LEIRAS."' rows='2' cols='88'>".$UjCLeiras."</textarea></p>\n";
             //Cikk tartalma
-            $HTMLkod .= "<p class='pUjCTartalom'><label for='UjCTartalom' class='label_1'>Cikk tartalma:</label><br>\n ";
-            $HTMLkod .= "<textarea name='UjCTartalom' id='UjCTartalom' class='$ErrClassCTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$UjCTartalom."</textarea></p>\n";
+            $HTMLkod .= "<p class='pUjCTartalom'><label for='UjCTartalom' class='label_1'>".U_TARTALOM.":</label><br>\n ";
+            $HTMLkod .= "<textarea name='UjCTartalom' id='UjCTartalom' class='$ErrClassCTartalom' placeholder='".U_TARTALOM."' rows='8' cols='88'>".$UjCTartalom."</textarea></p>\n";
            
             $HTMLkod .= "</fieldset>";
-            $HTMLkod .= "<fieldset> <legend>Az új cikk láthatósága:</legend>";
+            $HTMLkod .= "<fieldset> <legend>".U_CIKK_LATHATOSAG.":</legend>";
             
             if ($_SESSION['AktFelhasznalo'.'FSzint']>3) {
                 if($CLathatosag==0){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_0' name='CLathatosag' value='0' $checked>";
-                $HTMLkod .="<label for='CLathatosag_0' class='label_1'>Moderátor és tulajdonos</label><br>";
+                $HTMLkod .="<label for='CLathatosag_0' class='label_1'>".U_CLA_MODTUL."</label><br>";
 
                 if($CLathatosag==1){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_1' name='CLathatosag' value='1' $checked>";
-                $HTMLkod .="<label for='CLathatosag_1' class='label_1'>Bejelentkezett felhasználók</label><br>";     
+                $HTMLkod .="<label for='CLathatosag_1' class='label_1'>".U_CLA_FELH."</label><br>";     
 
                 if($CLathatosag==2){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_2' name='CLathatosag' value='2' $checked>";
-                $HTMLkod .="<label for='CLathatosag_2' class='label_1'>Csoport számára látható</label><br>";
+                $HTMLkod .="<label for='CLathatosag_2' class='label_1'>".U_CLA_CSOP."</label><br>";
 
                 if($CLathatosag==3){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_3' name='CLathatosag' value='3' $checked>";
-                $HTMLkod .="<label for='CLathatosag_3' class='label_1'>Nyilvános <b>(mindenki látja)</b></label><br>";  
+                $HTMLkod .="<label for='CLathatosag_3' class='label_1'>".U_CLA_MINDENKI."</label><br>";  
 
                 if($CLathatosag==-1){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_A' name='CLathatosag' value='-1' $checked>";
-                $HTMLkod .="<label for='CLathatosag_A' class='label_1'>Archívumban olvasható <b>(mindenki látja)</b></label><br>";   
+                $HTMLkod .="<label for='CLathatosag_A' class='label_1'>".U_CLA_ARCHIV."</b></label><br>";   
             }
 
             $HTMLkod .= "</fieldset>";
-            $HTMLkod .= "<fieldset> <legend>Az új cikk pozíciója:</legend>";
+            $HTMLkod .= "<fieldset> <legend>".U_CIKK_POZ.":</legend>";
             //Prioritas
-            $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>Prioritás:</label>\n ";
+            $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>".U_PRIORITAS.":</label>\n ";
             $HTMLkod .= "<input type='number' name='CPrioritas' id='CPrioritas' min='0' max='100' step='1' value='$CPrioritas'></p>\n";
             
             $HTMLkod .= "</fieldset>";
             //Submit
-            $HTMLkod .= "<input type='submit' name='submitUjCikkForm' value='Létrehozás'><br>\n";
+            $HTMLkod .= "<input type='submit' name='submitUjCikkForm' value='".U_BTN_LETRHOZAS."'><br>\n";
 
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";
@@ -315,6 +320,7 @@ function getCikkForm() {
         $KoElozetes  = 0;
         $SZoElozetes = 0;
         $CPrioritas  = 1;
+        $ErrorStr    = '';
         if (!isset($_POST['submitCikkForm']) || $_SESSION['ErrorStr']==''){
         //Ha még nem lett elküldve vagy a cikk már módosítva lett
             $id = 0;
@@ -339,86 +345,98 @@ function getCikkForm() {
                 $CPrioritas  = $row['CPrioritas'];   
                 mysqli_free_result($result);
             }
+            if (isset($_POST['submitCikkForm'])){
+                $ErrorStr    = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr;
+                $InfoClass   = ' OKInfo ';
+            }   
+            
 
             if ($_SESSION['SzerkCikk'.'id']>0)
             {   //============FORM ÖSSZEÁLLÍTÁSA===================
                 $HTMLkod .= "<div id='divCikkForm' >\n";
                 $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkForm'>\n"; 
-
-                $HTMLkod .= "<h2>Cikk módosítása</h2>\n";
-                $HTMLkod .= "<fieldset> <legend>Az cikk adatai:</legend>";
+                $HTMLkod .= "<div class='$InfoClass'>$ErrorStr </div>";
+                $HTMLkod .= "<h2>".U_CIKK_MOD."</h2>\n";
+                $HTMLkod .= "<fieldset> <legend>".U_CIKK_ADAT.":</legend>";
                 //Cikk neve
-                $HTMLkod .= "<p class='pCNev'><label for='CNev' class='label_1'>Módosított cikk neve:</label><br>\n ";
-                $HTMLkod .= "<input type='text' name='CNev' id='CNev' placeholder='Cikk név' value='$CNev' size='60'></p>\n";
+                $HTMLkod .= "<p class='pCNev'><label for='CNev' class='label_1'>".U_CIKK_CIM.":</label><br>\n ";
+                $HTMLkod .= "<input type='text' name='CNev' id='CNev' placeholder='".U_CIKK_CIM."' value='$CNev' size='60'></p>\n";
                 //Cikk rövid leírása
-                $HTMLkod .= "<p class='pCLeiras'><label for=CLeiras class='label_1'>Módosított cikk rövid leírása:</label><br>\n ";
-                $HTMLkod .= "<textarea name='CLeiras' id='CLeiras' placeholder='Cikk leírás' rows='2' cols='88'>".$CLeiras."</textarea></p>\n";
+                $HTMLkod .= "<p class='pCLeiras'><label for=CLeiras class='label_1'>".U_LEIRAS.":</label><br>\n ";
+                $HTMLkod .= "<textarea name='CLeiras' id='CLeiras' placeholder='".U_LEIRAS."' rows='2' cols='88'>".$CLeiras."</textarea></p>\n";
                 //Cikk tartalma
-                $HTMLkod .= "<p class='pCTartalom'><label for='CTartalom' class='label_1'>Módosított cikk tartalma:</label><br>\n ";
-                $HTMLkod .= "<textarea name='CTartalom' id='CTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$CTartalom."</textarea></p>\n";
+                $HTMLkod .= "<p class='pCTartalom'><label for='CTartalom' class='label_1'>".U_TARTALOM.":</label><br>\n ";
+                $HTMLkod .= "<textarea name='CTartalom' id='CTartalom' placeholder='".U_TARTALOM."' rows='8' cols='88'>".$CTartalom."</textarea></p>\n";
                 $HTMLkod .= "</fieldset>";
 
                 if ($_SESSION['AktFelhasznalo'.'FSzint']>3) {
                     //Láthatóság                    
-                    $HTMLkod .= "<fieldset> <legend>A cikk láthatósága:</legend>";        
+                    $HTMLkod .= "<fieldset> <legend>".U_CIKK_LATHATOSAG.":</legend>";        
 
                     if($CLathatosag==0){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_0a' name='CLathatosag' value='0' $checked>";
-                    $HTMLkod .="<label for='CLathatosag_0a' class='label_1'>Moderátor és tulajdonos</label><br>";
+                    $HTMLkod .="<label for='CLathatosag_0a' class='label_1'>".U_CLA_MODTUL."</label><br>";
 
                     if($CLathatosag==1){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_1a' name='CLathatosag' value='1' $checked>";
-                    $HTMLkod .="<label for='CLathatosag_1a' class='label_1'>Bejelentkezett felhasználók</label><br>";     
+                    $HTMLkod .="<label for='CLathatosag_1a' class='label_1'>".U_CLA_FELH."</label><br>";     
 
                     if($CLathatosag==2){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_2a' name='CLathatosag' value='2' $checked>";
-                    $HTMLkod .="<label for='CLathatosag_2a' class='label_1'>Csoport számára látható</label><br>";
+                    $HTMLkod .="<label for='CLathatosag_2a' class='label_1'>".U_CLA_CSOP."</label><br>";
 
                     if($CLathatosag==3){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_3a' name='CLathatosag' value='3' $checked>";
-                    $HTMLkod .="<label for='CLathatosag_3a' class='label_1'>Nyilvános <b>(mindenki látja)</b></label><br>";  
+                    $HTMLkod .="<label for='CLathatosag_3a' class='label_1'>".U_CLA_MINDENKI."</label><br>";  
 
                     if($CLathatosag==-1){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='CLathatosag_Aa' name='CLathatosag' value='-1' $checked>";
-                    $HTMLkod .="<label for='CLathatosag_Aa' class='label_1'>Archívumban olvasható <b>(mindenki látja)</b></label><br>";  
+                    $HTMLkod .="<label for='CLathatosag_Aa' class='label_1'>".U_CLA_ARCHIV."</b></label><br>";  
 
                     //Előzetes kezdőlapra
                     //$HTMLkod .= "<h2>Cikkelőzetesek megjelenítése kezdőlapon</h2>"; 
                     $HTMLkod .= "</fieldset>";
-                    $HTMLkod .= "<fieldset> <legend>Cikkelőzetesek megjelenítése <u>kezdőlapon</u>:</legend>";  
+                    $HTMLkod .= "<fieldset> <legend>".U_CIKKE_KLAP.":</legend>";  
                     if($KoElozetes==0){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='KoElozetes0' name='KoElozetes' value='0' $checked>";
-                    $HTMLkod .="<label for='KoElozetes0' class='label_1'>Előzetese <b>nem</b> látszik kezdőlapon</b></label><br>";
+                    $HTMLkod .="<label for='KoElozetes0' class='label_1'>".U_CIKKE_KLAP_N."</label><br>";
                     if($KoElozetes==1){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='KoElozetes1' name='KoElozetes' value='1' $checked>";
-                    $HTMLkod .="<label for='KoElozetes1' class='label_1'>Előzetese látszik kezdőlapon</b></label><br>";  
+                    $HTMLkod .="<label for='KoElozetes1' class='label_1'>".U_CIKKE_KLAP_I."</label><br>";  
                     if($KoElozetes==2){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='KoElozetes2' name='KoElozetes' value='2' $checked>";
-                    $HTMLkod .="<label for='KoElozetes2' class='label_1'>Előzetese <b>kiemelten</b> látszik kezdőlapon</b></label>";
+                    $HTMLkod .="<label for='KoElozetes2' class='label_1'>".U_CIKKE_KLAP_K."</label>";
 
                     //Előzetes szülőoldalra
                     //$HTMLkod .= "<h2>Cikkelőzetesek megjelenítése szülőoldalon</h2>";
                     $HTMLkod .= "</fieldset>";
-                    $HTMLkod .= "<fieldset> <legend>Cikkelőzetesek megjelenítése <u>szülőoldalon</u>:</legend>"; 
+                    $HTMLkod .= "<fieldset> <legend>".U_CIKKE_SZLAP.":</legend>"; 
                     if($SZoElozetes==0){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='SZoElozetes0' name='SZoElozetes' value='0' $checked>";
-                    $HTMLkod .="<label for='SZoElozetes0' class='label_1'>Előzetese <b>nem</b> látszik szülőoldalon</b></label><br>";  
+                    $HTMLkod .="<label for='SZoElozetes0' class='label_1'>".U_CIKKE_SZLAP_N."</label><br>";  
                     if($SZoElozetes==1){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='SZoElozetes1' name='SZoElozetes' value='1' $checked>";
-                    $HTMLkod .="<label for='SZoElozetes1' class='label_1'>Előzetese látszik szülőoldalon</b></label><br>"; 
+                    $HTMLkod .="<label for='SZoElozetes1' class='label_1'>".U_CIKKE_SZLAP_I."</label><br>"; 
                     if($SZoElozetes==2){$checked=" checked ";}else{$checked="";}
                     $HTMLkod .="<input type='radio' id='SZoElozetes2' name='SZoElozetes' value='2' $checked>";
-                    $HTMLkod .="<label for='SZoElozetes2' class='label_1'>Előzetese <b>kiemelten</b> látszik szülőoldalon</b></label><br>";                     
+                    $HTMLkod .="<label for='SZoElozetes2' class='label_1'>".U_CIKKE_SZLAP_K."</label><br>";                     
 
                     //Prioritas
                     $HTMLkod .= "</fieldset>";
-                    $HTMLkod .= "<fieldset> <legend>A cikk pozíciója:</legend>";
-                    $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>Prioritás:</label>\n ";
+                    $HTMLkod .= "<fieldset> <legend>".U_CIKK_POZ.":</legend>";
+                    $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>".U_PRIORITAS.":</label>\n ";
                     $HTMLkod .= "<input type='number' name='CPrioritas' id='CPrioritas' min='0' max='127' step='1' value='$CPrioritas'></p>\n";
                     $HTMLkod .= "</fieldset>";
                 }
                 //Submit
-                $HTMLkod .= "<input type='submit' name='submitCikkForm' value='Módosítás'><br>\n";
+                $HTMLkod .= "<input type='submit' name='submitCikkForm' value='".U_BTN_MODOSITAS."'><br>\n";
+                $HTMLkod .= "</form>\n";
+                $HTMLkod .= "</div>\n";
+            } else {
+                $HTMLkod .= "<div id='divCikkForm' >\n";
+                $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkForm'>\n"; 
+
+                $HTMLkod .= "<h2>".U_CIKK_NINCS."!</h2>\n";
                 $HTMLkod .= "</form>\n";
                 $HTMLkod .= "</div>\n";
             }
@@ -434,113 +452,121 @@ function getCikkForm() {
             if (isset($_POST['SZoElozetes'])) {$SZoElozetes = INT_post($_POST['SZoElozetes']);}
             
             // ============== HIBAKEZELÉS ===================== 
-            $ErrorStr          = '';
-            $ErrClassCTartalom = '';
-            $ErrClassCNev      = '';
-             //Cikknév
-            if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
-              $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Hiányzik a cikk neve! ';
-            }
-            if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
-              $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Ilyen nevű cikk már létezik! ';
-            }
-            if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
-              $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Az cikk neve túl hosszú! ';
-            }
-            if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
-              $ErrClassCNev = ' Error '; 
-              $ErrorStr .= 'Az cikk neve legalább 3 karakter hosszú kell legyen! ';
-            }         
-            //Cikk tartalom
-            if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
-              $ErrClassCTartalom = ' Error '; 
-              $ErrorStr .= 'A tartalom nem lehet üres! ';
-            }
+            $ErrorStr            = '';
+            $ErrClassCTartalom   = '';
+            $ErrClassCNev        = '';
+            echo "ErrorStr:".$_SESSION['ErrorStr'];
+            if (strpos($_SESSION['ErrorStr'],'Err0')!==false) {
+                //Cikknév
+               if (strpos($_SESSION['ErrorStr'],'Err001')!==false) {
+                 $ErrClassCNev      = ' Error '; 
+                 $ErrorStr         .= U_CERR_CIMNINCS.'!<br>';
+               }
+               if (strpos($_SESSION['ErrorStr'],'Err002')!==false) {
+                 $ErrClassCNev      = ' Error '; 
+                 $ErrorStr         .= U_CERR_CIMVANMAR.'!<br>';
+               }
+               if (strpos($_SESSION['ErrorStr'],'Err003')!==false) {
+                 $ErrClassCNev      = ' Error '; 
+                 $ErrorStr         .= U_CERR_CIMHOSSZU.'!<br>';
+               }
+               if (strpos($_SESSION['ErrorStr'],'Err004')!==false) {
+                 $ErrClassCNev      = ' Error '; 
+                 $ErrorStr         .= U_CERR_CIMROVID.'!<br>';
+               }         
+               //Cikk tartalom
+               if (strpos($_SESSION['ErrorStr'],'Err005')!==false) {
+                 $ErrClassCTartalom = ' Error '; 
+                 $ErrorStr         .= U_CERR_TARTNINCS.'!<br>';
+               }
+               $ErrorStr        = "<p class='time'>".U_ELKULDVE.":".date("H.i.s.")."<p>".$ErrorStr;
+               $InfoClass     = ' ErrorInfo ';
+            } else {
+                $ErrorStr        = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr;
+                $InfoClass     = ' OKInfo ';
+            }    
             
             //============FORM ÖSSZEÁLLÍTÁSA===================
             $HTMLkod .= "<div id='divCikkForm' >\n";
-            if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+            if ($ErrorStr!='') {$HTMLkod .= "<div class='$InfoClass'>$ErrorStr </div>";}
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkForm'>\n";
-            $HTMLkod .= "<h2>Cikk módosítása</h2>\n";
+            $HTMLkod .= "<h2>".U_CIKK_MOD."</h2>\n";
             
-            $HTMLkod .= "<fieldset> <legend>Az cikk adatai:</legend>";
+            $HTMLkod .= "<fieldset> <legend>".U_CIKK_ADAT.":</legend>";
 
             //Cikk neve
-            $HTMLkod .= "<p class='pCNev'><label for='CNev' class='label_1'>Cikk neve:</label><br>\n ";
-            $HTMLkod .= "<input type='text' name='CNev' id='CNev' class='$ErrClassCNev' placeholder='Cikk név' value='$CNev' size='60'></p>\n";
+            $HTMLkod .= "<p class='pCNev'><label for='CNev' class='label_1'>".U_CIKK_CIM.":</label><br>\n ";
+            $HTMLkod .= "<input type='text' name='CNev' id='CNev' class='$ErrClassCNev' placeholder='".U_CIKK_CIM."' value='$CNev' size='60'></p>\n";
             //Cikk rövid leírása
-            $HTMLkod .= "<p class='pCLeiras'><label for=CLeiras class='label_1'>Cikk rövid leírása:</label><br>\n ";
-            $HTMLkod .= "<textarea name='CLeiras' id='CLeiras' placeholder='Cikk leírás' rows='2' cols='88'>".$CLeiras."</textarea></p>\n";
+            $HTMLkod .= "<p class='pCLeiras'><label for=CLeiras class='label_1'>".U_LEIRAS.":</label><br>\n ";
+            $HTMLkod .= "<textarea name='CLeiras' id='CLeiras' placeholder='".U_LEIRAS."' rows='2' cols='88'>".$CLeiras."</textarea></p>\n";
             //Cikk tartalma
-            $HTMLkod .= "<p class='pCTartalom'><label for='CTartalom' class='label_1'>Cikk tartalma:</label><br>\n ";
-            $HTMLkod .= "<textarea name='CTartalom' id='CTartalom' class='$ErrClassCTartalom' placeholder='Cikk tartalom' rows='8' cols='88'>".$CTartalom."</textarea></p>\n";
+            $HTMLkod .= "<p class='pCTartalom'><label for='CTartalom' class='label_1'>".U_TARTALOM.":</label><br>\n ";
+            $HTMLkod .= "<textarea name='CTartalom' id='CTartalom' class='$ErrClassCTartalom' placeholder='".U_TARTALOM."' rows='8' cols='88'>".$CTartalom."</textarea></p>\n";
             $HTMLkod .= "</fieldset>";
             
             if ($_SESSION['AktFelhasznalo'.'FSzint']>3) {        
                  //Láthatóság
                     
-                $HTMLkod .= "<fieldset> <legend>A cikk láthatósága:</legend>";        
+                $HTMLkod .= "<fieldset> <legend>".U_CIKK_LATHATOSAG.":</legend>";        
 
                 if($CLathatosag==0){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_0b' name='CLathatosag' value='0' $checked>";
-                $HTMLkod .="<label for='CLathatosag_0b' class='label_1'>Moderátor és tulajdonos</label><br>";
+                $HTMLkod .="<label for='CLathatosag_0b' class='label_1'>".U_CLA_MODTUL."</label><br>";
 
                 if($CLathatosag==1){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_1b' name='CLathatosag' value='1' $checked>";
-                $HTMLkod .="<label for='CLathatosag_1b' class='label_1'>Bejelentkezett felhasználók</label><br>";     
+                $HTMLkod .="<label for='CLathatosag_1b' class='label_1'>".U_CLA_FELH."</label><br>";     
 
                 if($CLathatosag==2){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_2b' name='CLathatosag' value='2' $checked>";
-                $HTMLkod .="<label for='CLathatosag_2b' class='label_1'>Csoport számára látható</label><br>";
+                $HTMLkod .="<label for='CLathatosag_2b' class='label_1'>".U_CLA_CSOP."</label><br>";
 
                 if($CLathatosag==3){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_3b' name='CLathatosag' value='3' $checked>";
-                $HTMLkod .="<label for='CLathatosag_3b' class='label_1'>Nyilvános <b>(mindenki látja)</b></label><br>";  
+                $HTMLkod .="<label for='CLathatosag_3b' class='label_1'>".U_CLA_MINDENKI."</label><br>";  
 
                 if($CLathatosag==-1){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='CLathatosag_Ab' name='CLathatosag' value='-1' $checked>";
-                $HTMLkod .="<label for='CLathatosag_Ab' class='label_1'>Archívumban olvasható <b>(mindenki látja)</b></label><br>";  
+                $HTMLkod .="<label for='CLathatosag_Ab' class='label_1'>".U_CLA_ARCHIV."</label><br>";  
 
                 //Előzetes kezdőlapra
                 //$HTMLkod .= "<h2>Cikkelőzetesek megjelenítése kezdőlapon</h2>"; 
                 $HTMLkod .= "</fieldset>";
-                $HTMLkod .= "<fieldset> <legend>Cikkelőzetesek megjelenítése <u>kezdőlapon</u>:</legend>";  
+                $HTMLkod .= "<fieldset> <legend>".U_CIKKE_KLAP.":</legend>";  
                 if($KoElozetes==0){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='KoElozetes0' name='KoElozetes' value='0' $checked>";
-                $HTMLkod .="<label for='KoElozetes0' class='label_1'>Előzetese <b>nem</b> látszik kezdőlapon</b></label><br>";
+                $HTMLkod .="<label for='KoElozetes0' class='label_1'>".U_CIKKE_KLAP_N."</label><br>";
                 if($KoElozetes==1){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='KoElozetes1' name='KoElozetes' value='1' $checked>";
-                $HTMLkod .="<label for='KoElozetes1' class='label_1'>Előzetese látszik kezdőlapon</b></label><br>";  
+                $HTMLkod .="<label for='KoElozetes1' class='label_1'>".U_CIKKE_KLAP_I."</label><br>";  
                 if($KoElozetes==2){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='KoElozetes2' name='KoElozetes' value='2' $checked>";
-                $HTMLkod .="<label for='KoElozetes2' class='label_1'>Előzetese <b>kiemelten</b> látszik kezdőlapon</b></label>";
+                $HTMLkod .="<label for='KoElozetes2' class='label_1'>".U_CIKKE_KLAP_K."</label>";
 
                 //Előzetes szülőoldalra
                 //$HTMLkod .= "<h2>Cikkelőzetesek megjelenítése szülőoldalon</h2>";
                 $HTMLkod .= "</fieldset>";
-                $HTMLkod .= "<fieldset> <legend>Cikkelőzetesek megjelenítése <u>szülőoldalon</u>:</legend>"; 
+                $HTMLkod .= "<fieldset> <legend>".U_CIKKE_SZLAP.":</legend>"; 
                 if($SZoElozetes==0){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='SZoElozetes0' name='SZoElozetes' value='0' $checked>";
-                $HTMLkod .="<label for='SZoElozetes0' class='label_1'>Előzetese <b>nem</b> látszik szülőoldalon</b></label><br>";  
+                $HTMLkod .="<label for='SZoElozetes0' class='label_1'>".U_CIKKE_SZLAP_N."</label><br>";  
                 if($SZoElozetes==1){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='SZoElozetes1' name='SZoElozetes' value='1' $checked>";
-                $HTMLkod .="<label for='SZoElozetes1' class='label_1'>Előzetese látszik szülőoldalon</b></label><br>"; 
+                $HTMLkod .="<label for='SZoElozetes1' class='label_1'>".U_CIKKE_SZLAP_I."</label><br>"; 
                 if($SZoElozetes==2){$checked=" checked ";}else{$checked="";}
                 $HTMLkod .="<input type='radio' id='SZoElozetes2' name='SZoElozetes' value='2' $checked>";
-                $HTMLkod .="<label for='SZoElozetes2' class='label_1'>Előzetese <b>kiemelten</b> látszik szülőoldalon</b></label><br>"; 
+                $HTMLkod .="<label for='SZoElozetes2' class='label_1'>".U_CIKKE_SZLAP_K."</label><br>"; 
                 $HTMLkod .= "</fieldset>";
 
                 //Prioritas            
-                $HTMLkod .= "<fieldset> <legend>A cikk pozíciója:</legend>";
-                $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>Prioritás:</label>\n ";
+                $HTMLkod .= "<fieldset> <legend>".U_CIKK_POZ.":</legend>";
+                $HTMLkod .= "<p class='pCPrioritas'><label for='CPrioritas' class='label_1'>".U_PRIORITAS.":</label>\n ";
                 $HTMLkod .= "<input type='number' name='CPrioritas' id='CPrioritas' min='0' max='127' step='1' value='$CPrioritas'></p>\n";
                 $HTMLkod .= "</fieldset>";            
             }
             //Submit
-            $HTMLkod .= "<input type='submit' name='submitCikkForm' value='Módosítás'><br>\n";
+            $HTMLkod .= "<input type='submit' name='submitCikkForm' value='".U_BTN_MODOSITAS."'><br>\n";
 
             $HTMLkod .= "</form>\n";
             $HTMLkod .= "</div>\n";
@@ -676,25 +702,35 @@ function setCikk() {
 
 function setCikkTorol() { 
     global $MySqliLink, $Aktoldal;
+    $ErrorStr = '';
     if (isset($_POST['submitCikkTorol'])) { 
         $SelectStr      = "SELECT Cid FROM OldalCikkei WHERE Oid=".$Aktoldal['id'];
         $result         = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba COT 01");
         $rowDB          = mysqli_num_rows($result); 
         if ($rowDB > 0) {
-            while ($row = mysqli_fetch_array($result)){   
+            while ($row = mysqli_fetch_array($result)){ 
                 $i      = $row['Cid']; 
-                if (isset($_POST["CikkTorolId_$i"])) {$id = $_POST["CikkTorolId_$i"];} 
-                if (isset($_POST["CikkTorol_$i"])){  
-                    $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
-                    mysqli_query($MySqliLink, $DeleteStr);
-                    $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
-                    mysqli_query($MySqliLink, $DeleteStr);
-                    CikkOsszesKepTorol($id,$Aktoldal['OImgDir']);
+                $SelectStr1 = "SELECT CNev FROM Cikkek WHERE id=".$i;
+                $result1    = mysqli_query($MySqliLink, $SelectStr1) OR die("Hiba COT 01");
+                $rowDB1     = mysqli_num_rows($result1);
+                if ($rowDB1 > 0) {
+                    $row1   = mysqli_fetch_array($result1);
+
+                    if (isset($_POST["CikkTorolId_$i"])) {$id = $_POST["CikkTorolId_$i"];} 
+                    if (isset($_POST["CikkTorol_$i"])){  
+                        $ErrorStr .= U_TOROLVE.":".$row1['CNev']."<br>";
+                        $DeleteStr = "DELETE FROM Cikkek WHERE id = $id";
+                        mysqli_query($MySqliLink, $DeleteStr);
+                        $DeleteStr = "DELETE FROM OldalCikkei WHERE Cid = $id";
+                        mysqli_query($MySqliLink, $DeleteStr);
+                        CikkOsszesKepTorol($id,$Aktoldal['OImgDir']);
+                    }    
                 }
             }
             mysqli_num_rows($result);
         }
     }
+    return $ErrorStr;
 }
 
 function EgyCikkTorol($Cid) {
@@ -739,6 +775,7 @@ function getCikkTorolForm() {
     $HTMLkod = "";
     $Oid     = $Aktoldal['id'];
     $OUrl    = $Aktoldal['OUrl'];
+    $ErrorStr= $_SESSION['ErrorStr'];  
     $Fid     = $_SESSION['AktFelhasznalo'.'id'];
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {
         if ($_SESSION['AktFelhasznalo'.'FSzint']==3) {
@@ -759,10 +796,12 @@ function getCikkTorolForm() {
         }
         
         $HTMLkod .= "<div id='divCikkTorolForm' >\n";
-        $HTMLkod .= "<h2>Cikkek törlése</h2>\n";
+        $HTMLkod .= "<h2>".U_CIKK_TOR."</h2>\n";
         $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formCikkTorolForm'>\n";
+        if ($ErrorStr!='') { $HTMLkod .= "<div class=' OKInfo '>$ErrorStr </div>";}
         
-        $HTMLkod .= "<fieldset> <legend>Az oldal cikkei:</legend>";
+        $HTMLkod .= "<p class='FontosStr'>".U_CIKK_TOR1."!</p>";
+        $HTMLkod .= "<fieldset> <legend>".U_CIKK_OCIKKEL.":</legend>";
         $i = 0;
         $rowDB       = mysqli_num_rows($result); 
         if ($rowDB > 0) {
@@ -770,7 +809,7 @@ function getCikkTorolForm() {
                 $CNev     = $row['CNev'];
                 $id       = $row['id'];
                 //Törlésre jelölés
-                $HTMLkod .= "<p class='pCikkTorol'><input type='checkbox' name='CikkTorol_$id' id='CikkTorol_$id'>"
+                $HTMLkod .= "<p class='pCikkTorol'>".U_TORTLES.":<input type='checkbox' name='CikkTorol_$id' id='CikkTorol_$id'>"
                         . "<label for='CikkTorol_$id' class='label_1'>$CNev</label>\n ";
                 $HTMLkod .= "</p>\n";
                 //id
@@ -782,7 +821,7 @@ function getCikkTorolForm() {
         $HTMLkod .= "<input type='hidden' name='TorolDB' id='TorolDB' value='$i'>\n";
         $HTMLkod .= "</fieldset>";
         
-        $HTMLkod .= "<input type='submit' name='submitCikkTorol' id='submitCikkTorol' value='Törlés'>\n";
+        $HTMLkod .= "<input type='submit' name='submitCikkTorol' id='submitCikkTorol' value='".U_BTN_TOROL."'>\n";
         $HTMLkod .= "</form>\n";
         $HTMLkod .= "</div>\n";
     }

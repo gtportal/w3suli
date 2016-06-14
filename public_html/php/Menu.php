@@ -12,7 +12,7 @@
          
         // ================ FELHASZNÁLÓ ÜDVÖZLÉSE ============================= 
         if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  {             
-           $HTMLkod1 .= "<div id='divFelhasznaloUdv'>\n Üdv: ";
+           $HTMLkod1 .= "<div id='divFelhasznaloUdv'>\n ".U_MENU_UDV.": ";
            $HTMLkod1 .= $_SESSION['AktFelhasznalo'.'FNev'];
            $HTMLkod1 .= "</div>\n";                                                          //JAVÍTVA 2016.02.11.
         }
@@ -20,10 +20,10 @@
         // ================ FELHASZNÁLÓKEZELÉSHEZ TARTOZÓ OLDALAK ============================= 
         $HTMLkod1     .= "<ul class='Ul1'>\n";
         if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  { 
-            $HTMLkod1 .= "<li class='M1'><a href='?f0=kijelentkezes'>Kijelentkezés</a></li>\n";            
-            $HTMLkod1 .= "<li class='M1'><a href='?f0=jelszomodositas'>Jelszómodosítás</a></li>\n";            
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=kijelentkezes'>".U_MENU_KIJEL."</a></li>\n";            
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=jelszomodositas'>".U_MENU_JELSZO."</a></li>\n";            
         } else {
-            $HTMLkod1 .= "<li class='M1'><a href='?f0=bejelentkezes'>Bejelentkezés</a></li>\n";  
+            $HTMLkod1 .= "<li class='M1'><a href='?f0=bejelentkezes'>".U_MENU_BEJEL."</a></li>\n";  
             
         }
         $HTMLkod1     .= "</ul>\n";
@@ -31,28 +31,28 @@
         $HTMLkod2      = '';
         if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { 
             $HTMLkod2 .= "<ul class='Ul1'>\n";
-            $HTMLkod2 .= "<li class='M1'><div>Felhasználókezelés</div></li>\n";             
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=regisztracio'>Regisztráció</a></li>\n"; 
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=adatmodositas'>Felhasználók szerkesztése</a></li>\n";
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=Felhasznaloi_csoportok'>Felhasználói csoportok</a></li>\n";
-            //$HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>Felhasználó lista</a></li>\n";
+            $HTMLkod2 .= "<li class='M1'><div>".U_MENU_FKEZEL."</div></li>\n";             
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=regisztracio'>".U_MENU_REG."</a></li>\n"; 
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=adatmodositas'>".U_MENU_FSZERK."</a></li>\n";
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=Felhasznaloi_csoportok'>".U_MENU_FCSOP."</a></li>\n";
+            //$HTMLkod2 .= "<li class='M1'><a href='?f0=felhasznalo_lista'>"Felhasználó lista".U_MENU_FLISTA.".</a></li>\n";
             $HTMLkod2 .= "</ul><br>\n";     
         }
         if ($_SESSION['AktFelhasznalo'.'FSzint']>5)  { 
             $HTMLkod2 .= "<ul class='Ul1'>\n";
-            $HTMLkod2 .= "<li class='M1'><div>Kiegészítő tartalmak</div></li>\n";             
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=kiegeszito_tartalom'>Kiegészítő tartalom</a></li>\n";    
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=Fomenu_linkek_beallitasa'>Főmenü linkjeinek beállítása</a></li>\n"; 
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=menuplusz'>Menü plusz infók</a></li>\n";   
+            $HTMLkod2 .= "<li class='M1'><div>".U_MENU_KIEGTAK."</div></li>\n";             
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=kiegeszito_tartalom'>".U_MENU_KIEGT."</a></li>\n";    
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=Fomenu_linkek_beallitasa'>".U_MENU_FMENU."</a></li>\n"; 
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=menuplusz'>".U_MENU_MENUPL."</a></li>\n";   
             $HTMLkod2 .= "</ul><br>\n";  
         }
         if ($_SESSION['AktFelhasznalo'.'FSzint']>6)  { 
             $HTMLkod2 .= "<ul class='Ul1'>\n";
-            $HTMLkod2 .= "<li class='M1'><div>Alapinformációk</div></li>\n";              
-            $HTMLkod2 .= "<li class='M1'><a href='?f0=alapbeallitasok'>Alapbeállítások</a></li>\n";             
+            $HTMLkod2 .= "<li class='M1'><div>".U_MENU_ALAPINF."</div></li>\n";              
+            $HTMLkod2 .= "<li class='M1'><a href='?f0=alapbeallitasok'>".U_MENU_ALAPBEALL."</a></li>\n";             
             $HTMLkod2 .= "</ul>\n"; 
             
-            $HTMLkod2 .= "<div class='divMenuInfo1'>Tartalom</div>\n";
+            $HTMLkod2 .= "<div class='divMenuInfo1'>".U_MENU_TARTALOM."</div>\n";
         }
         if ($HTMLkod2 != '') {$HTMLkod1 .= $HTMLkod2;}
         

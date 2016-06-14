@@ -129,9 +129,9 @@ function getMenuPluszHTML() {
         }
         mysqli_free_result($result);
     }
-    $HTMLkod .= " <h2>Blogmotorunk:</h2> 
+    $HTMLkod .= " <h2>".U_MENUPL_MOTOR.":</h2> 
                  <ul class='Ul1'><li class='M1'><a href='https://w3suli.hu/'>W3Suli blogmotor</a></li></ul>\n";
-    $HTMLkod .= " <h2>Felhasznált tananyag:</h2> 
+    $HTMLkod .= " <h2>".U_MENUPL_TANAGYAG.":</h2> 
                  <ul class='Ul1'><li class='M1'><a href='http://webfejlesztes.gtportal.eu/'>Webáruház készítés</a></li></ul>\n";
     return $HTMLkod;
 }

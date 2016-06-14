@@ -116,7 +116,7 @@
 #formCikkKepForm1 {width:700px;}
 #CikkKepekFeltoltForm, #KisKepFelForm {background-color:#fff;padding-left:5px; }
 #divCikkKepForm .Kepszerk img {display:block; float:left; max-height:100px; max-width: 100px; margin:4px 5px 4px 1px;}
-#divCikkKepForm .Kepszerk     {display:block; float:left;  margin:2px;  height: 140px; }
+#divCikkKepForm .Kepszerk     {display:block;  margin:2px;  }
 #divCikkKepForm .Kepszerk  p  {display:block; float:left; margin:1px;}
 #divCikkKepForm .Kepszerk  p.pKSzelesseg  {clear:left;}
 
@@ -124,7 +124,7 @@
 #divCikkKepForm .Kepszerk input[type="number"] {width:65px;}
 #divCikkKepForm .Kepszerk input[type="text"] {width:300px;}
 
-#divCikkKepForm .Kepszerk p.pKSorszam{display:none;}
+#divCikkKepForm .Kepszerk_ p.pKSorszam{display:none;}
 
 .Kepszerk img {display:block; float:left;}
 .Kepszerk div {display:block; float:left; width:545px;}

@@ -4,8 +4,7 @@
 function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     global $MySqliLink, $Aktoldal;
     $HTMLkod       = '';    
-    
-    $SelectStr     = "SELECT KNev, KFile, KSzelesseg, KMagassag, KStilus FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
+    $SelectStr     = "SELECT KNev, KFile, KSzelesseg, KMagassag, KStilus FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam";
     $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
     $HTMLHirKepTMB = array('','','','','');
     $i             = 0;
