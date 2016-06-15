@@ -9,7 +9,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS AlapAdatok";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "Az <b>'AlapAdatok'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'AlapAdatok'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -25,21 +25,24 @@ global $MySqliLink, $Err;
     FavIcon varchar(60) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
     HeaderStr varchar(200) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
     GoogleKod varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
-    GooglePlus tinyint(4) NOT NULL DEFAULT '0',
+    GooglePlus tinyint(4) NOT NULL DEFAULT '0',    
+HEADextra varchar(255) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+FacebookURL varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+FacebookOK tinyint(4) NOT NULL DEFAULT '0',
     PRIMARY KEY (id)
   ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ;    
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "Az <b>'AlapAdatok'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'AlapAdatok'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   }
   // Alapértelmezett oldalak feltöltése
    $InsertIntoStr = "INSERT INTO AlapAdatok 
-       (id, WebhelyNev, Iskola, Cim, Telefon, Stilus, HeaderImg, FavIcon, HeaderStr, GoogleKod, GooglePlus) 
+       (id, WebhelyNev, Iskola, Cim, Telefon, Stilus, HeaderImg, FavIcon, HeaderStr, GoogleKod, GooglePlus, HEADextra, FacebookURL, FacebookOK) 
        VALUES
-       (1, 'W3Suli', 'Iskola', 'Cim', 'Telefon', 2, 'w3logo.png', 'logo.png', '<span>W3Suli</span><br><span>blogmotor</span>', '', 1)" ;
+       (1, 'W3Suli', '".U_INTEMENY."', '".U_POSTACIM."', '".U_TELEFON."', 2, 'w3logo.png', 'logo.png', '<span>W3Suli</span><br><span>".U_BLOGMOTOR."</span>', '', 0,'','',0)" ;
     if (!mysqli_query($MySqliLink,$InsertIntoStr))  {
        $HTMLkod .=  " MySqli hiba (" .mysqli_errno($MySqliLink). "): " . mysqli_error($MySqliLink);   $Err=1; 
     }  
@@ -55,7 +58,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS Cikkek";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'Cikkek'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'Cikkek'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -77,7 +80,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'Cikkek'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'Cikkek'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -94,7 +97,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS CikkKepek";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'CikkKepek'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'CikkKepek'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -114,7 +117,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'CikkKepek'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'CikkKepek'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -130,7 +133,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS FCsoportTagok";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'FCsoportTagok'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'FCsoportTagok'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -146,7 +149,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'FCsoportTagok'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'FCsoportTagok'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -171,7 +174,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS FelhasznaloCsoport";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'FelhasznaloCsoport'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'FelhasznaloCsoport'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -186,14 +189,14 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'FelhasznaloCsoport'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'FelhasznaloCsoport'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
   // Alapértelmezett oldalak feltöltése
    $InsertIntoStr = "INSERT INTO FelhasznaloCsoport 
         (id, CsNev, CsLeiras) VALUES
-        (1, 'webmesterek', 'Webmesterek csoportja');
+        (1, '".U_AB_WEBMESTEREK."', '".U_AB_WEBMESTERCSOP."');
        " ;
     if (!mysqli_query($MySqliLink,$InsertIntoStr))  {
        $HTMLkod .=  " MySqli hiba (" .mysqli_errno($MySqliLink). "): " . mysqli_error($MySqliLink);   $Err=1; 
@@ -213,7 +216,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS Felhasznalok";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'Felhasznalok'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'Felhasznalok'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -232,7 +235,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'Felhasznalok'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'Felhasznalok'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -249,7 +252,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS FoMenuLink";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'FoMenuLink'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'FoMenuLink'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -264,13 +267,13 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'FoMenuLink'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'FoMenuLink'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
     // Alapértelmezett oldalak feltöltése
    $InsertIntoStr = "INSERT INTO FoMenuLink (id, LNev, LURL, LPrioritas) VALUES
-        (1, 'Felhasználói kézikönyv', 'https://w3suli.hu/?f0=Felhasznaloi_kezikonyv', 1),
+        (1, '".U_AB_KEZIKONYV."', '".U_AB_KEZIKONYVURL."', 1),
         (2, '', '', 0),
         (3, '', '', 0),
         (4, '', '', 0),
@@ -299,7 +302,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS KiegTartalom";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'KiegTartalom'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT."A <b>'KiegTartalom'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -314,7 +317,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'KiegTartalom'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'KiegTartalom'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -348,7 +351,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS MenuPlusz";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "A <b>'MenuPlusz'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'MenuPlusz'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -363,7 +366,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "A <b>'MenuPlusz'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'MenuPlusz'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -397,7 +400,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS OLathatosag";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "Az <b>'OLathatosag'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'OLathatosag'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -411,7 +414,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "Az <b>'OLathatosag'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'OLathatosag'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -428,7 +431,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS Oldalak";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "Az <b>'Oldalak'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'Oldalak'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -451,36 +454,34 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "Az <b>'Oldalak'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'Oldalak'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
-  } 
-  
+  }   
   // Alapértelmezett oldalak feltöltése
    $InsertIntoStr = "INSERT INTO Oldalak 
     (id, ONev, OUrl, OLathatosag, OPrioritas, OLeiras, OKulcsszavak, OSzuloId, OTipus, OTartalom, OImgDir, OImg) 
     VALUES
-    (1, 'Kezdőlap', 'Kezdolap', 1, 1, '', '', 0, 0, '', '', ''),    
-    (2, 'Bejelentkezés', 'bejelentkezes', 1, 1, '', '', 1, 10, '', '', ''),
-    (3, 'Kijelentkezés', 'kijelentkezes', 1, 1, '', '', 1, 11, '', '', ''),
-    (4, 'Regisztráció', 'regisztracio', 1, 1, '', '', 1, 12, '', '', ''),
-    (5, 'Felhasználó törlése', 'felhasznalo_torlese', 1, 1, '', '', 1, 13, '', '', ''),
-    (6, 'Felhasználó lista', 'felhasznalo_lista', 1, 1, '', '', 1, 14, '', '', ''),
-    (7, 'Adatmódosítás', 'adatmodositas', 1, 1, '', '', 1, 15, '', '', ''),
-    (8, 'Jelszómodosítás', 'jelszomodositas', 1, 1, '', '', 1, 16, '', '', ''),
-    (9, 'Alapbeállítások', 'alapbeallitasok', 1, 1, '', '', -1, 51, '', '', ''),
-    (10, 'Archí­vum', 'Archivum', 1, 1, 'ArchÃ­vum', 'ArchÃ­vum', 1, 22, '', 'Archivum', ''),
-    (11, 'Kiegészítő tartalom', 'kiegeszito_tartalom', 1, 1, '', '', 1, 52, '', '', ''),
-    (12, 'Főmenü linkek beállí­tása', 'Fomenu_linkek_beallitasa', 1, 1, '', '', 1, 53, '', '', ''),
+    (1, '".U_AB_KEZDOLAP."', 'Kezdolap', 1, 1, '', '', 0, 0, '', '', ''),    
+    (2, '".U_AB_BEJEL."', 'bejelentkezes', 1, 1, '', '', 1, 10, '', '', ''),
+    (3, '".U_AB_KIJEL."', 'kijelentkezes', 1, 1, '', '', 1, 11, '', '', ''),
+    (4, '".U_AB_REG."', 'regisztracio', 1, 1, '', '', 1, 12, '', '', ''),
+    (5, '".U_AB_FTOROL."', 'felhasznalo_torlese', 1, 1, '', '', 1, 13, '', '', ''),
+    (6, '".U_AB_FLISTA."', 'felhasznalo_lista', 1, 1, '', '', 1, 14, '', '', ''),
+    (7, '".U_AB_ADMODOSIT."', 'adatmodositas', 1, 1, '', '', 1, 15, '', '', ''),
+    (8, '".U_AB_JSZMOD."', 'jelszomodositas', 1, 1, '', '', 1, 16, '', '', ''),
+    (9, '".U_AB_ALAPBEALL."', 'alapbeallitasok', 1, 1, '', '', -1, 51, '', '', ''),
+    (10, '".U_AB_ARCH."', 'Archivum', 1, 1, 'ArchÃ­vum', 'ArchÃ­vum', 1, 22, '', 'Archivum', ''),
+    (11, '".U_AB_KIEGT."', 'kiegeszito_tartalom', 1, 1, '', '', 1, 52, '', '', ''),
+    (12, '".U_AB_FOLINK."', 'Fomenu_linkek_beallitasa', 1, 1, '', '', 1, 53, '', '', ''),
     
-    (13, 'Felhasználói csoportok', 'Felhasznaloi_csoportok', 1, 1, '', '', 1, 20, '', '', ''),
-    (14, 'Oldaltérkép', 'oldalterkep', 1, 1, '', '', 1, 21, '', 'oldalterkep', ''),
-    (15, 'Menü plusz infók', 'menuplusz', 1, 1, '', '', 1, 54, '', '', '')
+    (13, '".U_AB_FCSOP."', 'Felhasznaloi_csoportok', 1, 1, '', '', 1, 20, '', '', ''),
+    (14, '".U_AB_OTERKEP."', 'oldalterkep', 1, 1, '', '', 1, 21, '', 'oldalterkep', ''),
+    (15, '".U_AB_MENUPL."', 'menuplusz', 1, 1, '', '', 1, 54, '', '', '')
     " ;
     if (!mysqli_query($MySqliLink,$InsertIntoStr))  {
        $HTMLkod .=  " MySqli hiba (" .mysqli_errno($MySqliLink). "): " . mysqli_error($MySqliLink);   $Err=1; 
-    }  
-  
+    }   
   return $HTMLkod;
 }
 
@@ -494,7 +495,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS OldalCikkei";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "Az <b>'OldalCikkei'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'OldalCikkei'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -509,7 +510,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "Az <b>'OldalCikkei'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'OldalCikkei'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -526,7 +527,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS OldalKepek";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "Az <b>'OldalKepek'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'OldalKepek'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -546,7 +547,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "Az <b>'OldalKepek'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'OldalKepek'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
@@ -562,7 +563,7 @@ global $MySqliLink, $Err;
   $DropTableStr = "DROP TABLE IF EXISTS OModeratorok";
   if (mysqli_query($MySqliLink,$DropTableStr))
   {
-    $HTMLkod = "Az <b>'OModeratorok'</b> tábla törlődött.<br>"; 
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'OModeratorok'</b><br>"; 
   } else { 
     $Err=1;  $HTMLkod = "MySqli hiba "; 
   }
@@ -578,7 +579,7 @@ global $MySqliLink, $Err;
   ";
   if (mysqli_query($MySqliLink,$CreateTableStr))
   {
-    $HTMLkod .= "Az <b>'OModeratorok'</b> tábla elkészült.<br>";
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'OModeratorok'</b><br>";
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 

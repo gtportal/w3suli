@@ -8,6 +8,7 @@
   $DedSzuloId     = 0;
   $UkSzuloId      = 0;
 
+  require_once 'lang/w3suli_hu.php';
   require_once 'php/AlapFgvek.php';
   //MUNKAMENET INDÍTÁSA
   session_start();
@@ -18,29 +19,29 @@
   //FSzint=3 > Oldal moderátora
   //FSzint=4 > Rendszergazda
   //FSzint=5 > Kiemelt rendszergazda
-  if (!isset($_SESSION['AktFelhasznalo'.'FSzint'])) {
-      $_SESSION['AktFelhasznalo'.'id']     = 0;
-      $_SESSION['AktFelhasznalo'.'FNev']   = '';
-      $_SESSION['AktFelhasznalo'.'FFNev']  = '';
-      $_SESSION['AktFelhasznalo'.'FEmail'] = '';
-      $_SESSION['AktFelhasznalo'.'FSzint'] =  1;
-      $_SESSION['AktFelhasznalo'.'FSzerep']= '';
-      $_SESSION['AktFelhasznalo'.'FKep']   = '';  
-      
-      $_SESSION['ElozoOldalId']            = 1; 
-      $_SESSION['SzerkFelhasznalo']        = 0;
-      $_SESSION['SzerkFCsoport']           = 0;
-      $_SESSION['SzerkModerator']          = 0;
-      $_SESSION['SzerkMCsoport']           = 0;
-      
-      $_SESSION['SzerkCikk'.'id']          = 0;
-      $_SESSION['SzerkCikk'.'Oid']         = 0;
-      
-      $_SESSION['LapozCikk'.'CT']          = 0;
-      $_SESSION['LapozCikk'.'OUrl']        = '';
-      $_SESSION['LapozKat'.'CT']           = 0;
-      $_SESSION['LapozKat'.'OUrl']         = '';
-  }  
+  
+  if (!isset($_SESSION['AktFelhasznalo'.'id']))     {$_SESSION['AktFelhasznalo'.'id']      = 0;} 
+  if (!isset($_SESSION['AktFelhasznalo'.'FNev']))   {$_SESSION['AktFelhasznalo'.'FNev']    = '';}
+  if (!isset($_SESSION['AktFelhasznalo'.'FFNev']))  {$_SESSION['AktFelhasznalo'.'FFNev']   = '';}
+  if (!isset($_SESSION['AktFelhasznalo'.'FEmail'])) {$_SESSION['AktFelhasznalo'.'FEmail']  = '';}
+  if (!isset($_SESSION['AktFelhasznalo'.'FSzint'])) {$_SESSION['AktFelhasznalo'.'FSzint']  = 1;}
+  if (!isset($_SESSION['AktFelhasznalo'.'FSzerep'])){$_SESSION['AktFelhasznalo'.'FSzerep'] = '';}
+  if (!isset($_SESSION['AktFelhasznalo'.'FKep']))   {$_SESSION['AktFelhasznalo'.'FKep']    = '';}    
+   
+  if (!isset($_SESSION['ElozoOldalId']))     {$_SESSION['ElozoOldalId']     = 1;} 
+  if (!isset($_SESSION['SzerkFelhasznalo'])) {$_SESSION['SzerkFelhasznalo'] = 0;} 
+  if (!isset($_SESSION['SzerkFCsoport']))    {$_SESSION['SzerkFCsoport']    = 0;} 
+  if (!isset($_SESSION['SzerkModerator']))   {$_SESSION['SzerkModerator']   = 0;} 
+  if (!isset($_SESSION['SzerkMCsoport']))    {$_SESSION['SzerkMCsoport']    = 0;} 
+  if (!isset($_SESSION['SzerkCikk'.'id']))   {$_SESSION['SzerkCikk'.'id']   = 0;} 
+  if (!isset($_SESSION['SzerkCikk'.'Oid']))  {$_SESSION['SzerkCikk'.'Oid']  = 0;} 
+  
+  if (!isset($_SESSION['LapozCikk'.'CT']))   {$_SESSION['LapozCikk'.'CT']   = 0;} 
+  if (!isset($_SESSION['LapozCikk'.'OUrl'])) {$_SESSION['LapozCikk'.'OUrl'] = '';}  
+  if (!isset($_SESSION['LapozKat'.'CT']))    {$_SESSION['LapozKat'.'CT']    = 0;} 
+  if (!isset($_SESSION['LapozKat'.'OUrl']))  {$_SESSION['LapozKat'.'OUrl']  = '';}
+  
+  
   
   $_SESSION['ErrorStr']   = '';
   if ($_SESSION['AktFelhasznalo'.'FSzint']==4) {$_SESSION['AktFelhasznalo'.'FSzint']=3;} // A moderátor oldalanként változik  

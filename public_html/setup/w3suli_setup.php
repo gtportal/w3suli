@@ -11,7 +11,7 @@ $ErrStr='';  $Err=0;
 function getTartalomHTML()
 {
   echo  "\n\n<div id='tartalom'>\n ";
-  if (isset($_POST['submit1']) &&  ($_POST['submit1'] == 'Mehet')) { setSetupData(); } 
+  if (isset($_POST['submit1'])) { setSetupData(); } 
   getSetupForm();
   echo  "\n\n</div>";
 }
@@ -93,62 +93,62 @@ function getSetupForm()
 {
 global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FFNev, $FNev, $FJelszo, $FJelszo1, $ErrStr, $Err;
 $HTMLkod = '';
-echo "<h1>$ErrStr</h1>";
 
-if (isset($_POST['submit1']) && ($_POST['submit1'] != 'Mehet')) {$HTMLkod .= "<h1>A W3Suli telepítése</h1>";} 
-else {
-  if ($Err == 0) {$HTMLkod .= "<h1 style='color:#080;'>A W3Suli Blogmotor telepítése megtörtént</h1> 
+if (!isset($_POST['submit1'])) {
+    $HTMLkod .= "<h1>".U_SETUP_TELEPIT."</h1>";    
+} else {
+  if ($Err == 0) {$HTMLkod .= "<h1 style='color:#080;'>".U_SETUP_KESZ."</h1> 
 	  
-	  <span style='color:#080;'>Dátum: ".date("Y.m.d.")."Idő:   ".date("H.i.s.")."</span><br><br>
-    <strong>Ne feledkezzen meg a setup.php törléséről! </strong>";} 
-  else {$HTMLkod .= "<h1 style='color:#800;'>A telepítés során hiba történt</h1> ";} 
+	  <span style='color:#080;'>".U_DATUM.": ".date("Y.m.d.").U_IDO.":   ".date("H.i.s.")."</span><br><br>
+    <strong>".U_SETUP_FONTOS."! </strong>";} 
+  else {$HTMLkod .= "<h1 style='color:#800;'>".U_SETUP_HIBAVOLT."!</h1> ";} 
 }
 
 $HTMLkod .= "<div id='SetupFormDiv'><form method='post' action='#'>";
 
-$HTMLkod .= "<fieldset class='DBAdatok'><legend> Az adatbázis adatai: </legend>";
+$HTMLkod .= "<fieldset class='DBAdatok'><legend> ".U_SETUP_ABADAT.": </legend>";
 if (strpos($ErrStr,'ERR01')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='DBNev' class='label_1'>Az adatbázis neve</label> 
-       <input type='text' name='DBNev' id='DBNev' placeholder='Az adatbázis neve' value='$DBNev' $ErrClass>
+$HTMLkod .= "<p><label for='DBNev' class='label_1'>".U_SETUP_ABNEV.": </label> 
+       <input type='text' name='DBNev' id='DBNev' placeholder='".U_SETUP_ABNEV."' value='$DBNev' $ErrClass>
        <span>*</span></p>";
 if (strpos($ErrStr,'ERR02')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='DBfNev' class='label_1'>Az adatbázis felhasználó neve</label> 
-       <input type='text' name='DBfNev' id='DBfNev' placeholder='Az adatbázis felhasználó neve' value='$DBfNev' $ErrClass>
+$HTMLkod .= "<p><label for='DBfNev' class='label_1'>".U_SETUP_ABROOT.": </label> 
+       <input type='text' name='DBfNev' id='DBfNev' placeholder='".U_SETUP_ABROOT."' value='$DBfNev' $ErrClass>
        <span>*</span></p>";
 if (strpos($ErrStr,'ERR03')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='DBJelszo' class='label_1'>Az adatbázis jelszava</label> 
-       <input type='password' name='DBJelszo' id='DBJelszo' placeholder='Az adatbázis jelszava' value='$DBJelszo' $ErrClass>
+$HTMLkod .= "<p><label for='DBJelszo' class='label_1'>".U_SETUP_ABJELSZO.": </label> 
+       <input type='password' name='DBJelszo' id='DBJelszo' placeholder='".U_SETUP_ABJELSZO."' value='$DBJelszo' $ErrClass>
        <span>*</span></p>";
-$HTMLkod .= "<p><label for='DBJelszo1' class='label_1'>Az adatbázis jelszava</label> 
-       <input type='password' name='DBJelszo1' id='DBJelszo1' placeholder='Az adatbázis jelszó újra' value='$DBJelszo1' $ErrClass>
+$HTMLkod .= "<p><label for='DBJelszo1' class='label_1'>".U_SETUP_ABJELSZO2.": </label> 
+       <input type='password' name='DBJelszo1' id='DBJelszo1' placeholder='".U_SETUP_ABJELSZO2."' value='$DBJelszo1' $ErrClass>
        <span>*</span></p>";
-$HTMLkod .= "<small>A W3Suli Blogmotor telepítéséhez egy MySQL adatbázisra van szükség, amelyet a tárhely adminisztrátora hozhat létre. 
-             <br><i>Az adatbázis kapcsolódási datai később csak a 'init/db/start.php'-ben módisíthatók.</i></small>";
+$HTMLkod .= "<small>".U_SETUP_ABUZI1." 
+             <br><i>".U_SETUP_ABUZI2."</i></small>";
 $HTMLkod .= "</fieldset>";
 
 
-$HTMLkod .= "<fieldset class='AdAdatok'><legend> A kiemelt rendszergazda adatai: </legend>";
+$HTMLkod .= "<fieldset class='AdAdatok'><legend>".U_SETUP_ROOTADATOK.": </legend>";
 if (strpos($ErrStr,'ERR05')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='FNev' class='label_1'>A kiemelt rendszergazda neve</label> 
-       <input type='text' name='FNev' id='FNev' placeholder='A kiemelt rendszergazda Neve' value='$FNev' $ErrClass>
+$HTMLkod .= "<p><label for='FNev' class='label_1'>".U_SETUP_ROOTNEV.": </label> 
+       <input type='text' name='FNev' id='FNev' placeholder='".U_SETUP_ROOTNEV."' value='$FNev' $ErrClass>
        <span>*</span></p>";
 if (strpos($ErrStr,'ERR06')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='FFNev' class='label_1'>A kiemelt rendszergazda felhasználói neve</label> 
-       <input type='text' name='FFNev' id='FFNev' placeholder='A kiemelt rendszergazda felhasználói neve' value='$FFNev' $ErrClass>
+$HTMLkod .= "<p><label for='FFNev' class='label_1'>".U_SETUP_ROOTFNEV.": </label> 
+       <input type='text' name='FFNev' id='FFNev' placeholder='".U_SETUP_ROOTFNEV."' value='$FFNev' $ErrClass>
        <span>*</span></p>";
 if (strpos($ErrStr,'ERR07')!== false) { $ErrClass="class='Error'"; } else { $ErrClass=""; }
-$HTMLkod .= "<p><label for='FJelszo' class='label_1'>A kiemelt rendszergazda jelszava</label> 
-       <input type='password' name='FJelszo' id='FJelszo' placeholder='A kiemelt rendszergazda jelszava' value='$FJelszo' $ErrClass>
+$HTMLkod .= "<p><label for='FJelszo' class='label_1'>".U_SETUP_ROOTJELSZO.": </label> 
+       <input type='password' name='FJelszo' id='FJelszo' placeholder='".U_SETUP_ROOTJELSZO."' value='$FJelszo' $ErrClass>
        <span>*</span></p>";
-$HTMLkod .= "<p><label for='FJelszo1' class='label_1'>A kiemelt rendszergazda jelszó újra</label> 
-       <input type='password' name='FJelszo1' id='FJelszo1' placeholder='A kiemelt rendszergazda jelszava újra' value='$FJelszo1' $ErrClass>
+$HTMLkod .= "<p><label for='FJelszo1' class='label_1'>".U_SETUP_ROOTJELSZO2.": </label> 
+       <input type='password' name='FJelszo1' id='FJelszo1' placeholder='".U_SETUP_ROOTJELSZO2."' value='$FJelszo1' $ErrClass>
        <span>*</span></p>";
 
-$HTMLkod .= "<small>A kiemelt rendszergazda  szerkesztheti az oldalak tartalmát, a webhely valamennyi beállítását.</small>";
+$HTMLkod .= "<small>".U_SETUP_ROOTUZI."</small>";
 $HTMLkod .= "</fieldset>";
 
-$HTMLkod .= "<input type='submit' name='submit1' value='Mehet' >";
-$HTMLkod .= "  Az adatok módosítása esetén a 'Mehet' gombra kattintva újratelepítheti a szoftvert.";
+$HTMLkod .= "<input type='submit' name='submit1' value='".U_BTN_START."' >";
+$HTMLkod .= U_SETUP_STARTUZI.".";
 $HTMLkod .= "</form> </div>";
 
   $HTMLkod = "<div id='FormDiv'>".$HTMLkod."<div>";

@@ -23,6 +23,9 @@ function setAlapbeallitasok() {
         $HeaderStr   = $AlapAdatok['HeaderStr'];
         $GoogleKod   = $AlapAdatok['GoogleKod'];        
         $GooglePlus  = 0; 
+        $FacebookOK  = 0;
+        $HEADextra   = $AlapAdatok['HEADextra'];  // HEADextra
+        $FacebookURL = $AlapAdatok['FacebookURL'];// FacebookURL
 
         if (isset($_POST['submitAlapbeallitasok'])) {  
             if (isset($_POST['WNev']))      {$WNev      = test_post($_POST['WNev']);}  
@@ -32,7 +35,10 @@ function setAlapbeallitasok() {
             if (isset($_POST['Stilus']))    {$Stilus    = INT_post($_POST['Stilus']);}            
             if (isset($_POST['HeaderStr'])) {$HeaderStr = SQL_post($_POST['HeaderStr']);} 
             if (isset($_POST['GoogleKod'])) {$GoogleKod = SQL_post($_POST['GoogleKod']);} 
-            if (isset($_POST['GooglePlus'])){$GooglePlus= 1;}      
+            if (isset($_POST['GooglePlus'])){$GooglePlus= 1;}   
+        if (isset($_POST['HEADextra']))   {$HEADextra   = SQL_post($_POST['HEADextra']);}
+        if (isset($_POST['FacebookURL'])) {$FacebookURL = test_post($_POST['FacebookURL']);} 
+        if (isset($_POST['FacebookOK']))  {$FacebookOK  = 0;} 
             
             $UpdateStr =   "UPDATE AlapAdatok SET 
                             WebhelyNev='$WNev',
@@ -42,7 +48,11 @@ function setAlapbeallitasok() {
                             Stilus=$Stilus,
                             HeaderStr='$HeaderStr',  
                             GoogleKod='$GoogleKod',    
-                            GooglePlus='$GooglePlus' 
+                            GooglePlus='$GooglePlus',                                 
+                        HEADextra='$HEADextra', 
+                        FacebookURL='$FacebookURL', 
+                        FacebookOK=$FacebookOK     
+
                             WHERE id>0 LIMIT 1"; 
             $result    = mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba sAb 01");
         }
@@ -92,9 +102,13 @@ function getAlapbeallitasForm() {
         $HeaderImg   = $AlapAdatok['HeaderImg'];
         $FavIconImg  = $AlapAdatok['FavIcon'];   
         
-        $GoogleKod  = $AlapAdatok['GoogleKod'];
-        $GooglePlus = $AlapAdatok['GooglePlus'];
-        $HeaderStr  = $AlapAdatok['HeaderStr'];   
+        $GoogleKod   = $AlapAdatok['GoogleKod'];
+        $GooglePlus  = $AlapAdatok['GooglePlus'];
+        $HeaderStr   = $AlapAdatok['HeaderStr'];  
+    
+        $HEADextra   = $AlapAdatok['HEADextra'];  // HEADextra
+        $FacebookURL = $AlapAdatok['FacebookURL'];// FacebookURL
+        $FacebookOK  = $AlapAdatok['FacebookOK']; // FacebookOK
 
         $HTMLkod .= "<div id='divAlapbeallitasForm' >\n";
         if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
@@ -149,7 +163,8 @@ function getAlapbeallitasForm() {
         $HTMLkod .= "<p class='pIskola'><label for='GoogleKod' class='label_1'>".U_ALAPBE_ANALYTICS.":</label><br>\n ";
         $HTMLkod .= "<input type='text' name='GoogleKod' id='GoogleKod' placeholder='".U_ALAPBE_ANALYTICS."' value='$GoogleKod' size='40'></p>\n";
         $HTMLkod .= "<p class='pIskola'><label for='HEADextra' class='label_1'>".U_ALAPBE_HEADEXTRA.":</label><br>\n ";
-        $HTMLkod .= "<input type='text' name='HEADextra' id='HEADextra' placeholder='".U_ALAPBE_HEADEXTRA."' value='$HEADextra' size='40'></p>\n";
+        $HTMLkod_ = "<input type='text' name='HEADextra' id='HEADextra' placeholder='".U_ALAPBE_HEADEXTRA."' value='$HEADextra' size='40'></p>\n";
+        $HTMLkod .= "<textarea name='HEADextra' id='HEADextra' rows='2' cols='50' >$HEADextra</textarea>";
         $HTMLkod .= "</fieldset>";
         
         //Submit

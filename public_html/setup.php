@@ -2,6 +2,7 @@
   session_start();
   $mm_azon   = session_id(); 
   if (!isset($_SESSION['AktFelhasznalo'.'FSzint'])) {$_SESSION['AktFelhasznalo'.'FSzint']=1;}
+  require_once 'lang/w3suli_hu.php';
   require_once("php/AlapFgvek.php");
   require_once("setup/w3suli_setup.php");
 ?>
@@ -22,7 +23,7 @@
   <div id='Keret'>
     <div id='FoHeder' style='background-color:#fff;'>
       <img src="img/ikonok/HeaderImg/w3logo.png" alt="W3Suli logo" id='webaruhazlogo' style="float:left;" height="95" >
-      <h1> W3Suli blogmotor telepítő <br> V1.01</h1>
+      <h1> <?php echo U_SETUP_CÍM ?> <br> V1.03</h1>
     </div>
     <?php 
       getTartalomHTML();   
