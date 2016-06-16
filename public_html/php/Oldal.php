@@ -1110,9 +1110,10 @@ function setOldalTorol() {
         
         $keywords    = $Aktoldal['OKulcsszavak'];
         $HTMLkod    .= "  <meta name='keywords' content='$keywords'> \n";
+        $HTMLkod    .= $AlapAdatok['HEADextra']." \n";
+        
         return $HTMLkod;
     }
-
 
 
 ?>

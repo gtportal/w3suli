@@ -87,6 +87,40 @@ global $MySqliLink, $Err;
   return $HTMLkod;
 }
 
+//------------------------------------------------------------------------------------------------------------------
+// ----------- CikkKepek TÁBLA LÉTREHOZÁSA
+//------------------------------------------------------------------------------------------------------------------
+function Letrehoz_CikkDokumentumok()
+{
+global $MySqliLink, $Err; 
+  $DropTableStr = "DROP TABLE IF EXISTS CikkDokumentumok";
+  if (mysqli_query($MySqliLink,$DropTableStr))
+  {
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'CikkDokumentumok'</b><br>"; 
+  } else { 
+    $Err=1;  $HTMLkod = "MySqli hiba "; 
+  }
+  $CreateTableStr="
+    CREATE TABLE IF NOT EXISTS CikkDokumentumok (
+      id int(10) NOT NULL AUTO_INCREMENT,
+      Cid int(10) NOT NULL,
+      DFile varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+      DNev varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+      DLeiras varchar(255) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+      DMeretKB smallint(6) NOT NULL DEFAULT '-1',
+      DSorszam tinyint(4) NOT NULL DEFAULT '0',
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ; 
+  ";
+  if (mysqli_query($MySqliLink,$CreateTableStr))
+  {
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'CikkDokumentumok'</b><br>";
+  } else { 
+    $Err=1; $HTMLkod .= "MySqli hiba ";
+  } 
+  return $HTMLkod;
+}
+
 
 //------------------------------------------------------------------------------------------------------------------
 // ----------- CikkKepek TÁBLA LÉTREHOZÁSA

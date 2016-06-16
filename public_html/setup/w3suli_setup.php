@@ -65,6 +65,7 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
     
   if ($Err==0) {$HTMLkod .= Letrehoz_AlapAdatok();}
   if ($Err==0) {$HTMLkod .= Letrehoz_Cikkek();}
+  if ($Err==0) {$HTMLkod .= Letrehoz_CikkDokumentumok();}  
   if ($Err==0) {$HTMLkod .= Letrehoz_CikkKepek();}
   if ($Err==0) {$HTMLkod .= Letrehoz_FCsoportTagok();}
   if ($Err==0) {$HTMLkod .= Letrehoz_FelhasznaloCsoport();}
