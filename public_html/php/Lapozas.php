@@ -195,7 +195,7 @@ function getCikkLapinfo($MaxDBperOldal) {
             } else {
                 $strIdLista     = implode(",", $arrGyermekek);
             }                                   
-            $arrLapinfo['SelectStr']       = "SELECT * FROM Cikkek WHERE id IN ($strIdLista)";        
+            $arrLapinfo['SelectStr']       = "SELECT * FROM Cikkek WHERE id IN ($strIdLista) ORDER BY FIELD(id, $strIdLista) ";        
 
             $EllsoLap                      = $AktLap - 5;     if ($EllsoLap<1) {$EllsoLap=1;}
             $UtolsoLap                     = $EllsoLap + 10;  if ($UtolsoLap>$MaxLap) {$UtolsoLap=$MaxLap;}
@@ -401,7 +401,7 @@ function getCikkElozetesLapinfo($MaxDBperOldal,$Tipus) {
                     ON OC.Cid = C.id
                     LEFT JOIN Oldalak AS O
                     ON OC.Oid = O.id
-                    WHERE C.id IN ($strIdLista) ";
+                    WHERE C.id IN ($strIdLista) ORDER BY FIELD(C.id, $strIdLista) ";
             } else {
                 $arrLapinfo['SelectStr'] = "";
             }

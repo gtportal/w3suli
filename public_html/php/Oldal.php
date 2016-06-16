@@ -912,7 +912,13 @@ function setOldalTorol() {
         // ----------  Speciális tartalom kiíratása  ----------------------------
         $HTMLkod  .= "<div id='divOTartalom'>\n";  
         //$HTMLkod  .= "<h1> OTipus:".$Aktoldal['OTipus']."</h1>\n";
-        
+        /*
+if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) { 
+    $HTMLkod    .= getTisztaURL(). "<br>"; 
+    print_r($_GET);
+    $HTMLkod    .= getRootURL();
+     
+}*/
         switch ($Aktoldal['OTipus']) {
           case 0:   $HTMLkod  .= "<h1>".$AlapAdatok['WebhelyNev']."</h1>\n "; // Kezdőlap                    
                     $arrLapozC    = getCikkLapinfo(10);
@@ -1073,7 +1079,7 @@ function setOldalTorol() {
                    break;    
           case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
-                           $HTMLkod    .= getKiegTForm();
+                           $HTMLkod    .= getKiegTForm();   
                     }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";} 
                    break;   
           case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
@@ -1095,14 +1101,17 @@ function setOldalTorol() {
     }
 
     function getHead() {
-        global $Aktoldal, $AlapAdatok;
+        global $Aktoldal, $AlapAdatok, $RootURL, $TisztaOURL;
+ 
         $HTMLkod      = '';
         //Az oldal neve
         if ($Aktoldal['OTipus']!=0) {
-           $HTMLkod   = "<title>".$Aktoldal['ONev']." - ".$AlapAdatok['WebhelyNev']."</title>\n";
+           $title   = $Aktoldal['ONev']." - ".$AlapAdatok['WebhelyNev'];
         } else {
-           $HTMLkod   = "<title>".$AlapAdatok['WebhelyNev']." </title>\n";  
+           $title   = $AlapAdatok['WebhelyNev'];  
         }
+         
+        $HTMLkod    .= "<title>$title</title>\n";
         //Az aktuális stíluslap linkje 
         $HTMLkod    .= "<link type='text/css' rel='stylesheet' media='all'   href='css/w3suli_stilus_".$AlapAdatok['Stilus'].".css' />\n";
         $description = $Aktoldal['OLeiras'];
@@ -1110,6 +1119,28 @@ function setOldalTorol() {
         
         $keywords    = $Aktoldal['OKulcsszavak'];
         $HTMLkod    .= "  <meta name='keywords' content='$keywords'> \n";
+        
+     //   $TisztaURL   = getTisztaURL();
+        $ImgSrc      = $RootURL.'/img/ikonok/HeaderImg/'.$AlapAdatok['HeaderImg'];
+        
+        if ($Aktoldal['OImg']!='') {
+            if ($Aktoldal['OImgDir']!='') {
+                $KepUtvonal = "/img/oldalak/".$Aktoldal['OImgDir']."/";            
+            } else {
+                $KepUtvonal = "/img/oldalak/";    
+            }
+            $ImgSrc = $RootURL.$KepUtvonal.$Aktoldal['OImg']; 
+        } 
+        
+      //ELŐKÉSZÍTVE  
+        //$HTMLkod    .= "\n<link rel='canonical' href='$TisztaOURL' />\n";        
+        $HTMLkod    .= "<meta property='og:url'         content='$TisztaOURL' />\n";
+	$HTMLkod    .= "<meta property='og:type'        content='website' />\n";
+	$HTMLkod    .= "<meta property='og:title'       content='$title' />\n";
+	$HTMLkod    .= "<meta property='og:description' content='$description' />\n";
+	$HTMLkod    .= "<meta property='og:image'       content='$ImgSrc' />\n";       
+        
+        
         $HTMLkod    .= $AlapAdatok['HEADextra']." \n";
         
         return $HTMLkod;

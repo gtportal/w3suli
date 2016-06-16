@@ -321,6 +321,7 @@ function getCikkForm() {
         $SZoElozetes = 0;
         $CPrioritas  = 1;
         $ErrorStr    = '';
+        $InfoClass   = '';
         if (!isset($_POST['submitCikkForm']) || $_SESSION['ErrorStr']==''){
         //Ha még nem lett elküldve vagy a cikk már módosítva lett
             $id = 0;

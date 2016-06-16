@@ -7,9 +7,11 @@
   $NagyszuloOldal = array();
   $DedSzuloId     = 0;
   $UkSzuloId      = 0;
+  
 
   require_once 'lang/w3suli_hu.php';
   require_once 'php/AlapFgvek.php';
+  
   //MUNKAMENET INDÍTÁSA
   session_start();
   $mm_azon   = session_id(); 
@@ -52,6 +54,8 @@
 
   //ADATBÁZIS MEGNYITÁSA
   require_once("init/db/start.php");
+  $RootURL        = getRootURL();
+  $TisztaOURL     = getTisztaURL();
   //require_once("php/DB/Adatbazis.php");
   //require_once("php/Init.php");  
   //Alapadatok lekérdezése

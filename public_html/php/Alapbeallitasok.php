@@ -8,7 +8,10 @@ $AlapAdatok['HeaderStr']  = '';
 $AlapAdatok['GoogleKod']  = ''; 
 $AlapAdatok['GooglePlus'] =  0;
 $AlapAdatok['HeaderImg']  = '';
-$AlapAdatok['FavIcon']  = ''; 
+$AlapAdatok['FavIcon']    = ''; 
+
+$AlapAdatok['HEADextra']  = ''; 
+$AlapAdatok['FacebookURL']= ''; 
 
 function setAlapbeallitasok() {  
     global $MySqliLink, $AlapAdatok;

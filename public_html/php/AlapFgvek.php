@@ -1,16 +1,31 @@
 <?php
 
 
-function getURL(){
+function getTisztaURL(){
     if(isset($_SERVER['HTTPS'])){
         $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
     }
     else{
         $protocol = 'http';
     }
-    return $protocol . "://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $request1 = '';
+    if (isset($_GET['f0']) && $_GET['f0']!='') {$request1 .= '?f0='.test_post($_GET['f0']);}
+    if (isset($_GET['lap']) && $_GET['lap']>1) {$request1 .= '&amp;lap='.INT_post($_GET['lap']);}
+    $path = $_SERVER['REQUEST_URI'];
+    if (strpos($path,"?f0=")>0) { $path = substr($path,0, strpos($path,"?f0="));}
+    
+    return $protocol . "://" . $_SERVER['HTTP_HOST']. $path. $request1;
 }
 
+function getRootURL() {
+    if(isset($_SERVER['HTTPS'])){
+        $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
+    }
+    else{
+        $protocol = 'http';
+    }    
+    return $protocol . "://" .$_SERVER['HTTP_HOST'];    
+}
 
 
 
