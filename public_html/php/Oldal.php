@@ -1132,14 +1132,23 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
             $ImgSrc = $RootURL.$KepUtvonal.$Aktoldal['OImg']; 
         } 
         
-      //ELŐKÉSZÍTVE  
-        //$HTMLkod    .= "\n<link rel='canonical' href='$TisztaOURL' />\n";        
-        $HTMLkod    .= "<meta property='og:url'         content='$TisztaOURL' />\n";
-	$HTMLkod    .= "<meta property='og:type'        content='website' />\n";
-	$HTMLkod    .= "<meta property='og:title'       content='$title' />\n";
-	$HTMLkod    .= "<meta property='og:description' content='$description' />\n";
-	$HTMLkod    .= "<meta property='og:image'       content='$ImgSrc' />\n";       
         
+      //ELŐKÉSZÍTVE  
+        $HTMLkod    .= "\n<link rel='canonical' href='$TisztaOURL' />\n";   
+        
+        
+     //   echo "<h1>XXXXXX: ".$AlapAdatok['FacebookOK']."</h1>";
+        if (($AlapAdatok['FacebookOK']==2) || (($AlapAdatok['FacebookOK']==1)&& ($Aktoldal['OTipus'])==0)){
+            $FacebookURL     = $AlapAdatok['FacebookURL'];
+            if (strpos($FacebookURL,"facebook.com") === false) {
+                $HTMLkod    .= "<meta property='og:url'         content='$TisztaOURL' />\n";
+                $HTMLkod    .= "<meta property='og:type'        content='website' />\n";
+                $HTMLkod    .= "<meta property='og:title'       content='$title' />\n";
+                $HTMLkod    .= "<meta property='og:description' content='$description' />\n";
+                $HTMLkod    .= "<meta property='og:image'       content='$ImgSrc' />\n";       
+            }
+        }
+        //https://www.facebook.com/w3suli.blogmotor/?fre
         
         $HTMLkod    .= $AlapAdatok['HEADextra']." \n";
         

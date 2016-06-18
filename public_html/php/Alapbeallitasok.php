@@ -31,17 +31,17 @@ function setAlapbeallitasok() {
         $FacebookURL = $AlapAdatok['FacebookURL'];// FacebookURL
 
         if (isset($_POST['submitAlapbeallitasok'])) {  
-            if (isset($_POST['WNev']))      {$WNev      = test_post($_POST['WNev']);}  
-            if (isset($_POST['Iskola']))    {$Iskola    = test_post($_POST['Iskola']);} 
-            if (isset($_POST['Cim']))       {$Cim       = test_post($_POST['Cim']);}  
-            if (isset($_POST['Telefon']))   {$Telefon   = test_post($_POST['Telefon']);} 
-            if (isset($_POST['Stilus']))    {$Stilus    = INT_post($_POST['Stilus']);}            
-            if (isset($_POST['HeaderStr'])) {$HeaderStr = SQL_post($_POST['HeaderStr']);} 
-            if (isset($_POST['GoogleKod'])) {$GoogleKod = SQL_post($_POST['GoogleKod']);} 
-            if (isset($_POST['GooglePlus'])){$GooglePlus= 1;}   
-        if (isset($_POST['HEADextra']))   {$HEADextra   = SQL_post($_POST['HEADextra']);}
-        if (isset($_POST['FacebookURL'])) {$FacebookURL = test_post($_POST['FacebookURL']);} 
-        if (isset($_POST['FacebookOK']))  {$FacebookOK  = 0;} 
+            if (isset($_POST['WNev']))       {$WNev        = test_post($_POST['WNev']);}  
+            if (isset($_POST['Iskola']))     {$Iskola      = test_post($_POST['Iskola']);} 
+            if (isset($_POST['Cim']))        {$Cim         = test_post($_POST['Cim']);}  
+            if (isset($_POST['Telefon']))    {$Telefon     = test_post($_POST['Telefon']);} 
+            if (isset($_POST['Stilus']))     {$Stilus      = INT_post($_POST['Stilus']);}            
+            if (isset($_POST['HeaderStr']))  {$HeaderStr   = SQL_post($_POST['HeaderStr']);} 
+            if (isset($_POST['GoogleKod']))  {$GoogleKod   = SQL_post($_POST['GoogleKod']);} 
+            if (isset($_POST['GooglePlus'])) {$GooglePlus  = INT_post($_POST['GooglePlus']);}       
+            if (isset($_POST['HEADextra']))  {$HEADextra   = SQL_post($_POST['HEADextra']);}
+            if (isset($_POST['FacebookURL'])){$FacebookURL = test_post($_POST['FacebookURL']);} 
+            if (isset($_POST['FacebookOK'])) {$FacebookOK  = INT_post($_POST['FacebookOK']);} 
             
             $UpdateStr =   "UPDATE AlapAdatok SET 
                             WebhelyNev='$WNev',
@@ -52,9 +52,9 @@ function setAlapbeallitasok() {
                             HeaderStr='$HeaderStr',  
                             GoogleKod='$GoogleKod',    
                             GooglePlus='$GooglePlus',                                 
-                        HEADextra='$HEADextra', 
-                        FacebookURL='$FacebookURL', 
-                        FacebookOK=$FacebookOK     
+                            HEADextra='$HEADextra', 
+                            FacebookURL='$FacebookURL', 
+                            FacebookOK=$FacebookOK     
 
                             WHERE id>0 LIMIT 1"; 
             $result    = mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba sAb 01");
@@ -148,15 +148,35 @@ function getAlapbeallitasForm() {
         $HTMLkod .= "<input type='number' name='Stilus' id='Stilus' min='0' max='13' step='1' value='$Stilus'></p>\n";  
         $HTMLkod .= "</fieldset>";
 
-        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_KOZOSSEGI.":</legend>";
+        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_GOOGLEPL.":</legend>";
         // Google+ gomb
+        if($GooglePlus==0){$checked=" checked ";}else{$checked="";}
+        $HTMLkod .="<input type='radio' id='GooglePlus_0' name='GooglePlus' value='0' $checked>";
+        $HTMLkod .="<label for='GooglePlus_0' class='label_1'>".U_ALAPBE_GOOGLEPLNEM."</label><br>";
+        
         if($GooglePlus==1){$checked=" checked ";}else{$checked="";}
-        $HTMLkod .="<input type='checkbox' id='GooglePlus' name='GooglePlus' value='0' $checked>";
-        $HTMLkod .="<label for='GooglePlus' class='label_1'>".U_ALAPBE_GOOGLEPL."</label><br>";
-        // Facebook
+        $HTMLkod .="<input type='radio' id='GooglePlus_1' name='GooglePlus' value='1' $checked>";
+        $HTMLkod .="<label for='GooglePlus_1' class='label_1'>".U_ALAPBE_GOOGLEPL1."</label><br>";
+        
+        if($GooglePlus==2){$checked=" checked ";}else{$checked="";}
+        $HTMLkod .="<input type='radio' id='GooglePlus_2' name='GooglePlus' value='2' $checked>";
+        $HTMLkod .="<label for='GooglePlus_2' class='label_1'>".U_ALAPBE_GOOGLEPLOK."</label><br>";       
+        $HTMLkod .= "</fieldset>";
+        
+        // Facebook gomb
+        $HTMLkod .= "<fieldset> <legend>".U_ALAPBE_FACEBOOK.":</legend>";
+        if($FacebookOK==0){$checked=" checked ";}else{$checked="";}
+        $HTMLkod .="<input type='radio' id='FacebookOK_0' name='FacebookOK' value='0' $checked>";
+        $HTMLkod .="<label for='FacebookOK_0' class='label_1'>".U_ALAPBE_FACEBOOKNEM."</label><br>";
+        
         if($FacebookOK==1){$checked=" checked ";}else{$checked="";}
-        $HTMLkod .="<input type='checkbox' id='FacebookOK' name='FacebookOK' value='0' $checked>";
-        $HTMLkod .="<label for='FacebookOK' class='label_1'>".U_ALAPBE_FACEBOOKOK."</label><br>";
+        $HTMLkod .="<input type='radio' id='FacebookOK_1' name='FacebookOK' value='1' $checked>";
+        $HTMLkod .="<label for='FacebookOK_1' class='label_1'>".U_ALAPBE_FACEBOOK1."</label><br>";
+        
+        if($FacebookOK==2){$checked=" checked ";}else{$checked="";}
+        $HTMLkod .="<input type='radio' id='FacebookOK_2' name='FacebookOK' value='2' $checked>";
+        $HTMLkod .="<label for='FacebookOK_2' class='label_1'>".U_ALAPBE_FACEBOOKOK."</label><br>";
+        
         $HTMLkod .= "<p class='pTelefon'><label for='FacebookURL' class='label_1'>".U_ALAPBE_FACEBOOKURL.":</label><br>\n ";
         $HTMLkod .= "<input type='text' name='FacebookURL' id='FacebookURL' placeholder='".U_ALAPBE_FACEBOOKURL."' value='$FacebookURL' size='40'></p>\n";
         $HTMLkod .= "</fieldset>";  

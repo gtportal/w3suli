@@ -233,16 +233,33 @@ function JSonLoad()
 
         </script>";
     //UA-76662941-1
-    } ?>
+    
+    }
+   
+    if (($AlapAdatok['FacebookOK']==2) || (($AlapAdatok['FacebookOK']==1)&& ($Aktoldal['OTipus'])==0)){
+        echo "
+            <div id='fb-root'></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = '//connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v2.6';
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>            
+        ";    
+    } 
+    ?>
     
     
     <!-- Helyezd el ezt a címkét a head szakaszban vagy közvetlenül a záró body címke elé. -->
-    <?php if ($AlapAdatok['GooglePlus']==1){ 
-    echo "       
-    <script src='https://apis.google.com/js/platform.js' async defer>
-      {lang: 'hu'}
-    </script>";
-    } ?>
+    <?php 
+    if (($AlapAdatok['GooglePlus']==2) || (($AlapAdatok['GooglePlus']==1)&& ($Aktoldal['OTipus'])==0)){    
+        echo "       
+            <script src='https://apis.google.com/js/platform.js' async defer>
+              {lang: 'hu'}
+            </script>";
+        } 
+    ?>
     
   </body>
 

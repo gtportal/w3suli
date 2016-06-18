@@ -113,8 +113,22 @@ function setMenuPlusz() {
 }
 
 function getMenuPluszHTML() {
-    global $MySqliLink;
-    $HTMLkod   = '';
+    global $MySqliLink, $AlapAdatok, $TisztaOURL, $Aktoldal;
+    $HTMLkod         = '';
+    $FacebookURL     = '';
+    //https://www.facebook.com/w3suli.blogmotor/?fref=ts   
+    //echo "<h1>A:".$Aktoldal['OTipus']."</h1>";
+    if (($AlapAdatok['FacebookOK']==2) || (($AlapAdatok['FacebookOK']==1)&& ($Aktoldal['OTipus'])==0)){
+        $FacebookURL     = $AlapAdatok['FacebookURL'];
+        if ($FacebookURL=='') {$FacebookURL=$TisztaOURL;}
+        $HTMLkod    .= " <div id='fb-likeKulso'>
+        <div class='fb-like' data-href='$FacebookURL' 
+        data-width='290' data-layout='standard' data-action='like' data-show-faces='true' data-share='true'></div>
+        </div>
+    ";}  
+    
+    
+    
     $SelectStr = "SELECT * FROM MenuPlusz WHERE MenuPlPrioritas>0 ORDER BY MenuPlPrioritas DESC";
     $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sKTT 01");
     $rowDB     = mysqli_num_rows($result); 

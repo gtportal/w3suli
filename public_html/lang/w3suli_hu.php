@@ -147,7 +147,16 @@ define("U_ALAPBE_WSITLUS",    "A webhely stílusa",TRUE);
 define("U_ALAPBE_SITLUS",     "Sílus",TRUE);
 define("U_ALAPBE_KOZOSSEGI",  "Közösségi oldalak",TRUE);
 define("U_ALAPBE_GOOGLEPL",   "Google+ gomb megjelenítése",TRUE);
-define("U_ALAPBE_FACEBOOKOK", "Facebook gomb megjelenítése",TRUE);
+define("U_ALAPBE_GOOGLEPLNEM","Nincs Google+ gomb",TRUE);
+define("U_ALAPBE_GOOGLEPL1",  "Csak a kezdőlapon",TRUE);
+define("U_ALAPBE_GOOGLEPLOK", "Minden oldalon",TRUE);
+
+
+define("U_ALAPBE_FACEBOOK",   "Facebook gomb megjelenítése",TRUE);
+define("U_ALAPBE_FACEBOOKNEM","Nincs Facebook gomb",TRUE);
+define("U_ALAPBE_FACEBOOK1",  "Csak a kezdőlapon",TRUE);
+define("U_ALAPBE_FACEBOOKOK", "Minden oldalon",TRUE);
+
 define("U_ALAPBE_FACEBOOKURL","Facebook URL",TRUE);
 define("U_ALAPBE_EXTRAK",     "Extrák",TRUE);
 define("U_ALAPBE_ANALYTICS",  "Google Analytics azonosító",TRUE);
