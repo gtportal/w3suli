@@ -29,6 +29,33 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     $arr          = array( "#1" => "$HTMLHirKepTMB[0]", "#2" => "$HTMLHirKepTMB[1]", "#3" => "$HTMLHirKepTMB[2]", 
                            "#4" => "$HTMLHirKepTMB[3]", "#5" => "$HTMLHirKepTMB[4]", "##" => "");  
     $HTMLkod      = strtr($CTartalom ,$arr);
+    $HTMLkod      = getDokumentumCsereL($Cid,$HTMLkod,$KepUtvonal);
+    return $HTMLkod;            
+}
+
+function getDokumentumCsereL($Cid,$CTartalom,$KepUtvonal) {
+    global $MySqliLink, $Aktoldal;
+    $HTMLkod       = '';    
+    $SelectStr     = "SELECT DNev, DFile, DLeiras, DMeretKB, DFFile FROM CikkDokumentumok WHERE Cid=$Cid ORDER BY DSorszam";
+    $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+    $HTMLHirDocTMB = array('','','','','');
+    $i             = 0;
+    $rowDB         = mysqli_num_rows($result); 
+    if ($rowDB > 0) {
+        while ($row   = mysqli_fetch_array($result)){
+            $Src      = $KepUtvonal."doc/".$row['DFile'];
+            $DNev     = $row['DNev']; 
+            $DLeiras  = $row['DLeiras']; 
+            $DMeretKB = $row['DMeretKB'];
+            $DLinkKod   = "<a href='$Src'>$DNev</a><span> ($DMeretKB KB)</span>";
+            $HTMLHirDocTMB[$i] = $DLinkKod;
+            $i++;
+        }
+        mysqli_free_result($result);
+    }
+    $arr          = array( "#D1" => "$HTMLHirDocTMB[0]", "#D2" => "$HTMLHirDocTMB[1]", "#D3" => "$HTMLHirDocTMB[2]", 
+                           "#D4" => "$HTMLHirDocTMB[3]", "#D5" => "$HTMLHirDocTMB[4]");  
+    $HTMLkod      = strtr($CTartalom ,$arr);
     return $HTMLkod;            
 }
 
@@ -80,8 +107,9 @@ function getCikkekForm() {
     if ($_SESSION['AktFelhasznalo'.'FSzint']>2) {  // Meg. A FSzint vizsgálata FONTOS!!! Később még a tulajdonossal bővűl.
 
         $HTMLkod .= "<div id='divCikkek'>";
-        if (isset($_POST['submitCikkValaszt']) || isset($_POST['submitUjCikkForm']) || isset($_POST['submitCikkForm']) ||
-            isset($_POST['submitCikkTorol']) || isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm'])                 
+        if (isset($_POST['submitCikkValaszt']) || isset($_POST['submitUjCikkForm'])            || isset($_POST['submitCikkForm']) ||
+            isset($_POST['submitCikkTorol'])   || isset($_POST['submit_CikkKepekFeltoltForm']) || isset($_POST['submitCikkKepForm']) ||
+                                                  isset($_POST['submit_CikkDokokFeltoltForm']) || isset($_POST['submitCikkDokForm'])                
            ){    
             $HTMLkod  .= "<input name='chFormkodCikk'  id='chFormkodCikk' value='chFormkodCikk'   type='checkbox' checked >\n";
             $HTMLkod  .= "<label for='chFormkodCikk'   class='chLabel'    id='labelchFormkodCikk'>".U_CIKK_SZERK."</label>\n";
@@ -119,11 +147,20 @@ function getCikkekForm() {
             $HTMLkod  .= "<input name='chCikkForm'   id='chCikkKepForm' value='chCikkKepForm'  type='radio'  >\n";
             $HTMLkod  .= "<label for='chCikkKepForm' class='chLabel'    id='labelCikkKepForm'>".U_CIKK_KEP."</label>\n \n";
         } 
+        // Cikk dokumentumai
+        if (isset($_POST['submit_CikkDokokFeltoltForm']) || isset($_POST['submitCikkDokForm'])) {//====CikkKepForm megjelenítését szabályozó input elem====
+            $HTMLkod  .= "<input name='chCikkForm'   id='chCikkDokForm' value='chCikkDokForm'  type='radio' checked>\n";
+            $HTMLkod  .= "<label for='chCikkDokForm' class='chLabel'    id='labelCikkDokForm'>".U_CIKK_DOK."</label>\n \n";
+        } else {
+            $HTMLkod  .= "<input name='chCikkForm'   id='chCikkDokForm' value='chCikkDokForm'  type='radio'  >\n";
+            $HTMLkod  .= "<label for='chCikkDokForm' class='chLabel'    id='labelCikkDokForm'>".U_CIKK_DOK."</label>\n \n";
+        } 
 
         $HTMLkod  .= getUjCikkForm();
         $HTMLkod  .= getCikkForm();
         $HTMLkod  .= getCikkTorolForm();
         $HTMLkod  .= getCikkKepForm();
+        $HTMLkod  .= getCikkDokForm();
         $HTMLkod  .= "</div>\n";
         $HTMLkod  .= "</div>\n"; 
     }

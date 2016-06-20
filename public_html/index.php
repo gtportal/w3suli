@@ -89,6 +89,7 @@
   require_once 'php/OldalCikkei.php';
   require_once 'php/Cikk.php';
   require_once 'php/CikkKep.php';
+  require_once 'php/CikkDokumentum.php';
   
   require_once 'php/OldalKeptar.php';
   require_once 'php/morzsa.php';
@@ -137,6 +138,9 @@
     $_SESSION['ErrorStr']   .= setCikkTorol();  
     $_SESSION['ErrorStr']   .= setCikkKepek();
     $_SESSION['ErrorStr']   .= setCikkKepFeltolt();
+    
+    $_SESSION['ErrorStr']   .= setCikkDokumentumok();
+    $_SESSION['ErrorStr']   .= setCikkDokFeltolt();
   }
   
   //KIEGÉSZÍTŐ TARTALOM MÓDOSÍTÁSA

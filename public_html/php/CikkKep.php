@@ -121,7 +121,7 @@ function setCikkKepFeltolt() {
                     }
                     $i++; $OkKFileCt--;
                 }
-            if ($i<$KFileDb) { $UploadErr .= "<p class='Error'> Csak 10 kép tölthető fel!</p>\n";}
+            if ($i<$KFileDb) { $UploadErr .= "<p class='Error'>".U_CSAK_10_KEP."!</p>\n";}
           }
     }
       return $UploadErr;
@@ -161,7 +161,7 @@ function setCikkKepek() {
             $KNev       = '';
             
             //=============================HIBAKEZELÉS==============================
-            for($i=0; $i<$rowDB; $i++) {
+      /*      for($i=0; $i<$rowDB; $i++) {
                 if (isset($_POST["CKNev_$i"])) {
                     $KNev=test_post($_POST["CKNev_$i"]);
                     if(strlen($KNev)>40) {                         
@@ -169,7 +169,7 @@ function setCikkKepek() {
                         $KNev=substr($KNev,0,40);                        
                     }
                 }
-            }
+            }*/
             //====================POST beillesztése adatbázisba=====================
             if ($Oid == $Aktoldal['id']) {
                 for($i=0; $i<$rowDB; $i++) {
@@ -185,6 +185,13 @@ function setCikkKepek() {
                         if (isset($_POST["CKMagassag_$i"]))  {$KMagassag =test_post($_POST["CKMagassag_$i"]);}
                         if (isset($_POST["CKStilus_$i"]))    {$KStilus   =test_post($_POST["CKStilus_$i"]);}
                         if (isset($_POST["CKSorszam_$i"]))   {$KSorszam  =test_post($_POST["CKSorszam_$i"]);}
+                        if (isset($_POST["CKNev_$i"])) {
+                            $KNev=test_post($_POST["CKNev_$i"]);
+                            if(strlen($KNev)>40) {                         
+                                $ErrorStr .= "ErrH01 $KNev <br>\n";
+                                $KNev=substr($KNev,0,40);                        
+                            }
+                        }
                     }
                     $UpdateStr = "UPDATE CikkKepek SET 
                                 KNev='$KNev', 
@@ -387,6 +394,7 @@ function getCikkKepForm() {
             $HTMLkod  .=  "<input type='submit' name='submitCikkKepForm' value='".U_BTN_MODOSITAS."' style='clear:left;'><br><br>\n";        
             $HTMLkod  .= "</form></div>\n";
         } else {
+            $HTMLkod  .= "<div id='divCikkKepForm1'><form action='?f0=$OUrl' method='post' id='formCikkKepForm'>\n";
             $HTMLkod  .= "<h2>".U_CKEP_NINCS."!</h2>\n";
             
             $HTMLkod  .= "</form></div>\n";
@@ -488,7 +496,7 @@ global $Aktoldal, $MySqliLink;
         while ($row  = mysqli_fetch_array($result)){
             $KFile   = $row['KFile'];
             $UFNev   = getTXTtoURL($UFNev);
-            if (strlen($CKNev)>50) {$CKNev=substr($CKNev,0,50);}
+            if (strlen($UFNev)>50) {$UFNev=substr($UFNev,0,50);}
             $RFNev   = getTXTtoURL($RFNev);
             if (strlen($RFNev)>50) {$RFNev=substr($RFNev,0,50);}
 

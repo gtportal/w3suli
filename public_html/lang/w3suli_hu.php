@@ -236,6 +236,7 @@ define("U_CIKK_MOD",         "Cikk módosítása",TRUE);
 define("U_CIKK_TOR",         "Cikkek törlése",TRUE);
 define("U_CIKK_TOR1",        "A kiválasztott cikkek végleges törlése",TRUE);
 define("U_CIKK_KEP",         "Cikk képei",TRUE);
+define("U_CIKK_DOK",         "Cikk dokumentumai",TRUE);
 define("U_CIKK_VAL",         "Cikk kiválasztása",TRUE);
 define("U_CIKK_VALI1",       "Az itt kiválasztott cikk jellemzőit tudja módosítani. Új cikk létrehozásához és régi törléséhez nincs szükség itt cikk kiválasztására.",TRUE);
 define("U_CIKK_MCIM",        "Módosítandó cikk címe",TRUE);
@@ -356,5 +357,15 @@ define("U_AB_FOLINK",          "Főmenü linkek beállítása",TRUE);
 define("U_AB_FCSOP",           "Felhasználói csoportok",TRUE);
 define("U_AB_OTERKEP",         "Oldaltérkép",TRUE);
 define("U_AB_MENUPL",          "Menü plusz infók",TRUE);
+
+
+define("U_CDOK_FEL",          "Dokumentumok feltöltése a cikkhez",TRUE);
+define("U_CDOK_VAL",          "Dokumentumok kiválasztása",TRUE);
+define("U_CDOK_MOD",          "A dokumentumok adatainak módosítása",TRUE);
+define("U_CDOK_ADAT",         "dokumentum adatai",TRUE);
+define("U_CDOK_NINCS",        "Még nincs dokumentum feltöltve",TRUE);
+define("U_CDOK_CIM",          "cím",TRUE);
+define("U_CDOK_MERET",        "Méret (KB)",TRUE);
+define("U_CSAK_10_DOK",       "Maximum 10 dokumentum tölthető fel",TRUE);
 
 ?>

@@ -390,6 +390,19 @@ function getOldalKepForm() {
   function KepkonyvtarTorol($KTarNev) {
         $ErrorStr         = '';
         $AktAlKonytart    = 'img/oldalak/'.$KTarNev;     
+        $DocKonyvtar      = 'img/oldalak/'.$KTarNev."/".doc;  
+        // Dokumentumkönyvtár törlése
+        if (is_dir($DocKonyvtar)) {  
+            $files = array_diff(scandir($DocKonyvtar), array('.','..')); 
+            foreach ($files as $file) {
+              unlink("$DocKonyvtar/$file");
+            }
+            if (!rmdir($DocKonyvtar)) {
+                $ErrorStr .= 'Err100'; // Nem sikerült a törlés
+            }
+        }   
+        
+        // Képkönyvtár törlése
         if (is_dir($AktAlKonytart)) {  
             $files = array_diff(scandir($AktAlKonytart), array('.','..')); 
             foreach ($files as $file) {

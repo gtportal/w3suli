@@ -221,22 +221,25 @@ function SzintaxisCsereElozetes($str){
 //=========================================================================================================================
 
 function LinkCsere($str){
-  $strtomb=explode('[',$str);  
-  $HSzint = 0;
-  $str1 = '';
-  $str2 = '';
+  $strtomb = explode('[',$str);  
+  $HSzint  = 0;
+  $str1    = '';
+  $str2    = '';
   foreach ($strtomb as $SOR) {
-    if ((strpos($SOR,"]")>0) && (strpos($SOR,"http")===0)) {
-      $stra = substr($SOR,0, strpos($SOR,"]"));
-      $strb = substr($SOR,strpos($SOR,"]")+1);
+    if ((strpos($SOR,"]")>0) && ((strpos($SOR,"http")===0) || (strpos($SOR,"?f0=")===0))) {
+        $stra = substr($SOR,0, strpos($SOR,"]"));
+        $strb = substr($SOR,strpos($SOR,"]")+1);
  
-      if (strpos($stra,"|")>0) {
-        $LinkTomb=explode('|',$stra);  
-        if (strpos($LinkTomb[0],"matrac.gtportal.eu")>0) {$Blank = '';} else {$Blank = 'target="_blank"';}
-        $str1 .= '<a href="'.$LinkTomb[0].'" rel="nofollow"  '.$Blank.' >'.$LinkTomb[1].'</a>'.$strb; 
-      } else {
-		if (strpos($stra,"matrac.gtportal.eu")>0) {$Blank = '';} else {$Blank = 'target="_blank"';}  
-		$str1 .= '<a href="'.$stra.'" rel="nofollow"  '.$Blank.' >'.$stra.'</a>'.$strb;}
+        if (strpos($stra,"|")>0) {
+            $LinkTomb=explode('|',$stra);  
+            if (strpos($LinkTomb[0],$_SERVER['HTTP_HOST'])>0)  {$Blank = ''; $rel='';} else {$Blank = 'target="_blank"'; $rel='rel="nofollow"';}
+            $str1 .= "<a href='".$LinkTomb[0]."' $rel  $Blank >".$LinkTomb[1]."</a>".$strb; 
+        } else {
+            if (strpos($stra,$_SERVER['HTTP_HOST'])>0) {$Blank = ''; $rel='';} else {$Blank = 'target="_blank"'; $rel='rel="nofollow"';}  
+           // $str1 .= '<a href="'.$stra.'" rel="nofollow"  '.$Blank.' >'.$stra.'</a>'.$strb;
+            $str1 .= "<a href='$stra' $rel  $Blank >$Blank</a>".$strb; 
+            
+        }
     } else {$str1 .= $SOR;}
   }
   return $str1;
