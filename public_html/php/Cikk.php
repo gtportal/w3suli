@@ -347,7 +347,7 @@ function getCikkForm() {
                 mysqli_free_result($result);
             }
             if (isset($_POST['submitCikkForm'])){
-                $ErrorStr    = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr;
+                $ErrorStr    = "<p class='time'>".U_MODOSITVA.": ".date("H.i.s.")."<p>".$ErrorStr;
                 $InfoClass   = ' OKInfo ';
             }   
             
@@ -480,10 +480,10 @@ function getCikkForm() {
                  $ErrClassCTartalom = ' Error '; 
                  $ErrorStr         .= U_CERR_TARTNINCS.'!<br>';
                }
-               $ErrorStr        = "<p class='time'>".U_ELKULDVE.":".date("H.i.s.")."<p>".$ErrorStr;
+               $ErrorStr        = "<p class='time'>".U_ELKULDVE.": ".date("H.i.s.")."<p>".$ErrorStr;
                $InfoClass     = ' ErrorInfo ';
             } else {
-                $ErrorStr        = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr;
+                $ErrorStr        = "<p class='time'>".U_MODOSITVA.": ".date("H.i.s.")."<p>".$ErrorStr;
                 $InfoClass     = ' OKInfo ';
             }    
             

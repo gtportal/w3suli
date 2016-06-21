@@ -461,7 +461,7 @@
                           value='$OKulcsszavak' size='40'></p>\n"; 
             
             //Rövíd leírás
-            $HTMLkod .= "<p class='pOLeiras'><label for='OLeiras' class='label_1'>".U_LEIRAS."s:</label><br>\n ";
+            $HTMLkod .= "<p class='pOLeiras'><label for='OLeiras' class='label_1'>".U_LEIRAS.":</label><br>\n ";
             $HTMLkod .= "<textarea name='OLeiras' id='OLeiras' placeholder='".U_LEIRAS."' 
               rows='2' cols='100' >".$OLeiras."</textarea></p>\n";     
             

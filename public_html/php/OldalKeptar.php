@@ -259,15 +259,15 @@ function getOldalKepForm() {
                    $ErrorStr     = strtr($ErrorStr ,$ErrArr); 
                 }  
                 if ($ErrClassKep == '' ){
-                   $ErrorStr      = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr; 
+                   $ErrorStr      = "<p class='time'>".U_MODOSITVA.": ".date("H.i.s.")."<p>".$ErrorStr; 
                    $InfoClass     = ' OKInfo ';
                 } else {
-                   $ErrorStr      = "<p class='time'>".U_ELKULDVE.":".date("H.i.s.")."<p>".$ErrorStr;
+                   $ErrorStr      = "<p class='time'>".U_ELKULDVE.": ".date("H.i.s.")."<p>".$ErrorStr;
                    $InfoClass     = ' ErrorInfo ';
                 }
             } 
             if (isset($_POST['submitOldalKepForm'])) {
-              $ErrorStr           = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>";  
+              $ErrorStr           = "<p class='time'>".U_MODOSITVA.": ".date("H.i.s.")."<p>";  
               $InfoClass          = ' OKInfo ';  
             }
 

@@ -254,9 +254,9 @@ function getCikkKepForm() {
                $ErrorStr     = strtr($ErrorStr ,$ErrArr); 
             }  
             if ($ErrClassKep == '' ){
-               $ErrorStr      = "<p class='time'>".U_MODOSITVA.date("H.i.s.")."<p>".$ErrorStr; 
+               $ErrorStr      = "<p class='time'>".U_MODOSITVA.": ".date("H.i.s.")."<p>".$ErrorStr; 
             } else {
-               $ErrorStr      = "<p class='time'>".U_ELKULDVE.date("H.i.s.")."<p>".$ErrorStr;
+               $ErrorStr      = "<p class='time'>".U_ELKULDVE.": ".date("H.i.s.")."<p>".$ErrorStr;
             }
         } 
         
@@ -269,9 +269,9 @@ function getCikkKepForm() {
                $CikkKepOK     = 0;
             }
             if ($CikkKepOK    = 0 ){
-               $ErrorStr1     = "<p class='time'>".U_MODOSITVA.date("H.i.s.")."<p>".$ErrorStr1; 
+               $ErrorStr1     = "<p class='time'>".U_MODOSITVA.": ".date("H.i.s.")."<p>".$ErrorStr1; 
             } else {
-               $ErrorStr1     = "<p class='time'>".U_ELKULDVE.date("H.i.s.")."<p>".$ErrorStr1;
+               $ErrorStr1     = "<p class='time'>".U_ELKULDVE.": ".date("H.i.s.")."<p>".$ErrorStr1;
             }
         }            
         $HTMLkod .= "<div id='divCikkKepForm' >\n";

@@ -337,9 +337,9 @@ function getFCsoportForm() {
 				}
 			    
 				if ($_SESSION['ErrorStr'] == '' ){
-                                    $ErrorStr              = "<p class='time'>".U_MODOSITVA.":".date("H.i.s.")."<p>".$ErrorStr; 
+                                    $ErrorStr              = "<p class='time'>".U_MODOSITVA.": ".date("H.i.s.")."<p>".$ErrorStr; 
                                 } else {
-                                    $ErrorStr              = "<p class='time'>".U_ELKULDVE.":".date("H.i.s.")."<p>".$ErrorStr;
+                                    $ErrorStr              = "<p class='time'>".U_ELKULDVE.": ".date("H.i.s.")."<p>".$ErrorStr;
                                 }
                                 
                                 if (strpos($_SESSION['ErrorStr'],'Err')!==false)
