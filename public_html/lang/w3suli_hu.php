@@ -10,7 +10,7 @@ define("U_BTN_FELTOLT",         "Feltöltés",TRUE);
 define("U_BTN_START",           "Start",TRUE);
 
 //Általános
-define("U_INTEMENY",            "Iskola",TRUE);
+define("U_INTEZMENY",            "Iskola",TRUE);
 define("U_NEV",                 "Név",TRUE);
 define("U_CIM",                 "Cím",TRUE);
 define("U_POSTACIM",            "Cím",TRUE);
@@ -44,7 +44,7 @@ define("U_ELKULDVE",           "Elküldve",TRUE);
 define("U_FELTOLTVE",          "Feltöltve",TRUE);
 define("U_BELEPES",            "Bejelentkezés",TRUE);
 define("U_LETREHOZVA",         "Létrehozva",TRUE);
-define("U_TOROLVE",            "Törőlve",TRUE);
+define("U_TOROLVE",            "Törölve",TRUE);
 
 //Felhasználókezelés
 define("U_FSET",               "A felhasználó adatainak beállítása",TRUE);
@@ -84,16 +84,16 @@ define("U_FELH_LISTA",         "Felhasználók listája",TRUE);
 define("U_FELH_TOROL",         "Felhasználók törlése",TRUE);
 define("U_FELH_SZERK",         "Felhasználó szerkesztése",TRUE);
 
-define("U_ADKEZ_NINCSJOG",     "Nincs jogosúltsága az adatok kezelésére!",TRUE);
-define("U_FNEV_ROVID",         "Túl rövíd név",TRUE);
+define("U_ADKEZ_NINCSJOG",     "Nincs jogosultsága az adatok kezelésére!",TRUE);
+define("U_FNEV_ROVID",         "Túl rövid név",TRUE);
 define("U_FNEV_HOSSZU",        "Túl hosszú név",TRUE);
 define("U_FNEV_NINCS",         "Nincs név",TRUE);
-define("U_FFNEV_ROVID",        "Túl rövíd felhasználónév",TRUE);
+define("U_FFNEV_ROVID",        "Túl rövid felhasználónév",TRUE);
 define("U_FFNEV_HOSSZU",       "Túl hosszú felhasználónév",TRUE);
 define("U_FFNEV_NINCS",        "Nincs felhasználónév",TRUE);
 define("U_FFNEV_MARVAN",       "Foglalt felhasználónév",TRUE);
 
-define("U_JELSZO_ROVID",       "Túl rövíd jelszó",TRUE);
+define("U_JELSZO_ROVID",       "Túl rövid jelszó",TRUE);
 define("U_JELSZO_HOSSZU",      "Túl hosszú jelszó",TRUE);
 define("U_JELSZO_KULONBOZO",   "A jelszavak nem egyeznek",TRUE);
 define("U_JELSZO_NINCS",       "Nincs jelszó",TRUE);
@@ -109,7 +109,7 @@ define("U_UJELSZO_ISMET",      "Új jelszó ismét",TRUE);
 define("U_RJELSZO",            "Régi jelszó",TRUE);
 
 define("U_EMAIL_HOSSZU",       "Túl hosszú email cím",TRUE);
-define("U_EMAIL_NINCS",        "Nincs e-mail címet",TRUE);
+define("U_EMAIL_NINCS",        "Nincs e-mail cím",TRUE);
 define("U_EMAIL_KULONBOZO",    "Az e-mail címek nem egyeznek",TRUE);
 
 define("U_LEIRAS_NINCS",       "Nincs leírás",TRUE);
@@ -126,7 +126,7 @@ define("U_KIEGT_BLOKK_ADATOK", "információs blokk adatai",TRUE);
 
 // Főmenü
 define("U_FOMENU_TITLE",       "A főmenü linkjeinek adatai",TRUE);
-define("U_FOMENU_LINK_ADATOK", "link adatai",TRUE);
+define("U_FOMENU_LINK_ADATOK", "Link adatai",TRUE);
 define("U_FOMENU_LINK_FELIRAT","Linkfelirat",TRUE);
 define("U_FOMENU_LINK_URL",    "URL",TRUE);
 define("U_FOMENU_LINK_URL_pl", "http://... vagy https://...  vagy ?f0=..." ,TRUE);
@@ -190,7 +190,7 @@ define("U_OLDAL_KEP",         "Képkezelés",TRUE);
 define("U_OLDAL_MODE",        "Oldal moderátorai",TRUE);
 
 define("U_OLDAL_LATHATO",     "Láthatóság",TRUE);
-define("U_OLATHAT_MINDEN",    "Mindnki",TRUE);
+define("U_OLATHAT_MINDEN",    "Mindenki",TRUE);
 define("U_OLATHAT_SENKI",     "Senki",TRUE);
 define("U_OLATHAT_CSOP",      "Csoport",TRUE);
 
@@ -212,8 +212,8 @@ define("U_OLDAL_TOROL1_2",   " oldalt",TRUE);
 define("U_OLDAL_TOROL2",     "A művelet végleges",TRUE);
 define("U_OLDAL_TOROL3",     "Törlődnek az oldal cikkei is",TRUE);
 define("U_OLDAL_TOROL4",     "Az oldal törlése előtt aloldalait kell törőlni",TRUE);
-define("U_OLDAL_TOROL5",     "Biztos, hogy törőljűk",TRUE);
-define("U_OLDAL_TOROLVE",    "Az oldal törőltük",TRUE);
+define("U_OLDAL_TOROL5",     "Biztos, hogy töröljük",TRUE);
+define("U_OLDAL_TOROLVE",    "Az oldalt töröltük",TRUE);
 
 
 define("U_KEPEK_FELTOLTESE", "Képek feltöltése",TRUE);
@@ -226,7 +226,7 @@ define("U_OMOD_VALASZT",     "Moderátor kiválasztása",TRUE);
 define("U_OMOD_CSVALASZT",   "A moderátor csoportjának kiválasztása",TRUE);
 define("U_OMOD_FCSLISTA",    "Felhasználói csoportok listája",TRUE);
 define("U_OMOD_MVALASZT",    "Válasszon moderátort",TRUE);
-define("U_OMOD_FLISTA",      "Felhasználók listája",TRUE);
+define("U_OMOD_FLISTA",      "A csoport felhasználóinak listája",TRUE);
 define("U_OMOD_MCSVALASZT",  "Moderátor-csoport kiválasztás",TRUE);
 
 //Cikkek
@@ -326,7 +326,7 @@ define("U_SETUP_ABROOT",      "Az adatbázis felhasználó neve",TRUE);
 define("U_SETUP_ABJELSZO2",   "Az adatbázis jelszava ismét",TRUE);
 define("U_SETUP_ABUZI1",       "A W3Suli Blogmotor telepítéséhez egy MySQL adatbázisra "
                              . "van szükség, amelyet a tárhely adminisztrátora hozhat létre.",TRUE);
-define("U_SETUP_ABUZI2",       "Az adatbázis kapcsolódási datai később csak a 'init/db/start.php'-ben "
+define("U_SETUP_ABUZI2",       "Az adatbázis kapcsolódási adatai később csak a 'init/db/start.php'-ben "
                              . "módisíthatók.",TRUE);
 define("U_SETUP_ROOTADATOK",   "A kiemelt rendszergazda adatai",TRUE);
 define("U_SETUP_ROOTNEV",      "A kiemelt rendszergazda neve",TRUE);
