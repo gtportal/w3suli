@@ -27,7 +27,9 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
         mysqli_free_result($result);
     }
     $arr          = array( "#1" => "$HTMLHirKepTMB[0]", "#2" => "$HTMLHirKepTMB[1]", "#3" => "$HTMLHirKepTMB[2]", 
-                           "#4" => "$HTMLHirKepTMB[3]", "#5" => "$HTMLHirKepTMB[4]", "##" => "");  
+                           "#4" => "$HTMLHirKepTMB[3]", "#5" => "$HTMLHirKepTMB[4]", "#6" => "$HTMLHirKepTMB[5]",
+                           "#7" => "$HTMLHirKepTMB[6]", "#8" => "$HTMLHirKepTMB[7]", "#9" => "$HTMLHirKepTMB[8]",
+                          "#10" => "$HTMLHirKepTMB[9]", "##" => "");  
     $HTMLkod      = strtr($CTartalom ,$arr);
     $HTMLkod      = getDokumentumCsereL($Cid,$HTMLkod,$KepUtvonal);
     return $HTMLkod;            
