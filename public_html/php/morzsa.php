@@ -31,7 +31,7 @@ function getMorzsaHTML() {
         }
         if ($Aktoldal['id']>1) {
             $HTMLkod = "<div class='Morzsa'>\n
-                        <a href='./' >Kezdőlap</a>
+                        <a href='./' >".U_OTIPUS_KEZDO."</a>
                         $HTMLkod 
                     
                      </div>\n";}  

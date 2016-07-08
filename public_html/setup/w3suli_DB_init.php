@@ -42,7 +42,7 @@ FacebookOK tinyint(4) NOT NULL DEFAULT '0',
    $InsertIntoStr = "INSERT INTO AlapAdatok 
        (id, WebhelyNev, Iskola, Cim, Telefon, Stilus, HeaderImg, FavIcon, HeaderStr, GoogleKod, GooglePlus, HEADextra, FacebookURL, FacebookOK) 
        VALUES
-       (1, 'W3Suli', '".U_INTEMENY."', '".U_POSTACIM."', '".U_TELEFON."', 2, 'w3logo.png', 'logo.png', '<span>W3Suli</span><br><span>".U_BLOGMOTOR."</span>', '', 0,'','',0)" ;
+       (1, 'W3Suli', '".U_INTEZMENY."', '".U_POSTACIM."', '".U_TELEFON."', 2, 'w3logo.png', 'logo.png', '<span>W3Suli</span><br><span>".U_BLOGMOTOR."</span>', '', 0,'','',0)" ;
     if (!mysqli_query($MySqliLink,$InsertIntoStr))  {
        $HTMLkod .=  " MySqli hiba (" .mysqli_errno($MySqliLink). "): " . mysqli_error($MySqliLink);   $Err=1; 
     }  

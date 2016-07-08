@@ -82,8 +82,8 @@
             } 
             mysqli_free_result($result);
         }
-        $HTMLkod .= "<li class='M1'><a href='?f0=Archivum'>Archívum</a></li>\n";
-        $HTMLkod .= "<li class='M1'><a href='?f0=oldalterkep'>Oldaltérkép</a></li>\n"; 
+        $HTMLkod .= "<li class='M1'><a href='?f0=Archivum'>".U_AB_ARCH."</a></li>\n";
+        $HTMLkod .= "<li class='M1'><a href='?f0=oldalterkep'>".U_AB_OTERKEP."</a></li>\n"; 
         if ($HTMLkod > '') {$HTMLkod = "<ul class='Ul1'>\n $HTMLkod  </ul>\n";}     
    
         $HTMLkod  .= getMenuPluszHTML();

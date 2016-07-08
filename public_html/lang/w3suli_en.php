@@ -331,8 +331,8 @@ define("U_SETUP_ABUZI2",       "The connection datas of the database will only b
 define("U_SETUP_ROOTADATOK",   "The super admin's datas",TRUE);
 define("U_SETUP_ROOTNEV",      "The super admin's name",TRUE);
 define("U_SETUP_ROOTFNEV",     "The super admin's username",TRUE);
-define("U_SETUP_ROOTJELSZO",   "The database's password",TRUE);
-define("U_SETUP_ROOTJELSZO2",  "The database's password again",TRUE);
+define("U_SETUP_ROOTJELSZO",   "The super admin's password",TRUE);
+define("U_SETUP_ROOTJELSZO2",  "The super admin's password again",TRUE);
 define("U_SETUP_ROOTUZI",      "The super admin can edit the contents of pages, "
                               ."every settings of the website.",TRUE);
 define("U_SETUP_STARTUZI",     "In case of data modification you can reinstall the software by clicking the 'START' button.",TRUE);
@@ -367,5 +367,10 @@ define("U_CDOK_NINCS",        "There is no uploaded document yet",TRUE);
 define("U_CDOK_CIM",          "Title",TRUE);
 define("U_CDOK_MERET",        "Size (KB)",TRUE);
 define("U_CSAK_10_DOK",       "Maximum 10 documents can be uploaded",TRUE);
+
+
+define("U_HIBA_OLDAL",        "Nem létező oldal",TRUE);
+define("U_HIBA_OLDALINF",     "Ezt az oldalt rörőlték vagy sosem létezett.",TRUE);
+define("U_NINCSJOGA",         "Az oldal megtekintéséhez nincs jogosultsága!",TRUE);
 
 ?>

@@ -992,7 +992,7 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                     }
                     else
                     {
-                        $HTMLkod .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";
+                        $HTMLkod .= "<h3>".U_NINCSJOGA."!</h3>";
                     }
                    break;     
           case 2:   $HTMLkod  .= "<h1>".$Aktoldal['ONev']."</h1> \n"; // Híroldal
@@ -1028,72 +1028,72 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                     }
                     else
                     {
-                        $HTMLkod .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";
+                        $HTMLkod .= "<h3>".U_NINCSJOGA."!</h3>";
                     }     
                    break; 
-          case 10:  $HTMLkod  .= "<h1>Bejelentkezés</h1> \n";
+          case 10:  $HTMLkod  .= "<h1>".Bejelentkezés."</h1> \n";
                     $HTMLkod  .= getBelepesForm();
                    break; 
-          case 11:  $HTMLkod  .= "<h1>Kijelentkezés</h1> \n";
+          case 11:  $HTMLkod  .= "<h1>".Kijelentkezés."</h1> \n";
                     $HTMLkod  .= getKilepesForm();
                    break;
-          case 12:  $HTMLkod  .= "<h1>Regisztráció</h1> \n";
+          case 12:  $HTMLkod  .= "<h1>".U_AB_REG."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                         $HTMLkod      .= getUjFelhasznaloForm();
-                    } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}
+                    } else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}
                    break;
-          case 13:  $HTMLkod  .= "<h1>Felhasználó törlése</h1> \n";
+          case 13:  $HTMLkod  .= "<h1>".U_AB_FTOROL."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod    .= getFelhasznaloTorol();
-                    } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}      
+                    } else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}      
                    break;
-          case 14:  $HTMLkod  .= "<h1>Felhasználó lista</h1> \n";
+          case 14:  $HTMLkod  .= "<h1>".U_AB_FLISTA."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod    .= getFelhasznaloLista();
-                    } else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}
+                    } else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}
                    break;               
-          case 15:  $HTMLkod  .= "<h1>Adatmódosítás</h1> \n"; 
+          case 15:  $HTMLkod  .= "<h1>".U_AB_ADMODOSIT."</h1> \n"; 
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod     .= getFelhasznaloForm();                            
-                    }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}    
+                    }  else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}    
                     break; 
-          case 16:  $HTMLkod  .= "<h1>Jelszómódosítás</h1> \n";              
+          case 16:  $HTMLkod  .= "<h1>".U_AB_JSZMOD."</h1> \n";              
                     $HTMLkod  .= getUjJelszoForm();
                    break;               
-          case 20:  $HTMLkod  .= "<h1>Felhasználói csoport kezelése</h1> \n";
+          case 20:  $HTMLkod  .= "<h1>".U_FCSOPORTHOZ."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
                           $HTMLkod     .= getFCsoportForm();
-                    }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}      
+                    }  else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}      
                    break;  
-          case 21:  $HTMLkod  .= "<h1>Oldaltérkep</h1> \n";
+          case 21:  $HTMLkod  .= "<h1>".U_AB_OTERKEP."</h1> \n";
                     $HTMLkod  .= getOldalterkepHTML();
                    break;        
-          case 22:  $HTMLkod  .= "<h1>Archívum</h1> \n";
+          case 22:  $HTMLkod  .= "<h1>".U_AB_ARCH."</h1> \n";
                     require_once("php/achivum.php");
                     $HTMLkod  .= getArchivHTML(); 
                    break;                
-          case 51:  $HTMLkod  .= "<h1>Alapbeállítások</h1> \n";
+          case 51:  $HTMLkod  .= "<h1>".U_AB_ALAPBEALL."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 6) {
                           $HTMLkod     .= getAlapbeallitasForm();
-                    }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
+                    }  else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}        
                    break;    
-          case 52:  $HTMLkod  .= "<h1>Kiegészítő tartalom</h1> \n";
+          case 52:  $HTMLkod  .= "<h1>".U_AB_KIEGT."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                            $HTMLkod    .= getKiegTForm();   
-                    }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";} 
+                    }  else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";} 
                    break;   
-          case 53:  $HTMLkod  .= "<h1>Főmenü linkjeinek beállítása</h1> \n";
+          case 53:  $HTMLkod  .= "<h1>".U_AB_FOLINK."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                           $HTMLkod     .= getFoMenuForm();
-                    }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
+                    }  else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}        
                    break;       
-          case 54:  $HTMLkod  .= "<h1>Helyi menü plusz</h1> \n";
+          case 54:  $HTMLkod  .= "<h1>".U_AB_MENUPL."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                           $HTMLkod     .= getMenuPluszForm();
-                    }  else {$HTMLkod  .= "<h3>Az oldal megtekintéséhez nincs jogosultsága!</h3>";}        
+                    }  else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}        
                    break;     
-          default:  $HTMLkod  .= "<h1>Nem létező oldal</h1> \n";
-                    $HTMLkod  .= "Ezt az oldalt rörőlték vagy sosem létezett.";                       
+          default:  $HTMLkod  .= "<h1>".U_HIBA_OLDAL."</h1> \n";
+                    $HTMLkod  .= U_HIBA_OLDALINF;                       
         }
         $HTMLkod  .= "</div>\n"; 
       }  

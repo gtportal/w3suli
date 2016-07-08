@@ -368,4 +368,8 @@ define("U_CDOK_CIM",          "cím",TRUE);
 define("U_CDOK_MERET",        "Méret (KB)",TRUE);
 define("U_CSAK_10_DOK",       "Maximum 10 dokumentum tölthető fel",TRUE);
 
+
+define("U_HIBA_OLDAL",        "Nem létező oldal",TRUE);
+define("U_HIBA_OLDALINF",     "Ezt az oldalt rörőlték vagy sosem létezett.",TRUE);
+define("U_NINCSJOGA",         "Az oldal megtekintéséhez nincs jogosultsága!",TRUE);
 ?>
