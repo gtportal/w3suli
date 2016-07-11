@@ -109,6 +109,7 @@ global $MySqliLink, $Err;
       DLeiras varchar(255) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
       DMeretKB smallint(6) NOT NULL DEFAULT '-1',
       DSorszam tinyint(4) NOT NULL DEFAULT '0',
+      DFFile varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
       PRIMARY KEY (id)
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ; 
   ";

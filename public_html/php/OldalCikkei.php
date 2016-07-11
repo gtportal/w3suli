@@ -38,8 +38,9 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
 function getDokumentumCsereL($Cid,$CTartalom,$KepUtvonal) {
     global $MySqliLink, $Aktoldal;
     $HTMLkod       = '';    
-    $SelectStr     = "SELECT DNev, DFile, DLeiras, DMeretKB, DFFile FROM CikkDokumentumok WHERE Cid=$Cid ORDER BY DSorszam";
-    $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+    $SelectStr     = "SELECT DNev, DFile, DLeiras, DMeretKB, DFFile FROM CikkDokumentumok WHERE Cid=$Cid ORDER BY DSorszam"; //echo "SelectStr:" .$SelectStr ."<br>";
+   
+    $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01y123");
     $HTMLHirDocTMB = array('','','','','');
     $i             = 0;
     $rowDB         = mysqli_num_rows($result); 

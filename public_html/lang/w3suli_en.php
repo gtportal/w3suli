@@ -372,5 +372,7 @@ define("U_CSAK_10_DOK",       "Maximum 10 documents can be uploaded",TRUE);
 define("U_HIBA_OLDAL",        "Nem létező oldal",TRUE);
 define("U_HIBA_OLDALINF",     "Ezt az oldalt rörőlték vagy sosem létezett.",TRUE);
 define("U_NINCSJOGA",         "Az oldal megtekintéséhez nincs jogosultsága!",TRUE);
+define("U_ALAPCSOP",          "alapcsoport",TRUE);
+define("U_ARCH_URES",         "Az archívum még üres",TRUE);
 
 ?>

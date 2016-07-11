@@ -466,8 +466,8 @@ function getCikkKepekHTML($Cid) {
     }
     
     $HTMLkod  .= "<div class = 'divCikkKepek'>\n";
-    $SelectStr = "SELECT KNev, KFile FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC";
-    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+    $SelectStr = "SELECT KNev, KFile FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam DESC"; //echo $SelectStr;
+    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01z");
     $rowDB     = mysqli_num_rows($result); 
     if ($rowDB > 0) {    
         while ($row   = mysqli_fetch_array($result)){

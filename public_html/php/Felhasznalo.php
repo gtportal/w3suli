@@ -769,7 +769,7 @@ function getFelhasznaloForm() {
                             if($rowDB_2>0 && $row_2['KapcsTip']==0)
                             {
                                 $checked     = " checked "; 
-                                $alapcsoport = "(alapcsoport)";
+                                $alapcsoport = "(".U_ALAPCSOP.")";
                             }
                             else
                             {
@@ -1071,7 +1071,7 @@ function getUjJelszoForm() {
         $HTMLkod .= "</fieldset>";
 
         //Submit
-        $HTMLkod .= "<br><input type='submit' name='submitUjJelszoForm' value='Módosít'><br>\n";        
+        $HTMLkod .= "<br><input type='submit' name='submitUjJelszoForm' value='".Módosítás."'><br>\n";        
         $HTMLkod .= "</form>\n";            
         $HTMLkod .= "</div>\n";   
     }    

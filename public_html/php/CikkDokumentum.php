@@ -449,8 +449,8 @@ function getCikkDokumentumokHTML($Cid) {
     }
     
     $HTMLkod  .= "<div class = 'divCikkDokumentumok'>\n";
-    $SelectStr = "SELECT DNev, DFile FROM CikkDokumentumok WHERE Cid=$Cid ORDER BY DSorszam DESC";
-    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
+    $SelectStr = "SELECT DNev, DFile FROM CikkDokumentumok WHERE Cid=$Cid ORDER BY DSorszam DESC"; //echo "SelectStr:" .$SelectStr ."<br>";
+    $result    = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01pp");
     $rowDB     = mysqli_num_rows($result); 
     if ($rowDB > 0) {    
         while ($row   = mysqli_fetch_array($result)){
@@ -478,7 +478,7 @@ global $Aktoldal, $MySqliLink;
       $Konytar = "img/oldalak/doc/";
     }
     $SelectStr  = "SELECT * FROM CikkDokumentumok WHERE Cid=$Cid";
-    $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01ab");
+    $result     = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01abpp");
     $rowDB      = mysqli_num_rows($result); 
     if ($rowDB > 0) {  
         while ($row  = mysqli_fetch_array($result)){

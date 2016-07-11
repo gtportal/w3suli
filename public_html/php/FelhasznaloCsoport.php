@@ -413,8 +413,9 @@ function getFCsoportTorolForm() {
     $HTMLkod      = '';
     if ($_SESSION['AktFelhasznalo'.'FSzint']>4)  { // FSzint-et növelni, ha működik a felhasználókezelés!!! 
         $HTMLkod .= "<div id='divFCsoportTorol' >\n";
-        if ($ErrorStr!='') {
-        $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
+        if (($ErrorStr!='') && (isset($_POST['CsTorolDB']))) {
+           $HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";        
+        }
         $HTMLkod .= "<form action='?f0=Felhasznaloi_csoportok' method='post' id='formFCsoportTorol'>\n";
         $HTMLkod .= "<h2>".U_FCSOP_TORLESE."</h2>\n";
         $HTMLkod .= "<fieldset> <legend>".U_FCSOPOK_VALASZT.":</legend>";

@@ -833,7 +833,7 @@ function setOldalTorol() {
               $HTMLkod .= "<h2> $ONev - ".U_OLDAL_TOROL."</h2>\n";
               //$HTMLkod .= "<p class='ErrorStr'>".$_SESSION['ErrorStr']."</p>";
               if ($_SESSION['ErrorStr']=='Err001') {$HTMLkod .= "<p class='FontosStr'>".U_OLDAL_TOROL4."!</p>";}
-              $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolVegleges' value='Törlés'><br>\n";        
+              $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolVegleges' value='".U_BTN_TOROL."'><br>\n";        
               $HTMLkod .= "</form>\n";              
               $HTMLkod .= "</div>\n";
             }
@@ -844,7 +844,7 @@ function setOldalTorol() {
               $HTMLkod .= "<h2> $ONev - ".U_OLDAL_TOROL."</h2>\n";
               $HTMLkod .= "<form action='?f0=$OUrl' method='post' id='formOldalTorolForm'>\n"; 
               $HTMLkod .= "<p class='FontosStr'>".U_OLDAL_TOROL5."? </p>";
-              $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolVegleges' value='Törlés'><br>\n";        
+              $HTMLkod .=  "<br><input type='submit' name='submitOldalTorolVegleges' value='".U_BTN_TOROL."'><br>\n";        
               $HTMLkod .= "</form>\n";              
               $HTMLkod .= "</div>\n";
             } 

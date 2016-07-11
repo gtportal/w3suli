@@ -46,7 +46,7 @@ function getArchivHTML() {
         }
         mysqli_free_result($result);
     } else {
-        $HTMLkod   = 'Az archívum még üres';        
+        $HTMLkod   = U_ARCH_URES;        
     }
     return $HTMLkod;
 }
