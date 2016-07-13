@@ -10,10 +10,10 @@ define("U_BTN_FELTOLT",         "Upload",TRUE);
 define("U_BTN_START",           "Start",TRUE);
 
 //Általános
-define("U_INTEZMENY",            "School",TRUE);
+define("U_INTEZMENY",           "School",TRUE);
 define("U_NEV",                 "Name",TRUE);
-define("U_CIM",                 "Adress",TRUE);
-define("U_POSTACIM",            "Adress",TRUE);
+define("U_CIM",                 "Title",TRUE);
+define("U_POSTACIM",            "Address",TRUE);
 define("U_LEIRAS",              "Description",TRUE);
 define("U_PRIORITAS",           "Priority",TRUE);
 define("U_TARTALOM",            "Content",TRUE);
@@ -63,7 +63,7 @@ define("U_FSZ_SZERK",          "Editor",TRUE);
 define("U_FSZ_MOD",            "Moderaror",TRUE);
 define("U_FSZ_RG",             "Admin",TRUE);
 define("U_FSZ_RGHTML",         "HTML Admin",TRUE);
-define("U_FSZ_WMESTER",        "Webmester",TRUE);
+define("U_FSZ_WMESTER",        "Webmaster",TRUE);
 define("U_FSZEREP",            "User role",TRUE);
 define("U_FCSOPORTHOZ",        "User group",TRUE);
 
@@ -101,16 +101,16 @@ define("U_JELSZO_HIBAS",       "Incorrect username or password",TRUE);
 define("U_RJELSZO_NINCS",      "Old password is missing",TRUE);
 define("U_JELSZO_HIBA",        "Incorrect password",TRUE);
 define("U_UJELSZO_NINCS",      "New password is missing",TRUE);
-define("U_JELSZAVAK_BEKER",    "Give the old and the new password:",TRUE);
+define("U_JELSZAVAK_BEKER",    "Give the old and the new password",TRUE);
 define("U_UJELSZO_BEALL",      "Set new password",TRUE);
 
 define("U_UJELSZO",            "New password",TRUE);
 define("U_UJELSZO_ISMET",      "New password again",TRUE);
 define("U_RJELSZO",            "Old password",TRUE);
 
-define("U_EMAIL_HOSSZU",       "The e-mail adress is too long",TRUE);
-define("U_EMAIL_NINCS",        "There is no e-mail adress",TRUE);
-define("U_EMAIL_KULONBOZO",    "The e-mail adresses don't match",TRUE);
+define("U_EMAIL_HOSSZU",       "The e-mail address is too long",TRUE);
+define("U_EMAIL_NINCS",        "There is no e-mail address",TRUE);
+define("U_EMAIL_KULONBOZO",    "The e-mail addresses don't match",TRUE);
 
 define("U_LEIRAS_NINCS",       "There is no description",TRUE);
 
@@ -141,9 +141,9 @@ define("U_ALAPBE_HSZOVEG",    "The text of the website's header",TRUE);
 define("U_ALAPBE_HSZOVEGPL",  "Visible on every page",TRUE);
 define("U_ALAPBE_CEGADATOK",  "The institution's datas",TRUE);
 define("U_ALAPBE_CEGNEV",     "The institution's name",TRUE);
-define("U_ALAPBE_CEGCIM",     "The institution's adress",TRUE);
+define("U_ALAPBE_CEGCIM",     "The institution's address",TRUE);
 define("U_ALAPBE_CEGTEL",     "The institution's phone number",TRUE);
-define("U_ALAPBE_WSITLUS",    "The webpage's style",TRUE);
+define("U_ALAPBE_WSITLUS",    "The website's style",TRUE);
 define("U_ALAPBE_SITLUS",     "Style",TRUE);
 define("U_ALAPBE_KOZOSSEGI",  "Community sites",TRUE);
 define("U_ALAPBE_GOOGLEPL",   "Display Google+ button",TRUE);
@@ -306,7 +306,7 @@ define("U_MENUPL_TANAGYAG",   "Used material",TRUE);
 
 define("U_INDEX_MENU",        "Menu",TRUE);
 
-define("U_LABLEC_CIM",        "Adress",TRUE);
+define("U_LABLEC_CIM",        "Address",TRUE);
 define("U_LABLEC_TEL",        "Telephone",TRUE);
 
 // Az adatbázis elkészítése
@@ -369,10 +369,10 @@ define("U_CDOK_MERET",        "Size (KB)",TRUE);
 define("U_CSAK_10_DOK",       "Maximum 10 documents can be uploaded",TRUE);
 
 
-define("U_HIBA_OLDAL",        "Nem létező oldal",TRUE);
-define("U_HIBA_OLDALINF",     "Ezt az oldalt rörőlték vagy sosem létezett.",TRUE);
-define("U_NINCSJOGA",         "Az oldal megtekintéséhez nincs jogosultsága!",TRUE);
-define("U_ALAPCSOP",          "alapcsoport",TRUE);
-define("U_ARCH_URES",         "Az archívum még üres",TRUE);
+define("U_HIBA_OLDAL",        "Page not found",TRUE);
+define("U_HIBA_OLDALINF",     "This page has been deleted or has never existed",TRUE);
+define("U_NINCSJOGA",         "You have no permission to view this page",TRUE);
+define("U_ALAPCSOP",          "basic group",TRUE);
+define("U_ARCH_URES",         "The archive is empty",TRUE);
 
 ?>
