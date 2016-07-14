@@ -69,6 +69,7 @@
         
         $tiszta_OURL = $OUrl;
         if ($tiszta_OURL=='') {$tiszta_OURL = 'kezdolap';}
+        if ($tiszta_OURL=='') {$tiszta_OURL = 'Homepage';}
         //Az aktuális oldal adatainak betöltése
         $SelectStr   = "SELECT * FROM Oldalak WHERE OUrl='$tiszta_OURL' LIMIT 1"; //echo $SelectStr;
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 01 ");
@@ -403,16 +404,16 @@
             }
             
             // ============== FORM ÖSSZEÁLLÍTÁSA =====================         
-            $HTMLkod .= "<div id='divOldalForm' >\n";
-            
+            $HTMLkod .= "<div id='divOldalForm' >\n";            
             
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' enctype='multipart/form-data' id='KisKepFelForm'>\n";
             $HTMLkod .= "<h2>".U_OLDAL_KISKEP."</h2>\n";
             if ($ErrorStr!='') {$HTMLkod .= "<p class='ErrorStr'>$ErrorStr</p>";}
             $HTMLkod .= "<fieldset> <legend>".U_OLDAL_KISKEPVAL.":</legend>";
-            $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='KiskepKep'>\n";
+            $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='".U_KIS_KEP."' height='60' id='KiskepKep'>\n";
             $HTMLkod .= "<input type='file' name='file' id='fileKepTolt' >";
             $HTMLkod .= "</fieldset>";
+            $HTMLkod .= "<input type='submit' name='submitKisKepTorol' id='submitKisKepTorol' value='".U_BTN_TOROL."'>";
             $HTMLkod .= "<input type='submit' name='submitKisKepTolt' id='submitKisKepTolt' value='".U_BTN_FELTOLT."'><br><br>";
             $HTMLkod .= "</form>\n";
             
@@ -510,9 +511,10 @@
             $HTMLkod .= "<h2>".U_OLDAL_KISKEP."</h2>\n";
             $HTMLkod .= "<form action='?f0=$OUrl' method='post' enctype='multipart/form-data' id='KisKepFelForm'>\n";
             $HTMLkod .= "<fieldset> <legend>".U_OLDAL_KISKEPVAL.":</legend>";
-            $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='kis kép' height='60' id='KiskepKep'>\n";
+            $HTMLkod .= "<img src='$OImgSrc' style='float:left;margin:5px;' alt='".U_KIS_KEP."' height='60' id='KiskepKep'>\n";
             $HTMLkod .= "<input type='file' name='file' id='fileKepTolt' >";
             $HTMLkod .= "</fieldset>";
+            $HTMLkod .= "<input type='submit' name='submitKisKepTorol' id='submitKisKepTorol' value='".U_BTN_TOROL."'>";
             $HTMLkod .= "<input type='submit' name='submitKisKepTolt' id='submitKisKepTolt' value='".U_BTN_FELTOLT."'><br><br>";
             $HTMLkod .= "</form>\n";
             
@@ -613,15 +615,45 @@ function setOldal() {
              
           } 
           if ($ErrorStr==''){ $ErrorStr .= $OImgUj; } 
+        }    
+        // ============== KÉP TÖRLÉSE =====================  
+        // Kis kép törlése
+        if (isset($_POST['submitKisKepTorol']))  {
+        //  $OImgUj       = setKepTorol($FelOImgDir,$Aktoldal['OUrl']); 
+            //A kép nevének lekrédezése  
+            $AktOid    = $Aktoldal['id'];
+            $OImg      = $Aktoldal['OImg'];
+            $OImgDir   = $Aktoldal['OImgDir'];
+
+            if ($OImg != '') {
+                //A Kép törlése az oldal adatbázis rekordjából  
+                $UpdateStr = "UPDATE Oldalak SET 
+                              OImg=''
+                              WHERE id=$AktOid LIMIT 1"; 
+                if (!mysqli_query($MySqliLink,$UpdateStr))  {$ErrorStr .= ' ErrK03 '.$OImgUj; }    
+
+                //Ellenőrizzük, hogy másik oldal használja-e, ha nem, akkor a fájlt is törlőljük
+                $SelectStr1 = "SELECT id FROM Oldalak WHERE OImg='$OImg' AND OImgDir='$OImgDir' LIMIT 1";     // echo $SelectStr1; 
+                $result1    = mysqli_query($MySqliLink,$SelectStr1) OR die("Hiba sMC 01 zz");
+                $rowDB1     = mysqli_num_rows($result1);
+                if ($rowDB1== 0) {
+                    if ($OImgDir == '') {$OImgSrc= 'img/oldalak/'.$OImg;}
+                    else  {$OImgSrc= 'img/oldalak/'.$OImgDir.'/'.$OImg;} 
+                    unlink($OImgSrc);
+                    
+                } else {mysqli_free_result($result1);}
+            }
+          //if ($ErrorStr==''){ $ErrorStr .= $OImgUj; } 
         }           
+        
           
         if (isset($_POST['submitOldalForm'])) { 
           // ============== HIBAKEZELÉS =====================          
           //A beérkező adatok ellenőrzése  
           //Az oldalnév ellenőrzése  
-          if (isset($_POST['ONev'])) {
-              $ONev      = test_post($_POST['ONev']);
-              $OUrl      = getTXTtoURL($ONev);          
+          if ((isset($_POST['ONev'])) && ($OUrl!='Kezdolap')){
+              $ONev        = test_post($_POST['ONev']);
+              $OUrl        = getTXTtoURL($ONev);          
               $SelectStr   = "SELECT id FROM Oldalak WHERE OUrl='$OUrl' LIMIT 1"; 
               $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sUF 01 ");
               $rowDB       = mysqli_num_rows($result); 
@@ -631,7 +663,7 @@ function setOldal() {
               }
               if (strlen($ONev)>40) { $ErrorStr .= ' Err003,';}
               if (strlen($ONev)<1)  { $ErrorStr .= ' Err001,';}
-          } else {$ErrorStr = ' Err001,';}
+          } else if ($OUrl!='Kezdolap') {$ErrorStr = ' Err001,';}
           //A típus ellenőrzése
           if (isset($_POST['OTipValszt'])) {
             $OTipS = test_post($_POST['OTipValszt']); 
@@ -643,7 +675,7 @@ function setOldal() {
             }             
           } else {$ErrorStr .= ' Err004,';} 
           // ============== OLDALNÉV VÁLTOZÁSÁNEK KEZELÉSE ===================== 
-          if (($ONev!=$Aktoldal['ONev']) && ($ErrorStr=='') && (($OTipKod == 1) || ($OTipKod == 2))) {
+          if (($OUrl!='Kezdolap') && ($ONev!=$Aktoldal['ONev']) && ($ErrorStr=='') && (($OTipKod == 1) || ($OTipKod == 2))) {
                 $OUrl  = getTXTtoURL($ONev);              
                 // ============== KÖNYVTÁRKEZELÉS - A KÉPKÖNYVTÁR átnevezése   =====================
                 if ($ErrorStr=='') {

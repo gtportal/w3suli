@@ -28,7 +28,6 @@ function getRootURL() {
 }
 
 
-
 function setKepFeltolt($AktKonytart,$KFileName) {    
     if (isset($_FILES["file"]) && $_FILES["file"]["name"]!='') { 
       $UploadErr   = '';
@@ -47,7 +46,7 @@ function setKepFeltolt($AktKonytart,$KFileName) {
         if ($_FILES["file"]["error"] > 0) {
           $UploadErr = "ErrK02 " . $_FILES["file"]["name"]; 
         } else {
-          $CelFilename =   $AktKonytart.$KFileName.'.'.$extension; echo "GGGGFFFFF";
+          $CelFilename =   $AktKonytart.$KFileName.'.'.$extension; 
           if (file_exists($CelFilename)) {
             if (!@unlink($CelFilename)) {
                 $UploadErr = 'ErrK02'.$_FILES["file"]["name"]."<br>"; // Nem sikerült a törlés

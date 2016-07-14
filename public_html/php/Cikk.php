@@ -860,14 +860,14 @@ function getKezdolapCikkelozetesekHTML($SelStr) {
            if ($CLeiras!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$CLeiras."</div>\n";}    
            $HTMLkod .= "</div>\n";
            $HTMLkod .= "<div class='divClear'></div>\n"; 
-           $HTMLkod .= "<div class='divCszerzoNev'> <span class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</span><br>\n";           
-           $HTMLkod .= "<span class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </span></div>\n";
+           $HTMLkod .= "<div class='divCszerzoNev'> <span class='pCszerzoNev'> ".U_SZERZO.": ".$row['CSzerzoNev']."</span><br>\n";           
+           $HTMLkod .= "<span class='pCModTime'>".U_KOZZETEVE.": ".$row['CModositasTime']." </span></div>\n";
            $HTMLkod .= "<div class='divCikkLink'> $CikkLink </div>";
            $HTMLkod .= "</div>\n";    
         }
         mysqli_free_result($result);
     }
-    if ($HTMLkod!='') {$HTMLkod = "<div class ='divCElozetesKulso'>\n <h2>Hírelőzetesek</h2> $HTMLkod</div>"; }
+    if ($HTMLkod!='') {$HTMLkod = "<div class ='divCElozetesKulso'>\n <h2>".U_HIRELOZETESEK."</h2> $HTMLkod</div>"; }
     return $HTMLkod;
 }
 
@@ -888,7 +888,7 @@ function getSzulooldalCikkelozetesekHTML($SelStr) {
            $CLeiras    = $row['CLeiras'];
            $Horgony    = "#".getTXTtoURL($row['CNev']);
            $CCim       = "&amp;cim=".getTXTtoURL($row['CNev']);
-           $CikkLink   = "<a class='OElink CikkelozetesLink' href='?f0=".$row['OUrl'].$CCim.$Horgony."'>".$row['CNev']." részletesen...</a>";
+           $CikkLink   = "<a class='OElink CikkelozetesLink' href='?f0=".$row['OUrl'].$CCim.$Horgony."'>".$row['CNev']." ".U_RESZLETESEN."...</a>";
            if ($OImgDir!='') {
                $KepUtvonal = "img/oldalak/".$OImgDir."/";
            } else {
@@ -903,13 +903,13 @@ function getSzulooldalCikkelozetesekHTML($SelStr) {
            if ($CLeiras!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$CLeiras."</div>\n";}    
            $HTMLkod .= "</div>\n";
            $HTMLkod .= $CikkLink;
-           $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p>\n";           
-           $HTMLkod .= "<p class='pCModTime'>Közzétéve: ".$row['CModositasTime']." </p>\n";
+           $HTMLkod .= "<p class='pCszerzoNev'>".U_SZERZO.": ".$row['CSzerzoNev']."</p>\n";           
+           $HTMLkod .= "<p class='pCModTime'>".U_KOZZETEVE.": ".$row['CModositasTime']." </p>\n";
            $HTMLkod .= "</div>\n";           
         }
         mysqli_free_result($result);
     }
-    if ($HTMLkod!='') {$HTMLkod = "<div class ='divCElozetesKulso'>\n <h2>Hírelőzetesek</h2> $HTMLkod</div>"; }   
+    if ($HTMLkod!='') {$HTMLkod = "<div class ='divCElozetesKulso'>\n <h2>".U_HIRELOZETESEK."</h2> $HTMLkod</div>"; }   
     return $HTMLkod;
 }
 
