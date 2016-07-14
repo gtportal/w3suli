@@ -375,4 +375,11 @@ define("U_NINCSJOGA",         "You have no permission to view this page",TRUE);
 define("U_ALAPCSOP",          "basic group",TRUE);
 define("U_ARCH_URES",         "The archive is empty",TRUE);
 
+
+define("U_SZERZO",            "Szerző",TRUE);
+define("U_KOZZETEVE",         "Közzétéve",TRUE);
+define("U_HIRELOZETESEK",     "Hírelőzetesek",TRUE);
+define("U_KIS_KEP",           "Kis kép",TRUE);
+define("U_RESZLETESEN",       "részletesen",TRUE);
+
 ?>

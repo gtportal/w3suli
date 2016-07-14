@@ -375,4 +375,10 @@ define("U_NINCSJOGA",         "Az oldal megtekintéséhez nincs jogosultsága!",
 define("U_ALAPCSOP",          "alapcsoport",TRUE);
 define("U_ARCH_URES",         "Az archívum még üres",TRUE);
 
+define("U_SZERZO",            "Szerző",TRUE);
+define("U_KOZZETEVE",         "Közzétéve",TRUE);
+define("U_HIRELOZETESEK",     "Hírelőzetesek",TRUE);
+define("U_KIS_KEP",           "Kis kép",TRUE);
+define("U_RESZLETESEN",       "részletesen",TRUE);
+
 ?>
