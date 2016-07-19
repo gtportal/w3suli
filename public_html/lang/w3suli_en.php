@@ -376,10 +376,10 @@ define("U_ALAPCSOP",          "basic group",TRUE);
 define("U_ARCH_URES",         "The archive is empty",TRUE);
 
 
-define("U_SZERZO",            "Szerző",TRUE);
-define("U_KOZZETEVE",         "Közzétéve",TRUE);
-define("U_HIRELOZETESEK",     "Hírelőzetesek",TRUE);
-define("U_KIS_KEP",           "Kis kép",TRUE);
-define("U_RESZLETESEN",       "részletesen",TRUE);
+define("U_SZERZO",            "Author",TRUE);
+define("U_KOZZETEVE",         "Shared",TRUE);
+define("U_HIRELOZETESEK",     "News preview",TRUE);
+define("U_KIS_KEP",           "Small image",TRUE);
+define("U_RESZLETESEN",       "detailed",TRUE);
 
 ?>
