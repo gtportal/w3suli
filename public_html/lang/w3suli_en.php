@@ -47,9 +47,9 @@ define("U_LETREHOZVA",         "Created",TRUE);
 define("U_TOROLVE",            "Deleted",TRUE);
 
 //Felhasználókezelés
-define("U_FSET",               "Set user's datas",TRUE);
-define("U_UFSET",              "Set new user's datas",TRUE);
-define("U_FADATOK",            "User datas",TRUE);
+define("U_FSET",               "Set user's data",TRUE);
+define("U_UFSET",              "Set new user's data",TRUE);
+define("U_FADATOK",            "User data",TRUE);
 define("U_FNEV",               "Name",TRUE);
 define("U_FFNEV",              "Username",TRUE);
 define("U_JELSZO",             "Password",TRUE);
@@ -73,8 +73,8 @@ define("U_FCSOP_LISTA",        "List of groups",TRUE);
 define("U_FCSOP_LETREHOZ",     "Create user group",TRUE);
 define("U_FCSOP_MODOSIT",      "Modify user group",TRUE);
 define("U_FCSOP_TORLES",       "Delete user group",TRUE);
-define("U_FCSOP_ADATMODOSIT",  "Modify user group's datas",TRUE);
-define("U_FCSOP_ADATAI",       "User group's datas",TRUE);
+define("U_FCSOP_ADATMODOSIT",  "Modify user group's data",TRUE);
+define("U_FCSOP_ADATAI",       "User group's data",TRUE);
 define("U_FCSOP_TORLESE",      "Delete more user groups",TRUE);
 define("U_FCSOP_MARVAN",       "The group name is already used",TRUE);
 define("U_FCSOP_LETREHOZVA",   "User group created",TRUE);
@@ -84,7 +84,7 @@ define("U_FELH_LISTA",         "List of users",TRUE);
 define("U_FELH_TOROL",         "Delete users",TRUE);
 define("U_FELH_SZERK",         "Edit user",TRUE);
 
-define("U_ADKEZ_NINCSJOG",     "You have no permission to handle these datas!",TRUE);
+define("U_ADKEZ_NINCSJOG",     "You have no permission to handle these data!",TRUE);
 define("U_FNEV_ROVID",         "The name is too short",TRUE);
 define("U_FNEV_HOSSZU",        "The name is too long",TRUE);
 define("U_FNEV_NINCS",         "There is no name",TRUE);
@@ -122,11 +122,11 @@ define("U_ALAPCSOK_NEMT",      "You cannot remove the user from it's main group"
 // Kiegészítő tartalom
 define("U_KIEGT_INFO_BLOKK",   "Informational blocks of additional content",TRUE);
 define("U_MENUKIEG_INFO_BLOKK","Informational blocks of the local menu",TRUE);
-define("U_KIEGT_BLOKK_ADATOK", "Informational block's datas",TRUE);
+define("U_KIEGT_BLOKK_ADATOK", "Informational block's data",TRUE);
 
 // Főmenü
-define("U_FOMENU_TITLE",       "The datas of the links of the main menu",TRUE);
-define("U_FOMENU_LINK_ADATOK", "Link datas",TRUE);
+define("U_FOMENU_TITLE",       "The data of the links of the main menu",TRUE);
+define("U_FOMENU_LINK_ADATOK", "Link data",TRUE);
 define("U_FOMENU_LINK_FELIRAT","Link subtitle",TRUE);
 define("U_FOMENU_LINK_URL",    "URL",TRUE);
 define("U_FOMENU_LINK_URL_pl", "http://... or https://...  or ?f0=..." ,TRUE);
@@ -134,12 +134,12 @@ define("U_FOMENU_LINK_URL_pl", "http://... or https://...  or ?f0=..." ,TRUE);
 define("U_CSAK_10_KEP",        "Maximum 10 images can be uploaded",TRUE);
 
 // Alapbeállítások
-define("U_ALAPBE_WBEALL",     "Settings of the website's basic datas",TRUE);
-define("U_ALAPBE_WADATOK",    "The website's datas",TRUE);
+define("U_ALAPBE_WBEALL",     "Settings of the website's basic data",TRUE);
+define("U_ALAPBE_WADATOK",    "The website's data",TRUE);
 define("U_ALAPBE_WNEV",       "The website's name",TRUE);
 define("U_ALAPBE_HSZOVEG",    "The text of the website's header",TRUE);
 define("U_ALAPBE_HSZOVEGPL",  "Visible on every page",TRUE);
-define("U_ALAPBE_CEGADATOK",  "The institution's datas",TRUE);
+define("U_ALAPBE_CEGADATOK",  "The institution's data",TRUE);
 define("U_ALAPBE_CEGNEV",     "The institution's name",TRUE);
 define("U_ALAPBE_CEGCIM",     "The institution's address",TRUE);
 define("U_ALAPBE_CEGTEL",     "The institution's phone number",TRUE);
@@ -169,8 +169,8 @@ define("U_ALAPBE_IKONV",      "Choose image",TRUE);
 // OLDAL
 define("U_OLDAL_KISKEP",      "Upload small image",TRUE);
 define("U_OLDAL_KISKEPVAL",   "Choose small image",TRUE);
-define("U_OLDAL_MODOSIT",     "Modify the page's datas",TRUE);
-define("U_OLDAL_ADATAI",      "The page's datas",TRUE);
+define("U_OLDAL_MODOSIT",     "Modify the page's data",TRUE);
+define("U_OLDAL_ADATAI",      "The page's data",TRUE);
 define("U_OLDAL_CIM",         "The page's title",TRUE);
 
 define("U_OLDAL_TIPUS",       "Type",TRUE);
@@ -204,7 +204,7 @@ define("U_OERR_CIMVANMAR",    "This title is already used",TRUE);
 define("U_OERR_TIPUSNINCS",   "Type is not selected",TRUE);
 
 define("U_OLDAL_UJLETREHOZ",  "Create new page",TRUE);
-define("U_OLDAL_UJADAT",      "The new page's datas",TRUE);
+define("U_OLDAL_UJADAT",      "The new page's data",TRUE);
 
 define("U_OLDAL_TOROL",      "Delete page",TRUE);
 define("U_OLDAL_TOROL1_1",   "Are you sure you want to delete ",TRUE); //Az 1_1 és 1_2 közé kerül az oldal neve
@@ -218,8 +218,8 @@ define("U_OLDAL_TOROLVE",    "The page is successfully deleted",TRUE);
 
 define("U_KEPEK_FELTOLTESE", "Upload images",TRUE);
 define("U_KEPEK_VALASZT",    "Choose images",TRUE);
-define("U_KEPEK_MODOSIT",    "Modify the datas of the images",TRUE);
-define("U_KEPEK_ADAT",       "Image's datas",TRUE);
+define("U_KEPEK_MODOSIT",    "Modify the data of the images",TRUE);
+define("U_KEPEK_ADAT",       "Image's data",TRUE);
 define("U_KEPEK_KEP",        "Image",TRUE);
 
 define("U_OMOD_VALASZT",     "Moderator selection",TRUE);
@@ -246,7 +246,7 @@ define("U_CIKK_OCIKKEL",     "The page's articles",TRUE);
 define("U_CIKK_OK",          "Article created",TRUE);
 define("U_CIKK_CIM",         "Title",TRUE);
 define("U_CIKK_LETREHOZ",    "Create new article",TRUE);
-define("U_CIKK_ADAT",        "The article's datas",TRUE);
+define("U_CIKK_ADAT",        "The article's data",TRUE);
 define("U_CIKK_LATHATOSAG",  "The article's visibility",TRUE);
 define("U_CIKK_NINCS",       "There is no selected article",TRUE);
 
@@ -278,8 +278,8 @@ define("U_CERR_TARTNINCS",    "There is no content",TRUE);
 
 define("U_CKEP_FEL",          "Upload images to the article",TRUE);
 define("U_CKEP_VAL",          "Choose images",TRUE);
-define("U_CKEP_MOD",          "Modify the datas of the images",TRUE);
-define("U_CKEP_ADAT",         "Image's datas",TRUE);
+define("U_CKEP_MOD",          "Modify the data of the images",TRUE);
+define("U_CKEP_ADAT",         "Image's data",TRUE);
 define("U_CKEP_NINCS",        "There is no uploaded image yet",TRUE);
 
 define("U_MENU_UDV",          "Welcome",TRUE);
@@ -319,16 +319,16 @@ define("U_SETUP_TELEPIT",     "Installation of W3Suli",TRUE);
 define("U_SETUP_KESZ",        "The installation of W3Suli Blogmotor is finished",TRUE);
 define("U_SETUP_FONTOS",      "Remember to delete setup.php",TRUE);
 define("U_SETUP_HIBAVOLT",    "There was an error during installation",TRUE);
-define("U_SETUP_ABADAT",      "Datas of the Database",TRUE);
+define("U_SETUP_ABADAT",      "data of the Database",TRUE);
 define("U_SETUP_ABNEV",       "The database's name",TRUE);
 define("U_SETUP_ABJELSZO",    "The database's password",TRUE);
 define("U_SETUP_ABROOT",      "The database's user name",TRUE);
 define("U_SETUP_ABJELSZO2",   "The database's password again",TRUE);
 define("U_SETUP_ABUZI1",       "To install W3Suli Blogmotor, a MySQL Database "
-                             . "is required, that can be created by the administrator of the (domain/storage).",TRUE); /*?????????????????????????????????????*/
-define("U_SETUP_ABUZI2",       "The connection datas of the database will only be modifiable in 'init/db/start.php'"
+                             . "is required, that can be created by the administrator of the repository.",TRUE);
+define("U_SETUP_ABUZI2",       "The connection data of the database will only be modifiable in 'init/db/start.php'"
                              . "later.",TRUE);
-define("U_SETUP_ROOTADATOK",   "The super admin's datas",TRUE);
+define("U_SETUP_ROOTADATOK",   "The super admin's data",TRUE);
 define("U_SETUP_ROOTNEV",      "The super admin's name",TRUE);
 define("U_SETUP_ROOTFNEV",     "The super admin's username",TRUE);
 define("U_SETUP_ROOTJELSZO",   "The super admin's password",TRUE);
@@ -361,8 +361,8 @@ define("U_AB_MENUPL",          "Menu extra informations",TRUE);
 
 define("U_CDOK_FEL",          "Upload documents to the article",TRUE);
 define("U_CDOK_VAL",          "Choose documents",TRUE);
-define("U_CDOK_MOD",          "Modify the document's datas",TRUE);
-define("U_CDOK_ADAT",         "Document's datas",TRUE);
+define("U_CDOK_MOD",          "Modify the document's data",TRUE);
+define("U_CDOK_ADAT",         "Document's data",TRUE);
 define("U_CDOK_NINCS",        "There is no uploaded document yet",TRUE);
 define("U_CDOK_CIM",          "Title",TRUE);
 define("U_CDOK_MERET",        "Size (KB)",TRUE);
