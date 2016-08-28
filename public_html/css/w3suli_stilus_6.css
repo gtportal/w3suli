@@ -1,192 +1,542 @@
-/* 
-    Author     : Parma Robin
-*/
+/* Author     : Tóth-Kovács Gellért */
 
-	   a {text-decoration:none;}
-	  
-	   	 
-	   body, html {margin:0; padding:0; 
-	   background-color:#888;  
-				background-color: #660000;    border-radius:0%;    
-				background: -webkit-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033); 
-				background: -moz-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);
-				background: -ms-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
-				background: -o-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
-				}		 
-       #Keret {
-				
-				
-
-			}
-       
-       #FoHeder {background-color:#888; width:100%;
-				background-color: #660000;    border-radius:0%;    
-				background: -webkit-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033); 
-				background: -moz-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);
-				background: -ms-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
-				background: -o-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);  
-				}
-       #FoNav {background-color:#ff0; width:100%; line-height:30px;
-	   
-	   }
-       
-       
-       
-       #BelsoKeret {background: -webkit-linear-gradient(left, #000066, #000044, #000066, #000088, #0000cc, #000066, #000033);}       
-       
-       #HelyiNav {background-color:#660000; color:white; background:transparent;    }
-	   
-	   
-       #KiegeszitoInfo {background-color:#08f; color:white;}       
-       #logoImgLink{color:white;}
-	   
-	   
-       footer {background-color:#333; }
-       
-       /* Menüsor*/
+h1, h2, h3,
+a {color:#06213F;}
 
 
-       #FoNavJobb {width:100%;margin:0 100px; color:black; text-align:center;
-		
+
+a#logoLink        {color:#222;}
+a#logoLink:hover  {color:#222;}
+a#logoLink:active {color:#222;}
+a#logoLink:link   {color:#222;}
+a#logoLink        {margin-left:10px; font-variant:small-caps;  font-weight:bold;} /* !!! */
+
+ @media only screen and (max-width : 900px) {
+a#logoLink        {font-size:1.5em;}
+ }
+/*---------------------- MORZSANAVIGÁCIÓ FORMÁZÁSA ----------------------*/
+
+.Morzsa_ a::after{content: " « ";}  
+.Morzsa a        {font-weight:bold; color:#06213F;}   
+.Morzsa a:link   {font-weight:bold; color:#06213F;}
+.Morzsa a:active {font-weight:bold; color:#06213F;}
+.Morzsa a:hover  {font-weight:bold; color:#000;}    
+
+/*-------------------- FŐ SZERKEZET NAGY FELBONTÁSNÁL --------------------*/
+	       
+#FoHeder{background-color:#fff;}
+
+/*-------------------------- TARTALOM FORMÁZÁSA --------------------------*/
+
+body, html{background-color:#fff; font-family: 'Istok Web', sans-serif;}		 
+#Keret{background-color:#fff;}
+
+#BelsoKeret{background-color:#fff; width:100%; padding:0 300px;}  
+
+#KiegeszitoInfo{background-color:#E9EAED; width:300px; margin-right:-300px; float:right;}
+
+#Tartalom_
+{background-color:#fff;
+    border-right:2px solid #4262A9;
+    border-left:2px solid #4262A9; 
+    border-bottom:2px solid #4262A9;
+    border-radius: 0px 0px 5px 5px;}
+
+#divOTartalom h1{margin-top:10px;margin-bottom:10px;}
+      
+footer {background-color:#06213F; line-height:15px; font-weight:bold; padding-top:0;
+    border-top: 3px solid #4262A9; border-bottom: 3px solid #4262A9;
+    color:#fff;}
+
+/*--------------------- KIEGÉSZÍTŐ TARTALOM FORMÁZÁSA ---------------------*/      
+
+#KiegeszitoInfo{margin-top:0; padding-top:0;}
+
+.divKiegTKulso{
+    padding-left:0px; /* !!! */
+    margin-top:10px;
+    margin-right:0px; /* !!! */
+    margin-left:0px; /* !!! */
+    margin-bottom:10px;
+    
+    background-color:#06213F;
+    
+    border:1px solid #4262A9;
+    border-radius: 5px 5px 5px 5px;
+
+   /* box-shadow:5px 5px 5px -3px #000; */
+}
+.divKiegTKulso h2{
+    margin-left:5px;
+    margin-top:10px;
+    
+    font-style:normal;
+    font-size:20px;
+    
+    color:#fff;
+    font-family: "Istok Web",sans-serif;
+}
+
+.divKiegT{margin:5px 5px 5px -1px; color:#222; font-size:15px;} /* !!! */
+
+/*-------------------------- MENÜSOR FORMÁZÁSA --------------------------*/
+
+#FoNav {
+    background-color:#06213F; width:100%; line-height:30px;
+    border-top: 3px solid #06213F; font-size:1.2em;
+    border-bottom: 3px solid #06213F;
+    font-family: 'Istok Web', sans-serif;  font-variant:small-caps; color:black;
+}
+#FoNav a {color:#fff; margin: 0 8px;}   /*!!!*/
+#FoNavBal {float:left; width:100px;}
+#FoNavJobb {width:100%;margin:0 100px; text-align:center; padding-right:10%;}
+#FoNav label  {color:#fff; } /*!!!*/
+.MPontLink{display:inline-block; color:#000;}
+       
+/*-------------------------- HELYI MENÜ FORMÁZÁSA --------------------------*/
+   
+.divMenuInfo1, #divFelhasznaloUdv{font-weight:bold}
+
+#HelyiNav{background-color:#E9EAED; padding: 1px 0 5px 1px; margin-bottom:40px;}
+#HelyiNav ul {list-style-type: none; padding-left:0px;}  
+#HelyiNav .AktLink {font-weight:bold;}
+
+/*---- Első szint ----*/
+
+
+#HelyiNav  li a{font-variant:small-caps;}
+
+#HelyiNav  li a::before{content: " » ";}
+#HelyiNav li a { display: inline-block; background-color:#06213F; padding:8px 5px 8px 5px; color:#fff;
+	width:100%; height: auto; border-radius: 5px  5px 5px 5px; border:1px solid #ddd; } 
+
+#HelyiNav  li a:link,  #HelyiNav  li a:visited {color:#FFF; text-decoration:none; }
+#HelyiNav  li a:hover  {color:black; text-decoration:none; margin-left:5px; color:#ddd;} 
+#HelyiNav  li a:active {color:black; border-bottom:2px; border-top:2px; padding-top:7px; color:#fff;}
+  
+
+
+/*---- Második szint ----*/
+
+#HelyiNav li li a {background-color:#8b9dc3; padding-left:8px;} 
+#HelyiNav li li a:link,  #HelyiNav  li a:visited {color:#fff;}
+ 
+
+
+/*---- Harmadik szint ----*/
+
+#HelyiNav li li li a {background-color:#CAD0E2; margin-left:5px; padding-left:8px;
+width: -moz-calc(100% - 5px);
+width: -webkit-calc(100% - 5px);
+width: calc(100% - 5px);} 
+
+#HelyiNav li li li a:hover  {color:black; text-decoration:none; margin-left:10px;} 
+#HelyiNav li li li a:link,  #HelyiNav  li a:visited {color:#fff;}
+
+
+
+/*---- Negyedik szint ----*/
+
+#HelyiNav li li li li a {background-color:#dfe3ee; margin-left:10px; padding-left:8px;
+width: -moz-calc(100% - 10px);
+width: -webkit-calc(100% - 10px);
+width: calc(100% - 10px);}
+
+#HelyiNav li li li li a:link,  #HelyiNav  li li li li a:visited {color:#fff;}
+#HelyiNav li li li li a:hover  {color:black; text-decoration:none; margin-left:15px;} 
+
+/*-------------------------- HELYI MENÜ ELREJTÉSE --------------------------*/
+
+#chmenu:checked ~ #BelsoKeret #HelyiNav {display: none;}
+#chmenu:checked ~ #BelsoKeret {padding-left:0;}
+       
+#Tartalom section img {margin:10px;}
+#Tartalom article  {margin:6px;}
+       
+
+#OTartalom{width:95%;}
+#OLeiras{width:95%;}
+
+#divFormkod{margin-left:1px;}
+
+
+/*-----------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------*/
+/*-------------------------- ADMIN PANELEK FORMÁZÁSA --------------------------*/
+/*-----------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------*/
+
+.FontosStr{margin-top:10px; margin-bottom:10px;}
+
+#divOModeratorCsoportValaszt, #divOModeratorValasztForm, #KepekFeltoltForm, #KisKepFelForm, 
+#CikkKepTolForm, #formCsoportValaszt, #formCsoportValaszt2, #formFelhasznaloValaszt 
+{width: 100%;}
+
+/* ---------------- GYŰJTŐDIV FORMÁZÁSA ---------------- */
+#divOTartalom h2{margin-top:10px; margin-bottom:10px;}
+
+#divFormkod, #divFormkodCikk, #divFormkodFCsoport, #divFormkodFelhasznalo{  
+    background-color:#E9EAED;
+    border:2px solid #4262A9;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#divFormkodFCsoport h2 {margin-top:10px; margin-bottom:0px;}
+#divFormkodFCsoport p {margin-top:10px; margin-bottom:10px;}
+#divFormkodFCsoport label {padding:2px;}
+
+
+#divFormkodFelhasznalo label {padding:2px;}
+#divFormkodCikk label        {padding:2px;}
+#divFormkod label            {padding:2px;}
+
+.pCikkTorol{margin-top:0px; margin-bottom:5px;}
+
+/* ---------------- ŰRLAPOK MEGJELENÉSE ---------------- */
+
+#divFCsoportForm, #divFCsoportTorol, #divUjFCsoportForm, 
+#divFelhasznaloForm, #divFelhasznaloTorol{padding:10px;}
+
+#divOldalForm, #divUjOldalForm, #divOldalTorolForm, #divOldalKepForm, #divOldalModeratorForm, 
+#divUjCikkForm, #divCikkForm, #divCikkKepForm, #divCikkValaszt, #divCikkTorolForm, 
+#divFCsoportForm, #divFCsoportTorol, #divUjFCsoportForm, #divFelhasznaloForm, #divFelhasznaloTorol
+{background-color:#E9EAED; margin-top:0; padding-top:0; border:0px;}
+
+.divKiegTElem, .divFoMenuElem, .divMenuPlElem{
+    width:710px;
+    border:2px solid #4262A9;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.divMenuPlElem{padding-left:5px; margin-bottom:5px;}
+.pMenuPlid {font-weight:bold;}
+
+
+.divCikkElozetesKulso a,
+#divOElozetesekKulso a,
+#divOTartalom .Ul1a a {color:royalblue;}
+
+
+input{background-color:#CAD0E2;}
+textarea{background-color:#CAD0E2;}
+
+button{background-color:#CAD0E2;}
+
+
+
+#divOTartalom #divFormkod, #divOTartalom #labelUjOldalForm, 
+#divOTartalom #labelOldalForm, #divOTartalom #labelOldalTorolForm, 
+#divOTartalom #labelOldalKepForm, #divOTartalom #labelOldalModeratorForm, 
+#divOTartalom #labelchFormkod,
+
+#divOTartalom #labelUjCikkForm, 
+#divOTartalom #labelCikkForm,
+#divOTartalom #labelCikkTorolForm,
+#divOTartalom #labelCikkKepForm,
+#divOTartalom #labelUjCikkForm,
+#divOTartalom #labelchFormkodCikk,
+#divOTartalom #divFormkodCikk
+{background-color:#06213F; color:#fff;}
+
+#FoHeder #logoLink {width:100%; color:#06213F; text-align:center;}
+
+#FoHeder #logoLink span {
+    vertical-align: baseline;
+}
+
+#FoHeder #logoLink span.color1 {color: #48f;}
+#FoHeder #logoLink span.color2 {color: #e43;}
+#FoHeder #logoLink span.color3 {color: #fb0;}
+#FoHeder #logoLink span.color4 {color: #3a5;}
+
+#FoHeder #logoLink :nth-child(1)   { color:#48f;} 
+#FoHeder #logoLink :nth-child(2)   { color:#e43;} 
+#FoHeder #logoLink :nth-child(3)   { color:#fb0;} 
+#FoHeder #logoLink :nth-child(4)   { color:#3a5;} 
+
+#FoHeder #logoLink :nth-child(5)   { color:#48f;}
+#FoHeder #logoLink :nth-child(6)   { color:#e43;}  
+#FoHeder #logoLink :nth-child(7)   { color:#fb0;}  
+#FoHeder #logoLink :nth-child(8)   { color:#3a5;}   
+
+#FoHeder #logoLink :nth-child(9)   { color:#481;}  
+#FoHeder #logoLink :nth-child(10)   { color:#e43;}  
+
+   
+#logoImgLink img {box-shadow: 5px 5px 10px 0px #444444;}
+#HelyiNav .Ul1 {
+    margin: 0 0 0 1px;
+}
+
+.divCikkElozetesKulso, .divCikkKulso, .divOElozetesKulso {
+                      border: 1px solid rgba(66, 98, 169, 0.04);
+
+                      background-color:#fff;}
+
+.divOElozetesKep {border-right: 2px solid rgba(66, 98, 169, 0.8);}
+
+#divOTartalom #divCikkekKulso {width:auto;}
+
+/*================  NAGY ANIMÁCIÓ =========================*/
+
+#FoBanner5Kocka .cube div.KepStyle0 {max-width: 100% !important; margin: 0px; width: 100% !important;} 
+#Tartalom #FoBanner5Kocka .cube img {max-width: 100% !important; margin: 0px; width: 100% !important;} 
+
+   	    @-webkit-keyframes cube-spin {
+			from { -webkit-transform: rotateY(0); }
+			to { -webkit-transform: rotateY(360deg); }
 		}
-       
-       /* Helyi menü*/
-       .FoNav ul{float:left;
-					width:100%;
-					margin:0;
-					padding:0;
-					font-size:11px;
-					font-family:sans-serif;
-					color:#fff;
-					background:#ccc;
-					}
-		.FoNav ul li{
-							display:inline;
-						}
-		.FoNav ul li a{
-							float:left;
-							padding:5px 10px;
-							background:#ccc;
-							color:#fff;
-							text-decoration:none;
-							border-right:1px solid #fff;
-							}
-		.FoNav ul li a:hover{
-							color:#fff;
-							background:#69C;
-								}
-					
-       
-       
-				       
-       .Ul1 ul{
-				list-style-type: none;
-				margin: 0;
-				padding: 0px;
+
+		@-ms-keyframes cube-spin {
+			from { ms-transform: rotateY(0); }
+			to { ms-transform: rotateY(360deg); }
 		}
-		.Ul1 a{display: block;
-				color: #ffffff;
-				background-color: #660099;
-				border: 0;
-				border-left: 3pt solid #660066;
-				border-right: 3pt solid #6600CC;
-				
-				padding: 3pt 3pt;
-				text-decoration: none;
-	}
-	.Ul1 a:hover{display: block;
-					color: #ffffff;
-					background-color: #6600FF;
-					border: 0;
-					border-left: 3pt solid #006600;
-					border-right: 3pt solid #00cc00;
-					
-					padding: 3pt 3pt;
-					text-decoration: none;
-	}
+
+		@keyframes cube-spin {
+			from { transform: rotateY(0); }
+			to { transform: rotateY(360deg); }
+		}
+		.cube-wrap {
+			-webkit-perspective: 800px;
+			-webkit-perspective-origin: 50% 180px;
+
+			-moz-perspective: 800px;
+			-moz-perspective-origin: 50% 180px;
+
+			-ms-perspective: 800px;
+			-ms-perspective-origin: 50% 180px;
+
+			perspective: 800px;
+			perspective-origin: 50% 180px;
+		}
+
+		.cube {
+			position: relative;
+			width: 360px;
+			margin: 0 auto;
+			
+			-webkit-transform-style: preserve-3d;
+			-webkit-animation: cube-spin 20s infinite linear;
+			
+			-moz-transform-style: preserve-3d;
+			-moz-animation: cube-spin 20s infinite linear;
+
+			-ms-transform-style: preserve-3d;
+			-ms-animation: cube-spin 20s infinite linear;
+
+			transform-style: preserve-3d;
+			animation: cube-spin 20s infinite linear;
+		}
+
+		.cube div {
+			position: absolute;
+			width: 360px;
+			height: 200px;
+			background: #066;
+			
+			text-align: center;
+			color: rgba(255,255,255,1);
+		}
+		.depth div.back-pane {
+			-webkit-transform: translateZ(-180px) rotateY(180deg);
+			-moz-transform: translateZ(-180px) rotateY(180deg);
+			-ms-transform: translateZ(-180px) rotateY(180deg);
+			transform: translateZ(-180px) rotateY(180deg);
+		}
+		.depth div.right-pane {
+			-webkit-transform:rotateY(-270deg) translateX(180px);
+			-webkit-transform-origin: top right;
+
+			-moz-transform:rotateY(-270deg) translateX(180px);
+			-moz-transform-origin: top right;
+
+			-ms-transform:rotateY(-270deg) translateX(180px);
+			-ms-transform-origin: top right;
+
+			transform:rotateY(-270deg) translateX(180px);
+			transform-origin: top right;
+		}
+		.depth div.left-pane {
+			-webkit-transform:rotateY(270deg) translateX(-180px);
+			-webkit-transform-origin: center left;
+
+			-moz-transform:rotateY(270deg) translateX(-180px);
+			-moz-transform-origin: center left;
+
+			-ms-transform:rotateY(270deg) translateX(-180px);
+			-ms-transform-origin: center left;
+
+			transform:rotateY(270deg) translateX(-180px);
+			transform-origin: center left;
+		}
+		.depth div.top-pane {
+			-webkit-transform:rotateX(-90deg) translateY(-180px);
+			-webkit-transform-origin: top center;
+
+			-moz-transform:rotateX(-90deg) translateY(-180px);
+			-moz-transform-origin: top center;
+
+			-ms-transform:rotateX(-90deg) translateY(-180px);
+			-ms-transform-origin: top center;
+
+			transform:rotateX(-90deg) translateY(-180px);
+			transform-origin: top center;
+		}
+		.depth div.bottom-pane {
+			-webkit-transform:rotateX(90deg) translateY(180px);
+			-webkit-transform-origin: bottom center;
+
+			-moz-transform:rotateX(90deg) translateY(180px);
+			-moz-transform-origin: bottom center;
+
+			-ms-transform:rotateX(90deg) translateY(180px);
+			-ms-transform-origin: bottom center;
+
+			transform:rotateX(90deg) translateY(180px);
+			transform-origin: bottom center;
+		}
+		.depth div.front-pane {
+			-webkit-transform: translateZ(180px);
+			-moz-transform: translateZ(180px);
+			-ms-transform: translateZ(180px);
+			transform: translateZ(180px);
+		}
+		#FoBanner5kulso {display: inline-block;height: 340px; width:530px;margin-top:40px; position: relative;}
+		#FoBanner5Kepek {position: absolute; height: 280px; width:500px; left:0px; top:0px;}
+		#FoBanner5Kocka {height: 280px;margin-top:40px; width:500px;}
+		#FoBanner5Leir {position: absolute; height: 30px; width:360px; left:0px; bottom:15px; z-index:200; 
+			            margin:0; padding:0; line-height: 20px; font-size:14px;}
+		#FoBanner5Kocka .cube img {height: 200px; width:360px;}	            
 	
-       .Ul2 {list-style-type:none;
-       
- 
-					}
-       .Ul3 {list-style-type:none;    text-decoration: none;
- 
+/*================  KIS MÉRETBEN =========================*/
+  @media only screen and (max-width : 790px) {
+        #FoBanner5Kocka .cube img {height: 150px; width:200px;}	 
+        #FoBanner5kulso {display: inline-block;height: 300px; width:320px;margin-top:0px;}
+		#FoBanner5Kepek {position: absolute; height: 300px; width:320px; left:0px; top:0px;}
+		#FoBanner5Kocka {height: 300px;margin-top:20px; width:320px;}
+		#FoBanner5Leir {position: absolute; height: 60px; width:200px; left:0px; bottom:-5px; z-index:200; 
+			            margin:0; padding:0; line-height: 20px; font-size:14px;}
+			            
 
+  
+		/*************** ANIMÁCIÓK ***************/
+		@-webkit-keyframes cube-spin {
+			from { -webkit-transform: rotateY(0); }
+			to { -webkit-transform: rotateY(360deg); }
 		}
-		.Ul4{
-			list-style-type:none;
-			
+
+		@-ms-keyframes cube-spin {
+			from { ms-transform: rotateY(0); }
+			to { ms-transform: rotateY(360deg); }
 		}
-       .AktLink {
+
+		@keyframes cube-spin {
+			from { transform: rotateY(0); }
+			to { transform: rotateY(360deg); }
 		}
-		
-		
-			
-		
-		
-		.M4{
-			border: 1px solid black;
-			border-radius: 15%;
-			padding:3px 20px;
-			background-image: -webkit-gradient(linear,right top,right bottom,color-stop(0.28, rgb(255, 255, 255)),color-stop(1, rgb(181, 178, 177)));
-			background-image: -o-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: -moz-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: -webkit-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: -ms-linear-gradient(bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: linear-gradient(to bottom, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
+		.cube-wrap {
+			-webkit-perspective: 800px;
+			-webkit-perspective-origin: 50% 100px;
+
+			-moz-perspective: 800px;
+			-moz-perspective-origin: 50% 100px;
+
+			-ms-perspective: 800px;
+			-ms-perspective-origin: 50% 100px;
+
+			perspective: 800px;
+			perspective-origin: 50% 100px;
 		}
-		.M4:active{
-			background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.28, rgb(255, 255, 255)),color-stop(1, rgb(181, 178, 177)));
-			background-image: -o-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: -moz-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: -webkit-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: -ms-linear-gradient(top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
-			background-image: linear-gradient(to top, rgb(255, 255, 255) 28%, rgb(181, 178, 177) 100%);
 
+		.cube {
+			position: relative;
+			width: 200px;
+			margin: 0 auto;
 			
+			-webkit-transform-style: preserve-3d;
+			-webkit-animation: cube-spin 20s infinite linear;
+			
+			-moz-transform-style: preserve-3d;
+			-moz-animation: cube-spin 20s infinite linear;
+
+			-ms-transform-style: preserve-3d;
+			-ms-animation: cube-spin 20s infinite linear;
+
+			transform-style: preserve-3d;
+			animation: cube-spin 20s infinite linear;
 		}
+
+		.cube div {
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			background: #053;
 			
-		
-		
-			
-		
-		
+			text-align: center;
+			color: rgba(255,255,255,1);
+		}
+		.depth div.back-pane {
+			-webkit-transform: translateZ(-100px) rotateY(180deg);
+			-moz-transform: translateZ(-100px) rotateY(180deg);
+			-ms-transform: translateZ(-100px) rotateY(180deg);
+			transform: translateZ(-100px) rotateY(180deg);
+		}
+		.depth div.right-pane {
+			-webkit-transform:rotateY(-270deg) translateX(100px);
+			-webkit-transform-origin: top right;
 
-	   
-		a:link {color:#000000;} /* nem látogatott link */
-		a:visited {color:black;} /* meglátogatott link */
-		a:hover {color:#6A5ACD;} /* egérkurzor a link felett */
-		a:active {color:#808080;} /* egérgom lenyomva */
-	   
+			-moz-transform:rotateY(-270deg) translateX(100px);
+			-moz-transform-origin: top right;
 
-       #Tartalom section img {margin:10px;}
-       #Tartalom article  {margin:6px;}
-       
-       /* Responsive átalakítás 1200px a        */       
-       @media only screen and (min-width : 1300px)  {  
-            #Tartalom section {
-				-webkit-column-count: 2; /* Chrome, Safari, Opera */
-                -moz-column-count: 2; /* Firefox */
-                column-count: 2;
+			-ms-transform:rotateY(-270deg) translateX(100px);
+			-ms-transform-origin: top right;
 
-                -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
-                -moz-column-gap: 40px; /* Firefox */
-                column-gap: 40px;
-				
-				
-			}
-       } 
-        
-        
-       @media only screen and (max-width : 1200px)  {  
-            #BelsoKeret {padding-right:0;}
-            #KiegeszitoInfo {margin-right:0px; width:100%; clear:left;} 
-       }
+			transform:rotateY(-270deg) translateX(100px);
+			transform-origin: top right;
+		}
+		.depth div.left-pane {
+			-webkit-transform:rotateY(270deg) translateX(-100px);
+			-webkit-transform-origin: center left;
 
-       @media only screen and (max-width : 710px)  {  
-            #FoHeder, #FoNavJobb {display: none; }
-            #FoNavBal {height:40px; width:100%; display:block;} 
-            #FoNav {display:block; position:fixed; left:0px; top:0px;}
-            #Tartalom, #HelyiNav {margin: 40px 0 0 0; padding: 0; clear:left; }
-            #BelsoKeret {padding: 0;}
-       }   
+			-moz-transform:rotateY(270deg) translateX(-100px);
+			-moz-transform-origin: center left;
+
+			-ms-transform:rotateY(270deg) translateX(-100px);
+			-ms-transform-origin: center left;
+
+			transform:rotateY(270deg) translateX(-100px);
+			transform-origin: center left;
+		}
+		.depth div.top-pane {
+			-webkit-transform:rotateX(-90deg) translateY(-100px);
+			-webkit-transform-origin: top center;
+
+			-moz-transform:rotateX(-90deg) translateY(-100px);
+			-moz-transform-origin: top center;
+
+			-ms-transform:rotateX(-90deg) translateY(-100px);
+			-ms-transform-origin: top center;
+
+			transform:rotateX(-90deg) translateY(-100px);
+			transform-origin: top center;
+		}
+		.depth div.bottom-pane {
+			-webkit-transform:rotateX(90deg) translateY(100px);
+			-webkit-transform-origin: bottom center;
+
+			-moz-transform:rotateX(90deg) translateY(100px);
+			-moz-transform-origin: bottom center;
+
+			-ms-transform:rotateX(90deg) translateY(100px);
+			-ms-transform-origin: bottom center;
+
+			transform:rotateX(90deg) translateY(100px);
+			transform-origin: bottom center;
+		}
+		.depth div.front-pane {
+			-webkit-transform: translateZ(100px);
+			-moz-transform: translateZ(100px);
+			-ms-transform: translateZ(100px);
+			transform: translateZ(100px);
+		}			            
+  }

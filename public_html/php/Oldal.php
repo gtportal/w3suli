@@ -69,7 +69,7 @@
         
         $tiszta_OURL = $OUrl;
         if ($tiszta_OURL=='') {$tiszta_OURL = 'kezdolap';}
-        if ($tiszta_OURL=='') {$tiszta_OURL = 'Homepage';}
+      //  if ($tiszta_OURL=='') {$tiszta_OURL = 'Homepage';}
         //Az aktuális oldal adatainak betöltése
         $SelectStr   = "SELECT * FROM Oldalak WHERE OUrl='$tiszta_OURL' LIMIT 1"; //echo $SelectStr;
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gOD 01 ");
