@@ -431,7 +431,13 @@
             if ($OTipS=='Kategoria') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='Kategoria' $Sel>".U_OTIPUS_KAT."</option>\n";
             if ($OTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
-            $HTMLkod .=  "<option value='HirOldal' $Sel>".U_OTIPUS_HIR."</option>\n";
+            $HTMLkod .=  "<option value='HirOldal' $Sel>".U_OTIPUS_HIR."</option>\n";   
+            
+            if ($OUrl=='Kezdolap') {
+               if ($OTipS=='Kezdolap') {$Sel=' selected ';} else {$Sel='';}
+               $HTMLkod .=  "<option value='Kezdolap' $Sel>Kezdőlap</option>\n";                 
+            }
+
             $HTMLkod .=  "</select>\n";   
             
             //Prioritás
@@ -558,6 +564,12 @@
             $HTMLkod .=  "<option value='Kategoria' $Sel>".U_OTIPUS_KAT."</option>\n";
             if ($OTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='HirOldal' $Sel>".U_OTIPUS_HIR."</option>\n";
+            
+            if ($OUrl=='Kezdolap') {
+               if ($OTipS=='Kezdolap') {$Sel=' selected ';} else {$Sel='';}
+               $HTMLkod .=  "<option value='Kezdolap' $Sel>Kezdőlap</option>\n";                 
+            }
+            
             $HTMLkod .=  "</select>\n";    
             //Rövíd leírás
             $HTMLkod .= "<p  class='pOLeiras'><label for='OLeiras' class='label_1'>".U_LEIRAS.":</label><br>\n ";
@@ -669,6 +681,7 @@ function setOldal() {
             $OTipS = test_post($_POST['OTipValszt']); 
             $OTipKod = 0;
             switch ($OTipS) {
+              case  'Kezdolap' : $OTipKod = 0; break;  
               case  'Kategoria': $OTipKod = 1; break;
               case  'HirOldal' : $OTipKod = 2; break;
               default: $ErrorStr .= ' Err004,';
@@ -958,6 +971,7 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                     $SelStrC      = $arrLapozC['SelectStr'];
                     $arrLapozO    = getKatLapinfo(10);
                     $LapozHTMLO   = $arrLapozO['LapozHTML'];
+                    
                     $SelStrO      = $arrLapozO['SelectStr']; 
                     $arrLapozCE   = getCikkElozetesLapinfo(10,0);
                     $LapozHTMLCE  = $arrLapozCE['LapozHTML'];
@@ -982,6 +996,7 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                         $HTMLkod   .= $LapozHTMLC;
                     }    
                         
+                    $HTMLkod       .= "<h2 style='clear:left;'>Tartalom</h2>";
                     if ($SelStrO!='') {
                         $HTMLkod   .= $LapozHTMLO;
                         $HTMLkod   .= getOElozetesekHTML($SelStrO);

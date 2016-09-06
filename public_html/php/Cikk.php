@@ -44,9 +44,11 @@ function setUjCikk() {
         } else {$ErrorStr = ' Err001,';}
         //Tartalom ellenőrzése
         if (isset($_POST['UjCTartalom'])) {
-            $UjCTartalom = test_post($_POST['UjCTartalom']);             
+//            $UjCTartalom = test_post($_POST['UjCTartalom']);        
+            if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$UjCTartalom = test_post_tartalom($_POST['UjCTartalom']); } 
+              else {$UjCTartalom = SQL_post($_POST['UjCTartalom']); }
             if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$UjCTartalom = SzintaxisCsere($UjCTartalom); } // Saját kódolás cseréje HTML elemekre
-            if (strlen(!$UjCTartalom)){ $ErrorStr .= ' Err005';}
+            if (strlen($UjCTartalom)==0){ $ErrorStr .= ' Err005';}
             
         }
         if (isset($_POST['UjCLeiras']))   {$UjCLeiras   = test_post($_POST['UjCLeiras']);}  else {$UjCLeiras   ='';}
@@ -652,9 +654,9 @@ function setCikk() {
         //Tartalom ellenőrzése
         if (isset($_POST['CTartalom'])) {
             //$CTartalom = test_post($_POST['CTartalom']); 
-            if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$CTartalom = test_post($_POST['CTartalom']); } else {$CTartalom = SQL_post($_POST['CTartalom']); }
+            if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$CTartalom = test_post_tartalom($_POST['CTartalom']); } else {$CTartalom = SQL_post($_POST['CTartalom']); }
             if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$CTartalom = SzintaxisCsere($CTartalom); }
-            if (strlen(!$CTartalom)){ $ErrorStr .= ' Err005';}
+            if (strlen($CTartalom)==0){ $ErrorStr .= ' Err005';}
         }
         if (isset($_POST['CLeiras']))     {$CLeiras     = test_post($_POST['CLeiras']);}
         if (isset($_POST['CLathatosag'])) {$CLathatosag = INT_post($_POST['CLathatosag']);}

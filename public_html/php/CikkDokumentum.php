@@ -25,7 +25,7 @@ function setCikkDokFeltolt() {
         } else {
           $KepUtvonal = "img/oldalak/doc/";
         }
-        $ErrorStr= DokKonyvtarLetrehoz($KepUtvonal); echo "<h1>$KepUtvonal BRRRRRRRRRRRRRR $ErrorStr </h1>";
+        $ErrorStr= DokKonyvtarLetrehoz($KepUtvonal); //echo "<h1>$KepUtvonal BRRRRRRRRRRRRRR $ErrorStr </h1>";
         
         if ($ErrorStr=='') {
             //=============== Lehetséges Fájlnevek ==================
@@ -187,7 +187,7 @@ function setCikkDokumentumok() {
                         if (isset($_POST["CDLeiras_$i"]))    {$DLeiras  = test_post($_POST["CDLeiras_$i"]);}
                         if (isset($_POST["CDMeretKB_$i"]))   {$DMeretKB = test_post($_POST["CDMeretKB_$i"]);}
                         if (isset($_POST["CDSorszam_$i"]))   {$DSorszam = test_post($_POST["CDSorszam_$i"]);}
-                        if (isset($_POST["CDNev_$i"]))       {$DNev     = test_post($_POST["CDNev_$i"]);}  echo "<h1>$i DNev: $DNev</h1>";
+                        if (isset($_POST["CDNev_$i"]))       {$DNev     = test_post($_POST["CDNev_$i"]);} // echo "<h1>$i DNev: $DNev</h1>";
                         if(strlen($DNev)>40) {
                             $ErrorStr .= "ErrH01 $DNev <br>\n";
                             $DNev=substr($DNev,0,40);                        
