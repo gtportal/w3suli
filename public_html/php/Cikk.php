@@ -655,7 +655,7 @@ function setCikk() {
         if (isset($_POST['CTartalom'])) {
             //$CTartalom = test_post($_POST['CTartalom']); 
             if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$CTartalom = test_post_tartalom($_POST['CTartalom']); } else {$CTartalom = SQL_post($_POST['CTartalom']); }
-            if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$CTartalom = SzintaxisCsere($CTartalom); }
+           // if ($_SESSION['AktFelhasznalo'.'FSzint']<6) {$CTartalom = SzintaxisCsere($CTartalom); }
             if (strlen($CTartalom)==0){ $ErrorStr .= ' Err005';}
         }
         if (isset($_POST['CLeiras']))     {$CLeiras     = test_post($_POST['CLeiras']);}
@@ -685,7 +685,8 @@ function setCikk() {
                                 SZoElozetes    =  '$SZoElozetes',     
                                 CModositasTime = NOW()
                                 WHERE       id = $id";
-                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 01 ");
+                  //  echo $UpdateStr;
+                    mysqli_query($MySqliLink,$UpdateStr) OR die("Hiba uMC 01 "); 
                     $UpdateStr   = "UPDATE OldalCikkei SET
                                     CPrioritas = $CPrioritas
                                     WHERE   Cid=$id AND Oid=$Oid LIMIT 1"; 

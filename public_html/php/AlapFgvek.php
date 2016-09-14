@@ -116,7 +116,7 @@ function setKepFeltolt($AktKonytart,$KFileName) {
      global $MySqliLink;
      $data = trim($data);
      $arr  = array( "'" => "&apos;", '"' => "&quot;", '”' => "&quot;", 
-                    "<" => "&lt;", ">" => "&gt;",   "=" => "&#61;", "\x5C" => "" );
+                    "<" => "&lt;", ">" => "&gt;",   "\x5C" => "" );
      $data = strtr($data, $arr);
      $data = mysqli_real_escape_string($MySqliLink, $data);
    return $data;
