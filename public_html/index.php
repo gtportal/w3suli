@@ -103,13 +103,17 @@
   getOldalData($oURL);  
   
   //A MODERÁTOR STÁTUSZ ELLENŐRZÉSE
-  if ($_SESSION['AktFelhasznalo'.'FSzint'] == 2) 
+  if (($_SESSION['AktFelhasznalo'.'FSzint'] == 3) || ($_SESSION['AktFelhasznalo'.'FSzint'] == 4))
   {
     if (getOModeratorTeszt() > 0)    // Csak akkor érdekes, ha bejelentkezett, de nem rendszergazda     
     {
         $_SESSION['AktFelhasznalo'.'FSzint'] =  4;
+    } else {
+        $_SESSION['AktFelhasznalo'.'FSzint'] =  3;        
     }
   } 
+  
+//  echo "HHHHHHHHHH: ".$_SESSION['AktFelhasznalo'.'FSzint'];
   
   //FELHASZNÁLÓI CSOPORTADATOK MÓDOSÍTÁSA
   if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
