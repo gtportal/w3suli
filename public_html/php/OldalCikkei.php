@@ -6,7 +6,7 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
     $HTMLkod       = '';    
     $SelectStr     = "SELECT KNev, KFile, KSzelesseg, KMagassag, KStilus FROM CikkKepek WHERE Cid=$Cid ORDER BY KSorszam";
     $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01");
-    $HTMLHirKepTMB = array('','','','','');
+    $HTMLHirKepTMB = array('','','','','','','','','','');
     $i             = 0;
     $rowDB         = mysqli_num_rows($result); 
     if ($rowDB > 0) {
@@ -26,10 +26,13 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
         }
         mysqli_free_result($result);
     }
+    $arr          = array("#10" => "$HTMLHirKepTMB[9]");  
+    $HTMLkod      = strtr($CTartalom ,$arr);    
+    
     $arr          = array( "#1" => "$HTMLHirKepTMB[0]", "#2" => "$HTMLHirKepTMB[1]", "#3" => "$HTMLHirKepTMB[2]", 
                            "#4" => "$HTMLHirKepTMB[3]", "#5" => "$HTMLHirKepTMB[4]", "#6" => "$HTMLHirKepTMB[5]",
                            "#7" => "$HTMLHirKepTMB[6]", "#8" => "$HTMLHirKepTMB[7]", "#9" => "$HTMLHirKepTMB[8]",
-                          "#10" => "$HTMLHirKepTMB[9]", "##" => "");  
+                           "##" => "");  
     $HTMLkod      = strtr($CTartalom ,$arr);
     $HTMLkod      = getDokumentumCsereL($Cid,$HTMLkod,$KepUtvonal);
     return $HTMLkod;            
@@ -41,7 +44,7 @@ function getDokumentumCsereL($Cid,$CTartalom,$KepUtvonal) {
     $SelectStr     = "SELECT DNev, DFile, DLeiras, DMeretKB, DFFile FROM CikkDokumentumok WHERE Cid=$Cid ORDER BY DSorszam"; //echo "SelectStr:" .$SelectStr ."<br>";
    
     $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01y123_");
-    $HTMLHirDocTMB = array('','','','','');
+    $HTMLHirDocTMB = array('','','','','','','','','','');
     $i             = 0;
     $rowDB         = mysqli_num_rows($result); 
     if ($rowDB > 0) {
@@ -56,8 +59,12 @@ function getDokumentumCsereL($Cid,$CTartalom,$KepUtvonal) {
         }
         mysqli_free_result($result);
     }
+    $arr          = array("#D10" => "$HTMLHirDocTMB[9]");  
+    $HTMLkod      = strtr($CTartalom ,$arr);    
+    
     $arr          = array( "#D1" => "$HTMLHirDocTMB[0]", "#D2" => "$HTMLHirDocTMB[1]", "#D3" => "$HTMLHirDocTMB[2]", 
-                           "#D4" => "$HTMLHirDocTMB[3]", "#D5" => "$HTMLHirDocTMB[4]");  
+                           "#D4" => "$HTMLHirDocTMB[3]", "#D5" => "$HTMLHirDocTMB[4]", "#D6" => "$HTMLHirDocTMB[5]",
+                           "#D7" => "$HTMLHirDocTMB[6]", "#D8" => "$HTMLHirDocTMB[7]", "#D9" => "$HTMLHirDocTMB[8]");  
     $HTMLkod      = strtr($CTartalom ,$arr);
     return $HTMLkod;            
 }
