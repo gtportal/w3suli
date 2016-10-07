@@ -45,6 +45,7 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
                         if ($_SESSION["AktFelhasznalo"."FSzint"]>0) {
                           $MySqliLink'." = mysqli_connect('localhost', '$DBfNev', '$DBJelszo', '$DBNev'); 
                           if (!".'$MySqliLink'.") { die('AB hiba 123'); }
+                          if (!mysqli_set_charset(".'$MySqliLink'.", 'utf8')) {die('Kapcsolódási hiba 1 ') ;}    
                         }    
                       ?>\n";
   } 
