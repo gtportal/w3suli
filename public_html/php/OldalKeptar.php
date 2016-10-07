@@ -364,6 +364,8 @@ function getOldalKepForm() {
         if (!is_dir($AktAlKonytart)) {     
             if (!mkdir($AktAlKonytart, 0777)) {
               $ErrorStr = 'Err100'; // Nem sikerült létrehozni
+            } else {
+                if (!copy("img/oldalak/index.html", "img/oldalak/".$KTarNev."/index.html"))   { $ErrorStr .= "Err103";} 
             }
         }  else {
             $ErrorStr   = 'Err101'; // Van már adott néven könyvtár

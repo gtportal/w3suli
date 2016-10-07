@@ -43,7 +43,7 @@ function getDokumentumCsereL($Cid,$CTartalom,$KepUtvonal) {
     $HTMLkod       = '';    
     $SelectStr     = "SELECT DNev, DFile, DLeiras, DMeretKB, DFFile FROM CikkDokumentumok WHERE Cid=$Cid ORDER BY DSorszam"; //echo "SelectStr:" .$SelectStr ."<br>";
    
-    $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01y123_");
+    $result        = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01y123_xxx");
     $HTMLHirDocTMB = array('','','','','','','','','','');
     $i             = 0;
     $rowDB         = mysqli_num_rows($result); 

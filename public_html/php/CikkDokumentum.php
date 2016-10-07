@@ -349,7 +349,7 @@ function getCikkDokForm() {
                 $HTMLkod1.= "<fieldset> <legend>".$j.". ".U_CDOK_ADAT."</legend>";
             
                 $Src       = $KepUtvonal.$CikkDokumentumok[$i]['DFile']; //echo "<h1>$Src</h1>";
-                $HTMLkod1 .= "<img src='$Src' alt='$i. kép' >";
+                $HTMLkod1 .= "<h2>File: ".$CikkDokumentumok[$i]['DFile']."</h2>";
                 $HTMLkod1 .= "<input type='hidden' name='CDFile_$i' value='".$CikkDokumentumok[$i]['DFile']."'>";
 
                 $HTMLkod1 .= "<div style='float:left;'>";
@@ -518,6 +518,8 @@ global $Aktoldal, $MySqliLink;
         if (!is_dir($AktAlKonytart)) {     
             if (!mkdir($AktAlKonytart, 0777)) {
               $ErrorStr = 'Err100'; // Nem sikerült létrehozni
+            } else {                
+                if (!copy("img/oldalak/index.html", $AktAlKonytart."/index.html"))   { $ErrorStr .= "Err103";}
             }
         }
         return $ErrorStr;        
