@@ -122,7 +122,10 @@ function setCikkDokFeltolt() {
                               }
                             }
                         } else {
-                            if ($AktFileNev >'') {$UploadErr .= "ErrK01".$FNev."<br>"; }
+                            if ($AktFileNev >'') {//$UploadErr .= "ErrK01".$FNev."<br>"; 
+                                $UploadErr .= "ErrK01".$FNev." Type:".$_FILES["CODokFile"]["type"][$i];    
+                                $UploadErr .= " Size:".$_FILES["CODokFile"]["size"][$i]."<br>";  
+                            }
                         }
                         $i++; $OkDFileCt--;
                     }
