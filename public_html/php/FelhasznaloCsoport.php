@@ -119,7 +119,8 @@ function setUjFCsoport() {
 			
         // ---------------- ADATOK TÁROLÁSA ---------------------
         if($ErrorStr ==''){
-            $InsertIntoStr = "INSERT INTO FelhasznaloCsoport VALUES ('', '$CsNev','$CsLeiras')";
+            $InsertIntoStr = "INSERT INTO FelhasznaloCsoport (CsNev, CsLeiras)
+                                                      VALUES ('$CsNev','$CsLeiras')";
             if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba UCs 01 "); }
             $_SESSION['SzerkFCsoport'] = mysqli_insert_id($MySqliLink);
         } 		

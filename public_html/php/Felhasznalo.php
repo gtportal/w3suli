@@ -213,7 +213,8 @@ function setUjFelhasznalo() {
         // ---------------- ADATOK TÁROLÁSA ---------------------
         if($ErrorStr ==''){
             $FJelszo           = md5($FJelszo); //Megj. Ha a bejelentkezésnél md5()-öt használunk, akkor itt is
-            $InsertIntoStr     = "INSERT INTO Felhasznalok VALUES ('', '$FNev','$FFNev','$FJelszo','$FEmail',$FSzint,'$FSzerep','$FKep')";
+            $InsertIntoStr     = "INSERT INTO Felhasznalok (FNev, FFNev, FJelszo, FEmail, FSzint, FSzerep, FKep)
+                                                    VALUES ('$FNev','$FFNev','$FJelszo','$FEmail',$FSzint,'$FSzerep','$FKep')";
             if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba UF 01 "); }    
             
             $SelectStr         = "SELECT id FROM FelhasznaloCsoport WHERE CSNev='$FCsoport'"; 
@@ -222,7 +223,8 @@ function setUjFelhasznalo() {
             if ($rowDB > 0) {
                 $row           = mysqli_fetch_array($result);   mysqli_free_result($result);         
                 $CsId          = $row['id'];   
-                $InsertIntoStr = "INSERT INTO FCsoportTagok VALUES ('', LAST_INSERT_ID(),$CsId,0)";
+                $InsertIntoStr = "INSERT INTO FCsoportTagok (Fid, CSid, KapcsTip)
+                                                     VALUES (LAST_INSERT_ID(),$CsId,0)";
                 if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba UF 03 "); }  
             }    
         } 		
@@ -502,7 +504,8 @@ function setFelhasznalo() {
                     if($rowDB<1){ //Az adott csoportnak még nem tagja
                         if((isset($_POST['FCsoportTip']))&&($_POST['FCsoportTip']=="FCsoportTip_".$i)){$FTip=0;}else{$FTip=1;}
 
-                        $InsertIntoStr = "INSERT INTO FCsoportTagok VALUES ('',$FId,$id,$FTip)";
+                        $InsertIntoStr = "INSERT INTO FCsoportTagok (Fid, CSid, KapcsTip)
+                                                             VALUES ($FId,$id,$FTip)";
                         $result        = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sFV 06 ");
                     } 
                     else //Az alapcsoport és a másodlagos csoportok vizsgálata és cseréje
@@ -544,7 +547,8 @@ function setFelhasznalo() {
                     {
                         if((isset($_POST['FCsoportTip']))&&($_POST['FCsoportTip']=="FCsoportTip_".$i))
                         {
-                            $InsertIntoStr = "INSERT INTO FCsoportTagok VALUES ('',$FId,$id,0)";
+                            $InsertIntoStr = "INSERT INTO FCsoportTagok (Fid, CSid, KapcsTip)
+                                                                 VALUES ($FId,$id,0)";
                             $result    = mysqli_query($MySqliLink, $InsertIntoStr) OR die("Hiba sFV 11 ");
                         }
                     }

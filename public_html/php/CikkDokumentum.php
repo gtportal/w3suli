@@ -1,15 +1,5 @@
 <?php
 
-/* Példatömb
-$CikkDokumentumok = array();
-$CikkDokumentumok['id']         = 0;
-$CikkDokumentumok['Cid']        = 0;
-$CikkDokumentumok['DFile']      = '';
-$CikkDokumentumok['DNev']       = '';
-$CikkDokumentumok['DLeiras']    = '';
-$CikkDokumentumok['CDMeretKB']   = 0;
-$CikkDokumentumok['DSorszam']   = 0;
-*/
 
 function setCikkDokFeltolt() {
     global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
@@ -98,23 +88,25 @@ function setCikkDokFeltolt() {
                               $UploadErr .= "ErrK02".$_FILES["CODokFile"]["name"][$i]."<br>"; 
                             } else {
                               if (file_exists($KepUtvonal.$AktFileNev)) {
-                                //Meglévő kép felülírása
+                                //Meglévő dokumentum felülírása
                                 if (!@unlink($KepUtvonal.$AktFileNev)) {                                
                                     $UploadErr = 'ErrK02'.$FNev."<br>"; // Nem sikerült a törlés
                                 } else {     
                                     if (move_uploaded_file($_FILES["CODokFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)) {
                                         $UploadErr    .=   "OK001".$FNev." <br>"; $KepOK=true;
-                                        $InsertIntoStr = "INSERT INTO CikkDokumentumok VALUES ('', $Cid,'$AktFileNev','','',0,0,'$FFile')";
+                                        $InsertIntoStr = "INSERT INTO CikkDokumentumok (Cid, DFile, DNev, DLeiras, DMeretKB, DSorszam, DFFile) 
+                                                                                        VALUES ($Cid,'$AktFileNev','','',0,0,'$FFile')";
                                         if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 02");}
                                     } else {
                                         $UploadErr .= "ErrK05".$FNev."<br>";                     
                                     }
                                 }
                               } else {
-                                //Új kép feltöltése
+                                //Új dokumentum feltöltése
                                 if (move_uploaded_file($_FILES["CODokFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)) {
                                     $UploadErr    .=   "OK001".$FNev." <br>"; $KepOK=true;      
-                                    $InsertIntoStr = "INSERT INTO CikkDokumentumok VALUES ('', $Cid,'$AktFileNev','','',0,0,'$FFile')";
+                                    $InsertIntoStr = "INSERT INTO CikkDokumentumok (Cid, DFile, DNev, DLeiras, DMeretKB, DSorszam, DFFile) 
+                                                                                    VALUES ($Cid,'$AktFileNev','','',0,0,'$FFile')";
                                     if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 03");}
                                 } else {
                                         $UploadErr .= "ErrK05".$FNev."<br>";                     
@@ -122,10 +114,7 @@ function setCikkDokFeltolt() {
                               }
                             }
                         } else {
-                            if ($AktFileNev >'') {//$UploadErr .= "ErrK01".$FNev."<br>"; 
-                                $UploadErr .= "ErrK01".$FNev." Type:".$_FILES["CODokFile"]["type"][$i];    
-                                $UploadErr .= " Size:".$_FILES["CODokFile"]["size"][$i]."<br>";  
-                            }
+                            if ($AktFileNev >'') {$UploadErr .= "ErrK01".$FNev."<br>"; }
                         }
                         $i++; $OkDFileCt--;
                     }

@@ -107,7 +107,8 @@ function setOldalKepFeltolt() {
                   } else {    
                       if (move_uploaded_file($_FILES["OKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)) {
                           $UploadErr    .=   "OK001".$FNev." <br>"; $KepOK=true;
-                          $InsertIntoStr = "INSERT INTO OldalKepek VALUES ('', $Oid,'$AktFileNev','','',0,0,0,0)";
+                          $InsertIntoStr = "INSERT INTO OldalKepek (Oid, KFile, KNev, KLeiras, KSzelesseg, KMagassag, KStilus, KSorszam)
+                                                            VALUES ($Oid,'$AktFileNev','','',0,0,0,0)";
                           if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba sKF 02");}
                       } else {
                           $UploadErr .= "ErrK05".$FNev."<br>";                     
@@ -117,7 +118,8 @@ function setOldalKepFeltolt() {
                   //Új kép feltöltése
                   if (move_uploaded_file($_FILES["OKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)){ 
                   $UploadErr    .=  "OK001".$FNev." <br>"; $KepOK=true;        
-                  $InsertIntoStr = "INSERT INTO OldalKepek VALUES ('', $Oid,'$AktFileNev','','',0,0,0,0)";
+                  $InsertIntoStr = "INSERT INTO OldalKepek (Oid, KFile, KNev, KLeiras, KSzelesseg, KMagassag, KStilus, KSorszam)
+                                                    VALUES ($Oid,'$AktFileNev','','',0,0,0,0)";
                   if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba sKF 03");}
                   } else {
                       $UploadErr .= "ErrK05".$FNev."<br>";                     

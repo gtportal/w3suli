@@ -302,9 +302,10 @@
           if ($ErrorStr=='') {
            //Az oldal mentése
            $AktOid        = $Aktoldal['id'];  
-           $OLathatosag   = $Aktoldal['OLathatosag'];
-           $InsertIntoStr = "INSERT INTO Oldalak VALUES ('', '$UjONev','$UjOUrl',$OLathatosag,1,'Az oldal leírása',
-                                                          'Az oldal kulcsszavai',$AktOid,$UjOTipKod,'Az oldal tartalma','$KTarNev','')";
+           $OLathatosag   = $Aktoldal['OLathatosag'];                                                       
+           $InsertIntoStr = "INSERT INTO Oldalak (ONev, OUrl, OLathatosag, OPrioritas, OLeiras, OKulcsszavak, OSzuloId, OTipus, OTartalom, OImgDir, OImg) 
+					  VALUES ('$UjONev','$UjOUrl',$OLathatosag,1,'Az oldal leírása',
+                                          'Az oldal kulcsszavai',$AktOid,$UjOTipKod,'Az oldal tartalma','$KTarNev','')";                                                          
            
            if (!mysqli_query($MySqliLink,$InsertIntoStr)) {
                die("Hiba UO 01 ");               
@@ -1159,8 +1160,10 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
         }
          
         $HTMLkod    .= "<title>$title</title>\n";
+        
         //Az aktuális stíluslap linkje 
-        $HTMLkod    .= "<link type='text/css' rel='stylesheet' media='all'   href='css/w3suli_stilus_".$AlapAdatok['Stilus'].".css' />\n";
+        $StilusKod   = $AlapAdatok['Stilus']; if ($StilusKod>100) {$StilusKod=$StilusKod-100;} 
+        $HTMLkod    .= "<link type='text/css' rel='stylesheet' media='all'   href='css/w3suli_stilus_".$StilusKod.".css' />\n";
         $description = $Aktoldal['OLeiras'];
         $HTMLkod    .= "  <meta name='description' content='$description'> \n";
         

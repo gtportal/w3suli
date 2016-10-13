@@ -245,7 +245,7 @@ global $MySqliLink, $Err;
 //------------------------------------------------------------------------------------------------------------------
 // ----------- Felhasznalok TÁBLA LÉTREHOZÁSA
 //------------------------------------------------------------------------------------------------------------------
-function Letrehoz_Felhasznalok()
+function Letrehoz_Felhasznalok($FNev,$FFNev,$FJelszoMD5)
 {
 global $MySqliLink, $Err; 
   $DropTableStr = "DROP TABLE IF EXISTS Felhasznalok";
@@ -274,6 +274,14 @@ global $MySqliLink, $Err;
   } else { 
     $Err=1; $HTMLkod .= "MySqli hiba ";
   } 
+  
+  $InsertIntoStr = "INSERT INTO Felhasznalok 
+       (id, FNev, FFNev, FJelszo, FEmail, FSzint, FSzerep, FKep) 
+       VALUES
+       (1, '$FNev','$FFNev','$FJelszoMD5',' ',7,'Webmester','')"; 
+  if (!mysqli_query($MySqliLink,$InsertIntoStr))  {
+       $HTMLkod .=  " MySqli hiba (" .mysqli_errno($MySqliLink). "): " . mysqli_error($MySqliLink);   $Err=12; 
+  }       
   return $HTMLkod;
 }
 

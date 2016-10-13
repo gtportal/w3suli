@@ -19,7 +19,7 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
             }
             $KepStilus= " KepStyle".$row['KStilus']." ";
             $imgkod   = "<div class = 'divCikkKepN $KepStilus' $KepMeret >";
-            $imgkod  .= "<img src='$Src'  class = 'imgCikkKepN $KepStilus' alt='$KNev' $KepMeret>"; //echo "<h1>KFile ".$row['KFile']."Src $Src</h1>";
+            $imgkod  .= "<img src='$Src'  class = 'imgCikkKepN $KepStilus' alt='$KNev' $KepMeret>";// echo "<h1>KFile ".$row['KFile']."Src $Src</h1>";
             $imgkod  .= "</div>\n";
             $HTMLHirKepTMB[$i] = $imgkod;
             $i++;
@@ -27,13 +27,13 @@ function getCikkepCsereL($Cid,$CTartalom,$KepUtvonal) {
         mysqli_free_result($result);
     }
     $arr          = array("#10" => "$HTMLHirKepTMB[9]");  
-    $HTMLkod      = strtr($CTartalom ,$arr);    
+    $CTartalom    = strtr($CTartalom ,$arr);    
     
-    $arr          = array( "#1" => "$HTMLHirKepTMB[0]", "#2" => "$HTMLHirKepTMB[1]", "#3" => "$HTMLHirKepTMB[2]", 
-                           "#4" => "$HTMLHirKepTMB[3]", "#5" => "$HTMLHirKepTMB[4]", "#6" => "$HTMLHirKepTMB[5]",
-                           "#7" => "$HTMLHirKepTMB[6]", "#8" => "$HTMLHirKepTMB[7]", "#9" => "$HTMLHirKepTMB[8]",
+    $arr          = array( "#1" => $HTMLHirKepTMB[0], "#2" => $HTMLHirKepTMB[1], "#3" => $HTMLHirKepTMB[2], 
+                           "#4" => $HTMLHirKepTMB[3], "#5" => $HTMLHirKepTMB[4], "#6" => $HTMLHirKepTMB[5],
+                           "#7" => $HTMLHirKepTMB[6], "#8" => $HTMLHirKepTMB[7], "#9" => $HTMLHirKepTMB[8],
                            "##" => "");  
-    $HTMLkod      = strtr($CTartalom ,$arr);
+    $HTMLkod      = strtr($CTartalom ,$arr); 
     $HTMLkod      = getDokumentumCsereL($Cid,$HTMLkod,$KepUtvonal);
     return $HTMLkod;            
 }
@@ -82,21 +82,16 @@ function getCikkekHTML($SelStr) {
     $result       = mysqli_query($MySqliLink, $SelectStr) OR die("Hiba sGC 01a");
     $rowDB        = mysqli_num_rows($result);
     if (($_SESSION['AktFelhasznalo'.'FSzint']>0) && ($rowDB>0)) {
-        while ($row = mysqli_fetch_array($result)){     
-                $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";
-                
-                $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére   
-                $CTartalom = SzintaxisCsere($CTartalom);
-                $HTMLkod .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
-                
-                //$HTMLkod .= "<h2>".getTXTtoURL($row['CNev'])."</h2>\n";                   //!!!!!!!!!!!!!!!!!!!!!!!!!!!      
-                
-               // $HTMLkod .= "<div class = 'divCikkLiras'>".$row['CLeiras']."</div>\n";
-                $HTMLkod .= "<div class = 'divCikkTartalom'>\n";
-                $HTMLkod .= $CTartalom."\n";
-                $HTMLkod .= getCikkKepekHTML($row['id']);
-                $HTMLkod .= "</div>\n";
-                $HTMLkod .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";
+        while ($row = mysqli_fetch_array($result)){    
+            $CTartalom = getCikkepCsereL($row['id'],$row['CTartalom'],$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére   
+            $CTartalom = SzintaxisCsere($CTartalom);
+            $Horgony   = "<a name='".getTXTtoURL($row['CNev'])."'></a>";                
+            $HTMLkod  .= "<div class ='divCikkKulso'>$Horgony<h2>".$row['CNev']."</h2>\n";
+            $HTMLkod  .= "<div class = 'divCikkTartalom'>\n";
+            $HTMLkod  .= $CTartalom."\n";
+            $HTMLkod  .= getCikkKepekHTML($row['id']);
+            $HTMLkod  .= "</div>\n";
+            $HTMLkod  .= "<p class='pCszerzoNev'> Szerző: ".$row['CSzerzoNev']."</p><p class='pCModTime'>Közzétéve: ".$row['CModositasTime']."</p></div>\n";	    
         }
         mysqli_free_result($result);
     }   

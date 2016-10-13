@@ -57,12 +57,15 @@ function setUjCikk() {
         if (isset($_POST['KoElozetes']))  {$KoElozetes  = INT_post($_POST['KoElozetes']);}  else {$KoElozetes  =0;} 
         if (isset($_POST['SZoElozetes'])) {$SZoElozetes = INT_post($_POST['SZoElozetes']);} else {$SZoElozetes =0;} 
         //=========REKORDOK LÉTREHOZÁSA =============
-        if ($ErrorStr=='') {
-            $InsertStr = "INSERT INTO Cikkek VALUES ('', '$UjCNev', '$UjCLeiras', '$UjCTartalom', $CLathatosag, '$KoElozetes', '$SZoElozetes',
-                                                     '$Fid', '$FNev', NOW(), NOW())";
+        if ($ErrorStr=='') {                                                                  
+            $InsertStr = "INSERT INTO Cikkek (CNev, CLeiras, CTartalom, CLathatosag, KoElozetes, SZoElozetes, CSzerzo, CSzerzoNev, CLetrehozasTime, CModositasTime)            
+									  VALUES ('$UjCNev', '$UjCLeiras', '$UjCTartalom', $CLathatosag, '$KoElozetes', '$SZoElozetes',
+                                              '$Fid', '$FNev', NOW(), NOW())";                                  
+                                                     
             mysqli_query($MySqliLink, $InsertStr) OR die("Hiba iUC 01 ");
 
-            $InsertStr = "INSERT INTO OldalCikkei VALUES ('', '$Oid', LAST_INSERT_ID(), $CPrioritas)";
+            $InsertStr = "INSERT INTO OldalCikkei (Oid, Cid, CPrioritas)  
+                                           VALUES ('$Oid', LAST_INSERT_ID(), $CPrioritas)";
             mysqli_query($MySqliLink, $InsertStr) OR die("Hiba iUC 02 ");
         }
     }

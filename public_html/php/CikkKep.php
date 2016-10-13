@@ -99,7 +99,8 @@ function setCikkKepFeltolt() {
                             } else {     
                                 if (move_uploaded_file($_FILES["COKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)) {
                                     $UploadErr    .=   "OK001".$FNev." <br>"; $KepOK=true;
-                                    $InsertIntoStr = "INSERT INTO CikkKepek VALUES ('', $Cid,'$AktFileNev','','',0,0,0,0)";
+                                    $InsertIntoStr = "INSERT INTO CikkKepek (Cid, KFile, KNev, KLeiras, KSzelesseg, KMagassag, KStilus, KSorszam) 
+                                                                     VALUES ($Cid,'$AktFileNev','','',0,0,0,0)";
                                     if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 02");}
                                 } else {
                                     $UploadErr .= "ErrK05".$FNev."<br>";                     
@@ -109,7 +110,8 @@ function setCikkKepFeltolt() {
                             //Új kép feltöltése
                             if (move_uploaded_file($_FILES["COKepFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)) {
                                 $UploadErr    .=   "OK001".$FNev." <br>"; $KepOK=true;      
-                                $InsertIntoStr = "INSERT INTO CikkKepek VALUES ('', $Cid,'$AktFileNev','','',0,0,0,0)";
+                                $InsertIntoStr = "INSERT INTO CikkKepek (Cid, KFile, KNev, KLeiras, KSzelesseg, KMagassag, KStilus, KSorszam)                                
+                                                                 VALUES ($Cid,'$AktFileNev','','',0,0,0,0)";
                                 if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 03");}
                             } else {
                                     $UploadErr .= "ErrK05".$FNev."<br>";                     

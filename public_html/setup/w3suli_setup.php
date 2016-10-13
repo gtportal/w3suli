@@ -70,7 +70,7 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
   if ($Err==0) {$HTMLkod .= Letrehoz_CikkKepek();}
   if ($Err==0) {$HTMLkod .= Letrehoz_FCsoportTagok();}
   if ($Err==0) {$HTMLkod .= Letrehoz_FelhasznaloCsoport();}
-  if ($Err==0) {$HTMLkod .= Letrehoz_Felhasznalok();}  
+  if ($Err==0) {$HTMLkod .= Letrehoz_Felhasznalok($FNev,$FFNev,$FJelszoMD5);}  
   if ($Err==0) {$HTMLkod .= Letrehoz_FoMenuLink();}
   if ($Err==0) {$HTMLkod .= Letrehoz_KiegTartalom();}
   if ($Err==0) {$HTMLkod .= Letrehoz_MenuPlusz();}
@@ -80,12 +80,6 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
   if ($Err==0) {$HTMLkod .= Letrehoz_OldalKepek();}
   if ($Err==0) {$HTMLkod .= Letrehoz_OModeratorok();}
 
-
-  // Az adminisztrátor adatainak felvétele
-  $InsertIntoStr = "INSERT INTO Felhasznalok VALUES ('', '$FNev','$FFNev','$FJelszoMD5',' ',7,'Webmester','')";
-  if (!mysqli_query($MySqliLink,$InsertIntoStr))  { 
-    $Err=1;  $ErrStr .= "MySqli hiba ";    
-  }
   $HTMLkod .= "</div>";
   echo $HTMLkod;
 }
@@ -103,7 +97,7 @@ if (!isset($_POST['submit1'])) {
 	  
 	  <span style='color:#080;'>".U_DATUM.": ".date("Y.m.d.").U_IDO.":   ".date("H.i.s.")."</span><br><br>
     <strong>".U_SETUP_FONTOS."! </strong>";} 
-  else {$HTMLkod .= "<h1 style='color:#800;'>".U_SETUP_HIBAVOLT."!</h1> ";} 
+  else {$HTMLkod .= "<h1 style='color:#800;'>".U_SETUP_HIBAVOLT."! $Err</h1> ";} 
 }
 
 $HTMLkod .= "<div id='SetupFormDiv'><form method='post' action='#'>";

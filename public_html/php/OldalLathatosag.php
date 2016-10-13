@@ -71,7 +71,8 @@ function setOLathatosag(){
                         $result     = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sOL 01 ");
                         $rowDB      = mysqli_num_rows($result);  mysqli_free_result($result);
                         if ($rowDB == 0 ) {
-                            $InsertIntoStr = "INSERT INTO OLathatosag VALUES ('',$Oid,$id)";
+                            $InsertIntoStr = "INSERT INTO OLathatosag (Oid, CSid)  
+                                                               VALUES ($Oid,$id)";
                             $result        = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sOL 02 ");
                         }     
                     }

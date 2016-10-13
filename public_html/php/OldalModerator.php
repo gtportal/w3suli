@@ -29,7 +29,8 @@ function setOModerator() {
                     $rowDB     = mysqli_num_rows($result);
                                         
                     if($rowDB<1){
-                        $InsertIntoStr = "INSERT INTO OModeratorok VALUES ('','$Oid','$id','0')";
+                        $InsertIntoStr = "INSERT INTO OModeratorok (Oid, Fid, CSid)
+                                                            VALUES ('$Oid','$id','0')";
                         $result        = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sMod 02 ");
                     } else {mysqli_free_result($result);}    
                 }
@@ -256,7 +257,8 @@ function setOModeratorCsoport(){
                     $result    = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba sModCs 01 ");
                     $rowDB     = mysqli_num_rows($result);               
                     if($rowDB<1){                        
-                        $InsertIntoStr = "INSERT INTO OModeratorok VALUES ('','$Oid','0','$id')";
+                        $InsertIntoStr = "INSERT INTO OModeratorok (Oid, Fid, CSid)
+                                                            VALUES ('$Oid','0','$id')";
                         $result        = mysqli_query($MySqliLink,$InsertIntoStr) OR die("Hiba sModCs 02 ");
                     } else {mysqli_free_result($result);}    
                 }
