@@ -157,7 +157,25 @@
         if($_SESSION['ElozoOldalId'] != $Aktoldal['id']){$_SESSION['SzerkCikk'.'id']=0; $_SESSION['SzerkCikk'.'Oid']=0; }
         //Ha nem szerkesztő oldal, akkor eltároljuk ez lesz az ElozoOldalId
         //Egy szerkesztés, be- vagy kijelentkezés után ide térünk vissza
-        if ($Aktoldal['OTipus']<10) {$_SESSION['ElozoOldalId']   = $Aktoldal['id']; }
+        if ($Aktoldal['OTipus']<10) {$_SESSION['ElozoOldalId']   = $Aktoldal['id']; }        
+        
+        // Modulok alapadatai
+        $OTipus              = $Aktoldal['OTipus'];
+        $Aktoldal['Mid']     = 0;
+        $Aktoldal['OTipS']   = '';
+        $Aktoldal['OTipNev'] = '';
+        if ($OTipus>100) {
+            $SelectStr   = "SELECT * FROM Modulok WHERE OTipus='$OTipus' LIMIT 1";     
+            $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gAb 1"); 
+            $rowDB       = mysqli_num_rows($result);                    
+            if($rowDB>0){
+                $row      = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
+                $Aktoldal['Mid']     = ['Mid'];
+                $Aktoldal['OTipS']   = ['OTipS'];
+                $Aktoldal['OTipNev'] = ['OTipNev'];
+            }       
+        }   
+        
         
     }
 
@@ -356,6 +374,7 @@
           $OTipS        = '';
           if ($OTipus==1) {$OTipS = 'Kategoria';}
           if ($OTipus==2) {$OTipS = 'HirOldal';}
+          if ($OTipus>100) {$OTipS = $Aktoldal['OTipS'];}
           //Ha még nem lett elküldve vagy az oldal adatait sikerült módosítani >> nem volt hiba
           if (!isset($_POST['submitOldalForm']) || ($_SESSION['ErrorStr']==''))  { 
             if (isset($_POST['ONev']))       {$ONev  = test_post($_POST['ONev']);}
@@ -797,7 +816,7 @@ function setOldalTorol() {
     global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink;
     //Csak rendszergazdáknak és moderátoroknak!
     $ErrorStr = '';
-    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (($Aktoldal['OTipus'] == 1) || ($Aktoldal['OTipus'] == 2))) {    
+    if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (($Aktoldal['OTipus'] == 1) || ($Aktoldal['OTipus'] == 2) || ($Aktoldal['OTipus'] > 100))) {    
         if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitOldalTorolForm'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
             // ============== HIBAKEZELÉS =====================
             $Oid    = $Aktoldal['id'];
@@ -857,7 +876,7 @@ function setOldalTorol() {
           $SzOUrl     = $SzuloOldal['OUrl'];
           $SzOid      = $SzuloOldal['id'];
           //Csak akkor tötőlhető egy oldal, ha 0<típusa<10
-          if ((0<$OTipus) && ($OTipus<10)) {
+          if ((0<$OTipus) && ($OTipus<10) || ($OTipus>100) ) {
             //Ha még nem lett elküldve vagy az oldal adatait sikerült módosítani >> nem volt hiba
             if ((!isset($_POST['submitOldalTorolForm'])) && (!isset($_POST['submitOldalTorolVegleges'])))  { 
               // ============== FORM ÖSSZEÁLLÍTÁSA =====================   

@@ -79,6 +79,7 @@ global $DBNev, $DBfNev, $DBJelszo, $DBJelszo1, $FNev, $FFNev, $FJelszo, $FJelszo
   if ($Err==0) {$HTMLkod .= Letrehoz_OldalCikkei();}
   if ($Err==0) {$HTMLkod .= Letrehoz_OldalKepek();}
   if ($Err==0) {$HTMLkod .= Letrehoz_OModeratorok();}
+  if ($Err==0) {$HTMLkod .= Letrehoz_Modulok();}
 
   $HTMLkod .= "</div>";
   echo $HTMLkod;

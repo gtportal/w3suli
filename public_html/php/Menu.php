@@ -62,7 +62,7 @@
    // ================ KATEGÓRIÁK ÉS HÍROLDALAK TÖBBSZINTŰ LISTÁJA ============================= 
         $HTMLkod      = '';
         //Elso szint >> Szülő a kezdőlap
-        $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=1 AND OTipus<10 order by OPrioritas DESC, ONev"; 
+        $SelectStr   = "SELECT * FROM Oldalak WHERE OSzuloId=1 AND (OTipus<10 OR OTipus>100) order by OPrioritas DESC, ONev"; 
         $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba OM 41 ");
         $rowDB       = mysqli_num_rows($result); 
         if ($rowDB > 0) {

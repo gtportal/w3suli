@@ -435,6 +435,48 @@ global $MySqliLink, $Err;
 }
 
 //------------------------------------------------------------------------------------------------------------------
+// ----------- Modulok TÁBLA LÉTREHOZÁSA
+//------------------------------------------------------------------------------------------------------------------
+function Letrehoz_Modulok()
+{
+global $MySqliLink, $Err; 
+  $DropTableStr = "DROP TABLE IF EXISTS Modulok";
+  if (mysqli_query($MySqliLink,$DropTableStr))
+  {
+    $HTMLkod = U_DBINIT_TOROLT.": <b>'Modulok'</b><br>"; 
+  } else { 
+    $Err=1;  $HTMLkod = "MySqli hiba "; 
+  }
+  $CreateTableStr="
+    CREATE TABLE IF NOT EXISTS Modulok (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        Mid smallint(6) NOT NULL DEFAULT '0',
+        OTipus smallint(6) NOT NULL DEFAULT '0',
+        OTipS varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+        OTipNev varchar(50) COLLATE utf8_hungarian_ci NOT NULL DEFAULT '',
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci AUTO_INCREMENT=1 ;
+   ";  
+  
+  if (mysqli_query($MySqliLink,$CreateTableStr))
+  {
+    $HTMLkod .= U_DBINIT_KESZ.": <b>'Modulok'</b><br>";
+  } else { 
+    $Err=1; $HTMLkod .= "MySqli hiba ";
+  } 
+  $InsertIntoStr = "INSERT INTO Modulok 
+       (id, Mid, OTipus, OTipS, OTipNev) 
+       VALUES
+       (1, 1,101,'teszt','Teszt oldal')"; 
+  if (!mysqli_query($MySqliLink,$InsertIntoStr))  {
+       $HTMLkod .=  " MySqli hiba (" .mysqli_errno($MySqliLink). "): " . mysqli_error($MySqliLink);   $Err=12; 
+  }      
+  
+  
+  return $HTMLkod;
+}
+
+//------------------------------------------------------------------------------------------------------------------
 // ----------- OLathatosag TÁBLA LÉTREHOZÁSA
 //------------------------------------------------------------------------------------------------------------------
 function Letrehoz_OLathatosag()
