@@ -157,7 +157,7 @@
         if($_SESSION['ElozoOldalId'] != $Aktoldal['id']){$_SESSION['SzerkCikk'.'id']=0; $_SESSION['SzerkCikk'.'Oid']=0; }
         //Ha nem szerkesztő oldal, akkor eltároljuk ez lesz az ElozoOldalId
         //Egy szerkesztés, be- vagy kijelentkezés után ide térünk vissza
-        if ($Aktoldal['OTipus']<10) {$_SESSION['ElozoOldalId']   = $Aktoldal['id']; }        
+        if (($Aktoldal['OTipus']<10) || ($Aktoldal['OTipus']>100)) {$_SESSION['ElozoOldalId']   = $Aktoldal['id']; } 
         
         // Modulok alapadatai
         $OTipus              = $Aktoldal['OTipus'];
@@ -170,18 +170,16 @@
             $rowDB       = mysqli_num_rows($result);                    
             if($rowDB>0){
                 $row      = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
-                $Aktoldal['Mid']     = ['Mid'];
-                $Aktoldal['OTipS']   = ['OTipS'];
-                $Aktoldal['OTipNev'] = ['OTipNev'];
+                $Aktoldal['Mid']     = $row['Mid'];
+                $Aktoldal['OTipS']   = $row['OTipS'];
+                $Aktoldal['OTipNev'] = $row['OTipNev'];
             }       
-        }   
-        
-        
+        } 
     }
 
 
     function getUjOldalForm() {
-        global $Aktoldal;
+        global $Aktoldal, $MySqliLink;
         $HTMLkod  = '';
         $ErrorStr = ''; 
 
@@ -216,6 +214,19 @@
             $HTMLkod .=  "<option value='Kategoria' $Sel>".U_OTIPUS_KAT."</option>\n";            
             if ($UjOTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='HirOldal' $Sel>".U_OTIPUS_HIR."</option>\n";
+            
+            $SelectStr    = "SELECT * FROM Modulok";
+            $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba MOD 01"); 
+            $rowDB        = mysqli_num_rows($result);
+            if ($rowDB > 0) {
+              while($row  = mysqli_fetch_array($result))
+              {
+                if ($UjOTipS==$row['OTipS']) {$Sel=' selected ';} else {$Sel='';}
+                $HTMLkod .=  "<option value='".$row['OTipS']."' $Sel>".$row['OTipNev']."</option>\n";
+              }
+              mysqli_free_result($result);
+            }                
+            
             $HTMLkod .=  "</select>\n";        
             $HTMLkod .= "</fieldset>";
             //Submit
@@ -267,6 +278,20 @@
             $HTMLkod .=  "<option value='Kategoria' $Sel>".U_OTIPUS_KAT."</option>\n";            
             if ($UjOTipS=='HirOldal') {$Sel=' selected ';} else {$Sel='';}
             $HTMLkod .=  "<option value='HirOldal' $Sel>".U_OTIPUS_HIR."</option>\n";
+            
+            $SelectStr    = "SELECT * FROM Modulok";
+            $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba MOD 01"); 
+            $rowDB        = mysqli_num_rows($result);
+            if ($rowDB > 0) {
+              while($row  = mysqli_fetch_array($result))
+              {
+                if ($UjOTipS==$row['OTipS']) {$Sel=' selected ';} else {$Sel='';}
+                $HTMLkod .=  "<option value='".$row['OTipS']."' $Sel>".$row['OTipNev']."</option>\n";
+              }
+              mysqli_free_result($result);
+            }                
+            
+            
             $HTMLkod .=  "</select>\n";  
             $HTMLkod .= "</fieldset>";
             //Submit
@@ -299,23 +324,31 @@
           } else {$ErrorStr = ' Err001,';}
           //A típus ellenőrzése
           if (isset($_POST['UjOTipValszt'])) {
-            $UjOTipS = test_post($_POST['UjOTipValszt']);  //echo "<h1>UjOTipS: $UjOTipS</h1>";
+            $UjOTipS = test_post($_POST['UjOTipValszt']);  
             $UjOTipKod = 0;
             switch ($UjOTipS) {
               case  'Kategoria': $UjOTipKod = 1; break;
               case  'HirOldal' : $UjOTipKod = 2; break;
-              default: $ErrorStr .= ' Err004,';
+              default: 
+                        $SelectStr   = "SELECT OTipus FROM Modulok WHERE OTipS='$UjOTipS' LIMIT 1";     
+                        $result      = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba gAb 1"); 
+                        $rowDB       = mysqli_num_rows($result);                    
+                        if($rowDB>0){
+                            $row       = mysqli_fetch_array($result, MYSQLI_ASSOC); mysqli_free_result($result);
+                            $UjOTipKod = $row['OTipus'];
+                        } else { $ErrorStr .= ' Err004,'; }
             }             
           } else {$ErrorStr .= ' Err004,';} 
+          
           // ============== KÖNYVTÁRKEZELÉS - ÚJ KÉPKÖNYVTÁR LÉTREHOZÁSA   =====================
-          if (($ErrorStr=='') && (($UjOTipKod == 1) || ($UjOTipKod == 2))) {
+          if (($ErrorStr=='') && (($UjOTipKod == 1) || ($UjOTipKod == 2) || ($UjOTipKod > 100))) {
                 $KTarNev ='';
                 if ($ErrorStr=='') {
                     $KTarNev = getTXTtoURL($UjONev);
                     $ErrorStr= KepkonyvtarLetrehoz($KTarNev);     
                 }          
           }
-          
+
           // ============== ADATKEZELÉS - ÚJ REKORD LÉTREHOZÁSA   =====================
           if ($ErrorStr=='') {
            //Az oldal mentése
@@ -458,6 +491,18 @@
                $HTMLkod .=  "<option value='Kezdolap' $Sel>Kezdőlap</option>\n";                 
             }
 
+            $SelectStr    = "SELECT * FROM Modulok";
+            $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba MOD 01");
+            $rowDB        = mysqli_num_rows($result);
+            if ($rowDB > 0) {
+              while($row  = mysqli_fetch_array($result))
+              {
+                if ($OTipS==$row['OTipS']) {$Sel=' selected ';} else {$Sel='';}
+                $HTMLkod .=  "<option value='".$row['OTipS']."' $Sel>".$row['OTipNev']."</option>\n";
+              }
+              mysqli_free_result($result);
+            }   
+            
             $HTMLkod .=  "</select>\n";   
             
             //Prioritás
@@ -590,6 +635,19 @@
                $HTMLkod .=  "<option value='Kezdolap' $Sel>Kezdőlap</option>\n";                 
             }
             
+            $SelectStr    = "SELECT * FROM Modulok";
+            $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba MOD 01"); //echo "<h1>$SelectStr</h1>";
+            $rowDB        = mysqli_num_rows($result);
+            if ($rowDB > 0) {
+              while($row  = mysqli_fetch_array($result))
+              {
+                if ($OTipS==$row['OTipS']) {$Sel=' selected ';} else {$Sel='';}
+                $HTMLkod .=  "<option value='".$row['OTipS']."' $Sel>".$row['OTipNev']."</option>\n";
+              }
+              mysqli_free_result($result);
+            }             
+            
+            
             $HTMLkod .=  "</select>\n";    
             //Rövíd leírás
             $HTMLkod .= "<p  class='pOLeiras'><label for='OLeiras' class='label_1'>".U_LEIRAS.":</label><br>\n ";
@@ -607,6 +665,7 @@
             $HTMLkod .= "</div>\n";           
           }
         }
+        
         return $HTMLkod;
    
     }
@@ -682,6 +741,20 @@ function setOldal() {
         if (isset($_POST['submitOldalForm'])) { 
           // ============== HIBAKEZELÉS =====================          
           //A beérkező adatok ellenőrzése  
+            $OTipSTMB     = array();
+            $SelectStr    = "SELECT * FROM Modulok";
+            $result       = mysqli_query($MySqliLink,$SelectStr) OR die("Hiba MOD 01"); 
+            $rowDB        = mysqli_num_rows($result);
+            if ($rowDB > 0) {
+               while($row = mysqli_fetch_array($result))
+                {
+                   $OTipStr            = $row['OTipS'];
+                   $OTipSTMB[$OTipStr] = $row['OTipus'];
+                }
+                mysqli_free_result($result);
+            }
+          
+          
           //Az oldalnév ellenőrzése  
           if ((isset($_POST['ONev'])) && ($OUrl!='Kezdolap')){
               $ONev        = test_post($_POST['ONev']);
@@ -704,7 +777,7 @@ function setOldal() {
               case  'Kezdolap' : $OTipKod = 0; break;  
               case  'Kategoria': $OTipKod = 1; break;
               case  'HirOldal' : $OTipKod = 2; break;
-              default: $ErrorStr .= ' Err004,';
+              default: if (isset($OTipSTMB[$OTipS])) {$OTipKod = $OTipSTMB[$OTipS];} else {$ErrorStr .= ' Err004,';}
             }             
           } else {$ErrorStr .= ' Err004,';} 
           // ============== OLDALNÉV VÁLTOZÁSÁNEK KEZELÉSE ===================== 
@@ -831,6 +904,7 @@ function setOldalTorol() {
         
         if (($_SESSION['AktFelhasznalo'.'FSzint']>4) && (isset($_POST['submitOldalTorolVegleges'])))  { // FSzint-et növelni, ha működik a felhasználókezelés!!!  
             // ============== HIBAKEZELÉS =====================
+            
             $Oid    = $Aktoldal['id'];
             $ONev   = $Aktoldal['ONev'];
             $SzOUrl = $SzuloOldal['OUrl'];
@@ -1159,8 +1233,16 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                           $HTMLkod     .= getMenuPluszForm();
                     }  else {$HTMLkod  .= "<h3>".U_NINCSJOGA."!</h3>";}        
                    break;     
-          default:  $HTMLkod  .= "<h1>".U_HIBA_OLDAL."</h1> \n";
-                    $HTMLkod  .= U_HIBA_OLDALINF;                       
+          default:  $ModulHTMLkod = '';
+                    if ($Aktoldal['OTipus']>100) {
+                        $ModulHTMLkod  = getModulHTML();
+                    } 
+                    if ($ModulHTMLkod=='') {              
+                        $HTMLkod  .= "<h1>".U_HIBA_OLDAL."</h1> \n";
+                        $HTMLkod  .= U_HIBA_OLDALINF;      
+                    } else {
+                        $HTMLkod  .= $ModulHTMLkod;
+                    }
         }
         $HTMLkod  .= "</div>\n"; 
       }  
@@ -1189,7 +1271,6 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
         $keywords    = $Aktoldal['OKulcsszavak'];
         $HTMLkod    .= "  <meta name='keywords' content='$keywords'> \n";
         
-     //   $TisztaURL   = getTisztaURL();
         $ImgSrc      = $RootURL.'/img/ikonok/HeaderImg/'.$AlapAdatok['HeaderImg'];
         
         if ($Aktoldal['OImg']!='') {
@@ -1206,7 +1287,6 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
         $HTMLkod    .= "\n<link rel='canonical' href='$TisztaOURL' />\n";   
         
         
-     //   echo "<h1>XXXXXX: ".$AlapAdatok['FacebookOK']."</h1>";
         if (($AlapAdatok['FacebookOK']==2) || (($AlapAdatok['FacebookOK']==1)&& ($Aktoldal['OTipus'])==0)){
             $FacebookURL     = $AlapAdatok['FacebookURL'];
             if (strpos($FacebookURL,"facebook.com") === false) {
@@ -1216,10 +1296,14 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                 $HTMLkod    .= "<meta property='og:description' content='$description' />\n";
                 $HTMLkod    .= "<meta property='og:image'       content='$ImgSrc' />\n";       
             }
-        }
-        //https://www.facebook.com/w3suli.blogmotor/?fre
+        }        
         
         $HTMLkod    .= $AlapAdatok['HEADextra']." \n";
+        
+        if ($Aktoldal['OTipus']>100) {
+            $HTMLkod .= getModulHead();
+        }
+        
         
         return $HTMLkod;
     }

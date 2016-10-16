@@ -3,13 +3,16 @@
     function getMenuHTML() {
         global $Aktoldal, $SzuloOldal, $NagyszuloOldal, $MySqliLink, $DedSzuloId, $AlapAdatok;
         $HTMLkod1 = '';         
-        if (($AlapAdatok['GooglePlus']==2) || (($AlapAdatok['GooglePlus']==1)&& ($Aktoldal['OTipus'])==0)){     
+        if (($AlapAdatok['GooglePlus']==2) || (($AlapAdatok['GooglePlus']==1)&& ($Aktoldal['OTipus'])==0) ||
+             (($AlapAdatok['GooglePlus']==1)&& ($Aktoldal['OTipus'])>100)){  
           $HTMLkod1 .= '
             <!-- Helyezd el ezt a címkét ott, ahol a(z) +1 gomb modult meg szeretnéd jeleníteni. -->
             <div id="Gplusz" style="width:100%;text-align:center;margin-top:4px; height:31px;"><div class="g-plusone"></div></div>
             ';            
         }            
-         
+        
+        if ($Aktoldal['OTipus']>100) { echo getModulMenu();}
+        
         // ================ FELHASZNÁLÓ ÜDVÖZLÉSE ============================= 
         if ($_SESSION['AktFelhasznalo'.'FSzint']>1)  {             
            $HTMLkod1 .= "<div id='divFelhasznaloUdv'>\n ".U_MENU_UDV.": ";

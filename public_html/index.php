@@ -102,6 +102,8 @@
   //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA
   getOldalData($oURL);  
   
+
+  
   //A MODERÁTOR STÁTUSZ ELLENŐRZÉSE
   if (($_SESSION['AktFelhasznalo'.'FSzint'] == 3) || ($_SESSION['AktFelhasznalo'.'FSzint'] == 4))
   {
@@ -153,6 +155,16 @@
     $_SESSION['ErrorStr']   .= setFoMenu();
     $_SESSION['ErrorStr']   .= setMenuPlusz();
   }
+  
+    //Modulcsatoló fájl beolvasása
+  if ($Aktoldal['OTipus']>100) {
+      $ModulURL = "modulok/modul_".$Aktoldal['OTipus'].".php";
+      require_once $ModulURL;
+  }
+  //AZ AKTUÁLIS MODUL ADATAINAK MÓDOSÍTÁSA
+  if (($_SESSION['AktFelhasznalo'.'FSzint'] > 0) && ($Aktoldal['OTipus']>100)) {   
+    $_SESSION['ErrorStr']   .= setModul(); 
+  }
  
 ?>
 
@@ -202,8 +214,8 @@ function JSonLoad()
 	   </header>
 	   <input name="chmenu" id="chmenu" value="chmenu" type="checkbox" style='display:none;'>
        <nav id='FoNav'> 
-		 <div id='FoNavBal'>  
-		   <label for="chmenu" class="MenusorElem" id="MenuLabel">
+	 <div id='FoNavBal'>  
+	   <label for="chmenu" class="MenusorElem" id="MenuLabel">
              <img src="img/ikonok/menu128.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon1">
              <img src="img/ikonok/menu228.png" alt="Menü" title="Menü" style="float:left;" id="MenuIkon2">     
              <span id="MENUGombDiv"><?php echo U_INDEX_MENU; ?> </span>
@@ -213,6 +225,9 @@ function JSonLoad()
 	     <?php echo getFoMenuHTML(); ?>
 	 </div>  		    		 
        </nav>
+           
+       <?php if ($Aktoldal['OTipus']>100) { echo getModulSlider();} ?>
+           
        <div id='BelsoKeret'>
 		  <nav id='HelyiNav'>
                      <?php echo getMenuHTML()?>		  

@@ -385,7 +385,7 @@ function ItalicCsere($str){
     if ($i>1) {if ((strlen($EloStr)==0)&&(strlen($strtomb[$i-2]))) {$Dupla_ = 1;} }
 //Első tag
   if ($ItalicSzint == 0 ) {
-    if (($AktStr>'') && ($i > 0) && ($AktStr[0]!==' ') && ($Dupla_ == 0) &&
+    if (($AktStr>'') && ($i > 0) && ($AktStr[0]!==' ') && ($Dupla_ == 0) && (isset($KovStr[0])) &&
         (($KovStr[0]==' ') || ($KovStr[0]=='*') || ($KovStr[0]=='^') || ($KovStr[0]=='~')  || ($KovStr[0]==',') || ($KovStr[0]=='<') || ($KovStr[0]=="\x0D") ||  ($KovStr[0]=="\x0A") ||  ($KovHossz == 0)) && 
          (($EloUtolso == ' ') || ($EloUtolso == '*') || ($EloUtolso == '^') || ($EloUtolso == '~')  || ($EloUtolso == ',')  ||  ($EloUtolso == '>')  || 
           ($EloUtolso == "\x0D")  || ($EloUtolso == "\x0A") || ($EloHossz == 0))) 
