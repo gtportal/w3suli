@@ -18,9 +18,11 @@
   //Ha első bejelentkezés, akkor AktFelhasznalo tömb inicializálása
   //FSzint=1 > Látogató
   //FSzint=2 > Bejelentkezett felhasználó
-  //FSzint=3 > Oldal moderátora
-  //FSzint=4 > Rendszergazda
-  //FSzint=5 > Kiemelt rendszergazda
+  //FSzint=3 > Szerkesztő
+  //FSzint=4 > Oldal moderátora
+  //FSzint=5 > Rendszergazda
+  //FSzint=6 > HTML Rendszergazda
+  //FSzint=7 > Kiemelt rendszergazda
   
   if (!isset($_SESSION['AktFelhasznalo'.'id']))     {$_SESSION['AktFelhasznalo'.'id']      = 0;} 
   if (!isset($_SESSION['AktFelhasznalo'.'FNev']))   {$_SESSION['AktFelhasznalo'.'FNev']    = '';}
