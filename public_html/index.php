@@ -9,8 +9,8 @@
   $UkSzuloId      = 0;
   
 
-  require_once 'lang/w3suli_hu.php';
-  require_once 'php/AlapFgvek.php';
+  require_once('lang/w3suli_hu.php');
+  require_once('php/AlapFgvek.php');
   
   //MUNKAMENET INDÍTÁSA
   session_start();
@@ -81,23 +81,23 @@
   require_once("php/Lapozas.php");
   require_once("php/FelhasznaloCsoport.php");  
   require_once("php/FCsoportTagok.php");
-  require_once 'php/KiegeszitoTartalom.php';
-  require_once 'php/FoMenu.php';
-  require_once 'php/OldalModerator.php';
-  require_once 'php/OldalLathatosag.php';
-  require_once 'php/Menu.php';
-  require_once 'php/OldalCikkei.php';
-  require_once 'php/Cikk.php';
-  require_once 'php/CikkKep.php';
-  require_once 'php/CikkDokumentum.php';
+  require_once('php/KiegeszitoTartalom.php');
+  require_once('php/FoMenu.php');
+  require_once('php/OldalModerator.php');
+  require_once('php/OldalLathatosag.php');
+  require_once('php/Menu.php');
+  require_once('php/OldalCikkei.php');
+  require_once('php/Cikk.php');
+  require_once('php/CikkKep.php');
+  require_once('php/CikkDokumentum.php');
   
-  require_once 'php/OldalKeptar.php';
-  require_once 'php/morzsa.php';
-  require_once 'php/Lablec.php';
+  require_once('php/OldalKeptar.php');
+  require_once('php/morzsa.php');
+  require_once('php/Lablec.php');
   
-  require_once 'php/OldalElozetesek.php';
-  require_once 'php/Oldalterkep.php';
-  require_once 'php/MenuPlusz.php';
+  require_once('php/OldalElozetesek.php');
+  require_once('php/Oldalterkep.php');
+  require_once('php/MenuPlusz.php');
   
   //AZ AKTUÁLIS OLDAL ADATAINAK BEOLVASÁSA
   getOldalData($oURL);  
@@ -159,7 +159,7 @@
     //Modulcsatoló fájl beolvasása
   if ($Aktoldal['OTipus']>100) {
       $ModulURL = "modulok/modul_".$Aktoldal['OTipus'].".php";
-      require_once $ModulURL;
+      require_once($ModulURL);
   }
   //AZ AKTUÁLIS MODUL ADATAINAK MÓDOSÍTÁSA
   if (($_SESSION['AktFelhasznalo'.'FSzint'] > 0) && ($Aktoldal['OTipus']>100)) {   

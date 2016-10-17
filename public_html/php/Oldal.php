@@ -1172,10 +1172,10 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                         $HTMLkod .= "<h3>".U_NINCSJOGA."!</h3>";
                     }     
                    break; 
-          case 10:  $HTMLkod  .= "<h1>".Bejelentkezés."</h1> \n";
+          case 10:  $HTMLkod  .= "<h1>".U_MENU_BEJEL."</h1> \n";
                     $HTMLkod  .= getBelepesForm();
                    break; 
-          case 11:  $HTMLkod  .= "<h1>".Kijelentkezés."</h1> \n";
+          case 11:  $HTMLkod  .= "<h1>".U_MENU_KIJEL."</h1> \n";
                     $HTMLkod  .= getKilepesForm();
                    break;
           case 12:  $HTMLkod  .= "<h1>".U_AB_REG."</h1> \n";
