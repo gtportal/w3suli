@@ -27,7 +27,7 @@ function getArchivHTML() {
                $KepUtvonal = "img/oldalak/";
            }
            $HTMLimg    = getElsoKepHTML($Cid,$KepUtvonal);
-           
+   /*        
            $HTMLkod   .= "<div class ='divOElozetesKulso'>\n";          
            $HTMLkod   .= "<div class = 'divOElozetesKep'>$HTMLimg</div>\n";   
            $HTMLkod   .= "<div class='divOElozetesTartalom'>\n";
@@ -35,7 +35,7 @@ function getArchivHTML() {
            if ($CLeiras!='') {$HTMLkod .= "<div class = 'divOElozetesLeir'>".$CLeiras."</div>\n";}    
            $HTMLkod .= "</div>\n";
            $HTMLkod .= "</div>\n";
-           
+      */     
                     $CTartalom = getCikkepCsereL($Cid,$CTartalom,$KepUtvonal);  // Képek beillesztése #0, #1,.. helyére
                     $CTartalom = SzintaxisCsere($CTartalom);
                     $HTMLkod .= "<div class ='divCikkKulso'><h2>".$CNev."</h2>\n";                    
