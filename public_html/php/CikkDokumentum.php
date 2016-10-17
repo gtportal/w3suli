@@ -95,7 +95,7 @@ function setCikkDokFeltolt() {
                                     if (move_uploaded_file($_FILES["CODokFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)) {
                                         $UploadErr    .=   "OK001".$FNev." <br>"; $KepOK=true;
                                         $InsertIntoStr = "INSERT INTO CikkDokumentumok (Cid, DFile, DNev, DLeiras, DMeretKB, DSorszam, DFFile) 
-                                                                                        VALUES ($Cid,'$AktFileNev','','',0,0,'$FFile')";
+                                                                                        VALUES ($Cid,'$AktFileNev','','',0,10,'$FFile')";
                                         if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 02");}
                                     } else {
                                         $UploadErr .= "ErrK05".$FNev."<br>";                     
@@ -106,7 +106,7 @@ function setCikkDokFeltolt() {
                                 if (move_uploaded_file($_FILES["CODokFile"]["tmp_name"][$i],$KepUtvonal.$AktFileNev)) {
                                     $UploadErr    .=   "OK001".$FNev." <br>"; $KepOK=true;      
                                     $InsertIntoStr = "INSERT INTO CikkDokumentumok (Cid, DFile, DNev, DLeiras, DMeretKB, DSorszam, DFFile) 
-                                                                                    VALUES ($Cid,'$AktFileNev','','',0,0,'$FFile')";
+                                                                                    VALUES ($Cid,'$AktFileNev','','',0,10,'$FFile')";
                                     if (!mysqli_query($MySqliLink,$InsertIntoStr)) {die("Hiba CKF 03");}
                                 } else {
                                         $UploadErr .= "ErrK05".$FNev."<br>";                     
@@ -297,6 +297,7 @@ function getCikkDokForm() {
                 $CikkKep['DMeretKB']   = $row['DMeretKB'];
                 $CikkKep['DSorszam']   = $row['DSorszam'];
                 $CikkKep['DTorol']     = $row['DFile'];
+                $CikkKep['DFFile']      = $row['DFFile'];
                 $CikkDokumentumok[]           = $CikkKep;
             }
         } else {
@@ -341,7 +342,9 @@ function getCikkDokForm() {
                 $HTMLkod1.= "<fieldset> <legend>".$j.". ".U_CDOK_ADAT."</legend>";
             
                 $Src       = $KepUtvonal.$CikkDokumentumok[$i]['DFile']; //echo "<h1>$Src</h1>";
-                $HTMLkod1 .= "<h2>File: ".$CikkDokumentumok[$i]['DFile']."</h2>";
+                //$HTMLkod1 .= "<h2>File: ".$CikkDokumentumok[$i]['DFFile']."</h2>";
+                $HTMLkod1 .= "<a href='$Src' style='font-size: 1.4em; font-weight:bold;'> » ".$CikkDokumentumok[$i]['DFFile']."</a><br>";
+                
                 $HTMLkod1 .= "<input type='hidden' name='CDFile_$i' value='".$CikkDokumentumok[$i]['DFile']."'>";
 
                 $HTMLkod1 .= "<div style='float:left;'>";
