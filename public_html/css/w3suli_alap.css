@@ -182,5 +182,19 @@ body #Keret input, body #Keret textarea {
 .divCikkTartalom a,  .divCikkTartalom a:link, .divCikkTartalom a:active, .divCikkTartalom a:hover
 {font-weight:bold; font-style: italic;}
 
+.divCikkTartalom a::before   {content:  " "  url("../img/file_icon/link_18s.png") " ";}
+.divCikkTartalom a[href$='.pdf']:before   {content:  " "  url("../img/file_icon/pdf_24s.png") " ";}
+.divCikkTartalom a[href$='.doc']:before   {content:  " "  url("../img/file_icon/word_24s.png") " ";}
+.divCikkTartalom a[href$='.docx']:before  {content:  " "  url("../img/file_icon/word_24s.png") " ";}
+.divCikkTartalom a[href$='.xls']:before   {content:  " "  url("../img/file_icon/Excel_24s.png") " ";}
+.divCikkTartalom a[href$='.xlsx']:before  {content:  " "  url("../img/file_icon/Excel_24s.png") " ";}
+.divCikkTartalom a[href$='.ppt']:before   {content:  " "  url("../img/file_icon/ppt_24s.png") " ";}
+.divCikkTartalom a[href$='.pptx']:before  {content:  " "  url("../img/file_icon/ppt_24s.png") " ";}
+.divCikkTartalom a[href$='.txt']:before   {content:  " "  url("../img/file_icon/Txt_24s.png") " ";}
+.divCikkTartalom a[href$='.odt']:before   {content:  " "  url("../img/file_icon/Writer_24s.png") " ";}
+.divCikkTartalom a[href$='.ods']:before   {content:  " "  url("../img/file_icon/Calc_24s.png") " ";}
+.divCikkTartalom a[href$='.odg']:before   {content:  " "  url("../img/file_icon/Impress_24s.png") " ";}
+
+
 /********************************************* Kiegészítő tartalom *******************************************************/
 .divKiegTKulso h2 {margin-bottom: 3px; font-style: italic; }

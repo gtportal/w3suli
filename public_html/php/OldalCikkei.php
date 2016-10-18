@@ -53,7 +53,7 @@ function getDokumentumCsereL($Cid,$CTartalom,$KepUtvonal) {
             $DNev     = $row['DNev']; 
             $DLeiras  = $row['DLeiras']; 
             $DMeretKB = $row['DMeretKB'];
-            $DLinkKod   = "<a href='$Src'>$DNev</a><span> ($DMeretKB KB)</span>";
+            $DLinkKod   = "<a href='$Src' class='CikkDokLink'>$DNev</a><span> ($DMeretKB KB)</span>";
             $HTMLHirDocTMB[$i] = $DLinkKod;
             $i++;
         }
