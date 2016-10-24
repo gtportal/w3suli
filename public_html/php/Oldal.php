@@ -1176,7 +1176,8 @@ if ($_SESSION['AktFelhasznalo'.'FSzint'] > 5) {
                     $HTMLkod  .= getBelepesForm();
                    break; 
           case 11:  $HTMLkod  .= "<h1>".U_MENU_KIJEL."</h1> \n";
-                    $HTMLkod  .= getKilepesForm();
+                    //$HTMLkod  .= getKilepesForm();
+                    $HTMLkod  .= "A kijelentkezés megtörtént.";
                    break;
           case 12:  $HTMLkod  .= "<h1>".U_AB_REG."</h1> \n";
                     if ($_SESSION['AktFelhasznalo'.'FSzint'] > 4) {
