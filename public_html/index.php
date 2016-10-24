@@ -242,6 +242,8 @@ function JSonLoad()
 		  <aside id='KiegeszitoInfo'><?php echo getKiegTHTML(); ?></aside>       
        </div>     
        <footer id='FoFooter'><?php echo getLablecHTML(); ?></footer>
+       
+       <?php if (!isset($_COOKIE["CookieOK"])) { require_once("php/w3_CookieOK.php"); }?>
      
      </div>
       
