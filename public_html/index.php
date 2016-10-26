@@ -205,16 +205,35 @@ function JSonLoad()
    MenuNagyFelbontasnal();
    MenuKisFelbontasnal();
 }
+// ======================= Checkbox akadálymentesítés ===========================
+function setCheckKey(e,id) { 
+	var keynum;
+	if(window.event) { // IE                    
+	  keynum = e.keyCode;
+	} else if(e.which){ // Firefox/Opera...                   
+	  keynum = e.which;
+	}
+
+	if (keynum==13) {
+		if (document.getElementById(id).checked) {
+			document.getElementById(id).checked=0;
+		} else {
+			document.getElementById(id).checked=1;
+		}
+	}
+}
+// ======================= Checkbox akadálymentesítés vége ===========================
 </script>
      
   </head>
   <body onLoad='JSonLoad()'>	  
      <div id='Keret'> 
        <header id='FoHeder'>
-		   <a href="./" id="logoImgLink"><img src="img/ikonok/HeaderImg/<?php echo $AlapAdatok['HeaderImg']; ?>" alt="logó" title="Oldal neve" style="float:left;"></a>
-		   <a href="./" id="logoLink"> <?php echo $AlapAdatok['HeaderStr']; ?></a>
-	   </header>
-	   <input name="chmenu" id="chmenu" value="chmenu" type="checkbox" style='display:none;'>
+            <a href="./" id="logoImgLink"><img src="img/ikonok/HeaderImg/<?php echo $AlapAdatok['HeaderImg']; ?>" alt="logó" title="Oldal neve" style="float:left;"></a>
+            <a href="./" id="logoLink"> <?php echo $AlapAdatok['HeaderStr']; ?></a>
+       </header>
+         <!-- Akadálymentes Checkbox -->
+       <input name="chmenu" id="chmenu" value="chmenu" type="checkbox" style='position: fixed; left:-100px; top:-1000px;' onkeypress='return setCheckKey(event, "chmenu")' >
        <nav id='FoNav'> 
 	 <div id='FoNavBal'>  
 	   <label for="chmenu" class="MenusorElem" id="MenuLabel">

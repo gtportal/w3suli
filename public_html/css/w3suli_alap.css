@@ -46,7 +46,11 @@ a#logoLink:link   {color:#fff;}
 #FoNav #MenuIkon2 {display: block;}       
 #chmenu:checked ~ #FoNav #MenuIkon1 {display: block;}
 #chmenu:checked ~ #FoNav #MenuIkon2 {display: none;}
-       
+
+/* ======================= Checkbox akadálymentesítés =========================== */
+#chmenu:focus ~ #FoNav #MENUGombDiv {outline-style:dotted; outline-width:1px;}
+#chmenu {position: fixed; left:-100px; top:-1000px;}
+
 #FoNavBal {float:left; width:100px;}
 #FoNavJobb {width:100%;margin:0 100px; text-align:center;}
     
