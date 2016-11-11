@@ -1,6 +1,15 @@
 /* 
     Author     : Pallagi Dániel
 */
+html {
+font-family: 'Istok Web', sans-serif;
+}
+
+@media only screen and (min-width : 1600px)  {  
+  #divCikkekKulso {width:1200px;}
+   .divCikkKulso {width:1200px;}
+}
+
 
 
 /* Helyi menü*/
@@ -10,20 +19,33 @@
 .AktLink {font-weight:none;}
 
 #HelyiNav {background-color:#C0C0C0; color:#ffffff;}
-#BelsoKeret_ {background-color:#f0f; }  
-#KiegeszitoInfo{background-color:#C0C0C0;color:#ffffff;}
+
+#KiegeszitoInfo{background-color:#888;color:#ffffff;}
 #Keret{background-color:#C0C0C0;}
 #FoNav{background-color:#222; /* background-image:url('../img/pallagi_hatter.jpg');*/ color:#ffffff;}
-#Tartalom{background-color:#999999;}
+
 #FoHeder{background-color:#999999;}
 
 .footer_li {color:#ffffff;}
 
-#LogoLink
-			a:link {color:#ffffff;}
-			a:visited {color:#ffffff;}
-			a:hover {color:#CCCCCC;}
-			a:active {color:#ffffff;}
+a:link {color:#2952A3;}
+a:visited {color:#2952A3;}
+a:hover {color:#248;}
+a:active {color:#2952A3;}
+
+#LogoLink a {color:#2952A3;}
+#LogoLinka a:hover {color:#248;}
+
+
+#FoNav a {color:#fff;}
+#FoNav a:hover
+#FoNav a:active {color:#000;}
+
+.divKiegT p {
+    margin-left: 6px;
+}
+
+			
 
 .MPontLink{
     padding: 1px 35px 1px 35px; background:#808080;
@@ -149,3 +171,6 @@
 			  }			
 			
 			
+			
+			
+.divCikkKulso {border: 2px solid rgba(0, 0, 0, 0.1);}			

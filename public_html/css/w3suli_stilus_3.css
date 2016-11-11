@@ -2,7 +2,6 @@
     Author     : Szilágyi István
 */
 
-
 /* PLUSZ - GT*/
 a#logoLink        {color:#fff;}
 a#logoLink:hover  {color:#fff;}
@@ -15,13 +14,32 @@ a#logoLink:link   {color:#fff;}
 .Morzsa a:active {color:#fff;}
 .Morzsa a:hover  {color:#fff;}    
 
+
+#divOTartalom #divFormkod, #divOTartalom #labelUjOldalForm, 
+#divOTartalom #labelOldalForm, #divOTartalom #labelOldalTorolForm, 
+#divOTartalom #labelOldalKepForm, #divOTartalom #labelOldalModeratorForm, 
+#divOTartalom #labelchFormkod,
+
+#divOTartalom #labelUjCikkForm, 
+#divOTartalom #labelCikkForm,
+#divOTartalom #labelCikkTorolForm,
+#divOTartalom #labelCikkKepForm,
+#divOTartalom #labelUjCikkForm,
+#divOTartalom #labelchFormkodCikk,
+#divOTartalom #divFormkodCikk
+{color:#222;}
+
 /* Fő szerkezet nagy felbontásnál*/  
 	       
 #FoHeder{background-color:#2E3B4B;}
 
+html {
+font-family: 'Istok Web', sans-serif;
+}
+
 
 /*------------Tartalom-----------*/
-body, html{background-color:#000; font-family:  Verdana, Geneva, sans-serif;}		 
+body, html{background-color:#000; }		 
 #Keret{background-color:#2E3B4B;}
 
 #BelsoKeret{
@@ -29,9 +47,7 @@ body, html{background-color:#000; font-family:  Verdana, Geneva, sans-serif;}
 		background-color:#2E3B4B; 
 }       
 #Tartalom{
-		/*Színek*/
-		background-color:#283442; 
-		
+		/*Színek*/		
 		
 		color:#fff;
 		 }
@@ -43,9 +59,15 @@ body, html{background-color:#000; font-family:  Verdana, Geneva, sans-serif;}
 
 		color:#fff;
 
-		border-bottom:1px solid #888;}             
+		border-bottom:1px solid #888;}     
+	
+#KiegeszitoInfo a {color:#338833;}        
        
 footer {background-color:#DCCBBB; }
+
+.divKiegT p {
+    margin-left: 6px;
+}
        
 /*------------Menüsor-----------*/
 
@@ -55,15 +77,18 @@ footer {background-color:#DCCBBB; }
 #FoNavBal {color:#fff; }
 #FoNavJobb {color:#fff;} 
 
-.MPontLink{display:inline-block; color:#fff;}
+.MPontLink{display:inline-block; color:#fff; margin: 0px 16px;}
        
 /*------------Menü-----------*/
 #HelyiNav{
 		
-		border-right:2px solid #DCCBBB;
+		
 		color:#fff;
+		background-color:#202830;
 		}
 		
+
+
 
 
 #HelyiNav ul {
