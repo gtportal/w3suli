@@ -64,7 +64,7 @@ function setCikkDokFeltolt() {
                     $i=0;
                     while (($i<$DFileDb) && ($OkDFileCt>0)) {
                       $FFile       = $_FILES["CODokFile"]["name"][$i];  
-                      $allowedExts = array("txt", "doc", "docx", "pdf", "xls", "xlsx", "ppt", "pptx", "zip");
+                      $allowedExts = array("txt", "doc", "docx", "pdf", "xls", "xlsx", "ppt", "pptx", "zip", "ppsx");
                       $temp        = explode(".", $_FILES["CODokFile"]["name"][$i]);
                       $extension   = end($temp);
                       $AktFileNev  = $OkDFile[$OkDFileCt-1].'.'.$extension;
@@ -78,8 +78,9 @@ function setCikkDokFeltolt() {
                          || ($_FILES["CODokFile"]["type"][$i] == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
                          || ($_FILES["CODokFile"]["type"][$i] == "application/pdf")
                          || ($_FILES["CODokFile"]["type"][$i] == "application/vnd.ms-powerpoint")
-                         || ($_FILES["CODokFile"]["type"][$i] == "application/vnd.openxmlformats-officedocument.presentationml.presentation"))
-                         || ($_FILES["CODokFile"]["type"][$i] == "application/zip")
+                         || ($_FILES["CODokFile"]["type"][$i] == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+                         || ($_FILES["CODokFile"]["type"][$i] == "application/vnd.openxmlformats-officedocument.presentationml.slideshow")
+                         || ($_FILES["CODokFile"]["type"][$i] == "application/zip"))
 
                          && ($_FILES["CODokFile"]["size"][$i] < 2000000)
                          && in_array($extension, $allowedExts))
@@ -114,7 +115,7 @@ function setCikkDokFeltolt() {
                               }
                             }
                         } else {
-                            if ($AktFileNev >'') {$UploadErr .= "ErrK01".$FNev."<br>"; }
+                            if ($AktFileNev >'') {$UploadErr .= "ErrK01".$FNev."-".$_FILES["CODokFile"]["type"][$i]."<br>"; }
                         }
                         $i++; $OkDFileCt--;
                     }

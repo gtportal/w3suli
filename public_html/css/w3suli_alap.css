@@ -194,6 +194,7 @@ body #Keret input, body #Keret textarea {
 .divCikkTartalom a[href$='.xlsx']:before  {content:  " "  url("../img/file_icon/Excel_24s.png") " ";}
 .divCikkTartalom a[href$='.ppt']:before   {content:  " "  url("../img/file_icon/ppt_24s.png") " ";}
 .divCikkTartalom a[href$='.pptx']:before  {content:  " "  url("../img/file_icon/ppt_24s.png") " ";}
+.divCikkTartalom a[href$='.ppsx']:before  {content:  " "  url("../img/file_icon/ppt_24s.png") " ";}
 .divCikkTartalom a[href$='.txt']:before   {content:  " "  url("../img/file_icon/Txt_24s.png") " ";}
 .divCikkTartalom a[href$='.odt']:before   {content:  " "  url("../img/file_icon/Writer_24s.png") " ";}
 .divCikkTartalom a[href$='.ods']:before   {content:  " "  url("../img/file_icon/Calc_24s.png") " ";}
